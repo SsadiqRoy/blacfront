@@ -1,0 +1,128 @@
+%btn {
+  font: bolder $fs-normal $font-description;
+  padding: 0.5rem 1.4rem;
+  border-radius: 4px;
+  margin-block: 0.5rem;
+  border-width: 3px;
+  transition: all 0.15s ease-out;
+  cursor: pointer;
+
+  &:hover {
+    padding-inline: 1.5rem;
+  }
+}
+
+.btn-black {
+  @extend %btn;
+  background-color: $black;
+  color: $white;
+}
+
+.btn-primary {
+  @extend %btn;
+  background-color: $secondary;
+  color: $primary;
+}
+.btn-secondary {
+  @extend %btn;
+  background-color: $primary;
+  color: $secondary;
+}
+.btn-primary--alt {
+  @extend %btn;
+  color: $secondary;
+  border: 3px solid $secondary;
+  background-color: transparent;
+}
+.btn-secondary--alt {
+  @extend %btn;
+  color: $primary;
+  border: 3px solid $primary;
+  background-color: transparent;
+}
+
+.btn-black--rotate,
+.btn-primary--rotate,
+.btn-primary--alt--rotate,
+.btn-secondary--rotate,
+.btn-secondary--alt--rotate {
+  position: relative;
+  min-height: 3rem;
+
+  .btn-content {
+    display: none;
+  }
+}
+
+//
+.btn-black--rotate::before {
+  border-color: $white;
+}
+.btn-primary--rotate::before {
+  border-color: $primary;
+}
+.btn-primary--alt--rotate::before {
+  border-color: $secondary;
+}
+.btn-secondary--rotate::before {
+  border-color: $secondary;
+}
+.btn-secondary--alt--rotate::before {
+  border-color: $primary;
+}
+.btn-black--rotate::before,
+.btn-primary--rotate::before,
+.btn-primary--alt--rotate::before,
+.btn-secondary--rotate::before,
+.btn-secondary--alt--rotate::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 50%;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+  animation: rotateButton 1s linear infinite;
+}
+
+.btn-small {
+  width: max-content;
+  // padding-block: 0.3rem;
+}
+.btn-normal {
+  width: 40%;
+  padding-block: 1rem;
+  border-radius: 7px;
+}
+.btn-full {
+  width: 100%;
+}
+
+//
+
+.btn-red {
+  // padding-inline: 1.2rem;
+  padding: 0.5rem 1.2rem;
+  font: bold $fs-normal $font-description;
+  border: none;
+  border-radius: 4px;
+  background-color: rgba(224, 59, 59, 0.712);
+  color: $secondary;
+}
+
+//
+@keyframes rotateButton {
+  from {
+    transform: rotateZ(0turn);
+  }
+  to {
+    transform: rotateZ(1turn);
+  }
+}

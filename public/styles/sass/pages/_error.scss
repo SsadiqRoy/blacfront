@@ -1,0 +1,22 @@
+body {
+  background-color: #dbdada;
+}
+.main {
+  width: 80%;
+  margin-inline: auto;
+  margin-top: 25vh;
+
+  &__cover {
+    border-radius: 15px;
+    width: 100%;
+    background-color: $white;
+    padding: 4rem;
+    font: normal 1.6rem $poppins;
+    text-align: center;
+  }
+
+  &__error-title {
+    // font-family: $logo-font;
+    color: #db0c0c;
+  }
+}

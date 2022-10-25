@@ -1,0 +1,12 @@
+@import '../base/base';
+@import '../abstract/mixins';
+
+@import '../layout/header';
+@import '../elements/buttons';
+@import '../layout/contents';
+@import '../components/movie-card';
+@import '../components/game-card';
+@import '../layout/footer';
+
+@import '../pages/_search.scss';
+@import '../base/performers';

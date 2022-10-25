@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width,initial-scale=1")
+
+    link(rel="stylesheet", href="/styles/fontawsome/css/all.min.css")
+    link(rel="stylesheet", href=`/styles/css/${ext.css}.css`)
+    
+    title blaciris | #{ext.title}
+
+  body
+    main.signup
+      .signup__cover
+        form.signup__form#signup(action)
+          .form-heading
+            h1 sign up
+          .form-group
+            label.label-basic(for="signup-name") name
+            input#signup-name.input-basic(type="text", required)
+          .form-group
+            label.label-basic(for="signup-email") email
+            input#signup-email.input-basic(type="email", required)
+          .form-group
+            label.label-basic(for="signup-password") password
+            input#signup-password.input-basic(type="password", required)
+          .form-group
+            label.label-basic(for="signup-repeat-password") repeat password
+            input#signup-repeat-password.input-basic(type="password", required)
+          .form-group.center-componenets
+            button.btn-black.btn-full#signup-btn(type="submit")
+              span.btn-content sign up
+
+  script(src=`${ext.js}.js`, type='module')

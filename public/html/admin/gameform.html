@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="/public/styles/fontawsome/css/all.min.css" />
+  <link rel="stylesheet" href="/public/styles/css/dashboarforms.css" />
+
+  <title>dashbaord | create game</title>
+</head>
+
+<body>
+  <header class="dashboard-header" id="dashboard-header">
+    <div class="dashboard-header__cover">
+      <div class="dashboard-header__logo">
+        <span><i class="fas fa-bars"></i></span>
+        <span class="text-logo-secondary">blaciris</span>
+      </div>
+      <div class="dashboard-header__search">
+        <form>
+          <input type="search" placeholder="search in movies" />
+          <i class="fas fa-search"></i>
+        </form>
+      </div>
+      <div class="dashboard-header__user">
+        <div class="dashboard-header__user__cover">
+          <span class="dashboard-header__user-name">Ssadiq Roy,</span>
+          <span class="dashboard-header__user-role">admin</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="create">
+    <div class="create__cover">
+      <form class="create-new" id="create-game">
+        <div class="form-heading">
+          <h1>Create Game</h1>
+        </div>
+
+        <div class="form-group">
+          <label for="game-title" class="label-basic">title</label>
+          <input type="text" id="game-title" class="input-basic" />
+        </div>
+
+        <div class="form-group">
+          <label for="game-image-portrait" class="label-basic">image portrait link</label>
+          <input type="text" id="game-image-portrait" class="input-basic" />
+        </div>
+
+        <div class="form-group">
+          <label for="game-image-landscape" class="label-basic">image landscape link</label>
+          <input type="text" id="game-image-landscape" class="input-basic" />
+        </div>
+
+        <div class="form-group">
+          <label for="game-description" class="label-basic">description</label>
+          <textarea id="game-description" rows="3" class="textarea-basic"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="game-tags" class="label-basic">tags</label>
+          <input type="text" id="game-tags" class="input-basic" />
+        </div>
+
+        <div class="form-group">
+          <label for="game-key-words" class="label-basic">key words</label>
+          <input type="text" id="game-key-words" class="input-basic" />
+        </div>
+
+        <div class="form-group">
+          <label for="game-companies" class="label-basic">companies</label>
+          <input type="text" id="game-companies" class="input-basic" />
+        </div>
+
+        <div class="form-group-double">
+          <div class="form-group">
+            <label for="game-company" class="label-basic">company</label>
+            <input type="text" id="game-company" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="game-year" class="label-basic">release year</label>
+            <input type="date" id="game-year" class="input-basic" />
+          </div>
+        </div>
+
+        <div class="form-group-double">
+          <div class="form-group">
+            <label for="game-country" class="label-basic">country</label>
+            <select type="text" id="game-country" class="input-basic">
+              <option value="Ghana">Ghana</option>
+              <option value="china">China</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="game-rating" class="label-basic">rating</label>
+            <input type="text" id="game-rating" class="input-basic" />
+          </div>
+        </div>
+
+        <div class="form-heading">
+          <h1>Download links</h1>
+        </div>
+
+        <div class="game-links">
+          <div class="game-links__cover">
+
+            <div class="gamelink-card">
+              <div class="gamelink-card__cover">
+                <h3>part 1</h3>
+                <p>https://www.blaciris.com/client/games/all/downloadmovie?id=jldkdjojsdfafsfsfsfi8923</p>
+                <div class="gamelink-card__buttons">
+                  <span><i class="fas fa-edit"></i></span>
+                  <span><i class="fas fa-trash"></i></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="gamelink-card">
+              <div class="gamelink-card__cover">
+                <h3>part 1</h3>
+                <p>https://www.blaciris.com/client/games/all/downloadmovie?id=jldkdjojsdfafsfsfsfi8923</p>
+                <div class="gamelink-card__buttons">
+                  <span><i class="fas fa-edit"></i></span>
+                  <span><i class="fas fa-trash"></i></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="gamelink-card">
+              <div class="gamelink-card__cover">
+                <h3>part 1</h3>
+                <p>https://www.blaciris.com/client/games/firstshootergames/all/downloadmovie?id=jldkdjojsdfafsfsfsfi8923
+                </p>
+                <div class="gamelink-card__buttons">
+                  <span><i class="fas fa-edit"></i></span>
+                  <span><i class="fas fa-trash"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="center-components add-game-link">
+          <i class="fas fa-plus-circle" title="add game link"></i>
+        </div>
+
+        <div class="center-components">
+          <button type="submit" class="btn-black btn-normal">
+            <span class="btn-content">create</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <div class="popup display-off" id="create-gamepart-popup">
+    <!--  -->
+    <div class="popup-box popup-box-normal">
+      <div class="popup-close">
+        <i class="fas fa-times"></i>
+      </div>
+
+      <div class="popup-content create-content">
+        <form class="create-new" id="create-gamepart">
+          <div class="form-heading">
+            <h1>new part</h1>
+          </div>
+
+          <div class="form-group">
+            <label for="gamepart-number" class="label-basic">part number</label>
+            <input type="number" name="" id="gamepart-number" class="input-basic" min="1" />
+          </div>
+          <div class="form-group">
+            <label for="gamepart-link" class="label-basic">part link</label>
+            <input type="text" id="gamepart-link" class="input-basic"></input>
+          </div>
+
+          <div class="center-components">
+            <button type="submit" class="btn-black btn-normal">
+              <span class="btn-content">add part</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

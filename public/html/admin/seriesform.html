@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/public/styles/fontawsome/css/all.min.css" />
+    <link rel="stylesheet" href="/public/styles/css/dashboarforms.css" />
+
+    <title>dashbaord | create serie</title>
+  </head>
+  <body>
+    <header class="dashboard-header" id="dashboard-header">
+      <div class="dashboard-header__cover">
+        <div class="dashboard-header__logo">
+          <span><i class="fas fa-bars"></i></span>
+          <span class="text-logo-secondary">blaciris</span>
+        </div>
+        <div class="dashboard-header__search">
+          <form>
+            <input type="search" placeholder="search in movies" />
+            <i class="fas fa-search"></i>
+          </form>
+        </div>
+        <div class="dashboard-header__user">
+          <div class="dashboard-header__user__cover">
+            <span class="dashboard-header__user-name">Ssadiq Roy,</span>
+            <span class="dashboard-header__user-role">admin</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="create">
+      <div class="create__cover">
+        <form class="create-new" id="create-serie">
+          <div class="form-heading">
+            <h1>Create Serie</h1>
+          </div>
+
+          <div class="form-group">
+            <label for="serie-title" class="label-basic">title</label>
+            <input type="text" id="serie-title" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="serie-image-portrait" class="label-basic">image portrait link</label>
+            <input type="text" id="serie-image-portrait" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="serie-image-landscape" class="label-basic">image landscape link</label>
+            <input type="text" id="serie-image-landscape" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="serie-description" class="label-basic">description</label>
+            <textarea id="serie-description" rows="3" class="textarea-basic"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="serie-tags" class="label-basic">tags</label>
+            <input type="text" id="serie-tags" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="serie-key-words" class="label-basic">key words</label>
+            <input type="text" id="serie-key-words" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="serie-companies" class="label-basic">companies</label>
+            <input type="text" id="serie-companies" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="serie-characters" class="label-basic">characters</label>
+            <input type="text" id="serie-characters" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="serie-actors" class="label-basic">actors</label>
+            <input type="text" id="serie-actors" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="serie-directors" class="label-basic">directors</label>
+            <input type="text" id="serie-directors" class="input-basic" />
+          </div>
+
+          <div class="form-group-double">
+            <div class="form-group">
+              <label for="serie-company" class="label-basic">company</label>
+              <input type="text" id="serie-company" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="serie-date" class="label-basic">started date</label>
+              <input type="date" id="serie-date" class="input-basic" />
+            </div>
+          </div>
+          <div class="form-group-double">
+            <div class="form-group">
+              <label for="serie-country" class="label-basic">country</label>
+              <select type="text" id="serie-country" class="input-basic">
+                <option value="Ghana">Ghana</option>
+                <option value="china">China</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="serie-rating" class="label-basic">rating</label>
+              <input type="text" id="serie-rating" class="input-basic" />
+            </div>
+          </div>
+          <div class="form-group-double">
+            <div class="form-group">
+              <label for="serie-status" class="label-basic">status</label>
+              <select type="text" id="serie-status" class="input-basic">
+                <option value="ended">ended</option>
+                <option value="ongoing">ongoing</option>
+                <option value="paused">paused</option>
+                <option value="stopped">stopped</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <!-- <label for="serie-rating" class="label-basic">rating</label>
+              <input type="text" id="serie-rating" class="input-basic" /> -->
+            </div>
+          </div>
+
+          <div class="center-components">
+            <button type="submit" class="btn-black btn-normal">
+              <span class="btn-content">create</span>
+            </button>
+          </div>
+        </form>
+        <div class="seasons">
+          <div class="seasons-list">
+            <div href="" class="season-card">
+              <div class="season-card__cover">
+                <div class="season-card__image">
+                  <div class="season-card__image-box">
+                    <img src="/public/images/image-2.jpg" alt="season image" />
+                  </div>
+                </div>
+                <div class="season-card__data">
+                  <div class="season-card__data-box">
+                    <h2>season 1</h2>
+                  </div>
+                  <div class="season-card__data-buttons">
+                    <a href=""><i class="fas fa-edit"></i></a>
+                    <a href=""><i class="fas fa-trash"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div href="" class="season-card">
+              <div class="season-card__cover">
+                <div class="season-card__image">
+                  <div class="season-card__image-box">
+                    <img src="/public/images/image-2.jpg" alt="season image" />
+                  </div>
+                </div>
+                <div class="season-card__data">
+                  <div class="season-card__data-box">
+                    <h2>season 1</h2>
+                  </div>
+                  <div class="season-card__data-buttons">
+                    <a href=""><i class="fas fa-edit"></i></a>
+                    <a href=""><i class="fas fa-trash"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="center-components">
+            <button type="submit" class="btn-black btn-normal">
+              <span class="btn-content">create</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

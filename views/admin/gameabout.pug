@@ -1,0 +1,16 @@
+extends ../externals/adminformsbase
+
+block content
+  -const gameId = game ? game.id : ''
+  main.create
+    .create__cover
+      form.create-new#about-game(data-game-id=`${gameId}`)
+        .form-heading
+          h1 about game
+        
+        .form-group
+          textarea#game-about.textarea-basic(rows="10" required) #{game && game.about || ''}
+      
+        .center-components
+          button.btn-black.btn-normal#about-game-btn(data-game-id=`${gameId}` type="button")
+            span.btn-content save

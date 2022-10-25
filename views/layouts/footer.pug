@@ -1,0 +1,47 @@
+
+footer.footer
+  .footer__container
+    .footer__logo
+      span.text-logo-secondary blaciris
+    .disclaimer
+      span.disclaimer__disclaimer disclaimer
+      span.dislaimer-message.
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus, cumque eum. Id, obcaecati debitis sint velit molestias totam reiciendis excepturi deserunt cum itaque, expedita adipisci, repellendus ab fugiat vel sapiente.
+        
+      .center-componenet
+        button.btn-red.suggest suggest
+
+.popup.display-off#suggest-popup
+  .popup-box.popup-box-normal
+    .popup-close
+      i.fas.fa-times
+    
+    .popup-content.create-content
+      form.create-new#create-suggest
+        .form-heading
+          h1 Suggest
+        .form-group
+          label.label-basic(for="suggest-country") suggest on
+          select#suggest-country.input-basic(type="text" required)
+            option(value="") --select--
+            option(value="movie") movie
+            option(value="serie") serie
+            option(value="game") game
+        .form-group
+          label.label-basic(for="suggest-title") title
+          input#suggest-title.input-basic(type="text" required)
+        .form-group
+          label.label-basic(for="suggest-activity") message
+          textarea#suggest-activity.input-basic(type="text", placeholder="optional")
+        .form-group-double
+          .form-group
+            label.label-basic(for="suggest-name") your name
+            input#suggest-name.input-basic(type="text", placeholder="optional")
+          .form-group
+            label.label-basic(for="suggest-email") email
+            input#suggest-email.input-basic(type="email", placeholder="optional")
+        .center-components
+          button.btn-black.btn-normal(type="submit")
+            span.btn-content create
+
+

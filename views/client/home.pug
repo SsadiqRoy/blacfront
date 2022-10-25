@@ -1,0 +1,136 @@
+extends ../externals/clientbase
+
+block content
+  include ../externals/cards
+
+
+  section.head-slider
+    .head-slider__container
+      .back-image.image-box.first-image
+        a(href='/movie')
+          img(src="/images/image-1.jpg", alt="Movie Image")
+      .back-image.image-box.third-image
+        a(href='/movie')
+          img(src="/images/image-3.jpg", alt="Movie Image")
+      .front-image.image-box.second-image
+        a(href='/movie')
+          img(src="/images/image-5.jpg", alt="Movie Image")
+        a.front-image__cover
+          .image-box__shade
+            .image-box-about
+              h2 black bird
+              .image-box-description
+                p  Sit ratione optio aut velit nihil aspernatur magnam est, facere temporibus in neque necessitatibus assumenda. Aut doloremque voluptas incidunt natus itaque earum?
+                  
+    .center-components.margin-bl2.display-off
+      .switch-btns
+        span.switch-btn
+        span.switch-btn
+        span.switch-btn.switch-btn--current
+        span.switch-btn
+        span.switch-btn
+
+
+  section.filter-bar.center-components
+    .filter-bar__container
+      ul.ul-inline
+        li
+          a(href="") Trending
+        li
+          a(href="") popular
+        li
+          a(href="") crime
+        li
+          a(href="") comedy
+        li
+          a(href="") netflix
+        li
+          a(href="") amazon
+        li
+          a(href="") apple
+        li
+          a(href="") animations
+        li
+          a(href="") action
+        li
+          a(href="") politics
+        li
+          a(href="") drama
+        li
+          a(href="") adventure
+
+
+  section.slider
+    .section-heading
+      h2 trending movies
+    i.fas.fa-chevron-left.slider-btn.slider-btn--left
+    
+    .slider__container
+      .slider__container-box
+        //- mixin of cards
+        - let a = 1
+        while a < 17
+          +movieCard(a)
+          - a++
+    
+        .slider__container-box-button
+          span
+            a(href="") see more
+    i.fas.fa-chevron-right.slider-btn.slider-btn--right
+
+  section.slider
+    .section-heading
+      h2 top tv shows
+    i.fas.fa-chevron-left.slider-btn.slider-btn--left
+    .slider__container
+      .slider__container-box
+        //- mixin of cards
+        - let b = 31
+        while b > 11
+          +movieCard(b)
+          - b--
+
+        .slider__container-box-button
+          span
+            a(href="") see more
+    i.fas.fa-chevron-right.slider-btn.slider-btn--right
+
+  section.slider
+    .section-heading
+      h2 top games
+    i.fas.fa-chevron-left.slider-btn.slider-btn--left
+    .slider__container
+      .slider__container-box
+        //- mixin of card
+        - let c = 24
+        while c > 4
+          +gameCard(c)
+          - c--
+
+        .slider__container-box-button
+          span
+            a(href="") see more
+    i.fas.fa-chevron-right.slider-btn.slider-btn--right
+
+
+  section.slider
+    .section-heading
+      h2 more games
+    i.fas.fa-chevron-left.slider-btn.slider-btn--left
+    .slider__container
+      .slider__container-box
+        //- mixin of cards
+        - let d = 7
+        while d < 27
+          +gameCard(d)
+          - d++
+
+        .slider__container-box-button
+          span
+            a(href="") see more
+    i.fas.fa-chevron-right.slider-btn.slider-btn--right
+
+
+
+
+

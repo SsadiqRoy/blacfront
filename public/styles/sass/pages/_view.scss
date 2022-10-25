@@ -1,0 +1,102 @@
+@import "../components/logo";
+main {
+  @include middle-width;
+}
+
+.product-image {
+  box-shadow: 0 0 0.5rem #00000036;
+  width: 100%;
+  height: 100%;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.product-description {
+  margin-block: 3rem;
+
+  .product-tags {
+    font-size: 2.3rem;
+    text-transform: capitalize;
+    font-family: $font-title;
+    color: $text-primary;
+
+    span {
+      margin-right: 2rem;
+    }
+  }
+
+  p {
+    margin-block: 2rem;
+    font-size: 1.6rem;
+    font-family: $font-description;
+    font-weight: bold;
+    color: $text-primary;
+  }
+}
+
+.screenshots {
+  width: 100%;
+  // padding-block: 3rem;
+
+  .screenshot-box {
+    width: 100%;
+    padding-block: 1rem;
+
+    .screenshot {
+      width: 100%;
+      height: 40vh;
+
+      img {
+        width: 100%;
+        height: 100%;
+        // max-height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+
+    p {
+      font: 1.6rem $font-heading;
+    }
+  }
+}
+
+//
+
+body {
+  .popup-box {
+    width: 80%;
+    height: 90%;
+    top: 5%;
+  }
+  .popup-box-normal {
+    height: max-content;
+    top: 40%;
+    transform: translate(-50%, -50%);
+  }
+
+  .popup-content {
+    width: 70%;
+    margin-inline: auto;
+  }
+  .create-new {
+    width: 100%;
+  }
+}
+
+//
+
+@media (max-width: 1000px) {
+  .product-description,
+  .screenshots,
+  .seasons {
+    padding-inline: 1rem;
+  }
+}

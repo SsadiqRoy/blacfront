@@ -1,0 +1,43 @@
+extends ../externals/adminbase
+
+block content
+  main.main
+    .main__cover
+      .main__filter#main-filter
+        .main__filter__cover
+          span.main__filter-tag.special-tag new
+          span.main__filter-tag.special-tag last updated
+          span.main__filter-tag.special-tag top
+          span.main__filter-tag.normal-tag trending
+          span.main__filter-tag.normal-tag netflix
+          span.main__filter-tag.special-tag this year
+      
+      .main__container#main-container
+        .main__container__cover#items-container
+          if(movies && movies.length)
+            each movie in movies
+              +dbmovieCard(movie)
+        //- else
+        //-   - let a = 1
+        //-   while a < 17
+        //-     +dbmovieCard(a)
+        //-     -a++
+            
+        .center-components.padding-a1.margin-t2
+          span.show-more#show-more show more
+
+
+
+  .popup.display-off#delete-movie-popup
+    .popup-box.popup-box-normal
+      .popup-close
+        i.fas.fa-times
+      .popup-content.create-content
+        form.create-new#delete-movie
+          .form-heading
+            h1 Are you sure you want to delete the movie
+          
+          .center-components
+            button.btn-black.btn-normal#delete-movie-btn(type="submit")
+              span.btn-content yes, delete
+

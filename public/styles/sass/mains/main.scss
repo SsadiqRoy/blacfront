@@ -1,0 +1,19 @@
+@import '../base/base';
+@import '../abstract/mixins';
+
+@import '../layout/header';
+@import '../elements/buttons';
+@import '../layout/contents';
+@import '../components/movie-card';
+@import '../components/season-card';
+@import '../components/game-card';
+@import '../components/links';
+// @import '../layout/slider';
+// @import '../layout/head-slider';
+// @import '../layout/filter-bar';
+// @import '../layout/popup';
+// @import '../elements/form-group';
+
+@import '../layout/footer';
+@import '../pages/_main.scss';
+@import '../base/performers';

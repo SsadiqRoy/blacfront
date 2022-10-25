@@ -1,0 +1,164 @@
+mixin movieCard(movie)
+  .movie-card
+    a(href='/movie')
+      //- - const m = a < 20 ? a : Math.trunc(Math.random()*16+1)
+      //- img(src=`/images/image-${m}.jpg`)
+      img(src=`${movie.landscape}`)
+      h2= movie.title
+        span
+          i.fas.fa-star
+          |  8.3
+
+
+mixin gameCard(b)
+  .game-card
+    a.game-card__cover(href='/game')
+      - const n = b < 20 ? b : Math.trunc(Math.random()*16+1)
+      .game-card__image(style=`background-image: url(/images/image-${n}.jpg)`)
+      .game-card__title The rise of the spartans of the modern day:
+
+
+mixin linkCard(b)
+  .link
+    span part #{b} 
+    a(href)
+      i.fas.fa-download
+
+
+mixin seasonCard(c)
+  a.season-card(href='/season')
+    .season-card__cover
+      .season-card__image
+        - const o = c < 20 ? c : Math.trunc(Math.random()*16+1)
+        .season-card__image-box
+          img(src=`/images/image-${o}.jpg`, alt="season image")
+      .season-card__data
+        .season-card__data-box
+          h2 season #{o}
+
+mixin dbSeasonCard(season)
+  .season-card(data-season-id=`${season.id}`)
+    .season-card__cover
+      .season-card__image
+        //- - const q = f < 20 ? f : Math.trunc(Math.random()*16+1)
+        .season-card__image-box
+          img(src=`${season.landscape}`, alt=`${season.title || `season ${season.number}` }`)
+      .season-card__data
+        .season-card__data-box
+          h2 season #{season.number}
+        .season-card__data-buttons
+          a(href=`/dashboard/updateseason/${season.id}`)
+            i.fas.fa-edit
+          a
+            i.fas.fa-trash.delete-item
+
+
+mixin episodeCard(d)
+  .episode-card
+    .episode-card__cover
+      .episode-card__title episode 20
+      .episode-card__links
+        span.episode-link.episode-link--black
+          a(href)
+            i.fas.fa-download
+            |  480p
+        span.episode-link.episode-link--black
+          a(href)
+            i.fas.fa-download
+            |  720p
+        span.episode-link.episode-link--black
+          a(href)
+            i.fas.fa-download
+            |  720x256p
+        span.episode-link.episode-link--black
+          a(href)
+            i.fas.fa-download
+            |  1080p
+        span.episode-link.episode-link--black
+          a(href)
+            i.fas.fa-download
+            |  2160p
+
+
+mixin dbmovieCard(movie, type = 'movie')
+  .dbmovie-card(data-card-id=`${movie.id}`)
+    .dbmovie-card__image
+      //- - const p = d < 20 ? d : Math.trunc(Math.random()*16+1)
+      img(src=`${movie.landscape}` alt=`${movie.title}`)
+    .dbmovie-card__info
+      h2
+        | #{movie.title} -
+        span
+          i.fas.fa-star
+          |  #{movie.rating}
+      p= movie.description
+
+    .dbmovie-card__buttons
+      a(href=`/${type}/${movie.id}`, title="view")
+        i.fas.fa-eye
+      a(href=`/dashboard/update${type}/${movie.id}`, title="edit")
+        i.far.fa-edit
+      a( title="delete")
+        i.fas.fa-trash.delete-item
+
+
+
+mixin notificationCard(notification)
+  .notification-card(data-notification-id=`${notification.id}`)
+    .notification-card__cover
+      .notification-card__notification
+        h2= notification.on
+        p= notification.message
+      .notification-card__buttons
+        a(title="marked unviewed")
+          i.fas.fa-eye-slash
+        a(title="delete")
+          i.fas.fa-trash.delete-item
+
+
+mixin scheduleCard(schedule)
+  .schedule-card(data-schedule-id=`${schedule.id}`)
+    - const time = new Date(schedule.date).getTime()
+    - const timeNow = Date.now()
+    - const date = new Date(schedule.date).toLocaleDateString(undefined, { weekday: 'short', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'  })
+
+    .schedule-card__cover
+      .schedule-card__schedule
+        h2= date
+        p= schedule.message
+
+      .schedule-card__buttons
+        a(title="marked unviewed")
+          i.fas.fa-eye-slash
+        a(href=`/dashboard/updateschedule/${schedule.id}`, title="edit")
+          i.far.fa-edit
+        a(title="delete")
+          i.fas.fa-trash.delete-item
+      
+    if(time <= timeNow )
+      .schedule-card__time.schedule-card__time--due
+        //- -const date = new Date(schedule.date).
+        span= date
+
+
+mixin gamelinkCard(link)
+  .gamelink-card(data-part=`${link.part}` data-link=`${link.link}` data-link-id=`${link.id}`)
+    .gamelink-card__cover
+      h3 part #{link.part}
+      p= link.link
+      .gamelink-card__buttons
+        span
+          i.fas.fa-edit.edit-link-btn(data-link-id=`${link.id}`)
+        span
+          i.fas.fa-trash.delete-link-btn(data-link-id=`${link.id}`)
+
+
+mixin dbEpisodelinkCard(episode)
+  .episodelink-card(data-episode=`${JSON.stringify(episode)}`)
+    .episodelink-card__cover
+      h3 episode #{episode.episode}
+      .episodelink-card__buttons
+        span
+          i.fas.fa-edit.edit-episode-btn
+        span
+          i.fas.fa-trash.delete-episode-btn

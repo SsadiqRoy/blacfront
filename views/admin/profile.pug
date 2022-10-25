@@ -1,0 +1,37 @@
+extends ../externals/adminbase
+
+block content
+  main.main
+    .main__cover
+      .main__container#main-container
+        .main__container__cover
+          
+          .main__container__profile
+            form.display__profile.margin-b3#update-user(data-user-id=`${user.id}`)
+              .form-heading
+                h1 my profile
+              .form-group-round
+                label(for="name") full name
+                input#name(type="text" value=`${user.name}`)
+              .form-group-round
+                label(for="email") email
+                input#email(type="email" value=`${user.email}`)
+              .form-group-round.form-group-disabled
+                label(for="role") role
+                input#role(type="text", value=`${user.role}`, disabled)
+              .form-group.center-components
+                button.btn-black.btn-normal#update-user-btn(type="submit")
+                  span.btn-content save
+            
+            form.display__profile#change-password(data-user-id=`${user.id}`)
+              .form-heading
+                h1 change password
+              .form-group-round
+                label(for="old-password") old
+                input#old-password(type="password")
+              .form-group-round
+                label(for="password") new
+                input#password(type="password")
+              .form-group.center-components
+                button.btn-black.btn-normal#change-password-btn(type="submit")
+                  span.btn-content save

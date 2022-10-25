@@ -1,0 +1,150 @@
+extends ../externals/clientbase
+
+block content
+  include ../externals/cards
+
+  main
+    .product-title
+      h2 We crached
+      .product-tile-tags
+        span 2022
+        span 7.8/10
+    
+    .product-image
+      img(src="/images/image-1.jpg")
+    .product-description
+      .product-tags
+        .product-tags__cover
+          span.tag
+            a(href) TV-MA
+          span.tag
+            a(href) 2022
+          span.tag
+            a(href) PG-13
+          span.tag
+            a(href) Adventure
+          span.tag
+            a(href) Adventure
+          span.tag
+            a(href) Coming
+          span.tag
+            a(href) Ghana
+          span.tag
+            a(href) Amazon
+          span.tag
+            a(href) netflix
+            
+      p  Harum praesentium quod quas architecto dicta obcaecati modi blanditiis recusandae aliquam atque soluta, similique doloremque, eius porro. Voluptatum, dolores. Sit, veniam temporibus. Odio, ipsa. Tenetur reiciendis voluptate dicta magni sit assumenda quasi sapiente dolor quam! Voluptatibus molestiae adipisci sit ipsam nostrum commodi eveniet harum!
+        
+      //   
+    .furthur-info
+      .furthur-info__box
+        span.furthur-info__title writers:
+        span.furthur-info__list
+          a(href) Annie Johnson
+      .furthur-info__box
+        span.furthur-info__title Directors:
+        span.furthur-info__list
+          a(href) Annie Johnson
+          | , 
+          a(href) Bruce Dave
+          | ,
+
+          a(href) Connie
+      .furthur-info__box
+        span.furthur-info__title Stars:
+        span.furthur-info__list
+          a(href) Annie Johnson
+          | , 
+          a(href) Bruce Dave
+          | ,
+
+          a(href) Connie
+      .furthur-info__box
+        span.furthur-info__title characters:
+        span.furthur-info__list
+          a(href) Annie Johnson , 
+          a(href) Bruce Dave , 
+          a(href) Connie , 
+          a(href) Bruce Dave ,
+          a(href) Connie
+    
+
+    section.seasons
+      - let a = 1
+      while a < 5
+        +seasonCard(a)
+        - a++
+
+
+    section.report.center-components
+      button.btn-red.suggest.margin-a1 suggest
+      button.btn-red.report.margin-a1 report problem
+  
+  
+  section.container
+    .content.content-movies
+      - let b = 4
+      while b < 16
+        +movieCard(b)
+        - b++
+      
+    .center-components
+      button.btn-primary--alt.btn-small
+        span.btn-content load more
+  
+  
+  .popup.display-off#suggest-popup
+    .popup-box.popup-box-normal
+      .popup-close
+        i.fas.fa-times
+      .popup-content.create-content
+        form.create-new#create-suggest
+          .form-heading
+            h1 Suggest
+          .form-group
+            label.label-basic(for="suggest-country") suggest on
+            select#suggest-country.input-basic(type="text")
+              option(value="movie") movie
+              option(value="serie") serie
+              option(value="game") game
+          .form-group
+            label.label-basic(for="suggest-activity") message
+            textarea#suggest-activity.input-basic(type="text")
+          .form-group-double
+            .form-group
+              label.label-basic(for="suggest-name") name
+              input#suggest-name.input-basic(type="text", placeholder="optional")
+            .form-group
+              label.label-basic(for="suggest-email") email
+              input#suggest-email.input-basic(type="email", placeholder="optional")
+          .center-components
+            button.btn-black.btn-normal(type="submit")
+              span.btn-content create
+  
+  .popup.display-off#problem-popup
+    .popup-box.popup-box-normal
+      .popup-close
+        i.fas.fa-times
+      .popup-content.create-content
+        form.create-new#create-problem
+          .form-heading
+            h1 Report Problem
+          .form-group
+            label.label-basic(for="problem-country") problem on
+            select#problem-country.input-basic(type="text")
+              option(value="broken-link") broken link
+              option(value="other") other
+          .form-group
+            label.label-basic(for="problem-activity") message
+            textarea#problem-activity.input-basic(type="text")
+          .form-group-double
+            .form-group
+              label.label-basic(for="problem-name") name
+              input#problem-name.input-basic(type="text", placeholder="optional")
+            .form-group
+              label.label-basic(for="problem-email") email
+              input#problem-email.input-basic(type="email", placeholder="optional")
+          .center-components
+            button.btn-black.btn-normal(type="submit")
+              span.btn-content create

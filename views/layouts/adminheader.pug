@@ -1,0 +1,15 @@
+header.dashboard-header#dashboard-header
+  .dashboard-header__cover
+    .dashboard-header__logo
+      span.dashboard-header__logo-menu#dashboard-menubar
+        i.fas.fa-bars
+      span.text-logo-secondary
+        a(href='/') blaciris
+    .dashboard-header__search
+      form#search-form
+        input(type="search", placeholder=`search ${ext.searchPlaceholder}` id='search-bar')
+        i.fas.fa-search#search-button
+    .dashboard-header__user
+      .dashboard-header__user__cover
+        span.dashboard-header__user-name #{user.name}, 
+        span.dashboard-header__user-role #{user.role}

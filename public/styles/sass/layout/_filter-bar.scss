@@ -1,0 +1,27 @@
+.filter-bar {
+  // width: 100%;
+  background-color: $secondary;
+  color: $primary;
+  padding: 1rem;
+  font-family: $poppins;
+  font-size: $fs-normal;
+
+  // background-color: blue;
+
+  &__container {
+    max-width: 100%;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    ul {
+      display: flex;
+
+      li {
+        flex-shrink: 0;
+      }
+    }
+  }
+}

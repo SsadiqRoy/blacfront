@@ -1,0 +1,32 @@
+extends ../externals/clientbase
+
+
+block content
+  include ../externals/cards
+
+  section.redirects
+    h3 search 
+      i
+        u dracula 
+      | in 
+      a(href='/series')
+        i tv series
+    h3 search 
+      i
+        u dracula 
+      | in 
+      a(href='/games')
+        i games
+
+  section.container
+    .section-heading
+      h2 results for trending
+    .content.content-movies
+      - let n = 1
+      while n < 21
+        +movieCard(n)
+        - n++
+ 
+    .center-components
+      button.btn-primary--alt.btn-small
+        span.btn-content load more

@@ -1,0 +1,110 @@
+.form-group {
+  width: 100%;
+  padding: 1rem;
+}
+
+.form-group-double {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+
+  @include respond(phone) {
+    display: block;
+  }
+}
+
+.form-group-round {
+  width: 100%;
+  padding: 1rem;
+  border: 3px solid $black;
+  margin-block: 3rem;
+  color: $black;
+  border-radius: 30px;
+  display: grid;
+  grid-template-columns: 20% 80%;
+
+  label {
+    font: 600 $fs-normal poppins;
+    margin-right: 1rem;
+    text-align: right;
+  }
+
+  input {
+    padding-inline: 1rem;
+    border-left: 3px solid $black;
+    font-size: 1.6rem;
+    padding-block: 0.2rem;
+
+    &:disabled {
+      // background-color: grey;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.form-group-disabled {
+  background-color: #80808063;
+
+  input {
+    background-color: transparent;
+  }
+}
+
+.form-group--profile-image {
+  width: 100%;
+  display: flex;
+  // flex-basis: 60% auto;
+
+  align-items: center;
+  gap: 2rem;
+
+  .profile-picture {
+    // border: 3px solid $black;
+    width: 6rem;
+    height: 6rem;
+    flex-shrink: 0;
+  }
+}
+
+input[type='file'] {
+  background-color: transparent;
+  // visibility: hidden;
+
+  & ~ span {
+    font-family: poppins;
+  }
+}
+
+/*
+
+
+
+
+
+*/
+.label-basic {
+  display: block;
+  width: max-content;
+  font: 700 $fs-normal $font-title;
+  text-transform: capitalize;
+  color: $black;
+}
+
+.input-basic,
+.select-basic,
+.textarea-basic {
+  display: block;
+  width: 100%;
+  font: normal $fs-normal poppins;
+  border: none;
+  outline: 1px solid $black;
+  border-radius: 4px;
+  padding-block: 0.3rem;
+  margin-block: 0.5rem;
+  padding-inline: 1rem;
+  transition: all 0.3s ease;
+
+  &:focus {
+    outline: 5px solid $black;
+  }
+}

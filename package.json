@@ -1,0 +1,25 @@
+{
+  "name": "blacfront",
+  "version": "1.0.0",
+  "description": "client side of blaciris",
+  "main": "server.js",
+  "scripts": {
+    "client": "parcel ./public/javascript/controller/client/login.js ./public/javascript/controller/client/signup.js ./public/javascript/controller/client/home.js --no-source-maps  --dist-dir ./public/javascript/build/client",
+    "admin": "parcel ./public/javascript/controller/admin/movies.js ./public/javascript/controller/admin/games.js ./public/javascript/controller/admin/series.js ./public/javascript/controller/admin/movieform.js ./public/javascript/controller/admin/gameform.js ./public/javascript/controller/admin/serieform.js ./public/javascript/controller/admin/seasonform.js ./public/javascript/controller/admin/profile.js ./public/javascript/controller/admin/notifications.js ./public/javascript/controller/admin/schedules.js ./public/javascript/controller/admin/scheduleform.js --no-source-maps --dist-dir ./public/javascript/build/admin",
+    "start": "nodemon server.js"
+  },
+  "author": "Ssadiq Roy (M.N.S)",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.1.3",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "parcel": "^2.7.0",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "buffer": "^6.0.3",
+    "process": "^0.11.10"
+  }
+}

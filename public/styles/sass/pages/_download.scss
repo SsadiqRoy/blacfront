@@ -1,0 +1,49 @@
+body {
+  background-color: rgb(235, 235, 235);
+}
+
+main {
+  @include middle-width;
+
+  // border: 1px solid salmon;
+  padding: 1rem;
+}
+
+.download-heading {
+  p {
+    display: block;
+    font: $fs-normal $font-title;
+  }
+}
+
+.counter {
+  width: 100%;
+  padding-block: 3rem;
+  margin-block: 3rem;
+
+  &__circle {
+    margin-block: 3rem;
+    background-color: $secondary;
+    width: 20rem;
+    height: 20rem;
+    margin-inline: auto;
+    border: 4px solid $primary;
+    border-radius: 50%;
+    font: 7rem $font-description;
+
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    justify-content: center;
+
+    @include respond(phone) {
+      width: 15rem;
+      height: 15rem;
+      font-size: 5rem;
+    }
+  }
+
+  p {
+    font: $fs-normal $font-description;
+  }
+}

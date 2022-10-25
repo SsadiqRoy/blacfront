@@ -1,0 +1,172 @@
+body {
+  background-color: $black-light;
+}
+.dashboard-header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: $secondary;
+  padding-inline: 1.5rem;
+  border-bottom: 1px solid $black;
+
+  &__cover {
+    font: normal 1.6rem $poppins;
+    font-size: 1.6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo {
+    .dashboard-header__logo-menu {
+      font-size: 2rem;
+      margin-right: 1rem;
+      display: none;
+
+      @include respond(phone) {
+        display: initial;
+      }
+    }
+  }
+
+  &__search {
+    width: 25%;
+
+    input {
+      border: 2px solid $white-lighter;
+      border-radius: 10px;
+      width: 100%;
+      font: normal 1.6rem $poppins;
+      padding: 0 1rem;
+      transition: $transition;
+
+      &:focus {
+        border-width: 3px;
+        border-color: $black;
+      }
+    }
+    .fa-search {
+      display: none;
+    }
+  }
+
+  &__user {
+    &__cover {
+      text-align: right;
+    }
+    &-name {
+      font-weight: bold;
+    }
+    &-role {
+      font-size: 1.1rem;
+    }
+  }
+
+  @include respond(phone) {
+    &__cover {
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    &__logo {
+      .fas {
+        font-size: 2rem;
+        margin-right: 1rem;
+        display: initial;
+      }
+    }
+    &__search {
+      width: max-content;
+      flex-grow: 1;
+    }
+  }
+
+  @include respond(phone-small) {
+    &__cover {
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    &__search {
+      text-align: center;
+      input {
+        display: none;
+      }
+      .fa-search {
+        display: initial;
+        font-size: 1.8rem;
+      }
+    }
+  }
+}
+
+.create {
+  width: 100%;
+  max-width: 800px;
+  margin-inline: auto;
+  background-color: $white;
+  padding-inline: 2rem;
+  padding-bottom: 3rem;
+
+  .add-game-link {
+    font-size: $fs-larger;
+    margin-block: 1rem;
+
+    i {
+      cursor: pointer;
+    }
+  }
+}
+
+.gamelink-card,
+.episodelink-card {
+  width: 100%;
+  border: 1px solid $black;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  background-color: $white-lighter;
+  // color: $white;
+
+  &__cover {
+    padding: 0.4rem 2rem;
+    font: normal 1.6rem $mukta;
+
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+  h3 {
+    flex-shrink: 0;
+    font-family: $poppins;
+  }
+  p {
+    flex-shrink: 0;
+    flex-basis: 80%;
+    overflow: hidden;
+    display: inline-block;
+
+    @media (max-width: 31.25rem) {
+      flex-basis: 70%;
+    }
+    @media (max-width: 25rem) {
+      flex-basis: 60%;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: right;
+
+    i {
+      cursor: pointer;
+    }
+  }
+}
+.episodelink-card {
+  &__cover {
+    justify-content: space-between;
+  }
+  &__buttons {
+    gap: 2rem;
+    display: flex;
+  }
+}

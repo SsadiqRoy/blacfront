@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>blaciris | Download</title>
+
+    <link rel="stylesheet" href="../../styles/fontawsome/css/all.min.css" />
+    <link rel="stylesheet" href="../../styles/css/dashboard.css" />
+  </head>
+  <body>
+    <section class="dashboard">
+      <!--  -->
+      <aside class="left">
+        <div class="logo-box">
+          <span class="text-logo-primary">blaciris</span>
+          <span><i class="fas fa-times display-off"></i></span>
+        </div>
+        <!--  -->
+
+        <div class="dashboard-menu" id="dashboard-menu">
+          <ul>
+            <li class="menu-item my-products dl-active" data-product="movies">
+              <span class="icon"><i class="fas fa-film"></i></span>
+              <span class="menu__item">movies</span>
+            </li>
+            <li class="menu-item my-products" data-product="series">
+              <span class="icon"><i class="fas fa-tv"></i></span>
+              <span class="menu__item">tv series</span>
+            </li>
+            <li class="menu-item my-products" data-product="games">
+              <span class="icon"><i class="fas fa-gamepad"></i></span>
+              <span class="menu__item">games</span>
+            </li>
+            <li class="menu-item my-notifications">
+              <span class="icon"><i class="far fa-bell"></i></span>
+              <span class="menu__item">notifications</span>
+            </li>
+            <li class="menu-item my-schedules">
+              <span class="icon"><i class="far fa-clock"></i></span>
+              <span class="menu__item">schedules</span>
+            </li>
+            <li class="menu-item my-profile">
+              <span class="icon"><i class="far fa-user"></i></span>
+              <span class="menu__item">my profile</span>
+            </li>
+            <button class="btn-add">
+              <span class="icon"><i class="fas fa-plus"></i></span>
+
+              <div class="create">
+                <span class="create-btn" data-product="movie">movie</span>
+                <span class="create-btn" data-product="serie">series</span>
+                <span class="create-btn" data-product="game">game</span>
+                <span class="create-btn" data-product="schedule">schedule</span>
+              </div>
+            </button>
+            <li class="log-out">
+              <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+              <span class="menu__item">log out</span>
+            </li>
+          </ul>
+        </div>
+        <!--  -->
+      </aside>
+
+      <main>
+        <!--  -->
+        <div class="top" id="top">
+          <div class="top-container">
+            <div class="top__title">movies</div>
+            <form class="top__search-box">
+              <select name="" id="search-type">
+                <option value="movies">movies</option>
+                <option value="series">series</option>
+                <option value="games">games</option>
+              </select>
+              <input type="search" name="" id="" />
+              <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+            <div class="top__filter">
+              <span>
+                <i class="fas fa-sort"></i>
+                <div class="display-off filter-box">
+                  <ul>
+                    <li>a-z</li>
+                    <li>z-a</li>
+                    <li>date<i class="fas fa-arrow-up"></i></li>
+                    <li>date<i class="fas fa-arrow-down"></i></li>
+                  </ul>
+                </div>
+              </span>
+
+              <span>
+                <i class="fas fa-filter"></i>
+                <div class="display-off filter-box">
+                  <ul>
+                    <li>all</li>
+                    <li>trending</li>
+                    <li>new</li>
+                    <li>this month</li>
+                    <li>this year</li>
+                  </ul>
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="display" id="display">
+          <!--  -->
+          <div class="display__box">
+            <div class="display__scroll">
+              <div class="display-content">
+                <div class="dbmovie-card">
+                  <div class="dbmovie-card__image">
+                    <img src="/public/images/image-14.jpg" alt="Image" />
+                  </div>
+                  <div class="dbmovie-card__info">
+                    <h2>
+                      The Title: cha cha smoothe -
+                      <span><i class="fas fa-star"></i> 7.8</span>
+                    </h2>
+                    <p>
+                      Laboriosam unde voluptas deleniti maxime recusandae reprehenderit dolore quibusdam, incidunt quam
+                      iusto!
+                    </p>
+                  </div>
+                  <div class="dbmovie-card__buttons">
+                    <a href="" title="view"><i class="fas fa-eye"></i></a>
+                    <a href="" title="edit"><i class="far fa-edit"></i></a>
+                    <a href="" title="delete"><i class="fas fa-trash"></i></a>
+                  </div>
+                </div>
+
+                <div class="dbmovie-card">
+                  <div class="dbmovie-card__image">
+                    <img src="/public/images/image-12.jpg" alt="Image" />
+                  </div>
+                  <div class="dbmovie-card__info">
+                    <h2>
+                      Morbius -
+                      <span><i class="fas fa-star"></i> 7.8</span>
+                    </h2>
+                    <p>
+                      Laboriosam unde voluptas deleniti maxime recusandae reprehenderit dolore quibusdam, incidunt quam
+                      iusto!
+                    </p>
+                  </div>
+                  <div class="dbmovie-card__buttons">
+                    <a href="" title="view"><i class="fas fa-eye"></i></a>
+                    <a href="" title="edit"><i class="far fa-edit"></i></a>
+                    <a href="" title="delete"><i class="fas fa-trash"></i></a>
+                  </div>
+                </div>
+
+                <div class="dbmovie-card">
+                  <div class="dbmovie-card__image">
+                    <img src="/public/images/image-10.jpg" alt="Image" />
+                  </div>
+                  <div class="dbmovie-card__info">
+                    <h2>
+                      pretty little fears -
+                      <span><i class="fas fa-star"></i> 7.8</span>
+                    </h2>
+                    <p>
+                      Laboriosam unde voluptas deleniti maxime recusandae reprehenderit dolore quibusdam, incidunt quam
+                      iusto!
+                    </p>
+                  </div>
+                  <div class="dbmovie-card__buttons">
+                    <a href="" title="view"><i class="fas fa-eye"></i></a>
+                    <a href="" title="edit"><i class="far fa-edit"></i></a>
+                    <a href="" title="delete"><i class="fas fa-trash"></i></a>
+                  </div>
+                </div>
+
+                <div class="dbmovie-card">
+                  <div class="dbmovie-card__image">
+                    <img src="/public/images/image-1.jpg" alt="Image" />
+                  </div>
+                  <div class="dbmovie-card__info">
+                    <h2>
+                      truth to be told -
+                      <span><i class="fas fa-star"></i> 7.8</span>
+                    </h2>
+                    <p>
+                      Laboriosam unde voluptas deleniti maxime recusandae reprehenderit dolore quibusdam, incidunt quam
+                      iusto!
+                    </p>
+                  </div>
+                  <div class="dbmovie-card__buttons">
+                    <a href="" title="view"><i class="fas fa-eye"></i></a>
+                    <a href="" title="edit"><i class="far fa-edit"></i></a>
+                    <a href="" title="delete"><i class="fas fa-trash"></i></a>
+                  </div>
+                </div>
+
+                <div class="dbmovie-card">
+                  <div class="dbmovie-card__image">
+                    <img src="/public/images/image-4.jpg" alt="Image" />
+                  </div>
+                  <div class="dbmovie-card__info">
+                    <h2>
+                      The Empire vengeance -
+                      <span><i class="fas fa-star"></i> 7.8</span>
+                    </h2>
+                    <p>
+                      Laboriosam unde voluptas deleniti maxime recusandae reprehenderit dolore quibusdam, incidunt quam
+                      iusto!
+                    </p>
+                  </div>
+                  <div class="dbmovie-card__buttons">
+                    <a href="" title="view"><i class="fas fa-eye"></i></a>
+                    <a href="" title="edit"><i class="far fa-edit"></i></a>
+                    <a href="" title="delete"><i class="fas fa-trash"></i></a>
+                  </div>
+                </div>
+
+                <div class="dbmovie-card">
+                  <div class="dbmovie-card__image">
+                    <img src="/public/images/image-14.jpg" alt="Image" />
+                  </div>
+                  <div class="dbmovie-card__info">
+                    <h2>
+                      The Title: cha cha smoothe -
+                      <span><i class="fas fa-star"></i> 7.8</span>
+                    </h2>
+                    <p>
+                      Laboriosam unde voluptas deleniti maxime recusandae reprehenderit dolore quibusdam, incidunt quam
+                      iusto!
+                    </p>
+                  </div>
+                  <div class="dbmovie-card__buttons">
+                    <a href="" title="view"><i class="fas fa-eye"></i></a>
+                    <a href="" title="edit"><i class="far fa-edit"></i></a>
+                    <a href="" title="delete"><i class="fas fa-trash"></i></a>
+                  </div>
+                </div>
+
+                <div class="dbmovie-card">
+                  <div class="dbmovie-card__image">
+                    <img src="/public/images/image-12.jpg" alt="Image" />
+                  </div>
+                  <div class="dbmovie-card__info">
+                    <h2>
+                      Morbius -
+                      <span><i class="fas fa-star"></i> 7.8</span>
+                    </h2>
+                    <p>
+                      Laboriosam unde voluptas deleniti maxime recusandae reprehenderit dolore quibusdam, incidunt quam
+                      iusto!
+                    </p>
+                  </div>
+                  <div class="dbmovie-card__buttons">
+                    <a href="" title="view"><i class="fas fa-eye"></i></a>
+                    <a href="" title="edit"><i class="far fa-edit"></i></a>
+                    <a href="" title="delete"><i class="fas fa-trash"></i></a>
+                  </div>
+                </div>
+
+                <div class="dbmovie-card">
+                  <div class="dbmovie-card__image">
+                    <img src="/public/images/image-10.jpg" alt="Image" />
+                  </div>
+                  <div class="dbmovie-card__info">
+                    <h2>
+                      pretty little fears -
+                      <span><i class="fas fa-star"></i> 7.8</span>
+                    </h2>
+                    <p>
+                      Laboriosam unde voluptas deleniti maxime recusandae reprehenderit dolore quibusdam, incidunt quam
+                      iusto!
+                    </p>
+                  </div>
+                  <div class="dbmovie-card__buttons">
+                    <a href="" title="view"><i class="fas fa-eye"></i></a>
+                    <a href="" title="edit"><i class="far fa-edit"></i></a>
+                    <a href="" title="delete"><i class="fas fa-trash"></i></a>
+                  </div>
+                </div>
+
+                <div class="dbmovie-card">
+                  <div class="dbmovie-card__image">
+                    <img src="/public/images/image-1.jpg" alt="Image" />
+                  </div>
+                  <div class="dbmovie-card__info">
+                    <h2>
+                      truth to be told -
+                      <span><i class="fas fa-star"></i> 7.8</span>
+                    </h2>
+                    <p>
+                      Laboriosam unde voluptas deleniti maxime recusandae reprehenderit dolore quibusdam, incidunt quam
+                      iusto!
+                    </p>
+                  </div>
+                  <div class="dbmovie-card__buttons">
+                    <a href="" title="view"><i class="fas fa-eye"></i></a>
+                    <a href="" title="edit"><i class="far fa-edit"></i></a>
+                    <a href="" title="delete"><i class="fas fa-trash"></i></a>
+                  </div>
+                </div>
+
+                <div class="dbmovie-card">
+                  <div class="dbmovie-card__image">
+                    <img src="/public/images/image-4.jpg" alt="Image" />
+                  </div>
+                  <div class="dbmovie-card__info">
+                    <h2>
+                      The Empire vengeance -
+                      <span><i class="fas fa-star"></i> 7.8</span>
+                    </h2>
+                    <p>
+                      Laboriosam unde voluptas deleniti maxime recusandae reprehenderit dolore quibusdam, incidunt quam
+                      iusto!
+                    </p>
+                  </div>
+                  <div class="dbmovie-card__buttons">
+                    <a href="" title="view"><i class="fas fa-eye"></i></a>
+                    <a href="" title="edit"><i class="far fa-edit"></i></a>
+                    <a href="" title="delete"><i class="fas fa-trash"></i></a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="center-components padding-a1">
+                <span class="show-more">show more</span>
+              </div>
+            </div>
+          </div>
+
+          <!--  -->
+          <div class="display__box">
+            <form class="display__profile margin-b3">
+              <div class="form-heading">
+                <h1>my profile</h1>
+              </div>
+
+              <div class="form-group-round">
+                <label for="name">full name</label>
+                <input type="text" id="name" />
+              </div>
+              <div class="form-group-round">
+                <label for="email">email</label>
+                <input type="email" id="email" />
+              </div>
+              <div class="form-group-round form-group-disabled">
+                <label for="role">role</label>
+                <input type="text" id="role" value="admin" disabled />
+              </div>
+              <div class="form-group--profile-image">
+                <div class="form-group-round">
+                  <label for="photo"> photo </label>
+                  <input type="file" id="photo" />
+                </div>
+                <div class="profile-picture">
+                  <img src="/public/images/user-1.jpg" alt="Profile Picture" />
+                </div>
+              </div>
+
+              <div class="form-group center-components">
+                <button class="btn-secondary btn-normal" type="submit">
+                  <span class="btn-content">save</span>
+                </button>
+              </div>
+            </form>
+
+            <form class="display__profile">
+              <div class="form-heading">
+                <h1>change password</h1>
+              </div>
+              <div class="form-group-round">
+                <label for="old-password">old</label>
+                <input type="password" id="old-password" />
+              </div>
+              <div class="form-group-round">
+                <label for="password">new</label>
+                <input type="password" id="password" />
+              </div>
+              <div class="form-group center-components">
+                <button class="btn-secondary btn-normal" type="submit">
+                  <span class="btn-content">save</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!--  -->
+        </div>
+
+        <!--  -->
+      </main>
+
+      <aside class="right">
+        <!--  -->
+        <div class="profile">
+          <div class="user-name">
+            <span>hey,<b> Ssadiq</b></span>
+            <span class="role">admin</span>
+          </div>
+          <div class="profile-picture">
+            <img src="/public/images/user-1.jpg" alt="Profie Picture" />
+          </div>
+        </div>
+
+        <div class="information" id="information">
+          <div class="information__heading-container">
+            <div class="information__heading">
+              <div class="information__heading-menu">
+                <i class="fas fa-bars"></i>
+                <ul class="information__heading-menu__list">
+                  <li class="ihm__list-item">problems</li>
+                  <li class="ihm__list-item">suggestions</li>
+                  <li class="ihm__list-item">schedules</li>
+                </ul>
+              </div>
+              <h1>
+                <i class="far fa-bell"></i>
+                <span class="curr-info">notifications</span>
+              </h1>
+            </div>
+            <div class="information__heading">
+              <div class="information__heading-menu">
+                <i class="fas fa-bars"></i>
+                <ul class="information__heading-menu__list">
+                  <li class="ihm__list-item">new</li>
+                  <li class="ihm__list-item">past</li>
+                  <li class="ihm__list-item">unviewed</li>
+                </ul>
+              </div>
+              <h1>
+                <i class="far fa-clock"></i>
+                <span class="curr-info">schedules</span>
+              </h1>
+            </div>
+          </div>
+
+          <div class="notifications" id="notifications">
+            <div class="notification-box">
+              <div class="notification-box__container">
+                <div class="notification-card">
+                  <div class="notification-details">
+                    <h3>Broken link</h3>
+                    <p>the movie title season 1 episode 4 720p Lorem ipsum dolor sit amet consectetur.</p>
+                  </div>
+                  <div class="notification-buttons">
+                    <i class="fas fa-eye-slash" title="mark viewes"></i>
+                    <i class="fas fa-trash" title="delete"></i>
+                  </div>
+                </div>
+                <div class="notification-card">
+                  <div class="notification-details">
+                    <h3>Broken link</h3>
+                    <p>the movie title season 1 episode 4 720p</p>
+                  </div>
+                  <div class="notification-buttons">
+                    <i class="fas fa-eye" title="mark viewes"></i>
+                    <i class="fas fa-trash" title="delete"></i>
+                  </div>
+                </div>
+                <div class="notification-card">
+                  <div class="notification-details">
+                    <h3>Broken link</h3>
+                    <p>the movie title season 1 episode 4 720p</p>
+                  </div>
+                  <div class="notification-buttons">
+                    <i class="fas fa-eye" title="mark viewes"></i>
+                    <i class="fas fa-trash" title="delete"></i>
+                  </div>
+                </div>
+                <div class="notification-card">
+                  <div class="notification-details">
+                    <h3>Broken link</h3>
+                    <p>the movie title season 1 episode 4 720p</p>
+                  </div>
+                  <div class="notification-buttons">
+                    <i class="fas fa-eye" title="mark viewes"></i>
+                    <i class="fas fa-trash" title="delete"></i>
+                  </div>
+                </div>
+                <div class="notification-card">
+                  <div class="notification-details">
+                    <h3>Broken link</h3>
+                    <p>the movie title season 1 episode 4 720p</p>
+                  </div>
+                  <div class="notification-buttons">
+                    <i class="fas fa-eye" title="mark viewes"></i>
+                    <i class="fas fa-trash" title="delete"></i>
+                  </div>
+                </div>
+                <div class="notification-card">
+                  <div class="notification-details">
+                    <h3>Broken link</h3>
+                    <p>the movie title season 1 episode 4 720p</p>
+                  </div>
+                  <div class="notification-buttons">
+                    <i class="fas fa-eye" title="mark viewes"></i>
+                    <i class="fas fa-trash" title="delete"></i>
+                  </div>
+                </div>
+                <div class="notification-card">
+                  <div class="notification-details">
+                    <h3>Broken link</h3>
+                    <p>the movie title season 1 episode 4 720p</p>
+                  </div>
+                  <div class="notification-buttons">
+                    <i class="fas fa-eye" title="mark viewes"></i>
+                    <i class="fas fa-trash" title="delete"></i>
+                  </div>
+                </div>
+                <div class="notification-card">
+                  <div class="notification-details">
+                    <h3>Broken link</h3>
+                    <p>the movie title</p>
+                    <p>season 1 episode 4 720p</p>
+                  </div>
+                  <div class="notification-buttons">
+                    <i class="fas fa-eye" title="mark viewes"></i>
+                    <i class="fas fa-trash" title="delete"></i>
+                  </div>
+                </div>
+                <div class="notification-card">
+                  <div class="notification-details">
+                    <h3>Broken link</h3>
+                    <p>the movie title</p>
+                    <p>season 1 episode 4 720p</p>
+                  </div>
+                  <div class="notification-buttons">
+                    <i class="fas fa-eye" title="mark viewes"></i>
+                    <i class="fas fa-trash" title="delete"></i>
+                  </div>
+                </div>
+                <div class="notification-card">
+                  <div class="notification-details">
+                    <h3>Broken link</h3>
+                    <p>the movie title</p>
+                    <p>season 1 episode 4 720p</p>
+                  </div>
+                  <div class="notification-buttons">
+                    <i class="fas fa-eye" title="mark viewes"></i>
+                    <i class="fas fa-trash" title="delete"></i>
+                  </div>
+                </div>
+                <div class="notification-card">
+                  <div class="notification-details">
+                    <h3>Broken link</h3>
+                    <p>the movie title</p>
+                    <p>season 1 episode 4 720p</p>
+                  </div>
+                  <div class="notification-buttons">
+                    <i class="fas fa-eye" title="mark viewes"></i>
+                    <i class="fas fa-trash" title="delete"></i>
+                  </div>
+                </div>
+                <div class="notification-card">
+                  <div class="notification-details">
+                    <h3>Broken link</h3>
+                    <p>the movie title</p>
+                    <p>season 1 episode 4 720p</p>
+                  </div>
+                  <div class="notification-buttons">
+                    <i class="fas fa-eye" title="mark viewes"></i>
+                    <i class="fas fa-trash" title="delete"></i>
+                  </div>
+                </div>
+                <div class="notification-card">
+                  <div class="notification-details">
+                    <h3>Broken link</h3>
+                    <p>the movie title</p>
+                    <p>season 1 episode 4 720p</p>
+                  </div>
+                  <div class="notification-buttons">
+                    <i class="fas fa-eye" title="mark viewes"></i>
+                    <i class="fas fa-trash" title="delete"></i>
+                  </div>
+                </div>
+                <div class="notification-card">
+                  <div class="notification-details">
+                    <h3>Broken link</h3>
+                    <p>the movie title</p>
+                    <p>season 1 episode 4 720p</p>
+                  </div>
+                  <div class="notification-buttons">
+                    <i class="fas fa-eye" title="mark viewes"></i>
+                    <i class="fas fa-trash" title="delete"></i>
+                  </div>
+                </div>
+                <div class="notification-card">
+                  <div class="notification-details">
+                    <h3>Broken link</h3>
+                    <p>the movie title</p>
+                    <p>season 1 episode 4 720p</p>
+                  </div>
+                  <div class="notification-buttons">
+                    <i class="fas fa-eye" title="mark viewes"></i>
+                    <i class="fas fa-trash" title="delete"></i>
+                  </div>
+                </div>
+                <div class="notification-card">
+                  <div class="notification-details">
+                    <h3>Broken link</h3>
+                    <p>the movie title</p>
+                    <p>season 1 episode 4 720p</p>
+                  </div>
+                  <div class="notification-buttons">
+                    <i class="fas fa-eye" title="mark viewes"></i>
+                    <i class="fas fa-trash" title="delete"></i>
+                  </div>
+                </div>
+
+                <div class="center-components padding-a1">
+                  <span class="show-more">show more</span>
+                </div>
+              </div>
+            </div>
+            <div class="notification-box">
+              <!--  -->
+              <div class="notification-box__container">
+                <div class="schedule-card">
+                  <div class="schedule-details">
+                    <h3>26 July, 2022 &nbsp; &nbsp; 13:30</h3>
+                    <p>the movie title season 1 episode 4 720p</p>
+                  </div>
+                  <div class="schedule-buttons">
+                    <i class="fas fa-edit" title="mark viewes"></i>
+                    <i class="fas fa-eye-slash" title="mark viewes"></i>
+                    <i class="fas fa-trash" title="delete"></i>
+                  </div>
+                </div>
+                <div class="center-components padding-a1">
+                  <span class="show-more">show more</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--  -->
+      </aside>
+      <!--  -->
+    </section>
+
+    <div class="popup display-off" id="create-movie-popup">
+      <!--  -->
+      <div class="popup-box">
+        <div class="popup-close">
+          <i class="fas fa-times"></i>
+        </div>
+        <div class="popup-content create-content">
+          <form class="create-new" id="create-movie">
+            <div class="form-heading">
+              <h1>Create Movie</h1>
+            </div>
+
+            <div class="form-group">
+              <label for="movie-title" class="label-basic">title</label>
+              <input type="text" id="movie-title" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="movie-image-portrait" class="label-basic">image portrait link</label>
+              <input type="text" id="movie-image-portrait" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="movie-image-landscape" class="label-basic">image landscape link</label>
+              <input type="text" id="movie-image-landscape" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="movie-description" class="label-basic">description</label>
+              <textarea id="movie-description" rows="3" class="textarea-basic"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="movie-tags" class="label-basic">tags</label>
+              <input type="text" id="movie-tags" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="movie-key-words" class="label-basic">key words</label>
+              <input type="text" id="movie-key-words" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="movie-companies" class="label-basic">companies</label>
+              <input type="text" id="movie-companies" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="movie-characters" class="label-basic">characters</label>
+              <input type="text" id="movie-characters" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="movie-actors" class="label-basic">actors</label>
+              <input type="text" id="movie-actors" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="movie-directors" class="label-basic">directors</label>
+              <input type="text" id="movie-directors" class="input-basic" />
+            </div>
+
+            <div class="form-group-double">
+              <div class="form-group">
+                <label for="movie-company" class="label-basic">company</label>
+                <input type="text" id="movie-company" class="input-basic" />
+              </div>
+              <div class="form-group">
+                <label for="movie-date" class="label-basic">release date</label>
+                <input type="date" id="movie-date" class="input-basic" />
+              </div>
+            </div>
+            <div class="form-group-double">
+              <div class="form-group">
+                <label for="movie-country" class="label-basic">country</label>
+                <select type="text" id="movie-country" class="input-basic">
+                  <option value="Ghana">Ghana</option>
+                  <option value="china">China</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="movie-rating" class="label-basic">rating</label>
+                <input type="text" id="movie-rating" class="input-basic" />
+              </div>
+            </div>
+
+            <div class="center-components">
+              <button type="submit" class="btn-black btn-normal">
+                <span class="btn-content">create</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="popup display-off" id="create-serie-popup">
+      <!--  -->
+      <div class="popup-box">
+        <div class="popup-close">
+          <i class="fas fa-times"></i>
+        </div>
+        <div class="popup-content create-content">
+          <form class="create-new" id="create-serie">
+            <div class="form-heading">
+              <h1>Create Serie</h1>
+            </div>
+
+            <div class="form-group">
+              <label for="serie-title" class="label-basic">title</label>
+              <input type="text" id="serie-title" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="serie-image-portrait" class="label-basic">image portrait link</label>
+              <input type="text" id="serie-image-portrait" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="serie-image-landscape" class="label-basic">image landscape link</label>
+              <input type="text" id="serie-image-landscape" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="serie-description" class="label-basic">description</label>
+              <textarea id="serie-description" rows="3" class="textarea-basic"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="serie-tags" class="label-basic">tags</label>
+              <input type="text" id="serie-tags" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="serie-key-words" class="label-basic">key words</label>
+              <input type="text" id="serie-key-words" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="serie-companies" class="label-basic">companies</label>
+              <input type="text" id="serie-companies" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="serie-characters" class="label-basic">characters</label>
+              <input type="text" id="serie-characters" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="serie-actors" class="label-basic">actors</label>
+              <input type="text" id="serie-actors" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="serie-directors" class="label-basic">directors</label>
+              <input type="text" id="serie-directors" class="input-basic" />
+            </div>
+
+            <div class="form-group-double">
+              <div class="form-group">
+                <label for="serie-company" class="label-basic">company</label>
+                <input type="text" id="serie-company" class="input-basic" />
+              </div>
+              <div class="form-group">
+                <label for="serie-date" class="label-basic">started date</label>
+                <input type="date" id="serie-date" class="input-basic" />
+              </div>
+            </div>
+            <div class="form-group-double">
+              <div class="form-group">
+                <label for="serie-country" class="label-basic">country</label>
+                <select type="text" id="serie-country" class="input-basic">
+                  <option value="Ghana">Ghana</option>
+                  <option value="china">China</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="serie-rating" class="label-basic">rating</label>
+                <input type="text" id="serie-rating" class="input-basic" />
+              </div>
+            </div>
+            <div class="form-group-double">
+              <div class="form-group">
+                <label for="serie-status" class="label-basic">status</label>
+                <select type="text" id="serie-status" class="input-basic">
+                  <option value="ended">ended</option>
+                  <option value="ongoing">ongoing</option>
+                  <option value="paused">paused</option>
+                  <option value="stopped">stopped</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <!-- <label for="serie-rating" class="label-basic">rating</label>
+                <input type="text" id="serie-rating" class="input-basic" /> -->
+              </div>
+            </div>
+
+            <div class="center-components">
+              <button type="submit" class="btn-black btn-normal">
+                <span class="btn-content">create</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="popup display-off" id="create-game-popup">
+      <!--  -->
+      <div class="popup-box">
+        <div class="popup-close">
+          <i class="fas fa-times"></i>
+        </div>
+        <div class="popup-content create-content">
+          <form class="create-new" id="create-game">
+            <div class="form-heading">
+              <h1>Create Game</h1>
+            </div>
+
+            <div class="form-group">
+              <label for="game-title" class="label-basic">title</label>
+              <input type="text" id="game-title" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="game-image-portrait" class="label-basic">image portrait link</label>
+              <input type="text" id="game-image-portrait" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="game-image-landscape" class="label-basic">image landscape link</label>
+              <input type="text" id="game-image-landscape" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="game-description" class="label-basic">description</label>
+              <textarea id="game-description" rows="3" class="textarea-basic"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="game-tags" class="label-basic">tags</label>
+              <input type="text" id="game-tags" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="game-key-words" class="label-basic">key words</label>
+              <input type="text" id="game-key-words" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="game-companies" class="label-basic">companies</label>
+              <input type="text" id="game-companies" class="input-basic" />
+            </div>
+
+            <div class="form-group-double">
+              <div class="form-group">
+                <label for="game-company" class="label-basic">company</label>
+                <input type="text" id="game-company" class="input-basic" />
+              </div>
+              <div class="form-group">
+                <label for="game-year" class="label-basic">release year</label>
+                <input type="date" id="game-year" class="input-basic" />
+              </div>
+            </div>
+            <div class="form-group-double">
+              <div class="form-group">
+                <label for="game-country" class="label-basic">country</label>
+                <select type="text" id="game-country" class="input-basic">
+                  <option value="Ghana">Ghana</option>
+                  <option value="china">China</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="game-rating" class="label-basic">rating</label>
+                <input type="text" id="game-rating" class="input-basic" />
+              </div>
+            </div>
+
+            <div class="center-components">
+              <button type="submit" class="btn-black btn-normal">
+                <span class="btn-content">create</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!--  -->
+    <div class="popup display-off" id="create-schedule-popup">
+      <!--  -->
+      <div class="popup-box popup-box-normal">
+        <div class="popup-close">
+          <i class="fas fa-times"></i>
+        </div>
+
+        <div class="popup-content create-content">
+          <form class="create-new" id="create-schedule">
+            <div class="form-heading">
+              <h1>new schedule</h1>
+            </div>
+
+            <div class="form-group">
+              <label for="schedule-date" class="label-basic">date</label>
+              <input type="datetime-local" name="" id="schedule-date" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="schedule-activity" class="label-basic">activity</label>
+              <textarea type="text" id="schedule-activity" class="input-basic"></textarea>
+            </div>
+
+            <div class="center-components">
+              <button type="submit" class="btn-black btn-normal">
+                <span class="btn-content">create</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="/public/javascript/controller/admin/dashboard.js" type="module"></script>
+</html>

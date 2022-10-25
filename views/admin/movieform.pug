@@ -1,0 +1,144 @@
+extends ../externals/adminformsbase
+
+block content
+  main.create
+    .create__cover
+      -const movieId = movie ? movie.id : ''
+      form.create-new#create-movie(data-movie-id=`${movieId}`)
+        .form-heading
+          h1 #{movie ? 'Update Movie' : 'Create Movie'}
+        
+        .form-group
+          label.label-basic(for="movie-title") title
+          input#movie-title.input-basic(type="text" value=`${movie && movie.title || ''}` required)
+        
+        .form-group
+          label.label-basic(for="movie-image-portrait") image portrait link
+          input#movie-image-portrait.input-basic(type="text" value=`${movie && movie.portrait || ''}` required)
+        
+        .form-group
+          label.label-basic(for="movie-image-landscape") image landscape link
+          input#movie-image-landscape.input-basic(type="text" value=`${movie && movie.landscape || ''}` required)
+        
+        .form-group
+          label.label-basic(for="movie-description") description
+          textarea#movie-description.textarea-basic(rows="3" required) #{movie && movie.description || ''}
+        
+        .form-group
+          label.label-basic(for="movie-tags") tags
+          - const tags = movie && movie.tags.join(',') || ''
+          input#movie-tags.input-basic(type="text" value=`${tags}` required)
+        
+        .form-group
+          label.label-basic(for="movie-key-words") keywords
+          - const keywords = movie && movie.keywords.join(',') || ''
+          input#movie-keywords.input-basic(type="text" value=`${keywords}` required)
+        
+        .form-group
+          label.label-basic(for="movie-companies") companies
+          - const companies = movie && movie.companies.join(',') || ''
+          input#movie-companies.input-basic(type="text" value=`${companies}` required)
+        
+        .form-group
+          label.label-basic(for="movie-charactors") charactors
+          - const charactors = movie && movie.charactors && movie.charactors.join(',') || ''
+          input#movie-charactors.input-basic(type="text" value=`${charactors}` required)
+        
+        .form-group
+          label.label-basic(for="movie-actors") actors
+          - const actors = movie && movie.actors.join(',') || ''
+          input#movie-actors.input-basic(type="text" value=`${actors}` required)
+        
+        .form-group
+          label.label-basic(for="movie-directors") directors
+          - const directors = movie && movie.directors.join(',') || ''
+          input#movie-directors.input-basic(type="text" value=`${directors}` required)
+        
+        .form-group-double
+          .form-group
+            label.label-basic(for="movie-company") company
+            input#movie-company.input-basic(type="text" value=`${movie && movie.company || ''}` required)
+          .form-group
+            label.label-basic(for="movie-date") release date
+            input#movie-date.input-basic(type="date" value=`${movie && movie.releasedDate || ''}` required)
+        
+        .form-group-double
+          .form-group
+            label.label-basic(for="movie-country") country
+            select#movie-country.input-basic(type="text" data-value=`${movie && movie.country || ''}` required)
+              //- option(value="Ghana") Ghana
+              //- option(value="china") China
+          .form-group
+            label.label-basic(for="movie-rating") rating
+            input#movie-rating.input-basic(type="text" value=`${movie && movie.rating || ''}` required)
+        
+        
+        
+        .form-heading
+          h1 Download links
+        
+        .form-group
+          label.label-basic(for="movie-480-link") 480 link
+          - const l480 = movie && movie.Links.find(l=>l.resolution === 480)
+          input#movie-480-link.input-basic(type="text" value=`${l480 && l480.link || ''}` data-link-id=`${l480 && l480.id}` data-link=`${l480 && l480.link}`)
+        
+        .form-group
+          label.label-basic(for="movie-720-link") 720 link
+          - const l720 = movie && movie.Links.find(l=>l.resolution === 720)
+          input#movie-720-link.input-basic(type="text"  value=`${l720 && l720.link || ''}` data-link-id=`${l720 && l720.id}` data-link=`${l720 && l720.link}`)
+        
+        .form-group
+          label.label-basic(for="movie-1080-link") 1080 link
+          - const l1080 = movie && movie.Links.find(l=>l.resolution === 1080)
+          input#movie-1080-link.input-basic(type="text" value=`${l1080 && l1080.link || ''}` data-link-id=`${l1080 && l1080.id}` data-link=`${l1080 && l1080.link}`)
+        
+        .form-group
+          label.label-basic(for="movie-other-link") other link
+          - const l1 = movie && movie.Links.find(l=>l.resolution === 1)
+          input#movie-other-link.input-basic(type="text"  value=`${l1 && l1.link || ''}` data-link-id=`${l1 && l1.id}` data-link=`${l1 && l1.link}`)
+        
+        .form-group
+          label.label-basic(for="movie-subtitle-link") subtitle link
+          - const l10000 = movie && movie.Links.find(l=>l.resolution === 10000)
+          input#movie-subtitle-link.input-basic(type="text" value=`${l10000 && l10000.link || ''}` data-link-id=`${l10000 && l10000.id}` data-link=`${l10000 && l10000.link}`)
+        
+        .center-components
+          button.btn-black.btn-normal#movie-btn(type="submit")
+            span.btn-content #{movie ? 'update' : 'create'}
+
+//-  Kevin Hart, Woody Harrelson,Jasmine Mathews
+  //- .popup.display-of#create-game-popup
+  //-   .popup-box
+  //-     .popup-close
+  //-       i.fas.fa-times
+  //-     .popup-content.create-content
+  //-       form.create-new#create-form
+  //-         .form-heading
+  //-           h1 episode links
+  //-         .form-group-double
+  //-           .form-group
+  //-             label.label-basic(for="episode-title") episode title
+  //-             input#episode-title.input-basic(type="text")
+  //-           .form-group
+  //-             label.label-basic(for="episode-number") episode number
+  //-             input#episode-number.input-basic(type="number")
+  //-         .form-group
+  //-           label.label-basic(for="episode-480-link") 480 link
+  //-           input#episode-480-link.input-basic(type="text")
+  //-         .form-group
+  //-           label.label-basic(for="episode-720-link") 720 link
+  //-           input#episode-720-link.input-basic(type="text")
+
+  //-         .form-group
+  //-           label.label-basic(for="episode-1080-link") 1080 link
+  //-           input#episode-1080-link.input-basic(type="text")
+
+  //-         .form-group
+  //-           label.label-basic(for="episode-other-link") other link
+  //-           input#episode-other-link.input-basic(type="text")
+  //-         .form-group
+  //-           label.label-basic(for="episode-subtitle-link") subtitle link
+  //-           input#episode-subtitle-link.input-basic(type="text")
+  //-         .center-components
+  //-           button.btn-black.btn-normal(type="submit")
+  //-             span.btn-content save

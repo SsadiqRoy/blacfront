@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width,initial-scale=1")
+
+    link(rel="stylesheet", href="/styles/fontawsome/css/all.min.css")
+    link(rel="stylesheet", href="/styles/css/dashboard2.css")
+    title blaciris | dashboard - #{ext.title}
+  
+  body(data-meta=`${JSON.stringify(meta)}`)
+
+    include ../layouts/adminheader
+
+    section.dashboard
+      .dashboard__cover
+        include ../layouts/adminsidebar
+
+        include ../externals/cards
+        
+        block content
+        
+
+    script.
+      function mainContainerHeight(){
+        const header = document.getElementById('dashboard-header')
+        const tags = document.getElementById('main-filter')
+  
+        const headerHeight = header ? header.clientHeight : 0
+        const tagsHeight = tags ? tags.clientHeight : 0
+        const deviceHeight = window.innerHeight
+  
+        const height = deviceHeight - (headerHeight+tagsHeight)
+        const  mainContainer = document.getElementById('main-container')
+        mainContainer.style.height = `${height}px`
+        // window.alert(height)
+      }
+      mainContainerHeight()
+      
+
+    //- include ../layouts/footer
+  
+  script(src=`${ext.js}.js`, type='module')
+

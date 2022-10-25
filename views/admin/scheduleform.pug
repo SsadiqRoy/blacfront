@@ -1,0 +1,19 @@
+extends ../externals/adminformsbase
+
+block content
+  main.create
+    .create__cover
+      - const scheduleId = schedule ? schedule.id : ''
+      form.create-new#create-schedule(data-user=`${user.id}` data-schedule-id=`${scheduleId}`)
+        .form-heading
+          h1= schedule ? 'Update Schedule': 'Create schedule'
+
+        .form-group
+          label.label-basic(for="schedule-date") date
+          input#schedule-date.input-basic(type="datetime-local",  value=`${schedule && `${new Date(schedule.date).toLocaleDateString()} ${new Date(schedule.date).toLocaleTimeString()}` || ''}` required)
+        .form-group
+          label.label-basic(for="schedule-activity") activity
+          textarea#schedule-message.input-basic(type="text") #{schedule && schedule.message || ''}
+        .center-components
+          button.btn-black.btn-normal#create-schedule-btn(type="submit")
+            span.btn-content save

@@ -1,0 +1,37 @@
+extends ../externals/adminbase
+
+block content
+  main.main
+    .main__cover
+      .main__filter#main-filter
+        .main__filter__cover
+          span.main__filter-tag new
+          span.main__filter-tag runnig
+          span.main__filter-tag draft
+          span.main__filter-tag past
+          span.main__filter-tag ended
+          span.main__filter-tag comming
+      .main__container#main-container
+        .main__container__cover#items-container
+          if(series && series.length)
+            each serie in series
+              +dbmovieCard(serie, 'serie')
+
+
+        .center-components.padding-a1
+          span.show-more#show-more show more
+
+
+  .popup.display-off#delete-serie-popup
+    .popup-box.popup-box-normal
+      .popup-close
+        i.fas.fa-times
+      .popup-content.create-content
+        form.create-new#delete-serie
+          .form-heading
+            h1 Are you sure you want to delete the TV Series
+          
+          .center-components
+            button.btn-black.btn-normal#delete-serie-btn(type="submit")
+              span.btn-content yes, delete
+

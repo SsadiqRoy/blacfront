@@ -1,0 +1,61 @@
+$db-box-shadow: 0 0 1rem rgba(0, 0, 0, 0.26);
+
+.dbmovie-card {
+  width: 100%;
+  // height: 10rem;
+  padding: 1rem;
+  background-color: $white;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+
+  display: grid;
+  grid-template-columns: 20% 60% 20%;
+
+  &:hover {
+    border: none;
+    box-shadow: $db-box-shadow;
+  }
+
+  & > *:not(:last-child) {
+    padding-right: 1.5rem;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 4px;
+  }
+
+  &__info {
+    font: 600 $fs-small $font-description;
+
+    h2 {
+      margin-bottom: 0.5rem;
+      text-transform: capitalize;
+
+      .fa-star {
+        font-size: 1.8rem;
+      }
+    }
+
+    p {
+      color: lighten($black-light, 10);
+      @include respond(phone-small) {
+        display: none;
+      }
+    }
+  }
+
+  &__buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: right;
+    font-size: 2.2rem;
+
+    color: $black;
+  }
+}

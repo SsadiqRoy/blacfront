@@ -1,0 +1,67 @@
+aside.sidebar#dashboard-sidebar
+  .sidebar__cover
+    ul
+      li
+        - let clas = ext.page === 'movies' ? 'sidebar__item--active' : ''
+        a(class=`${clas}` href='/dashboard/movies' )
+          span.sidebar__icon
+            i.fas.fa-film
+          span.sidebar__item movies
+      li
+        - clas = ext.page === 'series'? 'sidebar__item--active': ''
+        a(class=`${clas}` href='/dashboard/series')
+          span.sidebar__icon
+            i.fas.fa-tv
+          span.sidebar__item series
+      li
+        - clas = ext.page === 'games'? 'sidebar__item--active': ''
+        a(class=`${clas}` href='/dashboard/games')
+          span.sidebar__icon
+            i.fas.fa-gamepad
+          span.sidebar__item games
+      li
+        - clas = ext.page === 'notifications'? 'sidebar__item--active': ''
+        a(class=`${clas}` href='/dashboard/notifications')
+          span.sidebar__icon
+            i.fas.fa-bell
+          span.sidebar__item notifications
+      li
+        - clas = ext.page === 'schedules'? 'sidebar__item--active': ''
+        a(class=`${clas}` href='/dashboard/schedules')
+          span.sidebar__icon
+            i.fas.fa-clock
+          span.sidebar__item schedules
+      li
+        - clas = ext.page === 'profile'? 'sidebar__item--active': ''
+        a(class=`${clas}` href='/dashboard')
+          span.sidebar__icon
+            i.fas.fa-user
+          span.sidebar__item my profile
+    ul
+      li
+        a(href='/dashboard/movieform')
+          span.sidebar__icon
+            i.fas.fa-plus-circle
+            i.fas.fa-film.sidebar__icon-alt
+          span.sidebar__item movies
+      li
+        a(href='/dashboard/serieform')
+          span.sidebar__icon
+            i.fas.fa-plus-circle
+            i.fas.fa-tv.sidebar__icon-alt
+          span.sidebar__item series
+      li
+        a(href='/dashboard/gameform')
+          span.sidebar__icon
+            i.fas.fa-plus-circle
+            i.fas.fa-gamepad.sidebar__icon-alt
+          span.sidebar__item games
+      li
+        a(href='/dashboard/scheduleform')
+          span.sidebar__icon
+            i.fas.fa-plus-circle
+            i.fas.fa-clock.sidebar__icon-alt
+          span.sidebar__item schedule
+    .sidebar__logout.logout-btn
+      i.fas.fa-sign-out-alt
+      span log out

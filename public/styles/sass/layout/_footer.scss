@@ -1,0 +1,48 @@
+@import '../components/logo';
+.footer {
+  width: 100%;
+  margin-top: 10rem;
+  background-color: $black;
+  color: $white;
+  padding: 5rem 1rem;
+  text-align: center;
+  font-size: $fs-normal;
+  font-family: $font-heading;
+
+  .disclaimer {
+    width: 50%;
+    display: inline-block;
+    padding: 1rem;
+    background-color: $white;
+    color: $color-red;
+    border-radius: 3px;
+
+    @include respond(phone) {
+      width: 70%;
+    }
+    @include respond(phone-small) {
+      width: 85%;
+    }
+
+    span {
+      display: inline-block;
+    }
+
+    &__disclaimer {
+      background-color: lighten($color-red, 30);
+      padding-inline: 1rem;
+      border-radius: 2px;
+      text-transform: capitalize;
+    }
+
+    .suggest,
+    .btn-red {
+      padding: 0.5rem 1.2rem;
+      font: bold $fs-normal $font-description;
+      border: none;
+      border-radius: 4px;
+      color: $secondary;
+      background-color: rgb(170, 5, 5) !important;
+    }
+  }
+}

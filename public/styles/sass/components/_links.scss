@@ -1,0 +1,91 @@
+.links {
+  // background-color: blue;
+  // border: 1px solid green;
+  margin-block: 2rem;
+  padding: 2rem;
+  width: 100%;
+
+  .link {
+    width: 100%;
+    background-color: $secondary;
+    color: $primary;
+    border-radius: 10px;
+    padding-inline: 2rem 3rem;
+    padding-block: 1rem;
+    font: bold 2rem $font-description;
+    text-transform: lowercase;
+    margin-block: 1.5rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    a {
+      color: inherit;
+    }
+  }
+}
+
+.season-links {
+  width: 100%;
+
+  &__cover {
+    width: 100%;
+    padding-block: 2rem;
+  }
+}
+.episode-card {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background-color: $white;
+  margin-block: 0.5rem;
+
+  &__cover {
+    display: flex;
+    justify-content: space-between;
+    font: normal 1.6rem $poppins;
+
+    @include respond(phone) {
+      font-size: 1.4rem;
+    }
+    @include respond(phone-small) {
+      display: block;
+    }
+  }
+
+  &__title {
+    font-weight: bold;
+    flex-shrink: 0;
+
+    @include respond(phone-small) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__links {
+    @include respond(phone-small) {
+      text-align: right;
+    }
+  }
+  .episode-link {
+    margin-inline: 1rem;
+    padding: 0.3rem 1rem;
+    border: 1px solid $black;
+    display: inline-block;
+    margin-block: 0.3rem;
+
+    @include respond(phone) {
+      margin-inline: 0.4rem;
+      padding-inline: 0.4rem;
+    }
+
+    &:nth-child(odd) {
+      background-color: $black;
+      color: $white;
+    }
+  }
+  .episode-link--empty {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

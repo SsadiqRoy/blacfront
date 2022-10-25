@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/public/styles/fontawsome/css/all.min.css" />
+    <link rel="stylesheet" href="/public/styles/css/dashboard2.css" />
+
+    <title>blaciris | dashboard - profile</title>
+  </head>
+  <body>
+    <header class="dashboard-header" id="dashboard-header">
+      <div class="dashboard-header__cover">
+        <div class="dashboard-header__logo">
+          <span class="display-off"><i class="fas fa-bars"></i></span>
+          <span class="text-logo-secondary">blaciris</span>
+        </div>
+        <div class="dashboard-header__search">
+          <form><input type="search" placeholder="search in movies" /></form>
+        </div>
+        <div class="dashboard-header__user">
+          <div class="dashboard-header__user__cover">
+            <span class="dashboard-header__user-name">Ssadiq Roy,</span>
+            <span class="dashboard-header__user-role">admin</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="dashboard">
+      <div class="dashboard__cover">
+        <aside class="sidebar">
+          <div class="sidebar__cover">
+            <ul>
+              <li>
+                <a href="" class="sidebar__item--active">
+                  <span class="sidebar__icon"><i class="fas fa-film"></i></span>
+                  <span class="sidebar__item">movies</span>
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <span class="sidebar__icon"><i class="fas fa-tv"></i></span>
+                  <span class="sidebar__item">series</span>
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <span class="sidebar__icon"><i class="fas fa-gamepad"></i></span>
+                  <span class="sidebar__item">games</span>
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <span class="sidebar__icon"><i class="fas fa-bell"></i></span>
+                  <span class="sidebar__item">notifications</span>
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <span class="sidebar__icon"><i class="fas fa-clock"></i></span>
+                  <span class="sidebar__item">schedule</span>
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <span class="sidebar__icon"><i class="fas fa-user"></i></span>
+                  <span class="sidebar__item">my profile</span>
+                </a>
+              </li>
+            </ul>
+
+            
+            <ul>
+              <li>
+                <a>
+                  <span class="sidebar__icon">
+                    <i class="fas fa-plus-circle"></i>
+                    <i class="fas fa-film sidebar__icon-alt"></i>
+                  </span>
+                  <span class="sidebar__item">movies</span>
+                </a>
+              </li>
+              <li>
+                <a>
+                  <span class="sidebar__icon">
+                    <i class="fas fa-plus-circle"></i>
+                    <i class="fas fa-tv sidebar__icon-alt"></i>
+                  </span>
+                  <span class="sidebar__item">series</span>
+                </a>
+              </li>
+              <li>
+                <a>
+                  <span class="sidebar__icon">
+                    <i class="fas fa-plus-circle"></i>
+                    <i class="fas fa-gamepad sidebar__icon-alt"></i>
+                  </span>
+                  <span class="sidebar__item">games</span>
+                </a>
+              </li>
+              <li>
+                <a>
+                  <span class="sidebar__icon">
+                    <i class="fas fa-plus-circle"></i>
+                    <i class="fas fa-clock sidebar__icon-alt"></i>
+                  </span>
+                  <span class="sidebar__item">schedule</span>
+                </a>
+              </li>
+            </ul>
+
+
+            <div class="sidebar__logout">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>log out</span>
+            </div>
+          </div>
+        </aside>
+
+        <main class="main">
+          <div class="main__cover">
+
+            <div class="main__container" id="main-container">
+              <div class="main__container__cover">
+
+                <div class="main__container__profile">
+                  <form class="display__profile margin-b3">
+                    <div class="form-heading">
+                      <h1>my profile</h1>
+                    </div>
+      
+                    <div class="form-group-round">
+                      <label for="name">full name</label>
+                      <input type="text" id="name" />
+                    </div>
+                    <div class="form-group-round">
+                      <label for="email">email</label>
+                      <input type="email" id="email" />
+                    </div>
+                    <div class="form-group-round form-group-disabled">
+                      <label for="role">role</label>
+                      <input type="text" id="role" value="admin" disabled />
+                    </div>
+                    
+      
+                    <div class="form-group center-components">
+                      <button class="btn-secondary btn-normal" type="submit">
+                        <span class="btn-content">save</span>
+                      </button>
+                    </div>
+                  </form>
+      
+                  <form class="display__profile">
+                    <div class="form-heading">
+                      <h1>change password</h1>
+                    </div>
+                    <div class="form-group-round">
+                      <label for="old-password">old</label>
+                      <input type="password" id="old-password" />
+                    </div>
+                    <div class="form-group-round">
+                      <label for="password">new</label>
+                      <input type="password" id="password" />
+                    </div>
+                    <div class="form-group center-components">
+                      <button class="btn-secondary btn-normal" type="submit">
+                        <span class="btn-content">save</span>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+        
+              </div>
+
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </section>
+  </body>
+
+  <script>
+    function mainContainerHeight(){
+      const header = document.getElementById('dashboard-header')
+      const tags = document.getElementById('main-filter')
+
+      const headerHeight = header ? header.clientHeight : 0
+      const tagsHeight = tags ? tags.clientHeight : 0
+      const deviceHeight = window.innerHeight
+
+      const height = deviceHeight - (headerHeight+tagsHeight)
+      const  mainContainer = document.getElementById('main-container')
+      mainContainer.style.height = `${height}px`
+      // window.alert(height)
+
+    }
+    mainContainerHeight()
+  </script>
+</html>

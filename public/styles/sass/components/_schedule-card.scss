@@ -1,0 +1,56 @@
+.schedule-card {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 1rem 1.5rem;
+  background-color: $white-lighter;
+
+  &__cover {
+    width: 100%;
+    font-size: 1.6rem;
+
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__schedule {
+    h2 {
+      font-size: 2rem;
+      font-family: $font-title;
+    }
+
+    p {
+      font: normal 1.5rem $poppins;
+    }
+  }
+
+  &__buttons {
+    width: max-content;
+    font-size: 2.2rem;
+    color: $black;
+
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    text-align: right;
+
+    a {
+      cursor: pointer;
+    }
+    .fa-eye {
+      color: slategray;
+    }
+  }
+
+  &__time {
+    text-align: right;
+    font-size: 1.4rem;
+    font-family: $poppins;
+    color: dodgerblue;
+    font-weight: bold;
+  }
+  &__time--due {
+    color: red;
+  }
+}

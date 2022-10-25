@@ -1,0 +1,17 @@
+body {
+  background-color: $white-lighter;
+}
+
+.signup {
+  width: 100%;
+  max-width: 400px;
+  margin-inline: auto;
+  border: 1px solid black;
+  margin-top: 20vh;
+
+  &__form {
+    padding: 4rem 1rem;
+    width: 100%;
+    // border: 1px solid salmon;
+  }
+}

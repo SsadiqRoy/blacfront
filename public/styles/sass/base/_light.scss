@@ -1,0 +1,16 @@
+$primary: white;
+$secondary: black;
+
+$primary-light: #e7e7e7;
+$secondary-light: #272727;
+// $secondary-light: #df8d8d;
+
+$text-primary: #1b1a1a;
+$text-secondary: #e0e0e0;
+
+body {
+  background-color: $primary-light;
+}
+.movie-card {
+  border: 1px solid $secondary;
+}

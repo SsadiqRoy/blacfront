@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/public/styles/fontawsome/css/all.min.css" />
+    <link rel="stylesheet" href="/public/styles/css/dashboarforms.css" />
+
+    <title>dashbaord | create movie</title>
+  </head>
+  <body>
+    <header class="dashboard-header" id="dashboard-header">
+      <div class="dashboard-header__cover">
+        <div class="dashboard-header__logo">
+          <span><i class="fas fa-bars"></i></span>
+          <span class="text-logo-secondary">blaciris</span>
+        </div>
+        <div class="dashboard-header__search">
+          <form>
+            <input type="search" placeholder="search in movies" />
+            <i class="fas fa-search"></i>
+          </form>
+        </div>
+        <div class="dashboard-header__user">
+          <div class="dashboard-header__user__cover">
+            <span class="dashboard-header__user-name">Ssadiq Roy,</span>
+            <span class="dashboard-header__user-role">admin</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="create">
+      <div class="create__cover">
+        <form class="create-new" id="create-movie">
+          <div class="form-heading">
+            <h1>Create Movie</h1>
+          </div>
+
+          <div class="form-group">
+            <label for="movie-title" class="label-basic">title</label>
+            <input type="text" id="movie-title" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="movie-image-portrait" class="label-basic">image portrait link</label>
+            <input type="text" id="movie-image-portrait" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="movie-image-landscape" class="label-basic">image landscape link</label>
+            <input type="text" id="movie-image-landscape" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="movie-description" class="label-basic">description</label>
+            <textarea id="movie-description" rows="3" class="textarea-basic"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="movie-tags" class="label-basic">tags</label>
+            <input type="text" id="movie-tags" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="movie-key-words" class="label-basic">key words</label>
+            <input type="text" id="movie-key-words" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="movie-companies" class="label-basic">companies</label>
+            <input type="text" id="movie-companies" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="movie-characters" class="label-basic">characters</label>
+            <input type="text" id="movie-characters" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="movie-actors" class="label-basic">actors</label>
+            <input type="text" id="movie-actors" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="movie-directors" class="label-basic">directors</label>
+            <input type="text" id="movie-directors" class="input-basic" />
+          </div>
+
+          <div class="form-group-double">
+            <div class="form-group">
+              <label for="movie-company" class="label-basic">company</label>
+              <input type="text" id="movie-company" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="movie-date" class="label-basic">release date</label>
+              <input type="date" id="movie-date" class="input-basic" />
+            </div>
+          </div>
+          <div class="form-group-double">
+            <div class="form-group">
+              <label for="movie-country" class="label-basic">country</label>
+              <select type="text" id="movie-country" class="input-basic">
+                <option value="Ghana">Ghana</option>
+                <option value="china">China</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="movie-rating" class="label-basic">rating</label>
+              <input type="text" id="movie-rating" class="input-basic" />
+            </div>
+          </div>
+
+          <div class="form-heading">
+            <h1>Download links</h1>
+          </div>
+
+          <div class="form-group">
+            <label for="movie-480-link" class="label-basic">480 link</label>
+            <input type="text" id="movie-480-link" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="movie-720-link" class="label-basic">720 link</label>
+            <input type="text" id="movie-720-link" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="movie-720x256-link" class="label-basic">720x256 link</label>
+            <input type="text" id="movie-720x256-link" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="movie-1080-link" class="label-basic">1080 link</label>
+            <input type="text" id="movie-1080-link" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="movie-2160-link" class="label-basic">2160 link</label>
+            <input type="text" id="movie-2160-link" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="movie-other-link" class="label-basic">other link</label>
+            <input type="text" id="movie-other-link" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="movie-subtitle-link" class="label-basic">subtitle link</label>
+            <input type="text" id="movie-subtitle-link" class="input-basic" />
+          </div>
+
+          <div class="center-components">
+            <button type="submit" class="btn-black btn-normal">
+              <span class="btn-content">create</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

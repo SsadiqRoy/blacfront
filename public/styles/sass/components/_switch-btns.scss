@@ -1,0 +1,19 @@
+.switch-btns {
+  text-align: center;
+  position: relative;
+  // margin-block: 1rem;
+  // padding-inline: 5rem;
+
+  .switch-btn {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-inline: 0.5rem;
+    border: 3px solid $secondary;
+    border-radius: 100px;
+    cursor: pointer;
+  }
+  .switch-btn--current {
+    background-color: $secondary;
+  }
+}

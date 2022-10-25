@@ -1,0 +1,112 @@
+extends ../externals/adminformsbase
+
+block content
+  -const gameId = game ? game.id : ''
+  main.create
+    .create__cover
+      form.create-new#create-game(data-game-id=`${gameId}`)
+        .form-heading
+          h1 #{game ? 'Update Game' : 'Create Game'}
+        
+        .form-group
+          label.label-basic(for="game-title") title
+          input#game-title.input-basic(type="text" value=`${game && game.title || ''}` required)
+        
+        .form-group
+          label.label-basic(for="game-image-portrait") image portrait link
+          input#game-image-portrait.input-basic(type="text" value=`${game && game.portrait || ''}` required)
+        
+        .form-group
+          label.label-basic(for="game-image-landscape") image landscape link
+          input#game-image-landscape.input-basic(type="text" value=`${game && game.landscape || ''}` required)
+        
+        .form-group
+          label.label-basic(for="game-description") description
+          textarea#game-description.textarea-basic(rows="3" required) #{game && game.description || ''}
+        
+        .center-components(style="font: bold 2rem poppins; color: blue;")
+          a(href=`/dashboard/aboutgame/${gameId}`) game about
+          //- button.btn-primary.btn-normal(type="submit")
+          //-   span.btn-content yes, delete
+
+        .form-group
+          label.label-basic(for="game-tags") tags
+          input#game-tags.input-basic(type="text" value=`${game && game.tags.join(',') || ''}` required)
+        
+        .form-group
+          label.label-basic(for="game-key-words") key words
+          input#game-keywords.input-basic(type="text" value=`${game && game.tags.join(',') || ''}` required)
+        
+        .form-group
+          label.label-basic(for="game-companies") companies
+          input#game-companies.input-basic(type="text" value=`${game && game.tags.join(',') || ''}` required)
+        
+        .form-group-double
+          .form-group
+            label.label-basic(for="game-company") company
+            input#game-company.input-basic(type="text" value=`${game && game.company || ''}` required)
+          .form-group
+            label.label-basic(for="game-year") release year
+            input#game-date.input-basic(type="date" value=`${game && game.releasedDate || ''}` required)
+        
+        .form-group-double
+          .form-group
+            label.label-basic(for="game-country") country
+            select#game-country.input-basic(type="text" data-value=`${game && game.country || ''}` required)
+              option(value="Ghana") Ghana
+              option(value="china") China
+          .form-group
+            label.label-basic(for="game-rating") rating
+            input#game-rating.input-basic(type="text" value=`${game && game.rating || ''}` required)
+        
+        
+        if(game && game.Links.length)
+          .form-heading
+            h1 Download links
+          .game-links#game-links
+            .game-links__cover
+              each link in game.Links
+                +gamelinkCard(link)
+              //- - let a = 1
+              //- while a < 4
+              //-   -a++
+
+        if(game)
+          .center-components.add-game-link
+            i.fas.fa-plus-circle#add-game-link(title="add game link")
+
+        .center-components
+          button.btn-black.btn-normal#game-btn(type="submit")
+            span.btn-content #{game ? 'update' : 'create'}
+
+  .popup.display-off#create-gamepart-popup
+    .popup-box.popup-box-normal
+      .popup-close
+        i.fas.fa-times
+      .popup-content.create-content
+        form.create-new#create-gamepart(data-game-id=`${gameId}`)
+          .form-heading
+            h1 new part
+          .form-group
+            label.label-basic(for="gamepart-part") part number
+            input#gamepart-part.input-basic(type="number", name, min="1")
+          .form-group
+            label.label-basic(for="gamepart-link") part link
+            input#gamepart-link.input-basic(type="text")
+          .center-components
+            button.btn-black.btn-normal#gamepart-btn(type="submit")
+              span.btn-content save
+
+  .popup.display-off#delete-gamepart-popup
+    .popup-box.popup-box-normal
+      .popup-close
+        i.fas.fa-times
+      .popup-content.create-content
+        form.create-new#delete-gamepart(data-game-id=`${gameId}`)
+          .form-heading
+            h1 Are you sure you want to delete the link
+          
+          .center-components
+            button.btn-black.btn-normal#delete-gamepart-btn(type="submit")
+              span.btn-content yes, delete
+

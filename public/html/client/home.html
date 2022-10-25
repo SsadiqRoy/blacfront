@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>blaciris | movies, tv shows and games</title>
+
+    <link rel="stylesheet" href="../../styles/fontawsome/css/all.min.css" />
+    <link rel="stylesheet" href="../../styles/css/home.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__header">
+        <div class="header__logo">
+          <!--  -->
+          <div class="header-menu">
+            <i class="fas fa-bars"></i>
+
+            <form class="header-menu__form">
+              <div class="header-menu__container">
+                <!--  -->
+                <div class="menu-box">
+                  <h2>categories</h2>
+                  <ul>
+                    <li>
+                      <div class="menu-option-group">
+                        <input type="checkbox" name="category" id="category-adventure" value="adventure" />
+                        <label for="category-adventure">adventure</label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="menu-option-group">
+                        <input type="checkbox" name="category" id="category-crime" value="crime" />
+                        <label for="category-crime">crime</label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="menu-option-group">
+                        <input type="checkbox" name="category" id="category-fantasy" value="fantasy" />
+                        <label for="category-fantasy">fantasy</label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="menu-option-group">
+                        <input type="checkbox" name="category" id="category-war" value="war" />
+                        <label for="category-war">war</label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="menu-option-group">
+                        <input type="checkbox" name="category" id="category-politics" value="politics" />
+                        <label for="category-politics">politics</label>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="menu-box">
+                  <h2>groups</h2>
+                  <ul>
+                    <li>
+                      <div class="menu-option-group">
+                        <input type="checkbox" name="group" id="group-trending" value="trending" />
+                        <label for="group-trending">trending</label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="menu-option-group">
+                        <input type="checkbox" name="group" id="group-new" value="new" />
+                        <label for="group-new">new</label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="menu-option-group">
+                        <input type="checkbox" name="group" id="group-rated" value="rated" />
+                        <label for="group-rated">top rated</label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="menu-option-group">
+                        <input type="checkbox" name="group" id="group-war" value="war" />
+                        <label for="group-war">war</label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="menu-option-group">
+                        <input type="checkbox" name="group" id="group-politics" value="politics" />
+                        <label for="group-politics">politics</label>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="menu-box">
+                  <h2>top companies</h2>
+                  <ul>
+                    <li>
+                      <div class="menu-option-group">
+                        <input type="checkbox" name="company" id="company-netflix" value="netflix" />
+                        <label for="company-netflix">netflix</label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="menu-option-group">
+                        <input type="checkbox" name="company" id="company-prime-video" value="prime-video" />
+                        <label for="company-prime-video">prime video</label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="menu-option-group">
+                        <input type="checkbox" name="company" id="company-marvel" value="marvel" />
+                        <label for="company-marvel">marvel</label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="menu-option-group">
+                        <input type="checkbox" name="company" id="company-apple" value="apple" />
+                        <label for="company-apple">apple</label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="menu-option-group">
+                        <input type="checkbox" name="company" id="company-dc" value="dc" />
+                        <label for="company-dc">dc</label>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="menu-box">
+                  <h2>top countries</h2>
+                  <ul>
+                    <li>
+                      <div class="menu-option-group">
+                        <input type="checkbox" name="country" id="country-usa" value="usa" />
+                        <label for="country-usa">usa</label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="menu-option-group">
+                        <input type="checkbox" name="country" id="country-india" value="india" />
+                        <label for="country-india">india</label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="menu-option-group">
+                        <input type="checkbox" name="country" id="country-china" value="china" />
+                        <label for="country-china">china</label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="menu-option-group">
+                        <input type="checkbox" name="country" id="country-japan" value="japan" />
+                        <label for="country-japan">japan</label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="menu-option-group">
+                        <input type="checkbox" name="country" id="country-uk" value="uk" />
+                        <label for="country-uk">uk</label>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <!--  -->
+              </div>
+
+              <div class="header-menu__button">
+                <p>search for anything else</p>
+                <button type="submit" class="btn-primary">apply</button>
+              </div>
+            </form>
+          </div>
+
+          <span class="text-logo-secondary">blaciris</span>
+        </div>
+
+        <div class="search-bar">
+          <form class="search-bar__form">
+            <input type="serch" class="input-search" placeholder="search movie" />
+            <i class="fas fa-search"></i>
+          </form>
+        </div>
+
+        <div class="main-titles">
+          <ul class="title-list">
+            <button class="btn-red suggest">suggest</button>
+            <li class="title-list-item"><a href="">Movies</a></li>
+            <li class="title-list-item"><a href="">tv series</a></li>
+            <li class="title-list-item"><a href="">games</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <section class="head-slider">
+      <div class="head-slider__container">
+        <div class="back-image image-box first-image">
+          <a href="">
+            <img src="/public/images/image-1.jpg" alt="Movie Image" />
+          </a>
+        </div>
+
+        <div class="back-image image-box third-image">
+          <a href=""><img src="/public/images/image-3.jpg" alt="Movie Image" /></a>
+        </div>
+
+        <div class="front-image image-box second-image">
+          <a href="">
+            <img src="/public/images/image-5.jpg" alt="Movie Image" />
+          </a>
+          <a href="" class="front-image__cover">
+            <div class="image-box__shade">
+              <div class="image-box-about">
+                <h2>black bird</h2>
+                <div class="image-box-description">
+                  <p>
+                    Sit ratione optio aut velit nihil aspernatur magnam est, facere temporibus in neque necessitatibus
+                    assumenda. Aut doloremque voluptas incidunt natus itaque earum?
+                  </p>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="center-components">
+        <div class="switch-btns">
+          <span class="switch-btn"></span>
+          <span class="switch-btn"></span>
+          <span class="switch-btn switch-btn--current"></span>
+          <span class="switch-btn"></span>
+          <span class="switch-btn"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="filter-bar center-components">
+      <div class="filter-bar__container">
+        <ul class="ul-inline">
+          <li><a href="">Trending</a></li>
+          <li><a href="">popular</a></li>
+          <li><a href="">crime</a></li>
+          <li><a href="">comedy</a></li>
+          <li><a href="">netflix</a></li>
+          <li><a href="">amazon</a></li>
+          <li><a href="">apple</a></li>
+          <li><a href="">animations</a></li>
+          <li><a href="">action</a></li>
+          <li><a href="">politics</a></li>
+          <li><a href="">drama</a></li>
+          <li><a href="">adventure</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slider">
+      <div class="section-heading"><h2>trending movies</h2></div>
+      <i class="fas fa-chevron-left slider-btn slider-btn--left"></i>
+      <div class="slider__container">
+        <div class="slider__container-box">
+          <div class="movie-card card-game">
+            <a href="">
+              <img src="/public/images/image-1.jpg" alt="" />
+              <h2>
+                call of duty: infinite warfare
+                <span><i class="fas fa-star"></i> 8.3</span>
+              </h2>
+            </a>
+          </div>
+          <div class="movie-card card-game">
+            <a href="">
+              <img src="/public/images/image-2.jpg" alt="" />
+              <h2>
+                call of duty: infinite warfare
+                <span><i class="fas fa-star"></i> 8.3</span>
+              </h2>
+            </a>
+          </div>
+          <div class="movie-card card-game">
+            <a href="">
+              <img src="/public/images/image-3.jpg" alt="" />
+              <h2>
+                call of duty: infinite warfare
+                <span><i class="fas fa-star"></i> 8.3</span>
+              </h2>
+            </a>
+          </div>
+          <div class="movie-card card-game">
+            <a href="">
+              <img src="/public/images/image-4.jpg" alt="" />
+              <h2>
+                call of duty: infinite warfare
+                <span><i class="fas fa-star"></i> 8.3</span>
+              </h2>
+            </a>
+          </div>
+          <div class="movie-card card-game">
+            <a href="">
+              <img src="/public/images/image-5.jpg" alt="" />
+              <h2>
+                call of duty: infinite warfare
+                <span><i class="fas fa-star"></i> 8.3</span>
+              </h2>
+            </a>
+          </div>
+          <div class="movie-card card-game">
+            <a href="">
+              <img src="/public/images/image-6.jpg" alt="" />
+              <h2>
+                call of duty: infinite warfare
+                <span><i class="fas fa-star"></i> 8.3</span>
+              </h2>
+            </a>
+          </div>
+          <div class="movie-card card-game">
+            <a href="">
+              <img src="/public/images/image-7.jpg" alt="" />
+              <h2>
+                call of duty: infinite warfare
+                <span><i class="fas fa-star"></i> 8.3</span>
+              </h2>
+            </a>
+          </div>
+          <div class="movie-card card-game">
+            <a href="">
+              <img src="/public/images/image-8.jpg" alt="" />
+              <h2>
+                call of duty: infinite warfare
+                <span><i class="fas fa-star"></i> 8.3</span>
+              </h2>
+            </a>
+          </div>
+          <div class="movie-card card-game">
+            <a href="">
+              <img src="/public/images/image-9.jpg" alt="" />
+              <h2>
+                call of duty: infinite warfare
+                <span><i class="fas fa-star"></i> 8.3</span>
+              </h2>
+            </a>
+          </div>
+
+          <div class="slider__container-box-button">
+            <span><a href="">see more</a></span>
+          </div>
+        </div>
+      </div>
+      <i class="fas fa-chevron-right slider-btn slider-btn--right"></i>
+    </section>
+
+    <section class="slider">
+      <div class="section-heading"><h2>top tv shows</h2></div>
+      <i class="fas fa-chevron-left slider-btn slider-btn--left"></i>
+      <div class="slider__container">
+        <div class="slider__container-box">
+          <div class="movie-card card-game">
+            <a href="">
+              <img src="/public/images/image-10.jpg" alt="" />
+              <h2>
+                call of duty: infinite warfare
+                <span><i class="fas fa-star"></i> 8.3</span>
+              </h2>
+            </a>
+          </div>
+          <div class="movie-card card-game">
+            <a href="">
+              <img src="/public/images/image-11.jpg" alt="" />
+              <h2>
+                call of duty: infinite warfare
+                <span><i class="fas fa-star"></i> 8.3</span>
+              </h2>
+            </a>
+          </div>
+          <div class="movie-card card-game">
+            <a href="">
+              <img src="/public/images/image-12.jpg" alt="" />
+              <h2>
+                call of duty: infinite warfare
+                <span><i class="fas fa-star"></i> 8.3</span>
+              </h2>
+            </a>
+          </div>
+          <div class="movie-card card-game">
+            <a href="">
+              <img src="/public/images/image-13.jpg" alt="" />
+              <h2>
+                call of duty: infinite warfare
+                <span><i class="fas fa-star"></i> 8.3</span>
+              </h2>
+            </a>
+          </div>
+          <div class="movie-card card-game">
+            <a href="">
+              <img src="/public/images/image-14.jpg" alt="" />
+              <h2>
+                call of duty: infinite warfare
+                <span><i class="fas fa-star"></i> 8.3</span>
+              </h2>
+            </a>
+          </div>
+          <div class="movie-card card-game">
+            <a href="">
+              <img src="/public/images/image-15.jpg" alt="" />
+              <h2>
+                call of duty: infinite warfare
+                <span><i class="fas fa-star"></i> 8.3</span>
+              </h2>
+            </a>
+          </div>
+          <div class="movie-card card-game">
+            <a href="">
+              <img src="/public/images/image-16.jpg" alt="" />
+              <h2>
+                call of duty: infinite warfare
+                <span><i class="fas fa-star"></i> 8.3</span>
+              </h2>
+            </a>
+          </div>
+          <div class="movie-card card-game">
+            <a href="">
+              <img src="/public/images/image-17.jpg" alt="" />
+              <h2>
+                call of duty: infinite warfare
+                <span><i class="fas fa-star"></i> 8.3</span>
+              </h2>
+            </a>
+          </div>
+          <div class="movie-card card-game">
+            <a href="">
+              <img src="/public/images/image-18.jpg" alt="" />
+              <h2>
+                call of duty: infinite warfare
+                <span><i class="fas fa-star"></i> 8.3</span>
+              </h2>
+            </a>
+          </div>
+
+          <div class="slider__container-box-button">
+            <span><a href="">see more</a></span>
+          </div>
+        </div>
+      </div>
+      <i class="fas fa-chevron-right slider-btn slider-btn--right"></i>
+    </section>
+
+    <section class="slider">
+      <div class="section-heading"><h2>top games</h2></div>
+      <i class="fas fa-chevron-left slider-btn slider-btn--left"></i>
+      <div class="slider__container">
+        <div class="slider__container-box">
+          <div class="game-card">
+            <a href="" class="game-card__cover">
+              <div class="game-card__image" style="background-image: url(/public/images/image-1.jpg)"></div>
+              <div class="game-card__title">The rise of the spartans of the modern day:</div>
+            </a>
+          </div>
+          <div class="game-card">
+            <a href="" class="game-card__cover">
+              <div class="game-card__image" style="background-image: url(/public/images/image-11.jpg)"></div>
+              <div class="game-card__title">The rise of the spartans of the modern day:</div>
+            </a>
+          </div>
+          <div class="game-card">
+            <a href="" class="game-card__cover">
+              <div class="game-card__image" style="background-image: url(/public/images/image-12.jpg)"></div>
+              <div class="game-card__title">The rise of the spartans of the modern day:</div>
+            </a>
+          </div>
+          <div class="game-card">
+            <a href="" class="game-card__cover">
+              <div class="game-card__image" style="background-image: url(/public/images/image-10.jpg)"></div>
+              <div class="game-card__title">The rise of the spartans of the modern day:</div>
+            </a>
+          </div>
+          <div class="game-card">
+            <a href="" class="game-card__cover">
+              <div class="game-card__image" style="background-image: url(/public/images/image-4.jpg)"></div>
+              <div class="game-card__title">The rise of the spartans of the modern day:</div>
+            </a>
+          </div>
+          <div class="game-card">
+            <a href="" class="game-card__cover">
+              <div class="game-card__image" style="background-image: url(/public/images/image-6.jpg)"></div>
+              <div class="game-card__title">The rise of the spartans of the modern day:</div>
+            </a>
+          </div>
+          <div class="game-card">
+            <a href="" class="game-card__cover">
+              <div class="game-card__image" style="background-image: url(/public/images/image-13.jpg)"></div>
+              <div class="game-card__title">The rise of the spartans of the modern day:</div>
+            </a>
+          </div>
+          <div class="game-card">
+            <a href="" class="game-card__cover">
+              <div class="game-card__image" style="background-image: url(/public/images/image-2.jpg)"></div>
+              <div class="game-card__title">The rise of the spartans of the modern day:</div>
+            </a>
+          </div>
+
+          <div class="slider__container-box-button">
+            <span><a href="">see more</a></span>
+          </div>
+        </div>
+      </div>
+      <i class="fas fa-chevron-right slider-btn slider-btn--right"></i>
+    </section>
+
+    <section class="slider">
+      <div class="section-heading"><h2>more games</h2></div>
+      <i class="fas fa-chevron-left slider-btn slider-btn--left"></i>
+      <div class="slider__container">
+        <div class="slider__container-box">
+          <div class="game-card">
+            <a href="" class="game-card__cover">
+              <div class="game-card__image" style="background-image: url(/public/images/image-11.jpg)"></div>
+              <div class="game-card__title">The rise of the spartans of the modern day:</div>
+            </a>
+          </div>
+
+          <div class="game-card">
+            <a href="" class="game-card__cover">
+              <div class="game-card__image" style="background-image: url(/public/images/image-11.jpg)"></div>
+              <div class="game-card__title">The rise of the spartans of the modern day:</div>
+            </a>
+          </div>
+
+          <div class="game-card">
+            <a href="" class="game-card__cover">
+              <div class="game-card__image" style="background-image: url(/public/images/image-11.jpg)"></div>
+              <div class="game-card__title">The rise of the spartans of the modern day:</div>
+            </a>
+          </div>
+
+          <div class="game-card">
+            <a href="" class="game-card__cover">
+              <div class="game-card__image" style="background-image: url(/public/images/image-11.jpg)"></div>
+              <div class="game-card__title">The rise of the spartans of the modern day:</div>
+            </a>
+          </div>
+
+          <div class="game-card">
+            <a href="" class="game-card__cover">
+              <div class="game-card__image" style="background-image: url(/public/images/image-11.jpg)"></div>
+              <div class="game-card__title">The rise of the spartans of the modern day:</div>
+            </a>
+          </div>
+
+          <div class="game-card">
+            <a href="" class="game-card__cover">
+              <div class="game-card__image" style="background-image: url(/public/images/image-11.jpg)"></div>
+              <div class="game-card__title">The rise of the spartans of the modern day:</div>
+            </a>
+          </div>
+
+          <div class="game-card">
+            <a href="" class="game-card__cover">
+              <div class="game-card__image" style="background-image: url(/public/images/image-11.jpg)"></div>
+              <div class="game-card__title">The rise of the spartans of the modern day:</div>
+            </a>
+          </div>
+
+          <div class="game-card">
+            <a href="" class="game-card__cover">
+              <div class="game-card__image" style="background-image: url(/public/images/image-11.jpg)"></div>
+              <div class="game-card__title">The rise of the spartans of the modern day:</div>
+            </a>
+          </div>
+
+          <div class="slider__container-box-button">
+            <span><a href="">see more</a></span>
+          </div>
+        </div>
+      </div>
+      <i class="fas fa-chevron-right slider-btn slider-btn--right"></i>
+    </section>
+
+    <footer class="footer">
+      <div class="footer__container">
+        <div class="footer__logo">
+          <span class="text-logo-secondary">blaciris</span>
+        </div>
+        <div class="disclaimer">
+          <!-- <div class="disclaimer__container"> -->
+          <span class="disclaimer__disclaimer">disclaimer</span>
+          <span class="dislaimer-message">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus, cumque eum. Id, obcaecati debitis sint
+            velit molestias totam reiciendis excepturi deserunt cum itaque, expedita adipisci, repellendus ab fugiat vel
+            sapiente.
+          </span>
+
+          <div class="center-componenet"><button class="btn-red suggest">suggest</button></div>
+          <!-- </div> -->
+        </div>
+      </div>
+    </footer>
+
+    <div class="popup display-off" id="suggest-popup">
+      <!--  -->
+      <div class="popup-box popup-box-normal">
+        <div class="popup-close">
+          <i class="fas fa-times"></i>
+        </div>
+
+        <div class="popup-content create-content">
+          <form class="create-new" id="create-suggest">
+            <div class="form-heading">
+              <h1>Suggest</h1>
+            </div>
+
+            <div class="form-group">
+              <label for="suggest-country" class="label-basic">suggest on</label>
+              <select type="text" id="suggest-country" class="input-basic">
+                <option value="movie">movie</option>
+                <option value="serie">serie</option>
+                <option value="game">game</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="suggest-activity" class="label-basic">message</label>
+              <textarea type="text" id="suggest-activity" class="input-basic"></textarea>
+            </div>
+            <div class="form-group-double">
+              <div class="form-group">
+                <label for="suggest-name" class="label-basic">name</label>
+                <input type="text" id="suggest-name" class="input-basic" placeholder="optional" />
+              </div>
+              <div class="form-group">
+                <label for="suggest-email" class="label-basic">email</label>
+                <input type="email" id="suggest-email" class="input-basic" placeholder="optional" />
+              </div>
+            </div>
+            <div class="center-components">
+              <button type="submit" class="btn-black btn-normal">
+                <span class="btn-content">create</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

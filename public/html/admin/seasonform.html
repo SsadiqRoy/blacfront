@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/public/styles/fontawsome/css/all.min.css" />
+    <link rel="stylesheet" href="/public/styles/css/dashboarforms.css" />
+
+    <title>dashbaord | add season</title>
+  </head>
+  <body>
+    <header class="dashboard-header" id="dashboard-header">
+      <div class="dashboard-header__cover">
+        <div class="dashboard-header__logo">
+          <span><i class="fas fa-bars"></i></span>
+          <span class="text-logo-secondary">blaciris</span>
+        </div>
+        <div class="dashboard-header__search">
+          <form>
+            <input type="search" placeholder="search in movies" />
+            <i class="fas fa-search"></i>
+          </form>
+        </div>
+        <div class="dashboard-header__user">
+          <div class="dashboard-header__user__cover">
+            <span class="dashboard-header__user-name">Ssadiq Roy,</span>
+            <span class="dashboard-header__user-role">admin</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="create">
+      <div class="create__cover">
+        <form class="create-new" id="create-form">
+          <div class="form-heading">
+            <h1>create new season</h1>
+          </div>
+
+          <div class="form-group">
+            <label for="season-title" class="label-basic">season title</label>
+            <input type="text" id="season-title" class="input-basic" />
+          </div>
+
+          <div class="form-group-double">
+            <div class="form-group">
+              <label for="season-number" class="label-basic">sesson number</label>
+              <input type="number" id="season-number" class="input-basic" min="1" />
+            </div>
+            <div class="form-group">
+              <label for="season-year" class="label-basic">year</label>
+              <input type="date" id="season-year" class="input-basic" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="season-description" class="label-basic">description</label>
+            <textarea id="season-description" rows="3" class="textarea-basic"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="season-image-protrait" class="label-basic">image portrait link</label>
+            <input type="text" id="season-image-protrait" class="input-basic" />
+          </div>
+          <div class="form-group">
+            <label for="season-image-landscape" class="label-basic">image landscape link</label>
+            <input type="text" id="season-image-landscape" class="input-basic" />
+          </div>
+
+          <div class="center-components">
+            <button type="submit" class="btn-black btn-normal">
+              <span class="btn-content">save</span>
+            </button>
+          </div>
+        </form>
+
+        <div class="season-episodes margin-t3">
+          <div class="season-episodes__list">
+            <div class="episodelink-card">
+              <div class="episodelink-card__cover">
+                <h3>episode 1</h3>
+
+                <div class="episodelink-card__buttons">
+                  <span><i class="fas fa-edit"></i></span>
+                  <span><i class="fas fa-trash"></i></span>
+                </div>
+              </div>
+            </div>
+            <div class="episodelink-card">
+              <div class="episodelink-card__cover">
+                <h3>episode 2</h3>
+
+                <div class="episodelink-card__buttons">
+                  <span><i class="fas fa-edit"></i></span>
+                  <span><i class="fas fa-trash"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="center-components">
+            <button type="submit" class="btn-black btn-normal">
+              <span class="btn-content">add episode</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div class="popup display-off" id="create-game-popup">
+      <!--  -->
+      <div class="popup-box">
+        <div class="popup-close">
+          <i class="fas fa-times"></i>
+        </div>
+        <div class="popup-content create-content">
+          <form class="create-new" id="create-form">
+            <div class="form-heading">
+              <h1>link</h1>
+            </div>
+
+            <div class="form-group-double">
+              <div class="form-group">
+                <label for="episode-title" class="label-basic">episode title</label>
+                <input type="text" id="episode-title" class="input-basic" />
+              </div>
+              <div class="form-group">
+                <label for="episode-number" class="label-basic">episode number</label>
+                <input type="number" id="episode-number" class="input-basic" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="episode-480-link" class="label-basic">480 link</label>
+              <input type="text" id="episode-480-link" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="episode-720-link" class="label-basic">720 link</label>
+              <input type="text" id="episode-720-link" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="episode-720x256-link" class="label-basic">720x256 link</label>
+              <input type="text" id="episode-720x256-link" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="episode-1080-link" class="label-basic">1080 link</label>
+              <input type="text" id="episode-1080-link" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="episode-2160-link" class="label-basic">2160 link</label>
+              <input type="text" id="episode-2160-link" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="episode-other-link" class="label-basic">other link</label>
+              <input type="text" id="episode-other-link" class="input-basic" />
+            </div>
+            <div class="form-group">
+              <label for="episode-subtitle-link" class="label-basic">subtitle link</label>
+              <input type="text" id="episode-subtitle-link" class="input-basic" />
+            </div>
+
+            <div class="center-components">
+              <button type="submit" class="btn-black btn-normal">
+                <span class="btn-content">save</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
