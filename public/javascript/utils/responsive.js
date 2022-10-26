@@ -88,14 +88,15 @@ export function adminSearchBar() {
       searchBar.focus();
     });
   // hiding searchbar and unhiding logo and username
-  searchBar.addEventListener('blur', () => {
-    if (window.innerWidth < 400 && searchBar.value.length < 1) {
-      logo.style.display = 'initial';
-      user.style.display = 'initial';
-      searchBtn.style.display = 'initial';
-      searchBar.style.display = 'none';
-    }
-  });
+  searchBar &&
+    searchBar.addEventListener('blur', () => {
+      if (window.innerWidth < 400 && searchBar.value.length < 1) {
+        logo.style.display = 'initial';
+        user.style.display = 'initial';
+        searchBtn.style.display = 'initial';
+        searchBar.style.display = 'none';
+      }
+    });
 }
 
 /**
@@ -118,14 +119,15 @@ export function clientSearchBar() {
       searchBar.focus();
     });
   // hiding searchbar and unhiding logo and username
-  searchBar.addEventListener('blur', () => {
-    if (window.innerWidth < 600 && searchBar.value.length < 1) {
-      logo.style.display = 'flex';
-      user.style.display = 'initial';
-      searchBtn.style.display = 'initial';
-      searchBar.style.display = 'none';
-    }
-  });
+  searchBar &&
+    searchBar.addEventListener('blur', () => {
+      if (window.innerWidth < 600 && searchBar.value.length < 1) {
+        logo.style.display = 'flex';
+        user.style.display = 'initial';
+        searchBtn.style.display = 'initial';
+        searchBar.style.display = 'none';
+      }
+    });
 }
 
 /**

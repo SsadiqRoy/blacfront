@@ -10,46 +10,87 @@ import * as utils from './utils.js';
  */
 export async function searchItem(model, containerId, cardType) {
   const form = document.getElementById('search-form');
+  const body = document.querySelector('body');
+
+  // console.log('searchform ', form);
 
   form &&
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const input = form.querySelector('input');
+      const text = input.value;
 
-      try {
-        const input = form.querySelector('input');
-        const text = input.value;
+      search(text);
+    });
+
+  body.addEventListener('click', (e) => {
+    const { target } = e;
+    if (!target.classList.contains('query-tag')) return;
+    const { query } = target.dataset;
+
+    if (target.classList.contains('search')) {
+      search(query);
+    }
+    if (target.classList.contains('query')) {
+      search(query, 'query');
+    }
+  });
+
+  /**
+   * makes search or query for data
+   * @param {String} text a search word or tag data-query
+   * @param {String} type whether your are making a search or a normal query
+   * @returns null - breaks
+   * type : search or query
+   */
+  async function search(text, type = 'search') {
+    try {
+      // search for the data
+      let meta, data, suggestion;
+      if (type === 'search') {
         const searchText = text.split(' ').join('-');
-        console.log(text, searchText);
-        // search for the data
-        const { meta, data, suggestion } = await mod.getfull(`/${model}s/search?text=${searchText}`);
-        // if there is no more results
-        if (!data.length) {
-          return utils.alertResponse(`Could not find anything on <i>${text}</i>. check spelling`, 4, 'failed');
-        }
-        // clearing the content area
-        const displayer = document.getElementById(containerId);
-        displayer.innerHTML = '';
-        // setting the query meta to the body for show more sake
-        utils.pageQuery(meta);
-        // displaying data to the container
+        const { meta: m, data: d, suggestion: s } = await mod.getfull(`/${model}s/search?text=${searchText}`);
+        meta = m;
+        data = d;
+        suggestion = s;
+      }
+      if (type === 'query') {
+        const { meta: m, data: d, suggestion: s } = await mod.getfull(`/${model}s?${text}`);
+        meta = m;
+        data = d;
+        suggestion = s;
+      }
+
+      // if there is no more results
+      // console.log(data);
+      if (!data.length && (!suggestion || !suggestion.length)) {
+        return utils.alertResponse(`Sorry!! Could not find anything.`, 4, 'failed');
+      }
+      // clearing the content area
+      const displayer = document.getElementById(containerId);
+      displayer.innerHTML = '';
+      // setting the query meta to the body for show more sake
+      utils.pageQuery(meta);
+      // displaying data to the container
+      data.length &&
         data.forEach((item) => {
           const markuper = utils[cardType];
           const markup = markuper(item, model);
           displayer.insertAdjacentHTML('beforeend', markup);
         });
 
-        // adding more data if there are suggestion
-        if (suggestion && suggestion.length) {
-          suggestion.forEach((item) => {
-            const markuper = utils[cardType];
-            const markup = markuper(item, model);
-            displayer.insertAdjacentHTML('beforeend', markup);
-          });
-        }
-      } catch (error) {
-        utils.displayError(error);
+      // adding more data if there are suggestion
+      if (suggestion && suggestion.length) {
+        suggestion.forEach((item) => {
+          const markuper = utils[cardType];
+          const markup = markuper(item, model);
+          displayer.insertAdjacentHTML('beforeend', markup);
+        });
       }
-    });
+    } catch (error) {
+      utils.displayError(error);
+    }
+  }
 }
 
 /**
@@ -60,6 +101,7 @@ export async function searchItem(model, containerId, cardType) {
  */
 export function showMore(model, containerId, cardType) {
   const showMore = document.getElementById('show-more');
+  // console.log('showMore ', showMore);
 
   showMore &&
     showMore.addEventListener('click', async (e) => {

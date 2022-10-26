@@ -70,6 +70,7 @@ export function initializer() {
   utils.adminSidebar(), utils.adminSearchBar();
   managePopups();
   ind.showMore('serie', 'items-container', 'dbMovieCard');
+  ind.searchItem('serie', 'items-container', 'dbMovieCard');
 }
 
 /*

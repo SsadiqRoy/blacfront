@@ -5,12 +5,12 @@ block content
     .main__cover
       .main__filter#main-filter
         .main__filter__cover
-          span.main__filter-tag.special-tag new
-          span.main__filter-tag.special-tag last updated
-          span.main__filter-tag.special-tag top
-          span.main__filter-tag.normal-tag trending
-          span.main__filter-tag.normal-tag netflix
-          span.main__filter-tag.special-tag this year
+          span.main__filter-tag.query-tag.query(data-query=`order=releasedDate,desc`) new
+          span.main__filter-tag.query-tag.query(data-query=`order=updatedAt,desc`) last updated
+          span.main__filter-tag.query-tag.query(data-query=`rating=gte,7&order=releasedDate,desc`) top
+          span.main__filter-tag.query-tag.search(data-query=`trending`) trending
+          span.main__filter-tag.query-tag.search(data-query=`netflix`) netflix
+          span.main__filter-tag.query-tag.query(data-query=`releasedDate=gte,01/01/2022&order=releasedDate,desc`) this year
       
       .main__container#main-container
         .main__container__cover#items-container

@@ -5,12 +5,11 @@ block content
     .main__cover
       .main__filter#main-filter
         .main__filter__cover
-          span.main__filter-tag new
-          span.main__filter-tag runnig
-          span.main__filter-tag draft
-          span.main__filter-tag past
-          span.main__filter-tag ended
-          span.main__filter-tag comming
+          span.main__filter-tag.query-tag.query(data-query=`order=releasedDate,desc`) new
+          span.main__filter-tag.query-tag.query(data-query=`order=updatedAt,desc`) last updated
+          span.main__filter-tag.query-tag.query(data-query=`rating=gte,7&order=releasedDate,desc`) top
+          span.main__filter-tag.query-tag.search(data-query=`trending`) trending
+          span.main__filter-tag.query-tag.query(data-query=`releasedDate=gte,01/01/2022&order=releasedDate,desc`) this year
 
       .main__container#main-container
         .main__container__cover#items-container

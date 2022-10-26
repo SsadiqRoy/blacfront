@@ -786,7 +786,7 @@ function adminSearchBar() {
         searchBar.focus();
     });
     // hiding searchbar and unhiding logo and username
-    searchBar.addEventListener("blur", ()=>{
+    searchBar && searchBar.addEventListener("blur", ()=>{
         if (window.innerWidth < 400 && searchBar.value.length < 1) {
             logo.style.display = "initial";
             user.style.display = "initial";
@@ -809,7 +809,7 @@ function clientSearchBar() {
         searchBar.focus();
     });
     // hiding searchbar and unhiding logo and username
-    searchBar.addEventListener("blur", ()=>{
+    searchBar && searchBar.addEventListener("blur", ()=>{
         if (window.innerWidth < 600 && searchBar.value.length < 1) {
             logo.style.display = "flex";
             user.style.display = "initial";
@@ -1324,7 +1324,7 @@ function dbMovieCard(movie, type = "movie") {
     <div class="dbmovie-card__buttons">
     <a href="/${type}/${movie.id}" title="view"><i class="fas fa-eye"></i></a>
     <a href="/dashboard/update${type}/${movie.id}" title="edit"><i class="far fa-edit"></i></a>
-    <a href="" title="delete"><i class="fas fa-trash delete-item"></i></a>
+    <a title="delete"><i class="fas fa-trash delete-item"></i></a>
   </div>
   </div>
   `;
@@ -1401,24 +1401,54 @@ var _modelJs = require("../model/model.js");
 var _utilsJs = require("./utils.js");
 async function searchItem(model, containerId, cardType) {
     const form = document.getElementById("search-form");
+    const body = document.querySelector("body");
+    // console.log('searchform ', form);
     form && form.addEventListener("submit", async (e)=>{
         e.preventDefault();
+        const input = form.querySelector("input");
+        const text = input.value;
+        search(text);
+    });
+    body.addEventListener("click", (e)=>{
+        const { target  } = e;
+        if (!target.classList.contains("query-tag")) return;
+        const { query  } = target.dataset;
+        if (target.classList.contains("search")) search(query);
+        if (target.classList.contains("query")) search(query, "query");
+    });
+    /**
+   * makes search or query for data
+   * @param {String} text a search word or tag data-query
+   * @param {String} type whether your are making a search or a normal query
+   * @returns null - breaks
+   * type : search or query
+   */ async function search(text, type = "search") {
         try {
-            const input = form.querySelector("input");
-            const text = input.value;
-            const searchText = text.split(" ").join("-");
-            console.log(text, searchText);
             // search for the data
-            const { meta , data , suggestion  } = await _modelJs.getfull(`/${model}s/search?text=${searchText}`);
+            let meta, data, suggestion;
+            if (type === "search") {
+                const searchText = text.split(" ").join("-");
+                const { meta: m , data: d , suggestion: s  } = await _modelJs.getfull(`/${model}s/search?text=${searchText}`);
+                meta = m;
+                data = d;
+                suggestion = s;
+            }
+            if (type === "query") {
+                const { meta: m1 , data: d1 , suggestion: s1  } = await _modelJs.getfull(`/${model}s?${text}`);
+                meta = m1;
+                data = d1;
+                suggestion = s1;
+            }
             // if there is no more results
-            if (!data.length) return _utilsJs.alertResponse(`Could not find anything on <i>${text}</i>. check spelling`, 4, "failed");
+            // console.log(data);
+            if (!data.length && (!suggestion || !suggestion.length)) return _utilsJs.alertResponse(`Sorry!! Could not find anything.`, 4, "failed");
             // clearing the content area
             const displayer = document.getElementById(containerId);
             displayer.innerHTML = "";
             // setting the query meta to the body for show more sake
             _utilsJs.pageQuery(meta);
             // displaying data to the container
-            data.forEach((item)=>{
+            data.length && data.forEach((item)=>{
                 const markuper = _utilsJs[cardType];
                 const markup = markuper(item, model);
                 displayer.insertAdjacentHTML("beforeend", markup);
@@ -1432,10 +1462,11 @@ async function searchItem(model, containerId, cardType) {
         } catch (error) {
             _utilsJs.displayError(error);
         }
-    });
+    }
 }
 function showMore(model, containerId, cardType) {
     const showMore = document.getElementById("show-more");
+    // console.log('showMore ', showMore);
     showMore && showMore.addEventListener("click", async (e)=>{
         try {
             const query = _utilsJs.structureQuery();

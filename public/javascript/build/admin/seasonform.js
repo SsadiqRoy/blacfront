@@ -1038,7 +1038,7 @@ function adminSearchBar() {
         searchBar.focus();
     });
     // hiding searchbar and unhiding logo and username
-    searchBar.addEventListener("blur", ()=>{
+    searchBar && searchBar.addEventListener("blur", ()=>{
         if (window.innerWidth < 400 && searchBar.value.length < 1) {
             logo.style.display = "initial";
             user.style.display = "initial";
@@ -1061,7 +1061,7 @@ function clientSearchBar() {
         searchBar.focus();
     });
     // hiding searchbar and unhiding logo and username
-    searchBar.addEventListener("blur", ()=>{
+    searchBar && searchBar.addEventListener("blur", ()=>{
         if (window.innerWidth < 600 && searchBar.value.length < 1) {
             logo.style.display = "flex";
             user.style.display = "initial";
@@ -1576,7 +1576,7 @@ function dbMovieCard(movie, type = "movie") {
     <div class="dbmovie-card__buttons">
     <a href="/${type}/${movie.id}" title="view"><i class="fas fa-eye"></i></a>
     <a href="/dashboard/update${type}/${movie.id}" title="edit"><i class="far fa-edit"></i></a>
-    <a href="" title="delete"><i class="fas fa-trash delete-item"></i></a>
+    <a title="delete"><i class="fas fa-trash delete-item"></i></a>
   </div>
   </div>
   `;

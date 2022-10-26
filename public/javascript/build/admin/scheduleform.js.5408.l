@@ -142,14 +142,14 @@
       this[globalName] = mainExports;
     }
   }
-})({"kbXhb":[function(require,module,exports) {
+})({"4vuwo":[function(require,module,exports) {
 "use strict";
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "42036d7a98ade5a7";
-module.bundle.HMR_BUNDLE_ID = "aa691953a297a54a";
+module.bundle.HMR_BUNDLE_ID = "5df255a24a57150d";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, chrome, browser, globalThis, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
   HMRAsset,
@@ -531,114 +531,134 @@ function hmrAcceptRun(bundle, id) {
     acceptedAssets[id] = true;
 }
 
-},{}],"hZ9h9":[function(require,module,exports) {
-var _gamesviewJs = require("../../view/admin/gamesview.js");
+},{}],"2kBjB":[function(require,module,exports) {
+var _scheduleformviewJs = require("../../view/admin/scheduleformview.js");
 var _modelJs = require("../../model/model.js");
-//
-async function controlDelete(cardId, btnId) {
+async function controlCreate(btnId) {
     try {
-        console.log(cardId);
-        const res = await _modelJs.deletefull(`/games/${cardId}`);
-        _gamesviewJs.renderDelete(res, btnId);
+        const data = _scheduleformviewJs.getScheduleData();
+        // console.log(data);
+        const res = await _modelJs.post("/schedules/create", data);
+        _scheduleformviewJs.renderCreated(res, "created", btnId);
     } catch (error) {
-        _gamesviewJs.displayError(error, btnId);
+        _scheduleformviewJs.displayError(error, btnId);
+    }
+}
+//
+async function controlUpdate(scheduleId, btnId) {
+    try {
+        const data = _scheduleformviewJs.getScheduleData();
+        const res = await _modelJs.patch(`/schedules/${scheduleId}`, data);
+        _scheduleformviewJs.renderCreated(res, "created", btnId);
+    } catch (error) {
+        _scheduleformviewJs.displayError(error, btnId);
     }
 }
 async function init() {
-    _gamesviewJs.initializer();
-    _gamesviewJs.handleDelete(controlDelete);
+    _scheduleformviewJs.handleCreate(controlCreate, controlUpdate);
 }
 init();
 
-},{"../../view/admin/gamesview.js":"55uv2","../../model/model.js":"cEBbY"}],"55uv2":[function(require,module,exports) {
+},{"../../view/admin/scheduleformview.js":"dhhH7","../../model/model.js":"cEBbY"}],"dhhH7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "displayError", ()=>displayError);
-/**
- * render response after creating or updating game
- * @param {Object} data response object (deleted game)
- * @returns null - break action
- */ parcelHelpers.export(exports, "renderDelete", ()=>renderDelete);
+//
+parcelHelpers.export(exports, "renderCreated", ()=>renderCreated);
 /*
 
 
 
 
 
-  */ // ================== GETTERS ============
+*/ // ================== GETTERS ============
+parcelHelpers.export(exports, "getScheduleData", ()=>getScheduleData);
 /*
 
 
 
 
 
-  */ // =================== HANDLERS ==========
-parcelHelpers.export(exports, "handleDelete", ()=>handleDelete);
-/*
+*/ // =================== HANDLERS ==========
+parcelHelpers.export(exports, "handleCreate", ()=>handleCreate) /*
 
 
 
 
 
-  */ // ================== INITIALIZER =========
-parcelHelpers.export(exports, "initializer", ()=>initializer);
+*/  // ================== INITIALIZER =========
+ /*
+
+
+
+
+
+*/  // ================== NON EXPORTING FUNCTIONS =
+ // ================= RENDERES ===========
+ /*
+
+
+
+
+
+  */  // ================== GETTERS ============
+ /*
+
+
+
+
+
+  */  // =================== HANDLERS ==========
+ /*
+
+
+
+
+
+  */  // ================== INITIALIZER =========
+ /*
+
+
+
+
+
+  */  // ================== NON EXPORTING FUNCTIONS =
+;
 var _utilsJs = require("../../utils/utils.js");
-var _independentJs = require("../../utils/independent.js");
 const displayError = _utilsJs.displayError;
-function renderDelete(data, btn) {
+function renderCreated(data, action, btnId) {
     if (!data) {
-        _utilsJs.alertResponse("failed deleting or could not display results, am reloading", 6, "failed");
-        _utilsJs.stopRotateBtn(btn);
-        return window.setTimeout(()=>window.location.reload(), 6500);
+        _utilsJs.stopRotateBtn(btnId);
+        return _utilsJs.alertResponse("failed creating or could not display results - try find on schedules page", 6, "failed");
     }
-    _utilsJs.alertResponse(`Game - ${data.data.title} - has been deleted successfully`);
-    _utilsJs.stopRotateBtn(btn);
-    const id = data.data.id;
-    const card = document.querySelector(`[data-card-id="${id}"`);
-    card.parentElement.removeChild(card);
-    _utilsJs.closePopup("delete-game-popup");
+    _utilsJs.alertResponse(`Schedule - ${new Date(data.date).toLocaleString()} - has been ${action}`);
+    _utilsJs.stopRotateBtn(btnId);
+    window.setTimeout(()=>{
+        window.location.assign("/dashboard/schedules");
+    }, 3500);
 }
-function handleDelete(controlDelete) {
-    const form = document.getElementById("delete-game");
+function getScheduleData() {
+    const date = document.getElementById("schedule-date").value;
+    const message = document.getElementById("schedule-message").value;
+    const { user  } = document.getElementById("create-schedule").dataset;
+    return {
+        date,
+        message,
+        user
+    };
+}
+function handleCreate(controlCreate, controlUpdate) {
+    const form = document.getElementById("create-schedule");
     form && form.addEventListener("submit", (e)=>{
         e.preventDefault();
-        const { cardId  } = form.dataset;
-        const btn = "delete-game-btn";
-        _utilsJs.rotateBtn(btn);
-        controlDelete(cardId, btn);
-    });
-}
-function initializer() {
-    _utilsJs.adminSidebar(), _utilsJs.adminSearchBar();
-    managePopups();
-    _independentJs.showMore("game", "items-container", "dbMovieCard");
-    _independentJs.searchItem("game", "items-container", "dbMovieCard");
-}
-//
-/*
-
-
-
-
-
-  */ // ================== NON EXPORTING FUNCTIONS =
-function managePopups() {
-    const container = document.getElementById("main-container");
-    const form = document.getElementById("delete-game");
-    container && container.addEventListener("click", (e)=>{
-        const { target  } = e;
-        if (target.classList.contains("delete-item")) {
-            const card = target.closest(".dbmovie-card");
-            const { cardId  } = card.dataset;
-            form.dataset.cardId = cardId;
-            _utilsJs.openPopup("delete-game-popup", ()=>{
-                form.dataset.cardId = "";
-            });
-        }
+        _utilsJs.rotateBtn("create-schedule-btn");
+        const { scheduleId  } = form.dataset;
+        if (scheduleId) return controlUpdate(scheduleId, "create-schedule-btn");
+        controlCreate("create-schedule-btn");
     });
 }
 
-},{"../../utils/utils.js":"bvANu","../../utils/independent.js":"gaDpA","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"bvANu":[function(require,module,exports) {
+},{"../../utils/utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"bvANu":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "openPopup", ()=>openPopup);
@@ -775,7 +795,7 @@ function adminSearchBar() {
         searchBar.focus();
     });
     // hiding searchbar and unhiding logo and username
-    searchBar && searchBar.addEventListener("blur", ()=>{
+    searchBar.addEventListener("blur", ()=>{
         if (window.innerWidth < 400 && searchBar.value.length < 1) {
             logo.style.display = "initial";
             user.style.display = "initial";
@@ -798,7 +818,7 @@ function clientSearchBar() {
         searchBar.focus();
     });
     // hiding searchbar and unhiding logo and username
-    searchBar && searchBar.addEventListener("blur", ()=>{
+    searchBar.addEventListener("blur", ()=>{
         if (window.innerWidth < 600 && searchBar.value.length < 1) {
             logo.style.display = "flex";
             user.style.display = "initial";
@@ -1370,134 +1390,7 @@ function scheduleCard(schedule) {
     return markup;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"gaDpA":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-/**
- * An independent Functon - takes a search text and request for results. Then display the results on the display container
- * @param {String} model sequelize model name in singular. eg "movie", "game"
- * @param {String} containerId element id of the container where the data will be displayed in
- * @param {String} cardType the type of card the data would be using. eg: dbmovieCard, scheduleCard
- * @returns null - break function
- */ parcelHelpers.export(exports, "searchItem", ()=>searchItem);
-/**
- * An independent Functon - gets the query meta from the body and query for the next page
- * @param {String} model sequelize model name in singular. eg "movie", "game"
- * @param {String} containerId element id of the container where the data will be displayed in
- * @param {String} cardType the type of card the data would be using. eg: dbmovieCard, scheduleCard
- */ parcelHelpers.export(exports, "showMore", ()=>showMore);
-var _modelJs = require("../model/model.js");
-var _utilsJs = require("./utils.js");
-async function searchItem(model, containerId, cardType) {
-    const form = document.getElementById("search-form");
-    const body = document.querySelector("body");
-    // console.log('searchform ', form);
-    form && form.addEventListener("submit", async (e)=>{
-        e.preventDefault();
-        const input = form.querySelector("input");
-        const text = input.value;
-        search(text);
-    });
-    body.addEventListener("click", (e)=>{
-        const { target  } = e;
-        if (!target.classList.contains("query-tag")) return;
-        const { query  } = target.dataset;
-        if (target.classList.contains("search")) search(query);
-        if (target.classList.contains("query")) search(query, "query");
-    });
-    /**
-   * makes search or query for data
-   * @param {String} text a search word or tag data-query
-   * @param {String} type whether your are making a search or a normal query
-   * @returns null - breaks
-   * type : search or query
-   */ async function search(text, type = "search") {
-        try {
-            // search for the data
-            let meta, data, suggestion;
-            if (type === "search") {
-                const searchText = text.split(" ").join("-");
-                const { meta: m , data: d , suggestion: s  } = await _modelJs.getfull(`/${model}s/search?text=${searchText}`);
-                meta = m;
-                data = d;
-                suggestion = s;
-            }
-            if (type === "query") {
-                const { meta: m1 , data: d1 , suggestion: s1  } = await _modelJs.getfull(`/${model}s?${text}`);
-                meta = m1;
-                data = d1;
-                suggestion = s1;
-            }
-            // if there is no more results
-            // console.log(data);
-            if (!data.length && (!suggestion || !suggestion.length)) return _utilsJs.alertResponse(`Sorry!! Could not find anything.`, 4, "failed");
-            // clearing the content area
-            const displayer = document.getElementById(containerId);
-            displayer.innerHTML = "";
-            // setting the query meta to the body for show more sake
-            _utilsJs.pageQuery(meta);
-            // displaying data to the container
-            data.length && data.forEach((item)=>{
-                const markuper = _utilsJs[cardType];
-                const markup = markuper(item, model);
-                displayer.insertAdjacentHTML("beforeend", markup);
-            });
-            // adding more data if there are suggestion
-            if (suggestion && suggestion.length) suggestion.forEach((item)=>{
-                const markuper = _utilsJs[cardType];
-                const markup = markuper(item, model);
-                displayer.insertAdjacentHTML("beforeend", markup);
-            });
-        } catch (error) {
-            _utilsJs.displayError(error);
-        }
-    }
-}
-function showMore(model, containerId, cardType) {
-    const showMore = document.getElementById("show-more");
-    // console.log('showMore ', showMore);
-    showMore && showMore.addEventListener("click", async (e)=>{
-        try {
-            const query = _utilsJs.structureQuery();
-            const oldmeta = _utilsJs.pageQuery();
-            if (!oldmeta.length) return _utilsJs.alertResponse(`No more ${model}s to show`, 4, "failed");
-            console.log(oldmeta);
-            let meta, data, suggestion;
-            if (oldmeta.text) {
-                const { meta: m , data: d , suggestion: s  } = await _modelJs.getfull(`/${model}s/search${query}`);
-                meta = m;
-                data = d;
-                suggestion = s;
-            } else {
-                const { meta: m1 , data: d1 , suggestion: s1  } = await _modelJs.getfull(`/${model}s${query}`);
-                meta = m1;
-                data = d1;
-                suggestion = s1;
-            }
-            // if there is no more results
-            if (!meta.length && (!suggestion || !suggestion.length)) return _utilsJs.alertResponse(`No more ${model}s to show for the search or tag`, 4, "failed");
-            _utilsJs.pageQuery(meta);
-            // clearing the content area
-            const displayer = document.getElementById(containerId);
-            // displaying data to the container
-            data.forEach((item)=>{
-                const markuper = _utilsJs[cardType];
-                const markup = markuper(item, model);
-                displayer.insertAdjacentHTML("beforeend", markup);
-            });
-            // adding more data if there are suggestion
-            if (suggestion && suggestion.length) suggestion.forEach((item)=>{
-                const markuper = _utilsJs[cardType];
-                const markup = markuper(item, model);
-                displayer.insertAdjacentHTML("beforeend", markup);
-            });
-        } catch (error) {
-            _utilsJs.displayError(error);
-        }
-    });
-}
-
-},{"../model/model.js":"cEBbY","./utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"cEBbY":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"cEBbY":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "get", ()=>get);
@@ -5872,5 +5765,5 @@ function isAxiosError(payload) {
 }
 exports.default = isAxiosError;
 
-},{"./../utils.js":"lbtnr","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}]},["kbXhb","hZ9h9"], "hZ9h9", "parcelRequire517a")
+},{"./../utils.js":"lbtnr","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}]},["4vuwo","2kBjB"], "2kBjB", "parcelRequire517a")
 
