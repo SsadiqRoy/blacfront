@@ -67,6 +67,12 @@ export function adminSidebar() {
       }
     });
 }
+/*
+
+- name: FTP Deploy
+  uses: SamKirkland/FTP-Deploy-Action@4.3.2
+
+*/
 
 /**
  * Made for devices with width under 400px.

@@ -711,7 +711,12 @@ parcelHelpers.defineInteropFlag(exports);
 /**
  * Opens and close the admin sidebar when the menu bars on the header is clicked
  */ parcelHelpers.export(exports, "adminSidebar", ()=>adminSidebar);
-/**
+/*
+
+- name: FTP Deploy
+  uses: SamKirkland/FTP-Deploy-Action@4.3.2
+
+*/ /**
  * Made for devices with width under 400px.
  * Making the search bar visible when the search icon is clicked and
  * hiding it on blur
