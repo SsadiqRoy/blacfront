@@ -699,7 +699,7 @@ parcelHelpers.defineInteropFlag(exports);
  */ parcelHelpers.export(exports, "adminSidebar", ()=>adminSidebar);
 /*
 
-- name: FTP Deploy
+- name: FTP Deploy 
   uses: SamKirkland/FTP-Deploy-Action@4.3.2
 
 */ /**
