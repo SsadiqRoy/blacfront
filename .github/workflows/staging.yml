@@ -1,26 +1,26 @@
-name: MitchWind Deploy
+# name: MitchWind Deploy
 
-on:
-  push:
-    branches:
-      - staging
-jobs:
-  Make:
-    runs-on: ubuntu-latest
-    name: Make ${{matrix.work}} ${{matrix.arch}}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@main
-      - name: down
-        uses: MitchWind/ftp-deploy@master
-        with:
-          server: ftp.blaciris.com
-          username: ${{ secrets.ftp_username }}
-          password: ${{ secrets.ftp_password }}
-          local_dir: 'targets'
-          server_dir: /public_html/staging_blaciris/
-          delete: false
-          port: 20
+# on:
+#   push:
+#     branches:
+#       - staging
+# jobs:
+#   Make:
+#     runs-on: ubuntu-latest
+#     name: Make ${{matrix.work}} ${{matrix.arch}}
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@main
+#       - name: down
+#         uses: MitchWind/ftp-deploy@master
+#         with:
+#           server: ftp.blaciris.com
+#           username: ${{ secrets.ftp_username }}
+#           password: ${{ secrets.ftp_password }}
+#           local_dir: 'targets'
+#           server_dir: /public_html/staging_blaciris
+#           delete: false
+#           port: 20
 #
 # SECOND DEPLOY ACTION
 # name: Deploy Files
@@ -62,25 +62,28 @@ jobs:
 #           sync: full
 
 # FIRST DEPLOY ACTION
-# on:
-#   push:
-#     branches:
-#       - staging
 
-# name: 🚀 Deploy website on push
-# jobs:
-#   web-deploy:
-#     name: 🎉 Deploy
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: 🚚 Get latest code
-#         uses: actions/checkout@v2.5.0
+name: SamKirkland Deploy
 
-#       - name: 📂 Sync files
-#         uses: SamKirkland/FTP-Deploy-Action@4.3.2
-#         with:
-#           server: ftp.blaciris.com
-#           username: ${{ secrets.ftp_username }}
-#           password: ${{ secrets.ftp_password }}
-#           server-dir: /public_html/staging.blaciris/
-#           port: 20
+on:
+  push:
+    branches:
+      - staging
+
+name: 🚀 Deploy website on push
+jobs:
+  web-deploy:
+    name: 🎉 SamKirkland Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.3.2
+        with:
+          server: ftp.blaciris.com
+          username: ${{ secrets.ftp_username }}
+          password: ${{ secrets.ftp_password }}
+          server-dir: /public_html/staging_blaciris
+          port: 20
