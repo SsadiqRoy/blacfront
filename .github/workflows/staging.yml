@@ -1,40 +1,67 @@
-name: Deploy Files
+name: MitchWind Deploy
 
 on:
   push:
     branches:
       - staging
-  # Enables manually triggering of Workflow with file synchronization option
-  workflow_dispatch:
-    inputs:
-      sync:
-        description: 'File synchronization'
-        required: true
-        default: 'full'
-
 jobs:
-  deploy-staging:
-    name: 'staging branch'
-    if: ${{ github.ref == 'refs/heads/staging' }}
+  Make:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    name: Make ${{matrix.work}} ${{matrix.arch}}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@main
+      - name: down
+        uses: MitchWind/ftp-deploy@master
         with:
-          fetch-depth: 0
-      - name: Deploy
-        uses: milanmk/actions-file-deployer@master
-        with:
-          remote-protocol: ftp
-          remote-host: ftp.blaciris.com
-          remote-port: 20
-          remote-user: ${{ secrets.ftp_username }}
-          remote-password: ${{ secrets.ftp_password }}
-          # ssh-private-key: ${{ secrets.DEPLOY_PRIVATE_KEY }}
-          remote-path: /public_html/staging_blaciris/
-          debug: true
-          sync: full
+          server: ftp.blaciris.com
+          username: ${{ secrets.ftp_username }}
+          password: ${{ secrets.ftp_password }}
+          local_dir: 'targets'
+          server_dir: /public_html/staging_blaciris/
+          delete: false
+          port: 20
+#
+# SECOND DEPLOY ACTION
+# name: Deploy Files
+
+# on:
+#   push:
+#     branches:
+#       - staging
+#   # Enables manually triggering of Workflow with file synchronization option
+#   workflow_dispatch:
+#     inputs:
+#       sync:
+#         description: 'File synchronization'
+#         required: true
+#         default: 'full'
+
+# jobs:
+#   deploy-staging:
+#     name: 'staging branch'
+#     if: ${{ github.ref == 'refs/heads/staging' }}
+#     runs-on: ubuntu-latest
+#     timeout-minutes: 30
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 0
+#       - name: Deploy
+#         uses: milanmk/actions-file-deployer@master
+#         with:
+#           remote-protocol: ftp
+#           remote-host: ftp.blaciris.com
+#           remote-port: 20
+#           remote-user: ${{ secrets.ftp_username }}
+#           remote-password: ${{ secrets.ftp_password }}
+#           # ssh-private-key: ${{ secrets.DEPLOY_PRIVATE_KEY }}
+#           remote-path: /public_html/staging_blaciris/
+#           debug: true
+#           sync: full
+
+# FIRST DEPLOY ACTION
 # on:
 #   push:
 #     branches:
