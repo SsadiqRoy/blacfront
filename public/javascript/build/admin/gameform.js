@@ -935,7 +935,7 @@ parcelHelpers.defineInteropFlag(exports);
  */ parcelHelpers.export(exports, "adminSidebar", ()=>adminSidebar);
 /*
 
-- name: FTP Deploy
+- name: FTP Deploy 
   uses: SamKirkland/FTP-Deploy-Action@4.3.2
 
 */ /**
@@ -1637,8 +1637,8 @@ async function get(url) {
         });
         return res.data.data;
     } catch (error) {
-        console.log(error);
-        throw error.response.data;
+        console.log("blaciris \uD83D\uDD25", error);
+        throw error.response ? error.response.data : error;
     }
 }
 async function getfull(url) {
@@ -1651,8 +1651,8 @@ async function getfull(url) {
         });
         return res.data;
     } catch (error) {
-        console.log(error);
-        throw error.response.data;
+        console.log("blaciris \uD83D\uDD25", error);
+        throw error.response ? error.response.data : error;
     }
 }
 async function patch(url, body) {
@@ -1667,8 +1667,8 @@ async function patch(url, body) {
         });
         return res.data.data;
     } catch (error) {
-        console.log(error);
-        throw error.response.data;
+        console.log("blaciris \uD83D\uDD25", error);
+        throw error.response ? error.response.data : error;
     }
 }
 async function patchfull(url, body) {
@@ -1683,8 +1683,8 @@ async function patchfull(url, body) {
         });
         return res.data;
     } catch (error) {
-        console.log(error);
-        throw error.response.data;
+        console.log("blaciris \uD83D\uDD25", error);
+        throw error.response ? error.response.data : error;
     }
 }
 async function post(url, body) {
@@ -1700,8 +1700,8 @@ async function post(url, body) {
         });
         return res.data.data;
     } catch (error) {
-        console.log(error);
-        throw error.response.data;
+        console.log("blaciris \uD83D\uDD25", error);
+        throw error.response ? error.response.data : error;
     }
 }
 async function postfull(url, body) {
@@ -1717,8 +1717,8 @@ async function postfull(url, body) {
         });
         return res.data;
     } catch (error) {
-        console.log(error);
-        throw error.response.data;
+        console.log("blaciris \uD83D\uDD25", error);
+        throw error.response ? error.response.data : error;
     }
 }
 async function deletefull(url) {
@@ -1731,8 +1731,8 @@ async function deletefull(url) {
         });
         return res.data;
     } catch (error) {
-        console.log(error);
-        throw error.response.data;
+        console.log("blaciris \uD83D\uDD25", error);
+        throw error.response ? error.response.data : error;
     }
 }
 
