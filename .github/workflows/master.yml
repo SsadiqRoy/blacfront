@@ -28,7 +28,7 @@ jobs:
         with:
           remote-protocol: 'ftp'
           remote-host: 'ftp.blaciris.com'
-          remote-port: '20'
+          remote-port: 20
           remote-user: '${{ secrets.ftp_username }}'
           remote-password: '${{ secrets.ftp_password }}'
           # ssh-private-key: ${{ secrets.DEPLOY_PRIVATE_KEY }}
