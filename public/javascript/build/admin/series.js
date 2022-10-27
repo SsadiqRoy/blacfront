@@ -1506,6 +1506,7 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "get", ()=>get);
 //
+//
 parcelHelpers.export(exports, "getfull", ()=>getfull);
 //
 parcelHelpers.export(exports, "patch", ()=>patch);

@@ -18,6 +18,8 @@ export async function get(url) {
 }
 
 //
+
+//
 export async function getfull(url) {
   try {
     const u = `${baseUrl}${url}`;
