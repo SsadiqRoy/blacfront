@@ -37,15 +37,14 @@ app.use((error, req, res, next) => {
   }
 
   console.log(error);
-  updater(async () => {
-    const errors = JSON.parse(await promisify(fs.readFile)(`./errors/error.js`));
 
-    error.date = Date.now();
-    error.push(error);
-    fs.writeFile('./errors/error.json', JSON.stringify(errors), (e) => {
-      if (e) console.log(e);
-    });
+  error.date = new Date().toISOString();
+  error.type = 'Global Error';
+
+  fs.appendFile('./errors/error.log', JSON.stringify(errors), (e) => {
+    if (e) console.log(e);
   });
+
   res.status(500).json({
     status: 'failed',
     message: error.message,
