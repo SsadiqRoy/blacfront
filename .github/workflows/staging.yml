@@ -9,7 +9,7 @@ on:
       sync:
         description: 'File synchronization'
         required: true
-        default: 'delta'
+        default: 'full'
 
 jobs:
   deploy-staging:
@@ -27,11 +27,12 @@ jobs:
         with:
           remote-protocol: 'ftp'
           remote-host: 'ftp.blaciris.com'
-          remote-port: '20'
+          remote-port: 20
           remote-user: '${{ secrets.ftp_username }}'
           remote-password: '${{ secrets.ftp_password }}'
           # ssh-private-key: ${{ secrets.DEPLOY_PRIVATE_KEY }}
           remote-path: '/public_html/staging.blaciris/'
+          debug: true
 # on:
 #   push:
 #     branches:

@@ -33,6 +33,7 @@ jobs:
           remote-password: '${{ secrets.ftp_password }}'
           # ssh-private-key: ${{ secrets.DEPLOY_PRIVATE_KEY }}
           remote-path: '/public_html/blaciris/'
+          debug: true
 # on:
 #   push:
 #     branches:
