@@ -63,7 +63,7 @@
 
 # FIRST DEPLOY ACTION
 
-name: SamKirkland Deploy
+# name: SamKirkland Deploy
 
 on:
   push:
