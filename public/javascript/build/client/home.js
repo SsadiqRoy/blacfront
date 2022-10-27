@@ -142,14 +142,14 @@
       this[globalName] = mainExports;
     }
   }
-})({"4jtae":[function(require,module,exports) {
+})({"5SW93":[function(require,module,exports) {
 "use strict";
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
-var HMR_ENV_HASH = "d6ea1d42532a7575";
-module.bundle.HMR_BUNDLE_ID = "6123101d70ebb26e";
+var HMR_ENV_HASH = "42036d7a98ade5a7";
+module.bundle.HMR_BUNDLE_ID = "d8b705de5baa8712";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, chrome, browser, globalThis, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
   HMRAsset,
@@ -531,14 +531,14 @@ function hmrAcceptRun(bundle, id) {
     acceptedAssets[id] = true;
 }
 
-},{}],"67HJh":[function(require,module,exports) {
+},{}],"lU2OG":[function(require,module,exports) {
 var _homeviewJs = require("../../view/client/homeview.js");
 async function initializer() {
     _homeviewJs.initializer();
 }
 initializer();
 
-},{"../../view/client/homeview.js":"aHhZN"}],"aHhZN":[function(require,module,exports) {
+},{"../../view/client/homeview.js":"2GxEX"}],"2GxEX":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "initializer", ()=>initializer);
@@ -612,7 +612,7 @@ function initializer() {
     headingSlide();
 }
 
-},{"../../utils/responsive.js":"iLfc6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iLfc6":[function(require,module,exports) {
+},{"../../utils/responsive.js":"4wcQt","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"4wcQt":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 /**
@@ -629,7 +629,12 @@ parcelHelpers.defineInteropFlag(exports);
 /**
  * Opens and close the admin sidebar when the menu bars on the header is clicked
  */ parcelHelpers.export(exports, "adminSidebar", ()=>adminSidebar);
-/**
+/*
+
+- name: FTP Deploy 
+  uses: SamKirkland/FTP-Deploy-Action@4.3.2
+
+*/ /**
  * Made for devices with width under 400px.
  * Making the search bar visible when the search icon is clicked and
  * hiding it on blur
@@ -661,12 +666,13 @@ function openPopup(id, callback) {
         const box = e.target.closest(".popup-box");
         if (box) return;
         popup.classList.add("display-off");
+        if (callback) callback();
     });
 }
 function closePopup(id, callback = null) {
     const pid = `#${id}`;
     const popup = document.querySelector(pid);
-    popup.classList.remove("display-off");
+    popup.classList.add("display-off");
     if (callback) callback();
 }
 function adminSidebar() {
@@ -703,7 +709,7 @@ function adminSearchBar() {
         searchBar.focus();
     });
     // hiding searchbar and unhiding logo and username
-    searchBar.addEventListener("blur", ()=>{
+    searchBar && searchBar.addEventListener("blur", ()=>{
         if (window.innerWidth < 400 && searchBar.value.length < 1) {
             logo.style.display = "initial";
             user.style.display = "initial";
@@ -726,7 +732,7 @@ function clientSearchBar() {
         searchBar.focus();
     });
     // hiding searchbar and unhiding logo and username
-    searchBar.addEventListener("blur", ()=>{
+    searchBar && searchBar.addEventListener("blur", ()=>{
         if (window.innerWidth < 600 && searchBar.value.length < 1) {
             logo.style.display = "flex";
             user.style.display = "initial";
@@ -760,7 +766,7 @@ function suggestPopup() {
     });
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"j7FRh":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -790,6 +796,5 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}]},["4jtae","67HJh"], "67HJh", "parcelRequire517a")
+},{}]},["5SW93","lU2OG"], "lU2OG", "parcelRequire517a")
 
-//# sourceMappingURL=home.js.map

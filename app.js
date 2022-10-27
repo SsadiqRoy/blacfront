@@ -1,3 +1,5 @@
+const { promisify } = require('util');
+const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const cookieparser = require('cookie-parser');
@@ -14,6 +16,7 @@ app.set('views', 'views');
 const clientRoutes = require('./routes/clientRoutes');
 const dashboard = require('./routes/adminRoutes');
 const { loggedIn } = require('./middlewares/globalMiddlewares');
+const { updater } = require('./utils/utils');
 
 app.use(loggedIn);
 app.use('/', clientRoutes);
@@ -34,6 +37,15 @@ app.use((error, req, res, next) => {
   }
 
   console.log(error);
+  updater(async () => {
+    const errors = JSON.parse(await promisify(fs.readFile)(`./errors/error.js`));
+
+    error.date = Date.now();
+    error.push(error);
+    fs.writeFile('./errors/error.json', JSON.stringify(errors), (e) => {
+      if (e) console.log(e);
+    });
+  });
   res.status(500).json({
     status: 'failed',
     message: error.message,

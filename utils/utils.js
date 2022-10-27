@@ -39,3 +39,11 @@ exports.stringifyQuery = function (query) {
     .join('&');
   return `?${queryString}`;
 };
+
+exports.updater = async (fn) => {
+  try {
+    await fn();
+  } catch (error) {
+    console.log(error);
+  }
+};
