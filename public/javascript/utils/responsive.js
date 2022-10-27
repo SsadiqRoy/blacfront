@@ -69,7 +69,7 @@ export function adminSidebar() {
 }
 /*
 
-- name: FTP Deploy
+- name: FTP Deploy 
   uses: SamKirkland/FTP-Deploy-Action@4.3.2
 
 */
