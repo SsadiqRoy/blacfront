@@ -1298,7 +1298,7 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "baseUrl", ()=>baseUrl);
 parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
-const baseUrl = "https://apistaging.blaciris.com/v1";
+const baseUrl = "http://localhost:2000/v1";
 const countries = [
     "Afghanistan",
     "Albania",

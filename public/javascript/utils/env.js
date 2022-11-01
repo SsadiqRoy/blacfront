@@ -1,5 +1,5 @@
-// export const baseUrl = 'http://localhost:2000/v1';
-export const baseUrl = 'https://apistaging.blaciris.com/v1';
+export const baseUrl = 'http://localhost:2000/v1';
+// export const baseUrl = 'https://apistaging.blaciris.com/v1';
 
 export const countries = [
   'Afghanistan',
