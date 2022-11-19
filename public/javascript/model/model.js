@@ -1,9 +1,9 @@
-import { baseUrl } from '../utils/utils.js';
+import { api_url } from '../utils/utils.js';
 import axios from 'axios';
 
 export async function get(url) {
   try {
-    const u = `${baseUrl}${url}`;
+    const u = `${api_url}${url}`;
     const res = await axios({
       method: 'get',
       url: u,
@@ -22,7 +22,7 @@ export async function get(url) {
 //
 export async function getfull(url) {
   try {
-    const u = `${baseUrl}${url}`;
+    const u = `${api_url}${url}`;
     const res = await axios({
       method: 'get',
       url: u,
@@ -39,7 +39,7 @@ export async function getfull(url) {
 //
 export async function patch(url, body) {
   try {
-    const u = `${baseUrl}${url}`;
+    const u = `${api_url}${url}`;
     const res = await axios({
       method: 'patch',
       url: u,
@@ -58,7 +58,7 @@ export async function patch(url, body) {
 //
 export async function patchfull(url, body) {
   try {
-    const u = `${baseUrl}${url}`;
+    const u = `${api_url}${url}`;
     const res = await axios({
       method: 'patch',
       url: u,
@@ -77,7 +77,7 @@ export async function patchfull(url, body) {
 //
 export async function post(url, body) {
   try {
-    const u = `${baseUrl}${url}`;
+    const u = `${api_url}${url}`;
     // console.log(body);
     const res = await axios({
       method: 'post',
@@ -97,7 +97,7 @@ export async function post(url, body) {
 //
 export async function postfull(url, body) {
   try {
-    const u = `${baseUrl}${url}`;
+    const u = `${api_url}${url}`;
     // console.log(body);
     const res = await axios({
       method: 'post',
@@ -117,7 +117,7 @@ export async function postfull(url, body) {
 //
 export async function deletefull(url) {
   try {
-    const u = `${baseUrl}${url}`;
+    const u = `${api_url}${url}`;
     const res = await axios({
       method: 'delete',
       url: u,

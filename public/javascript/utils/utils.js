@@ -15,6 +15,8 @@ export const suggestPopup = res.suggestPopup;
 
 // ==================== ENVIRONMENT VARIABLES ========
 export const baseUrl = env.baseUrl;
+export const api_url = env.api_url;
+export const main_url = env.main_url;
 
 // ==================== DOM FUNCTONS ==================
 export const alertResponse = dom.alertResponse;
