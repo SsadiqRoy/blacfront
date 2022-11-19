@@ -561,9 +561,9 @@ function renderLogin(data) {
     if (!data) throw new Error("login data not found");
     _utilsJs.alertResponse(`welcome back, ${data.name}`);
     _utilsJs.stopRotateBtn("login-btn");
-    setTimeout(()=>{
-        window.location.assign("/dashboard");
-    }, 4000);
+// setTimeout(() => {
+//   window.location.assign('/dashboard');
+// }, 4000);
 }
 function getUserData() {
     const email = document.getElementById("login-email").value;
