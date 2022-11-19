@@ -16,6 +16,7 @@ class WriteError {
   }
 }
 
+//
 class LogToFile {
   constructor(log) {
     this.log = log;
