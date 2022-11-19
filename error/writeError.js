@@ -16,4 +16,15 @@ class WriteError {
   }
 }
 
-module.exports = WriteError;
+class LogToFile {
+  constructor(log) {
+    this.log = log;
+    this.writeToFile();
+  }
+  writeToFile() {
+    fs.appendFile('./error/console.log', JSON.stringify(this.error), (e) => {
+      if (e) console.log(e);
+    });
+  }
+}
+module.exports = { WriteError, LogToFile };

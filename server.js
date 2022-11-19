@@ -9,7 +9,7 @@ process.on('uncaughtException', (error) => {
 dotenv.config({ path: './config.env' });
 
 const app = require('./app');
-const WriteError = require('./error/writeError');
+const { WriteError } = require('./error/writeError');
 
 const server = app.listen(process.env.port, process.env.host, () => console.log('🎁🎁 blacfront server started...'));
 
