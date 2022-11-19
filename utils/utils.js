@@ -21,7 +21,7 @@ exports.getRequest = async function (req, u) {
       Cookies: true,
       withCredentials: true,
       headers: {
-        Cookie: `${process.env.login}=${req.cookies[process.env.login]}`,
+        Cookie: `${process.env.login}=${req.cookies[process.env.login] || ''}`,
       },
     });
 

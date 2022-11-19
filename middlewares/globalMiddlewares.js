@@ -9,7 +9,7 @@ exports.loggedIn = catchAsync(async (req, res, next) => {
 
     res.locals.user = user;
     req.user = user;
-    new LogToFile(req.user);
+    // new LogToFile(req.user);
 
     next();
   } catch (error) {
@@ -19,7 +19,7 @@ exports.loggedIn = catchAsync(async (req, res, next) => {
 
 exports.permitAdmins = catchAsync(async (req, res, next) => {
   // error can happen when user recently changed their password
-  new LogToFile(req.user);
+  // new LogToFile(req.user);
   new WriteError(req.user || {}, req, 'User Document');
 
   if (!req.user || userRoleLevel(req.user.role) < 2)
