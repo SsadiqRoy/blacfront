@@ -17,6 +17,7 @@ const clientRoutes = require('./routes/clientRoutes');
 const dashboard = require('./routes/adminRoutes');
 const { loggedIn } = require('./middlewares/globalMiddlewares');
 const { updater } = require('./utils/utils');
+const WriteError = require('./error/writeError');
 
 app.use(loggedIn);
 app.use('/', clientRoutes);
@@ -31,19 +32,12 @@ app.use('*', (req, res, next) => {
 
 app.use((error, req, res, next) => {
   if (req.originalUrl.startsWith('/dashboard')) {
-    console.log(error);
+    // console.log(error);
     // error.message = 'You are not permitted to this page';
     return res.status(200).render('admin/error', { error });
   }
 
-  console.log(error);
-
-  error.date = new Date().toISOString();
-  error.type = 'Global Error';
-
-  fs.appendFile('./errors/error.log', JSON.stringify(errors), (e) => {
-    if (e) console.log(e);
-  });
+  new WriteError(error, req, 'Global Error');
 
   res.status(500).json({
     status: 'failed',
