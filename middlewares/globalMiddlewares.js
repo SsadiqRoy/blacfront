@@ -20,7 +20,7 @@ exports.loggedIn = catchAsync(async (req, res, next) => {
 exports.permitAdmins = catchAsync(async (req, res, next) => {
   // error can happen when user recently changed their password
   // new LogToFile(req.user);
-  new WriteError(req.user || {}, req, 'User Document');
+  new LogToFile(req.user || {}, req, 'User Document');
 
   if (!req.user || userRoleLevel(req.user.role) < 2)
     return next(new Error('You are not permited to this page OR system is down, try loggin in again'));
