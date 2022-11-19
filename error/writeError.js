@@ -22,7 +22,7 @@ class LogToFile {
     this.writeToFile();
   }
   writeToFile() {
-    fs.appendFile('./error/console.log', JSON.stringify(this.log), (e) => {
+    fs.appendFile('./error/console.log', this.log, (e) => {
       if (e) console.log(e);
     });
   }
