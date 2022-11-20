@@ -13,7 +13,10 @@ new LogToFile({ m: 'Before we create the app' });
 const app = require('./app');
 
 new LogToFile({ m: 'We are about to start the server' });
-const server = app.listen(process.env.port, process.env.host, () => console.log('🎁🎁 blacfront server started...'));
+const server = app.listen(process.env.port, process.env.host, () => {
+  console.log('🎁🎁 blacfront server started...');
+  new LogToFile('Ther sever has started');
+});
 new LogToFile({ m: 'Ther sever has started' });
 
 process.on('unhandledRejection', (error) => {
