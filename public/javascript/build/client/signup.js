@@ -537,7 +537,7 @@ var _modelJs = require("../../model/model.js");
 async function controlSignup(btnid) {
     try {
         const data = _signupviewJs.getUserData();
-        const res = await _modelJs.post("/users/log", data);
+        const res = await _modelJs.post("/users/signup", data);
         _signupviewJs.renderSignup(res);
     } catch (error) {
         _signupviewJs.displayError(error, btnid);

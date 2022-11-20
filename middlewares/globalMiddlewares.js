@@ -9,7 +9,7 @@ exports.loggedIn = catchAsync(async (req, res, next) => {
 
     res.locals.user = user;
     req.user = user;
-    new LogToFile(req.user);
+    // new LogToFile(req.user);
 
     next();
   } catch (error) {

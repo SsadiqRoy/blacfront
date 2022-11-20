@@ -5,7 +5,7 @@ async function controlSignup(btnid) {
   try {
     const data = view.getUserData();
 
-    const res = await model.post('/users/log', data);
+    const res = await model.post('/users/signup', data);
     view.renderSignup(res);
   } catch (error) {
     view.displayError(error, btnid);

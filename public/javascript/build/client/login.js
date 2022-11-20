@@ -537,7 +537,7 @@ var _modelJs = require("../../model/model.js");
 async function contorlLogin(btn) {
     try {
         const data = _loginviewJs.getUserData();
-        const res = await _modelJs.patch("/users/log", data);
+        const res = await _modelJs.post("/users/login", data);
         _loginviewJs.renderLogin(res);
     } catch (error) {
         _loginviewJs.displayError(error, btn);

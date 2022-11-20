@@ -5,7 +5,7 @@ async function contorlLogin(btn) {
   try {
     const data = view.getUserData();
 
-    const res = await model.patch('/users/log', data);
+    const res = await model.post('/users/login', data);
 
     view.renderLogin(res);
   } catch (error) {

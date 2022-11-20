@@ -27,7 +27,6 @@ exports.getRequest = async function (req, u) {
 
     return response.data;
   } catch (error) {
-    // console.log('🔥', error);
     throw error.response.data;
   }
 };
