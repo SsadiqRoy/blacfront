@@ -6,7 +6,7 @@ const { permitAdmins } = require('../middlewares/globalMiddlewares');
 const router = express.Router();
 
 // ============= main admin pages
-router.use(permitAdmins);
+// router.use(permitAdmins);
 router.get('/', controller.profile);
 router.get('/movies', controller.movies);
 router.get('/series', controller.series);
