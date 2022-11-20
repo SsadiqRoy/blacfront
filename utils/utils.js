@@ -18,7 +18,7 @@ exports.getRequest = async function (req, u) {
     const response = await axios({
       method: 'get',
       url,
-      Cookies: true,
+      // Cookies: true,
       withCredentials: true,
       headers: {
         Cookie: `${process.env.login}=${req.cookies[process.env.login] || ''}`,

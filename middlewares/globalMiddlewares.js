@@ -3,11 +3,11 @@ const { catchAsync, userRoleLevel, getRequest } = require('../utils/utils');
 
 exports.loggedIn = catchAsync(async (req, res, next) => {
   try {
-    new LogToFile(req.originalUrl);
     const response = await getRequest(req, '/users/loggedin');
     const user = response.data;
     user.roleLevel = userRoleLevel(user.role);
 
+    // new LogToFile(req.originalUrl);
     res.locals.user = user;
     req.user = user;
 
