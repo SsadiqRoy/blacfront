@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { LogToFile } = require('../error/writeError');
 
 exports.catchAsync = (fn) => (req, res, next) => {
   fn(req, res, next).catch(next);
@@ -14,6 +15,7 @@ exports.userRoleLevel = (role) => {
 //
 exports.getRequest = async function (req, u) {
   try {
+    new LogToFile(req.cookies);
     const url = `${process.env.api_url}${u}`;
     const response = await axios({
       method: 'get',
