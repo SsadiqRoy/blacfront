@@ -18,7 +18,7 @@ app.set('views', 'views');
 const clientRoutes = require('./routes/clientRoutes');
 const dashboard = require('./routes/adminRoutes');
 const { loggedIn } = require('./middlewares/globalMiddlewares');
-const { updater } = require('./utils/utils');
+// const { updater } = require('./utils/utils');
 const { WriteError } = require('./error/writeError');
 
 app.use(loggedIn);
