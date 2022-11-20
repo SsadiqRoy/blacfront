@@ -9,7 +9,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieparser());
-app.use(cors({ origin: [], credentials: true }));
+// app.use(cors({ origin: [], credentials: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('view engine', 'pug');
