@@ -36,35 +36,33 @@ aside.sidebar#sidebar
           li
             a(href='/games') Games
         ul
-          li trending
-          li new
-          li updated
-          li top rated
+          li(data-query='?q=trending') trending
+          li(data-query=`?date=gte,${new Date(Date.now() - (7776000000)).toLocaleDateString()}`) new
+          li(data-query=`?updatedAt=gte,${new Date(Date.now() - (7776000000)).toLocaleDateString()}`) updated
+          li(data-query='?rating=gte,6') top rated
         ul
-          li adventure
-          li crime
-          li fantasy
-          li war
-          li politics
+          li(data-query='?keywords=adventure') adventure
+          li(data-query='?keywords=crime') crime
+          li(data-query='?keywords=fantasy') fantasy
+          li(data-query='?keywords=war') war
+          li(data-query='?keywords=politics') politics
         ul
-          li netflix
-          li dc
-          li prime video
-          li marvel
-          li apple tv
+          li(data-query='?companies=netflix') netflix
+          li(data-query='?companies=dc') dc
+          li(data-query='?companies=prime') prime video
+          li(data-query='?companies=marvel') marvel
+          li(data-query='?companies=apple') apple tv
+      
         ul
-          li hollywood
-          li bollywood
-          li chinese
-          li japanese
-          li uk
-          li african
-        ul
-          li hollywood
-          li bollywood
-          li chinese
-          li japanese
-          li uk
-          li african
-        ul
-          li dashbaord
+          li(data-query='?country=United-States') hollywood
+          li(data-query='?country=india') bollywood
+          li(data-query='?country=china') chinese
+          li(data-query='?country=japan') japanese
+          li(data-query='?country=united-kingdom') uk
+          li(data-query='?country=african') african
+          li(data-query='?country=korea') korean
+        
+        if(user)
+          ul
+            li 
+              a(href='/dashboard/movies') dashbaord
