@@ -70,6 +70,7 @@ export function initializer() {
   utils.adminSidebar(), utils.adminSearchBar();
   managePopups();
   ind.showMore('notification', 'items-container', 'notificationCard');
+  ind.logout();
 }
 
 /*

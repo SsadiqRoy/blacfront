@@ -1,4 +1,5 @@
 import * as utils from '../../utils/utils.js';
+import * as ind from '../../utils/independent.js';
 
 // =============== RENDERRES ===========
 export const displayError = utils.displayError;
@@ -65,4 +66,5 @@ export function handleChangePassword(controlChangePassword) {
 // ======================== INITIALIZER ==============
 export function initializer() {
   utils.adminSidebar(), utils.adminSearchBar();
+  ind.logout();
 }

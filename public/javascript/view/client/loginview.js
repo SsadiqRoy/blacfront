@@ -7,9 +7,9 @@ export function renderLogin(data) {
   utils.alertResponse(`welcome back, ${data.name}`);
   utils.stopRotateBtn('login-btn');
 
-  // setTimeout(() => {
-  //   window.location.assign('/dashboard');
-  // }, 4000);
+  setTimeout(() => {
+    window.location.assign('/dashboard/movies');
+  }, 4000);
 }
 
 export function getUserData() {

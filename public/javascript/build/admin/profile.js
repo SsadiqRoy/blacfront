@@ -579,6 +579,7 @@ parcelHelpers.export(exports, "handleChangePassword", ()=>handleChangePassword);
 // ======================== INITIALIZER ==============
 parcelHelpers.export(exports, "initializer", ()=>initializer);
 var _utilsJs = require("../../utils/utils.js");
+var _independentJs = require("../../utils/independent.js");
 const displayError = _utilsJs.displayError;
 function renderUpdated(user) {
     if (!user) {
@@ -633,9 +634,10 @@ function handleChangePassword(controlChangePassword) {
 }
 function initializer() {
     _utilsJs.adminSidebar(), _utilsJs.adminSearchBar();
+    _independentJs.logout();
 }
 
-},{"../../utils/utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"bvANu":[function(require,module,exports) {
+},{"../../utils/utils.js":"bvANu","../../utils/independent.js":"gaDpA","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"bvANu":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "openPopup", ()=>openPopup);
@@ -645,7 +647,10 @@ parcelHelpers.export(exports, "adminSearchBar", ()=>adminSearchBar);
 parcelHelpers.export(exports, "clientSearchBar", ()=>clientSearchBar);
 parcelHelpers.export(exports, "cardsSlider", ()=>cardsSlider);
 parcelHelpers.export(exports, "suggestPopup", ()=>suggestPopup);
+parcelHelpers.export(exports, "clientSidebar", ()=>clientSidebar);
 parcelHelpers.export(exports, "baseUrl", ()=>baseUrl);
+parcelHelpers.export(exports, "api_url", ()=>api_url);
+parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "alertResponse", ()=>alertResponse);
 parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
 parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
@@ -668,7 +673,10 @@ const adminSearchBar = _responsiveJs.adminSearchBar;
 const clientSearchBar = _responsiveJs.clientSearchBar;
 const cardsSlider = _responsiveJs.cardsSlider;
 const suggestPopup = _responsiveJs.suggestPopup;
+const clientSidebar = _responsiveJs.clientSidebar;
 const baseUrl = _envJs.baseUrl;
+const api_url = _envJs.api_url;
+const main_url = _envJs.main_url;
 const alertResponse = _domJs.alertResponse;
 const rotateBtn = _domJs.rotateBtn;
 const stopRotateBtn = _domJs.stopRotateBtn;
@@ -697,6 +705,7 @@ parcelHelpers.defineInteropFlag(exports);
 /**
  * Opens and close the admin sidebar when the menu bars on the header is clicked
  */ parcelHelpers.export(exports, "adminSidebar", ()=>adminSidebar);
+parcelHelpers.export(exports, "clientSidebar", ()=>clientSidebar);
 /*
 
 - name: FTP Deploy 
@@ -761,6 +770,17 @@ function adminSidebar() {
             sidebar.style.left = "0";
             sidebar.dataset.isOpen = true;
         }
+    });
+}
+function clientSidebar() {
+    const bars = document.getElementById("menu-bar");
+    const close = document.getElementById("close-sidebar");
+    const sidebar = document.getElementById("sidebar");
+    bars && bars.addEventListener("click", ()=>{
+        if (sidebar) sidebar.style.left = "0";
+    });
+    close && close.addEventListener("click", ()=>{
+        if (sidebar) sidebar.style.left = "-100%";
     });
 }
 function adminSearchBar() {
@@ -1029,10 +1049,12 @@ function pageQuery(query) {
 },{"./env.js":"7qgA7","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"7qgA7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "baseUrl", ()=>baseUrl);
+parcelHelpers.export(exports, "api_url", ()=>api_url);
+parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
-const baseUrl = "http://localhost:2000/v1";
+const api_url = "http://localhost:2000/v1";
+const main_url = "http://localhost:2500";
 const countries = [
     "Afghanistan",
     "Albania",
@@ -1372,7 +1394,142 @@ function scheduleCard(schedule) {
     return markup;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"cEBbY":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"gaDpA":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * An independent Functon - takes a search text and request for results. Then display the results on the display container
+ * @param {String} model sequelize model name in singular. eg "movie", "game"
+ * @param {String} containerId element id of the container where the data will be displayed in
+ * @param {String} cardType the type of card the data would be using. eg: dbmovieCard, scheduleCard
+ * @returns null - break function
+ */ parcelHelpers.export(exports, "searchItem", ()=>searchItem);
+/**
+ * An independent Functon - gets the query meta from the body and query for the next page
+ * @param {String} model sequelize model name in singular. eg "movie", "game"
+ * @param {String} containerId element id of the container where the data will be displayed in
+ * @param {String} cardType the type of card the data would be using. eg: dbmovieCard, scheduleCard
+ */ parcelHelpers.export(exports, "showMore", ()=>showMore);
+parcelHelpers.export(exports, "logout", ()=>logout);
+var _modelJs = require("../model/model.js");
+var _utilsJs = require("./utils.js");
+async function searchItem(model, containerId, cardType) {
+    const form = document.getElementById("search-form");
+    const body = document.querySelector("body");
+    // console.log('searchform ', form);
+    form && form.addEventListener("submit", async (e)=>{
+        e.preventDefault();
+        const input = form.querySelector("input");
+        const text = input.value;
+        search(text);
+    });
+    body.addEventListener("click", (e)=>{
+        const { target  } = e;
+        if (!target.classList.contains("query-tag")) return;
+        const { query  } = target.dataset;
+        if (target.classList.contains("search")) search(query);
+        if (target.classList.contains("query")) search(query, "query");
+    });
+    /**
+   * makes search or query for data
+   * @param {String} text a search word or tag data-query
+   * @param {String} type whether your are making a search or a normal query
+   * @returns null - breaks
+   * type : search or query
+   */ async function search(text, type = "search") {
+        try {
+            // search for the data
+            let meta, data, suggestion;
+            if (type === "search") {
+                const searchText = text.split(" ").join("-");
+                const { meta: m , data: d , suggestion: s  } = await _modelJs.getfull(`/${model}s/search?text=${searchText}`);
+                meta = m;
+                data = d;
+                suggestion = s;
+            }
+            if (type === "query") {
+                const { meta: m1 , data: d1 , suggestion: s1  } = await _modelJs.getfull(`/${model}s?${text}`);
+                meta = m1;
+                data = d1;
+                suggestion = s1;
+            }
+            // if there is no more results
+            // console.log(data);
+            if (!data.length && (!suggestion || !suggestion.length)) return _utilsJs.alertResponse(`Sorry!! Could not find anything.`, 4, "failed");
+            // clearing the content area
+            const displayer = document.getElementById(containerId);
+            displayer.innerHTML = "";
+            // setting the query meta to the body for show more sake
+            _utilsJs.pageQuery(meta);
+            // displaying data to the container
+            data.length && data.forEach((item)=>{
+                const markuper = _utilsJs[cardType];
+                const markup = markuper(item, model);
+                displayer.insertAdjacentHTML("beforeend", markup);
+            });
+            // adding more data if there are suggestion
+            if (suggestion && suggestion.length) suggestion.forEach((item)=>{
+                const markuper = _utilsJs[cardType];
+                const markup = markuper(item, model);
+                displayer.insertAdjacentHTML("beforeend", markup);
+            });
+        } catch (error) {
+            _utilsJs.displayError(error);
+        }
+    }
+}
+function showMore(model, containerId, cardType) {
+    const showMore = document.getElementById("show-more");
+    // console.log('showMore ', showMore);
+    showMore && showMore.addEventListener("click", async (e)=>{
+        try {
+            const query = _utilsJs.structureQuery();
+            const oldmeta = _utilsJs.pageQuery();
+            if (!oldmeta.length) return _utilsJs.alertResponse(`No more ${model}s to show`, 4, "failed");
+            console.log(oldmeta);
+            let meta, data, suggestion;
+            if (oldmeta.text) {
+                const { meta: m , data: d , suggestion: s  } = await _modelJs.getfull(`/${model}s/search${query}`);
+                meta = m;
+                data = d;
+                suggestion = s;
+            } else {
+                const { meta: m1 , data: d1 , suggestion: s1  } = await _modelJs.getfull(`/${model}s${query}`);
+                meta = m1;
+                data = d1;
+                suggestion = s1;
+            }
+            // if there is no more results
+            if (!meta.length && (!suggestion || !suggestion.length)) return _utilsJs.alertResponse(`No more ${model}s to show for the search or tag`, 4, "failed");
+            _utilsJs.pageQuery(meta);
+            // clearing the content area
+            const displayer = document.getElementById(containerId);
+            // displaying data to the container
+            data.forEach((item)=>{
+                const markuper = _utilsJs[cardType];
+                const markup = markuper(item, model);
+                displayer.insertAdjacentHTML("beforeend", markup);
+            });
+            // adding more data if there are suggestion
+            if (suggestion && suggestion.length) suggestion.forEach((item)=>{
+                const markuper = _utilsJs[cardType];
+                const markup = markuper(item, model);
+                displayer.insertAdjacentHTML("beforeend", markup);
+            });
+        } catch (error) {
+            _utilsJs.displayError(error);
+        }
+    });
+}
+function logout() {
+    const btn = document.getElementById("logout");
+    btn && btn.addEventListener("click", async (e)=>{
+        const response = await _modelJs.getfull("/users/logout");
+        _utilsJs.alertResponse(response.message);
+    });
+}
+
+},{"../model/model.js":"cEBbY","./utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"cEBbY":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "get", ()=>get);
@@ -1394,7 +1551,7 @@ var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 async function get(url) {
     try {
-        const u = `${(0, _utilsJs.baseUrl)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         const res = await (0, _axiosDefault.default)({
             method: "get",
             url: u,
@@ -1408,7 +1565,7 @@ async function get(url) {
 }
 async function getfull(url) {
     try {
-        const u = `${(0, _utilsJs.baseUrl)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         const res = await (0, _axiosDefault.default)({
             method: "get",
             url: u,
@@ -1422,7 +1579,7 @@ async function getfull(url) {
 }
 async function patch(url, body) {
     try {
-        const u = `${(0, _utilsJs.baseUrl)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         const res = await (0, _axiosDefault.default)({
             method: "patch",
             url: u,
@@ -1438,7 +1595,7 @@ async function patch(url, body) {
 }
 async function patchfull(url, body) {
     try {
-        const u = `${(0, _utilsJs.baseUrl)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         const res = await (0, _axiosDefault.default)({
             method: "patch",
             url: u,
@@ -1454,7 +1611,7 @@ async function patchfull(url, body) {
 }
 async function post(url, body) {
     try {
-        const u = `${(0, _utilsJs.baseUrl)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         // console.log(body);
         const res = await (0, _axiosDefault.default)({
             method: "post",
@@ -1471,7 +1628,7 @@ async function post(url, body) {
 }
 async function postfull(url, body) {
     try {
-        const u = `${(0, _utilsJs.baseUrl)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         // console.log(body);
         const res = await (0, _axiosDefault.default)({
             method: "post",
@@ -1488,7 +1645,7 @@ async function postfull(url, body) {
 }
 async function deletefull(url) {
     try {
-        const u = `${(0, _utilsJs.baseUrl)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         const res = await (0, _axiosDefault.default)({
             method: "delete",
             url: u,

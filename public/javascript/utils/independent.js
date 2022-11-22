@@ -155,3 +155,14 @@ export function showMore(model, containerId, cardType) {
       }
     });
 }
+
+export function logout() {
+  const btn = document.getElementById('logout');
+
+  btn &&
+    btn.addEventListener('click', async (e) => {
+      const response = await mod.getfull('/users/logout');
+
+      utils.alertResponse(response.message);
+    });
+}

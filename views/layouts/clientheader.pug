@@ -2,124 +2,8 @@ header.header
   .header__header
     .header__logo
       .header-menu
-        i.fas.fa-bars
-        form.header-menu__form
-          .header-menu__container
-            .menu-box
-              ul
-                li
-                  .menu-option-group
-                    a(href='/movies') Movies
-                li
-                  .menu-option-group
-                    a(href='/series') Tv Series
-                li
-                  .menu-option-group
-                    a(href='/games') Games
-                if(user && user.roleLevel > 1)
-                  li
-                    .menu-option-group
-                      a(href='/dashboard') Dashboard
-            
-            .menu-box
-              h2 categories
-              ul
-                li
-                  .menu-option-group
-                    input#category-adventure(type="checkbox", name="category", value="adventure")
-                    label(for="category-adventure") adventure
-                li
-                  .menu-option-group
-                    input#category-crime(type="checkbox", name="category", value="crime")
-                    label(for="category-crime") crime
-                li
-                  .menu-option-group
-                    input#category-fantasy(type="checkbox", name="category", value="fantasy")
-                    label(for="category-fantasy") fantasy
-                li
-                  .menu-option-group
-                    input#category-war(type="checkbox", name="category", value="war")
-                    label(for="category-war") war
-                li
-                  .menu-option-group
-                    input#category-politics(type="checkbox", name="category", value="politics")
-                    label(for="category-politics") politics
-            
-            .menu-box
-              h2 groups
-              ul
-                li
-                  .menu-option-group
-                    input#group-trending(type="checkbox", name="group", value="trending")
-                    label(for="group-trending") trending
-                li
-                  .menu-option-group
-                    input#group-new(type="checkbox", name="group", value="new")
-                    label(for="group-new") new
-                li
-                  .menu-option-group
-                    input#group-rated(type="checkbox", name="group", value="rated")
-                    label(for="group-rated") top rated
-                li
-                  .menu-option-group
-                    input#group-war(type="checkbox", name="group", value="war")
-                    label(for="group-war") war
-                li
-                  .menu-option-group
-                    input#group-politics(type="checkbox", name="group", value="politics")
-                    label(for="group-politics") politics
-            
-            .menu-box
-              h2 top companies
-              ul
-                li
-                  .menu-option-group
-                    input#company-netflix(type="checkbox", name="company", value="netflix")
-                    label(for="company-netflix") netflix
-                li
-                  .menu-option-group
-                    input#company-prime-video(type="checkbox", name="company", value="prime-video")
-                    label(for="company-prime-video") prime video
-                li
-                  .menu-option-group
-                    input#company-marvel(type="checkbox", name="company", value="marvel")
-                    label(for="company-marvel") marvel
-                li
-                  .menu-option-group
-                    input#company-apple(type="checkbox", name="company", value="apple")
-                    label(for="company-apple") apple
-                li
-                  .menu-option-group
-                    input#company-dc(type="checkbox", name="company", value="dc")
-                    label(for="company-dc") dc
-            
-            .menu-box
-              h2 top countries
-              ul
-                li
-                  .menu-option-group
-                    input#country-usa(type="checkbox", name="country", value="usa")
-                    label(for="country-usa") usa
-                li
-                  .menu-option-group
-                    input#country-india(type="checkbox", name="country", value="india")
-                    label(for="country-india") india
-                li
-                  .menu-option-group
-                    input#country-china(type="checkbox", name="country", value="china")
-                    label(for="country-china") china
-                li
-                  .menu-option-group
-                    input#country-japan(type="checkbox", name="country", value="japan")
-                    label(for="country-japan") japan
-                li
-                  .menu-option-group
-                    input#country-uk(type="checkbox", name="country", value="uk")
-                    label(for="country-uk") uk
-          .header-menu__button
-            p search for anything else
-            button.btn-primary(type="submit") apply
-      
+        i.fas.fa-bars#menu-bar
+       
       span.text-logo-secondary
         a(href='/') blaciris
     
@@ -131,10 +15,56 @@ header.header
     .main-titles
       ul.title-list
         button.btn-red.suggest suggest
-        li.title-list-item
-          a(href='/movies') Movies
-        li.title-list-item
-          a(href='/series') tv series
-        li.title-list-item
-          a(href='/games') games
+        //- li.title-list-item
+        //-   a(href='/movies') Movies
+        //- li.title-list-item
+        //-   a(href='/series') tv series
+        //- li.title-list-item
+        //-   a(href='/games') games
 
+aside.sidebar#sidebar
+  .right-components
+    i.fas.fa-chevron-circle-left.close-sidebar#close-sidebar
+  .sidebar__cover
+    .sidebar__content
+      .sidebar__content-categories
+        ul
+          li
+            a(href='/movies') Movies
+          li
+            a(href='/series') Tv Series
+          li
+            a(href='/games') Games
+        ul
+          li trending
+          li new
+          li updated
+          li top rated
+        ul
+          li adventure
+          li crime
+          li fantasy
+          li war
+          li politics
+        ul
+          li netflix
+          li dc
+          li prime video
+          li marvel
+          li apple tv
+        ul
+          li hollywood
+          li bollywood
+          li chinese
+          li japanese
+          li uk
+          li african
+        ul
+          li hollywood
+          li bollywood
+          li chinese
+          li japanese
+          li uk
+          li african
+        ul
+          li dashbaord

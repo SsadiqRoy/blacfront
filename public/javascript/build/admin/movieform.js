@@ -708,7 +708,10 @@ parcelHelpers.export(exports, "adminSearchBar", ()=>adminSearchBar);
 parcelHelpers.export(exports, "clientSearchBar", ()=>clientSearchBar);
 parcelHelpers.export(exports, "cardsSlider", ()=>cardsSlider);
 parcelHelpers.export(exports, "suggestPopup", ()=>suggestPopup);
+parcelHelpers.export(exports, "clientSidebar", ()=>clientSidebar);
 parcelHelpers.export(exports, "baseUrl", ()=>baseUrl);
+parcelHelpers.export(exports, "api_url", ()=>api_url);
+parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "alertResponse", ()=>alertResponse);
 parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
 parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
@@ -731,7 +734,10 @@ const adminSearchBar = _responsiveJs.adminSearchBar;
 const clientSearchBar = _responsiveJs.clientSearchBar;
 const cardsSlider = _responsiveJs.cardsSlider;
 const suggestPopup = _responsiveJs.suggestPopup;
+const clientSidebar = _responsiveJs.clientSidebar;
 const baseUrl = _envJs.baseUrl;
+const api_url = _envJs.api_url;
+const main_url = _envJs.main_url;
 const alertResponse = _domJs.alertResponse;
 const rotateBtn = _domJs.rotateBtn;
 const stopRotateBtn = _domJs.stopRotateBtn;
@@ -760,6 +766,7 @@ parcelHelpers.defineInteropFlag(exports);
 /**
  * Opens and close the admin sidebar when the menu bars on the header is clicked
  */ parcelHelpers.export(exports, "adminSidebar", ()=>adminSidebar);
+parcelHelpers.export(exports, "clientSidebar", ()=>clientSidebar);
 /*
 
 - name: FTP Deploy 
@@ -824,6 +831,17 @@ function adminSidebar() {
             sidebar.style.left = "0";
             sidebar.dataset.isOpen = true;
         }
+    });
+}
+function clientSidebar() {
+    const bars = document.getElementById("menu-bar");
+    const close = document.getElementById("close-sidebar");
+    const sidebar = document.getElementById("sidebar");
+    bars && bars.addEventListener("click", ()=>{
+        if (sidebar) sidebar.style.left = "0";
+    });
+    close && close.addEventListener("click", ()=>{
+        if (sidebar) sidebar.style.left = "-100%";
     });
 }
 function adminSearchBar() {
@@ -1092,10 +1110,12 @@ function pageQuery(query) {
 },{"./env.js":"7qgA7","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"7qgA7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "baseUrl", ()=>baseUrl);
+parcelHelpers.export(exports, "api_url", ()=>api_url);
+parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
-const baseUrl = "http://localhost:2000/v1";
+const api_url = "http://localhost:2000/v1";
+const main_url = "http://localhost:2500";
 const countries = [
     "Afghanistan",
     "Albania",
@@ -1457,7 +1477,7 @@ var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 async function get(url) {
     try {
-        const u = `${(0, _utilsJs.baseUrl)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         const res = await (0, _axiosDefault.default)({
             method: "get",
             url: u,
@@ -1471,7 +1491,7 @@ async function get(url) {
 }
 async function getfull(url) {
     try {
-        const u = `${(0, _utilsJs.baseUrl)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         const res = await (0, _axiosDefault.default)({
             method: "get",
             url: u,
@@ -1485,7 +1505,7 @@ async function getfull(url) {
 }
 async function patch(url, body) {
     try {
-        const u = `${(0, _utilsJs.baseUrl)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         const res = await (0, _axiosDefault.default)({
             method: "patch",
             url: u,
@@ -1501,7 +1521,7 @@ async function patch(url, body) {
 }
 async function patchfull(url, body) {
     try {
-        const u = `${(0, _utilsJs.baseUrl)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         const res = await (0, _axiosDefault.default)({
             method: "patch",
             url: u,
@@ -1517,7 +1537,7 @@ async function patchfull(url, body) {
 }
 async function post(url, body) {
     try {
-        const u = `${(0, _utilsJs.baseUrl)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         // console.log(body);
         const res = await (0, _axiosDefault.default)({
             method: "post",
@@ -1534,7 +1554,7 @@ async function post(url, body) {
 }
 async function postfull(url, body) {
     try {
-        const u = `${(0, _utilsJs.baseUrl)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         // console.log(body);
         const res = await (0, _axiosDefault.default)({
             method: "post",
@@ -1551,7 +1571,7 @@ async function postfull(url, body) {
 }
 async function deletefull(url) {
     try {
-        const u = `${(0, _utilsJs.baseUrl)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         const res = await (0, _axiosDefault.default)({
             method: "delete",
             url: u,

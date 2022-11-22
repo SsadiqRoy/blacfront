@@ -71,6 +71,7 @@ export function initializer() {
   managePopups();
   ind.showMore('game', 'items-container', 'dbMovieCard');
   ind.searchItem('game', 'items-container', 'dbMovieCard');
+  ind.logout();
 }
 
 //

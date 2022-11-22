@@ -85,6 +85,7 @@ export function initializer() {
   managePopups();
   ind.showMore('movie', 'items-container', 'dbMovieCard');
   ind.searchItem('movie', 'items-container', 'dbMovieCard');
+  ind.logout();
 }
 
 /*

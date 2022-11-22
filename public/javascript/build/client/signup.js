@@ -599,6 +599,7 @@ parcelHelpers.export(exports, "adminSearchBar", ()=>adminSearchBar);
 parcelHelpers.export(exports, "clientSearchBar", ()=>clientSearchBar);
 parcelHelpers.export(exports, "cardsSlider", ()=>cardsSlider);
 parcelHelpers.export(exports, "suggestPopup", ()=>suggestPopup);
+parcelHelpers.export(exports, "clientSidebar", ()=>clientSidebar);
 parcelHelpers.export(exports, "baseUrl", ()=>baseUrl);
 parcelHelpers.export(exports, "api_url", ()=>api_url);
 parcelHelpers.export(exports, "main_url", ()=>main_url);
@@ -624,6 +625,7 @@ const adminSearchBar = _responsiveJs.adminSearchBar;
 const clientSearchBar = _responsiveJs.clientSearchBar;
 const cardsSlider = _responsiveJs.cardsSlider;
 const suggestPopup = _responsiveJs.suggestPopup;
+const clientSidebar = _responsiveJs.clientSidebar;
 const baseUrl = _envJs.baseUrl;
 const api_url = _envJs.api_url;
 const main_url = _envJs.main_url;
@@ -655,6 +657,7 @@ parcelHelpers.defineInteropFlag(exports);
 /**
  * Opens and close the admin sidebar when the menu bars on the header is clicked
  */ parcelHelpers.export(exports, "adminSidebar", ()=>adminSidebar);
+parcelHelpers.export(exports, "clientSidebar", ()=>clientSidebar);
 /*
 
 - name: FTP Deploy 
@@ -719,6 +722,17 @@ function adminSidebar() {
             sidebar.style.left = "0";
             sidebar.dataset.isOpen = true;
         }
+    });
+}
+function clientSidebar() {
+    const bars = document.getElementById("menu-bar");
+    const close = document.getElementById("close-sidebar");
+    const sidebar = document.getElementById("sidebar");
+    bars && bars.addEventListener("click", ()=>{
+        if (sidebar) sidebar.style.left = "0";
+    });
+    close && close.addEventListener("click", ()=>{
+        if (sidebar) sidebar.style.left = "-100%";
     });
 }
 function adminSearchBar() {
@@ -991,8 +1005,8 @@ parcelHelpers.export(exports, "api_url", ()=>api_url);
 parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
-const api_url = "https://apistaging.blaciris.com/v1";
-const main_url = "https://staging.blaciris.com";
+const api_url = "http://localhost:2000/v1";
+const main_url = "http://localhost:2500";
 const countries = [
     "Afghanistan",
     "Albania",

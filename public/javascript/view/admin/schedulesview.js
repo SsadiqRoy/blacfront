@@ -70,6 +70,7 @@ export function initializer() {
   utils.adminSidebar(), utils.adminSearchBar();
   managePopups();
   ind.showMore('schedule', 'items-container', 'scheduleCard');
+  ind.logout();
 }
 
 /*

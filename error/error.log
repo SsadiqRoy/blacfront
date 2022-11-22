@@ -1,0 +1,21 @@
+
+ 
+{"date":"2022-11-09T15:57:14.490Z","url":"/dashboard","type":"Global Error"}
+ 
+{"date":"2022-11-21T17:56:56.610Z","url":"/dashboard/updatemovie/14570f4749f140938fea9d9ff977d797","type":"Global Error"}
+ 
+{"date":"2022-11-21T17:57:06.429Z","url":"/dashboard/updatemovie/14570f4749f140938fea9d9ff977d797","type":"Global Error"}
+ 
+{"date":"2022-11-21T17:57:24.690Z","url":"/dashboard/movies","type":"Global Error"}
+ 
+{"date":"2022-11-21T17:57:25.948Z","url":"/dashboard/movies","type":"Global Error"}
+ 
+{"date":"2022-11-21T17:57:32.205Z","url":"/dashboard/series","type":"Global Error"}
+ 
+{"date":"2022-11-21T17:57:33.858Z","url":"/dashboard/series","type":"Global Error"}
+ 
+{"date":"2022-11-21T18:01:24.932Z","url":"/dashboard/movies","type":"Global Error"}
+ 
+{"date":"2022-11-21T18:01:26.656Z","url":"/dashboard/movies","type":"Global Error"}
+ 
+{"status":"failed","message":"(conn=47, no: 1054, SQLState: 42S22) Unknown column 'descriptoin' in 'field list'\nsql: SELECT `id`, `landscape`, `title`, `rating`, `descriptoin` FROM `Games` AS `Game` LIMIT 0, 30; - parameters:[]","error":{"name":"SequelizeDatabaseError","parent":{"text":"Unknown column 'descriptoin' in 'field list'","sql":"SELECT `id`, `landscape`, `title`, `rating`, `descriptoin` FROM `Games` AS `Game` LIMIT 0, 30;","fatal":false,"errno":1054,"sqlState":"42S22","code":"ER_BAD_FIELD_ERROR"},"original":{"text":"Unknown column 'descriptoin' in 'field list'","sql":"SELECT `id`, `landscape`, `title`, `rating`, `descriptoin` FROM `Games` AS `Game` LIMIT 0, 30;","fatal":false,"errno":1054,"sqlState":"42S22","code":"ER_BAD_FIELD_ERROR"},"sql":"SELECT `id`, `landscape`, `title`, `rating`, `descriptoin` FROM `Games` AS `Game` LIMIT 0, 30;","parameters":{},"oldmessage":"(conn=47, no: 1054, SQLState: 42S22) Unknown column 'descriptoin' in 'field list'\nsql: SELECT `id`, `landscape`, `title`, `rating`, `descriptoin` FROM `Games` AS `Game` LIMIT 0, 30; - parameters:[]","date":"2022-11-21T18:49:42.259Z","url":"/v1/games?limit=30&fields=id,landscape,title,rating,descriptoin","host":"localhost:2000","type":"GLOBAL_ERROR"},"date":"2022-11-21T18:49:42.296Z","url":"/dashboard/games","type":"Global Error"}

@@ -1,9 +1,18 @@
 .center-components {
   width: 100%;
   text-align: center;
-  // border: 1px solid salmon;
 }
-.center-components > * {
+.right-components {
+  width: 100%;
+  text-align: right;
+}
+.left-components {
+  width: 100%;
+  text-align: left;
+}
+.center-components > *,
+.right-components > *,
+.left-components > * {
   display: inline-block;
 }
 .suggest {

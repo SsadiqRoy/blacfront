@@ -19,7 +19,7 @@ exports.movies = catchAsync(async (req, res, next) => {
   if (req.query) query = stringifyQuery(req.query);
 
   // const { meta, data: movies } = await getRequest(req, `/movies${query}`);
-  const { meta, data: movies } = await getRequest(req, `/movies?limit=2`);
+  const { meta, data: movies } = await getRequest(req, `/movies?limit=30&fields=id,landscape,title,rating,description`);
   // console.log(meta);
 
   const ext = {
@@ -35,7 +35,7 @@ exports.movies = catchAsync(async (req, res, next) => {
 
 //
 exports.series = catchAsync(async (req, res, next) => {
-  const { meta, data: series } = await getRequest(req, '/series');
+  const { meta, data: series } = await getRequest(req, '/series?limit=30&fields=id,landscape,title,rating,description');
 
   const ext = {
     title: 'series',
@@ -50,7 +50,7 @@ exports.series = catchAsync(async (req, res, next) => {
 //
 exports.games = catchAsync(async (req, res, next) => {
   // console.log('about to hit');
-  const { meta, data: games } = await getRequest(req, '/games');
+  const { meta, data: games } = await getRequest(req, '/games?limit=30&fields=id,landscape,title,rating,description');
   // console.log(games);
   const ext = {
     title: 'games',

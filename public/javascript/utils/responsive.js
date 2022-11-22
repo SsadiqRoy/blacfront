@@ -67,6 +67,22 @@ export function adminSidebar() {
       }
     });
 }
+
+export function clientSidebar() {
+  const bars = document.getElementById('menu-bar');
+  const close = document.getElementById('close-sidebar');
+  const sidebar = document.getElementById('sidebar');
+
+  bars &&
+    bars.addEventListener('click', () => {
+      if (sidebar) sidebar.style.left = '0';
+    });
+  close &&
+    close.addEventListener('click', () => {
+      if (sidebar) sidebar.style.left = '-100%';
+    });
+}
+
 /*
 
 - name: FTP Deploy 

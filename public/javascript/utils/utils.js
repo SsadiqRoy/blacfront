@@ -12,6 +12,7 @@ export const adminSearchBar = res.adminSearchBar;
 export const clientSearchBar = res.clientSearchBar;
 export const cardsSlider = res.cardsSlider;
 export const suggestPopup = res.suggestPopup;
+export const clientSidebar = res.clientSidebar;
 
 // ==================== ENVIRONMENT VARIABLES ========
 export const baseUrl = env.baseUrl;
