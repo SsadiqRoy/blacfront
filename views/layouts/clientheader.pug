@@ -5,7 +5,8 @@ header.header
         i.fas.fa-bars#menu-bar
        
       span.text-logo-secondary
-        a(href='/') blaciris
+        a(href='/')
+          img(src='/images/logo-trans-black.svg')
     
     .search-bar
       form.search-bar__form
@@ -24,6 +25,8 @@ header.header
 
 aside.sidebar#sidebar
   .right-components
+    a(href='/')
+      img(src='/images/logo-trans-white.svg')
     i.fas.fa-chevron-circle-left.close-sidebar#close-sidebar
   .sidebar__cover
     .sidebar__content
@@ -35,32 +38,55 @@ aside.sidebar#sidebar
             a(href='/series') Tv Series
           li
             a(href='/games') Games
-        ul
-          li(data-query='?q=trending') trending
-          li(data-query=`?date=gte,${new Date(Date.now() - (7776000000)).toLocaleDateString()}`) new
-          li(data-query=`?updatedAt=gte,${new Date(Date.now() - (7776000000)).toLocaleDateString()}`) updated
-          li(data-query='?rating=gte,6') top rated
-        ul
-          li(data-query='?keywords=adventure') adventure
-          li(data-query='?keywords=crime') crime
-          li(data-query='?keywords=fantasy') fantasy
-          li(data-query='?keywords=war') war
-          li(data-query='?keywords=politics') politics
-        ul
-          li(data-query='?companies=netflix') netflix
-          li(data-query='?companies=dc') dc
-          li(data-query='?companies=prime') prime video
-          li(data-query='?companies=marvel') marvel
-          li(data-query='?companies=apple') apple tv
-      
-        ul
-          li(data-query='?country=United-States') hollywood
-          li(data-query='?country=india') bollywood
-          li(data-query='?country=china') chinese
-          li(data-query='?country=japan') japanese
-          li(data-query='?country=united-kingdom') uk
-          li(data-query='?country=african') african
-          li(data-query='?country=korea') korean
+
+        if(ext.page !== 'games' && ext.page !== 'game')
+          ul
+            li(data-query='?q=trending') trending
+            li(data-query=`?date=gte,${new Date(Date.now() - (7776000000)).toLocaleDateString()}`) new
+            li(data-query=`?updatedAt=gte,${new Date(Date.now() - (7776000000)).toLocaleDateString()}`) updated
+            li(data-query='?rating=gte,6') top rated
+          ul
+            li(data-query='?keywords=action') action
+            li(data-query='?keywords=adventure') adventure
+            li(data-query='?keywords=crime') crime
+            li(data-query='?keywords=drama') drama
+            li(data-query='?keywords=fantasy') fantasy
+            li(data-query='?keywords=politics') politics
+            li(data-query='?keywords=sci-fi') sci-fi
+            li(data-query='?keywords=thriller') thriller
+            li(data-query='?keywords=war') war
+          ul
+            li(data-query='?companies=apple') apple tv
+            li(data-query='?companies=dc') dc
+            li(data-query='?companies=marvel') marvel
+            li(data-query='?companies=netflix') netflix
+            li(data-query='?companies=prime') prime video
+        
+          ul
+            li(data-query='?country=United-States') hollywood
+            li(data-query='?country=india') bollywood
+            li(data-query='?country=china') chinese
+            li(data-query='?country=japan') japanese
+            li(data-query='?country=korea') korean
+            li(data-query='?country=united-kingdom') uk
+            li(data-query='?keywords=african') african
+
+        if(ext.page === 'games' || ext.page === 'game')
+          ul
+            li(data-query='?keywords=rts') Real-time strategy (RTS)
+            li(data-query='?keywords=sandbox') Sandbox
+            li(data-query='?keywords=moba') Multiplayer online battle arena (MOBA)
+            li(data-query='?keywords=rpg-arpg') Role-playing (RPG, ARPG, and More)
+            li(data-query='?keywords=simulation-sports') Simulation and sports
+            li(data-query='?keywords=puzzle-party') Puzzlers and party games
+            li(data-query='?keywords=action-adventure') Action-adventure
+            li(data-query='?keywords=survival-horror') Survival and horror
+            li(data-query='?keywords=platformer') Platformer
+          ul
+            li(data-query='?keywords=war') War
+            li(data-query='?keywords=racing') Racing
+            li(data-query='?keywords=arcade') arcade
+            li(data-query='?keywords=shooter') shooter
         
         if(user)
           ul

@@ -1,4 +1,3 @@
-// import * as res from '../../utils/responsive.js';
 import * as utils from '../../utils/utils.js';
 
 // ================= RENDERES ===========
@@ -73,7 +72,7 @@ export function renderHeadingSlide(data) {
       shiftLinks(), 3000;
     });
   }
-
+  swapImage();
   setInterval(swapImage, 5000);
 }
 
@@ -109,9 +108,7 @@ export function handleHeadingSlide(controlHeadingSlide) {
   */
 // ================== INITIALIZER =========
 export function initializer() {
-  // res.clientSearchBar(), res.cardsSlider(), res.suggestPopup();
   utils.clientSearchBar(), utils.cardsSlider(), utils.suggestPopup(), utils.clientSidebar();
-  // headingSlide();
 }
 
 /*

@@ -19,7 +19,7 @@ async function controlUpdate(movieId, btnId) {
   try {
     const movieData = view.getMovieData();
     const movie = await model.patch(`/movies/${movieId}`, movieData);
-    await updateLinks();
+    await updateLinks(movieId);
 
     view.renderCreated(movie, 'updated', btnId);
   } catch (error) {
@@ -29,18 +29,29 @@ async function controlUpdate(movieId, btnId) {
 
 async function saveLinks(movieId) {
   const links = view.getLinks();
+
   links.forEach(async (link) => {
-    link.movie = movieId;
-    await model.post('/links/create', link);
+    if (link.link) {
+      link.movie = movieId;
+      await model.post('/links/create', link);
+    }
   });
 }
 
 //
-async function updateLinks() {
+async function updateLinks(movieId) {
   const links = view.getLinks();
+
   links.forEach(async (link) => {
-    if (link.old !== link.link) {
+    if (link.link && link.link !== link.old) {
       await model.patch(`/links/${link.id}`, link);
+    }
+    if (link.old && !link.link) {
+      await model.deletefull(`/links/${link.id}`);
+    }
+    if (link.link && !link.id) {
+      link.movie = movieId;
+      await model.post(`/links/create`, link);
     }
   });
 }

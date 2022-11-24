@@ -1,18 +1,15 @@
 %logo {
-  font-size: 3rem;
-  font-family: $logo-font;
-  font-weight: bolder;
-  letter-spacing: 1px;
+  img {
+    height: 4rem;
 
-  @include respond(phone-small) {
-    font-size: 2rem;
+    @include respond(phone-small) {
+      height: 3rem;
+    }
   }
 }
 .text-logo-primary {
   @extend %logo;
-  color: $secondary;
 }
 .text-logo-secondary {
   @extend %logo;
-  color: $primary;
 }

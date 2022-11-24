@@ -559,7 +559,7 @@ async function controlCreateLink(gameId, btnId) {
         if (!gameId) throw new Error("First save the game and update with the part links");
         const data = _gameformviewJs.getLinkData();
         data.game = gameId;
-        console.log(data);
+        // console.log(data);
         // return;
         const res = await _modelJs.post("/links/create", data);
         _gameformviewJs.renderCreateLink(res, "created", btnId);
@@ -572,7 +572,9 @@ async function controlUpdateLink(linkId, btnId) {
     try {
         const data = _gameformviewJs.getLinkData();
         // return console.log(data);
-        const res = await _modelJs.patch(`/links/${linkId}`, data);
+        let res;
+        if (data.link) res = await _modelJs.patch(`/links/${linkId}`, data);
+        if (!data.link) res = await _modelJs.deletefull(`/links/${linkId}`);
         _gameformviewJs.renderCreateLink(res, "updated", btnId);
     } catch (error) {
         _gameformviewJs.displayError(error, btnId);

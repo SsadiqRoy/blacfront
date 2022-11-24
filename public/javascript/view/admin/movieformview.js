@@ -78,8 +78,8 @@ export function getLinks() {
     { link: l1, resolution: 1, old: l1Old, id: l1Id },
     { link: l10000, resolution: 10000, old: l10000Old, id: l10000Id },
   ];
-  const validLinks = links.filter((link) => link.link.length);
-  return validLinks;
+  // const validLinks = links.filter((link) => link.link.length);
+  return links;
 }
 
 // ===================== HANDLERS

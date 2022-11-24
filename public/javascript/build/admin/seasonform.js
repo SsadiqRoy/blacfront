@@ -570,7 +570,7 @@ async function controlCreateEpisode(seasonId, btnId) {
         await saveLinks(id);
         _seasonformviewJs.renderCreateEpisode(episode, "created", btnId);
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         _seasonformviewJs.displayError(error, btnId, btnId);
     }
 }
@@ -581,7 +581,7 @@ async function controlUpdateEpisode(episodeId, btnId) {
         // console.log(episodeId);
         const res = await _modelJs.patch(`/episodes/${episodeId}`, data);
         // console.log(res);
-        await updateLinks();
+        await updateLinks(episodeId);
         _seasonformviewJs.renderCreateEpisode(res, "updated", btnId);
     } catch (error) {
         _seasonformviewJs.displayError(error, btnId);
@@ -590,7 +590,7 @@ async function controlUpdateEpisode(episodeId, btnId) {
 //
 async function controlDeleteEpisode(episodeId, btnId) {
     try {
-        console.log(episodeId);
+        // console.log(episodeId);
         const res = await _modelJs.deletefull(`/episodes/${episodeId}`);
         _seasonformviewJs.renderDeleteEpisode(res, btnId);
     } catch (error) {
@@ -601,15 +601,26 @@ async function controlDeleteEpisode(episodeId, btnId) {
 async function saveLinks(episodeId) {
     const links = _seasonformviewJs.getLinks();
     links.forEach(async (link)=>{
-        link.episode = episodeId;
-        await _modelJs.post("/links/create", link);
+        if (link.link) {
+            link.episode = episodeId;
+            await _modelJs.post("/links/create", link);
+        }
     });
 }
 //
-async function updateLinks() {
+async function updateLinks(episodeId) {
     const links = _seasonformviewJs.getLinks();
+    // console.log(links);
     links.forEach(async (link)=>{
-        if (link.old !== link.link) await _modelJs.patch(`/links/${link.id}`, link);
+        // console.log('link', link);
+        if (link.link && link.link !== link.old) // console.log(`/links/${link.id}`);
+        await _modelJs.patch(`/links/${link.id}`, link);
+        if (link.old && !link.link) await _modelJs.deletefull(`/links/${link.id}`);
+        if (link.link && !link.id) {
+            link.episode = episodeId;
+            const re = await _modelJs.post(`/links/create`, link);
+        // console.log(re);
+        }
     });
 }
 /*
@@ -780,8 +791,8 @@ function getLinks() {
             id: l10000Id
         }, 
     ];
-    const validLinks = links.filter((link)=>link.link.length);
-    return validLinks;
+    // const validLinks = links.filter((link) => link.link.length);
+    return links;
 }
 function handleCreate(controlCreate, controlUpdate) {
     const form = document.getElementById("create-season");
@@ -882,8 +893,8 @@ function clearEpisodeData() {
                 input.value = link.link;
                 input.dataset.linkId = link.id;
                 input.dataset.link = link.link;
-                _utilsJs.openPopup("create-episode-popup", clearEpisodeData);
             });
+            _utilsJs.openPopup("create-episode-popup", clearEpisodeData);
         }
         // when delete button is clicked
         if (target.classList.contains("delete-episode-btn")) {

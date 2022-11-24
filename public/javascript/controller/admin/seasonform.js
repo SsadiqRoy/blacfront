@@ -45,7 +45,7 @@ async function controlCreateEpisode(seasonId, btnId) {
 
     view.renderCreateEpisode(episode, 'created', btnId);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     view.displayError(error, btnId, btnId);
   }
 }
@@ -57,7 +57,7 @@ async function controlUpdateEpisode(episodeId, btnId) {
     // console.log(episodeId);
     const res = await model.patch(`/episodes/${episodeId}`, data);
     // console.log(res);
-    await updateLinks();
+    await updateLinks(episodeId);
 
     view.renderCreateEpisode(res, 'updated', btnId);
   } catch (error) {
@@ -68,7 +68,7 @@ async function controlUpdateEpisode(episodeId, btnId) {
 //
 async function controlDeleteEpisode(episodeId, btnId) {
   try {
-    console.log(episodeId);
+    // console.log(episodeId);
     const res = await model.deletefull(`/episodes/${episodeId}`);
 
     view.renderDeleteEpisode(res, btnId);
@@ -82,18 +82,31 @@ async function saveLinks(episodeId) {
   const links = view.getLinks();
 
   links.forEach(async (link) => {
-    link.episode = episodeId;
-    await model.post('/links/create', link);
+    if (link.link) {
+      link.episode = episodeId;
+      await model.post('/links/create', link);
+    }
   });
 }
 
 //
-async function updateLinks() {
+async function updateLinks(episodeId) {
   const links = view.getLinks();
+  // console.log(links);
 
   links.forEach(async (link) => {
-    if (link.old !== link.link) {
+    // console.log('link', link);
+    if (link.link && link.link !== link.old) {
+      // console.log(`/links/${link.id}`);
       await model.patch(`/links/${link.id}`, link);
+    }
+    if (link.old && !link.link) {
+      await model.deletefull(`/links/${link.id}`);
+    }
+    if (link.link && !link.id) {
+      link.episode = episodeId;
+      const re = await model.post(`/links/create`, link);
+      // console.log(re);
     }
   });
 }

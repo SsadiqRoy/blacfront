@@ -3,8 +3,12 @@ header.dashboard-header#dashboard-header
     .dashboard-header__logo
       span.dashboard-header__logo-menu#dashboard-menubar
         i.fas.fa-bars
-      span.text-logo-secondary
-        a(href='/') blaciris
+      span.text-logo-secondary.logo-trans
+        a(href='/')
+          img(src='/images/logo-trans-black.svg')
+      span.text-logo-secondary.favicon-trans
+        a(href='/')
+          img(src='/images/favicon-trans-black.svg')
     .dashboard-header__search
       if(ext.page === 'movies' || ext.page === 'series' || ext.page === 'games')
         form#search-form

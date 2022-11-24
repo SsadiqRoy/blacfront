@@ -31,7 +31,7 @@ async function controlCreateLink(gameId, btnId) {
 
     const data = view.getLinkData();
     data.game = gameId;
-    console.log(data);
+    // console.log(data);
     // return;
     const res = await model.post('/links/create', data);
 
@@ -46,7 +46,9 @@ async function controlUpdateLink(linkId, btnId) {
   try {
     const data = view.getLinkData();
     // return console.log(data);
-    const res = await model.patch(`/links/${linkId}`, data);
+    let res;
+    if (data.link) res = await model.patch(`/links/${linkId}`, data);
+    if (!data.link) res = await model.deletefull(`/links/${linkId}`);
 
     view.renderCreateLink(res, 'updated', btnId);
   } catch (error) {

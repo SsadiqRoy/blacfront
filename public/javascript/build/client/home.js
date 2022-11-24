@@ -536,7 +536,7 @@ var _homeviewJs = require("../../view/client/homeview.js");
 var _modelJs = require("../../model/model.js");
 async function controlHeadingSlide() {
     try {
-        const response = await _modelJs.get("/movies?fields=title,landscape,description,id&limit=5");
+        const response = await _modelJs.get("/movies?fields=title,landscape,description,id&limit=5&rating=gte,5.5");
         // console.log(response);
         _homeviewJs.renderHeadingSlide(response);
     } catch (error) {
@@ -614,7 +614,6 @@ parcelHelpers.export(exports, "initializer", ()=>initializer) /*
 
   */  // ================== NON EXPORTING FUNCTIONS =
 ;
-// import * as res from '../../utils/responsive.js';
 var _utilsJs = require("../../utils/utils.js");
 const displayError = _utilsJs.displayError;
 function renderHeadingSlide(data) {
@@ -681,6 +680,7 @@ function renderHeadingSlide(data) {
             shiftLinks();
         });
     }
+    swapImage();
     setInterval(swapImage, 5000);
 }
 function handleHeadingSlide(controlHeadingSlide) {
@@ -689,9 +689,7 @@ function handleHeadingSlide(controlHeadingSlide) {
     });
 }
 function initializer() {
-    // res.clientSearchBar(), res.cardsSlider(), res.suggestPopup();
     _utilsJs.clientSearchBar(), _utilsJs.cardsSlider(), _utilsJs.suggestPopup(), _utilsJs.clientSidebar();
-// headingSlide();
 }
 
 },{"../../utils/utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"bvANu":[function(require,module,exports) {

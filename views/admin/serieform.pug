@@ -10,33 +10,43 @@ block content
         .form-group
           label.label-basic(for="serie-title") title
           input#serie-title.input-basic(type="text" value=`${serie && serie.title || ''}` required)
+        
         .form-group
           label.label-basic(for="serie-image-portrait") image portrait link
           input#serie-image-portrait.input-basic(type="text" value=`${serie && serie.portrait || ''}` required)
+        
         .form-group
           label.label-basic(for="serie-image-landscape") image landscape link
           input#serie-image-landscape.input-basic(type="text" value=`${serie && serie.landscape || ''}` required)
+        
         .form-group
           label.label-basic(for="serie-description") description
           textarea#serie-description.textarea-basic(rows="3") #{serie && serie.description || ''}
+        
         .form-group
           label.label-basic(for="serie-tags") tags
           input#serie-tags.input-basic(type="text" value=`${serie && serie.tags.join(',') || ''}` required)
+        
         .form-group
           label.label-basic(for="serie-key-words") keywords
           input#serie-keywords.input-basic(type="text" value=`${serie && serie.keywords.join(',') || ''}` required)
-        .form-group
-          label.label-basic(for="serie-companies") companies
-          input#serie-companies.input-basic(type="text" value=`${serie && serie.companies.join(',') || ''}` required)
-        .form-group
-          label.label-basic(for="serie-characters") charactors
-          input#serie-charactors.input-basic(type="text" value=`${serie && serie.charactors.join(',') || ''}` required)
-        .form-group
-          label.label-basic(for="serie-actors") actors
-          input#serie-actors.input-basic(type="text" value=`${serie && serie.actors.join(',') || ''}` required)
+        
         .form-group
           label.label-basic(for="serie-directors") directors
           input#serie-directors.input-basic(type="text" value=`${serie && serie.directors.join(',') || ''}` required)
+        
+        .form-group
+          label.label-basic(for="serie-actors") actors
+          input#serie-actors.input-basic(type="text" value=`${serie && serie.actors.join(',') || ''}` required)
+        
+        .form-group
+          label.label-basic(for="serie-characters") charactors
+          input#serie-charactors.input-basic(type="text" value=`${serie && serie.charactors.join(',') || ''}` required)
+        
+        .form-group
+          label.label-basic(for="serie-companies") companies
+          input#serie-companies.input-basic(type="text" value=`${serie && serie.companies.join(',') || ''}` required)
+        
         .form-group-double
           .form-group
             label.label-basic(for="serie-company") company
@@ -44,6 +54,7 @@ block content
           .form-group
             label.label-basic(for="serie-date") released date
             input#serie-date.input-basic(type="date" value=`${serie && serie.releasedDate || ''}` required)
+        
         .form-group-double
           .form-group
             label.label-basic(for="serie-country") country
@@ -53,6 +64,7 @@ block content
           .form-group
             label.label-basic(for="serie-rating") rating
             input#serie-rating.input-basic(type="text" value=`${serie && serie.rating || ''}` required)
+        
         .form-group-double
           .form-group
             label.label-basic(for="serie-status") status
@@ -65,6 +77,7 @@ block content
             //-
               <label for="serie-rating" class="label-basic">rating</label>
               <input type="text" id="serie-rating" class="input-basic" /> 
+        
         .center-components
           button.btn-black.btn-normal#create-serie-btn(type="submit")
             span.btn-content save

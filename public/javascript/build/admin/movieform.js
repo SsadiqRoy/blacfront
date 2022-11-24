@@ -550,7 +550,7 @@ async function controlUpdate(movieId, btnId) {
     try {
         const movieData = _movieformviewJs.getMovieData();
         const movie = await _modelJs.patch(`/movies/${movieId}`, movieData);
-        await updateLinks();
+        await updateLinks(movieId);
         _movieformviewJs.renderCreated(movie, "updated", btnId);
     } catch (error) {
         _movieformviewJs.displayError(error, btnId);
@@ -559,15 +559,22 @@ async function controlUpdate(movieId, btnId) {
 async function saveLinks(movieId) {
     const links = _movieformviewJs.getLinks();
     links.forEach(async (link)=>{
-        link.movie = movieId;
-        await _modelJs.post("/links/create", link);
+        if (link.link) {
+            link.movie = movieId;
+            await _modelJs.post("/links/create", link);
+        }
     });
 }
 //
-async function updateLinks() {
+async function updateLinks(movieId) {
     const links = _movieformviewJs.getLinks();
     links.forEach(async (link)=>{
-        if (link.old !== link.link) await _modelJs.patch(`/links/${link.id}`, link);
+        if (link.link && link.link !== link.old) await _modelJs.patch(`/links/${link.id}`, link);
+        if (link.old && !link.link) await _modelJs.deletefull(`/links/${link.id}`);
+        if (link.link && !link.id) {
+            link.movie = movieId;
+            await _modelJs.post(`/links/create`, link);
+        }
     });
 }
 async function init() {
@@ -681,8 +688,8 @@ function getLinks() {
             id: l10000Id
         }, 
     ];
-    const validLinks = links.filter((link)=>link.link.length);
-    return validLinks;
+    // const validLinks = links.filter((link) => link.link.length);
+    return links;
 }
 function handleCreate(controlCreate, controlUpdate) {
     const form = document.getElementById("create-movie");

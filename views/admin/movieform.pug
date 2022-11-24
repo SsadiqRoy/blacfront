@@ -35,14 +35,9 @@ block content
           input#movie-keywords.input-basic(type="text" value=`${keywords}` required)
         
         .form-group
-          label.label-basic(for="movie-companies") companies
-          - const companies = movie && movie.companies.join(',') || ''
-          input#movie-companies.input-basic(type="text" value=`${companies}` required)
-        
-        .form-group
-          label.label-basic(for="movie-charactors") charactors
-          - const charactors = movie && movie.charactors && movie.charactors.join(',') || ''
-          input#movie-charactors.input-basic(type="text" value=`${charactors}` required)
+          label.label-basic(for="movie-directors") directors
+          - const directors = movie && movie.directors.join(',') || ''
+          input#movie-directors.input-basic(type="text" value=`${directors}` required)
         
         .form-group
           label.label-basic(for="movie-actors") actors
@@ -50,9 +45,14 @@ block content
           input#movie-actors.input-basic(type="text" value=`${actors}` required)
         
         .form-group
-          label.label-basic(for="movie-directors") directors
-          - const directors = movie && movie.directors.join(',') || ''
-          input#movie-directors.input-basic(type="text" value=`${directors}` required)
+          label.label-basic(for="movie-charactors") charactors
+          - const charactors = movie && movie.charactors && movie.charactors.join(',') || ''
+          input#movie-charactors.input-basic(type="text" value=`${charactors}` required)
+        
+        .form-group
+          label.label-basic(for="movie-companies") companies
+          - const companies = movie && movie.companies.join(',') || ''
+          input#movie-companies.input-basic(type="text" value=`${companies}` required)
         
         .form-group-double
           .form-group
