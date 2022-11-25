@@ -19,6 +19,7 @@ export function renderCreated(data, action, btnId) {
   utils.stopRotateBtn(btnId);
 
   window.setTimeout(() => {
+    if (action === 'created') return window.location.assign(`/dashboard/updategame/${data.id}`);
     window.location.assign('/dashboard/games');
   }, 3500);
 }
@@ -112,9 +113,10 @@ export function getGameData() {
 export function getLinkData() {
   const part = document.getElementById('gamepart-part').value;
   const link = document.getElementById('gamepart-link').value;
+  const title = document.getElementById('gamepart-title').value;
   // const { gameId } = document.getElementById('create-gamepart').dataset;
 
-  return { part, link };
+  return { title, part, link };
 }
 
 //
@@ -231,18 +233,20 @@ function manageLinkPopup() {
       // when the card icon is clicked
       const { target } = e;
       const card = target.closest('.gamelink-card');
-      const { linkId, part, link } = card.dataset;
+      const { linkId, part, link, title } = card.dataset;
 
       // when the edit button is clickd
       if (target.classList.contains('edit-link-btn')) {
         form.dataset.gamepartId = linkId;
         document.getElementById('gamepart-part').value = part;
         document.getElementById('gamepart-link').value = link;
+        document.getElementById('gamepart-title').value = title;
 
         utils.openPopup('create-gamepart-popup', () => {
           form.dataset.gamepartId = '';
           document.getElementById('gamepart-part').value = '';
           document.getElementById('gamepart-link').value = '';
+          document.getElementById('gamepart-title').value = '';
         });
       }
 

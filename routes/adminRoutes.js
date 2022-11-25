@@ -14,11 +14,12 @@ router.get('/games', controller.games);
 router.get('/notifications', controller.notifications);
 router.get('/schedules', controller.schedules);
 
-// ============= form pages
+// ============= form pages ==========
 router.get('/movieform', controller.movieform);
 router.get('/gameform', controller.gameform);
 router.get('/serieform', controller.serieform);
 router.get('/seasonform/:serieId', controller.seasonform);
+router.get('/episodeform/:seasonId', controller.episodeform);
 router.get('/scheduleform', controller.scheduleform);
 
 // ============== update pages =================
@@ -28,6 +29,6 @@ router.get('/aboutgame/:id', controller.aboutgame);
 router.get('/updateserie/:id', controller.updateserie);
 router.get('/updateschedule/:id', controller.updateschedule);
 router.get('/updateseason/:id', controller.updateseason);
-// router.get('/updatemovie/:id', controller.updateMovie);
+router.get('/updateepisode/:id', controller.updateepisode);
 
 module.exports = router;

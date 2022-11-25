@@ -1,0 +1,73 @@
+extends ../externals/adminformsbase
+
+block content
+  main.create
+    .create__cover
+      - const episodeId = episode ? episode.id : ''
+      form.create-new#create-episode(data-season-id=`${seasonId || ''}`, data-episode-id=`${episodeId}`)
+        .form-heading
+          h1 new episode
+        .form-group-double
+          .form-group
+            label.label-basic(for="episode-title") episode title
+            input#episode-title.input-basic(type="text" value=`${episode && episode.title || ''}`)
+          .form-group
+            label.label-basic(for="episode-number") episode number
+            input#episode-episode.input-basic(type="number"  value=`${episode && episode.episode || ''}` required)
+          
+        .center-components
+          button.btn-black.btn-normal#create-episode-btn(type="submit")
+            span.btn-content save
+      
+      if(episode && episode.Links.length)
+        .form-heading
+          h1 Download links
+        .episode-links#episode-links
+          .episode-links__cover
+            each link in episode.Links
+              +dbMovieLinkCard(link)
+            
+
+      if(episode)
+        .center-components.add-movie-link
+          i.fas.fa-plus-circle#add-episode-link(title="add episode link")
+
+
+  
+  .popup.display-off#create-link-popup
+    .popup-box.popup-box-normal
+      .popup-close
+        i.fas.fa-times
+      .popup-content.create-content
+        form.create-new#create-link(data-episode-id=`${episodeId}`)
+          .form-heading
+            h1 new episode link
+          .form-group
+            label.label-basic(for="link-title") link title
+            input#link-title.input-basic(type="text" required)
+          .form-group
+            label.label-basic(for="link-resolution") resolution
+            select#link-resolution.input-basic(type="text" data-value=`` required)
+              option(value="") -- select resolution --
+
+          .form-group
+            label.label-basic(for="link-link") link
+            input#link-link.input-basic(type="text" required)
+          .center-components
+            button.btn-black.btn-normal#link-btn(type="submit")
+              span.btn-content save
+
+
+  .popup.display-off#delete-link-popup
+    .popup-box.popup-box-normal
+      .popup-close
+        i.fas.fa-times
+      .popup-content.create-content
+        form.create-new#delete-link
+          .form-heading
+            h1 Are you sure you want to delete the link
+          
+          .center-components
+            button.btn-black.btn-normal#delete-link-btn(type="submit")
+              span.btn-content yes, delete
+

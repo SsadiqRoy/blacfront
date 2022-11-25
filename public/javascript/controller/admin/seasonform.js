@@ -8,8 +8,6 @@ async function controlCreate(serieId, btnId) {
     const data = view.getSeasonData();
     data.serie = serieId || null;
     const season = await model.post('/seasons/create', data);
-    // const { id } = season;
-    // await saveLinks(id);
 
     view.renderCreate(season, 'created', btnId);
   } catch (error) {
@@ -37,16 +35,11 @@ async function controlCreateEpisode(seasonId, btnId) {
     const data = view.getEpisodeData();
     data.season = seasonId;
 
-    // console.log(data);
-    // return;
     const episode = await model.post('/episodes/create', data);
-    const { id } = episode;
-    await saveLinks(id);
 
     view.renderCreateEpisode(episode, 'created', btnId);
   } catch (error) {
-    // console.log(error);
-    view.displayError(error, btnId, btnId);
+    view.displayError(error, btnId);
   }
 }
 
@@ -54,10 +47,8 @@ async function controlCreateEpisode(seasonId, btnId) {
 async function controlUpdateEpisode(episodeId, btnId) {
   try {
     const data = view.getEpisodeData();
-    // console.log(episodeId);
+
     const res = await model.patch(`/episodes/${episodeId}`, data);
-    // console.log(res);
-    await updateLinks(episodeId);
 
     view.renderCreateEpisode(res, 'updated', btnId);
   } catch (error) {
@@ -68,7 +59,6 @@ async function controlUpdateEpisode(episodeId, btnId) {
 //
 async function controlDeleteEpisode(episodeId, btnId) {
   try {
-    // console.log(episodeId);
     const res = await model.deletefull(`/episodes/${episodeId}`);
 
     view.renderDeleteEpisode(res, btnId);
@@ -78,39 +68,46 @@ async function controlDeleteEpisode(episodeId, btnId) {
 }
 
 //
-async function saveLinks(episodeId) {
-  const links = view.getLinks();
+async function controlCreateLink(episodeId, btnId) {
+  try {
+    if (!episodeId) throw new Error('First save the movie and update with the part links');
 
-  links.forEach(async (link) => {
-    if (link.link) {
-      link.episode = episodeId;
-      await model.post('/links/create', link);
-    }
-  });
+    const data = view.getLinkData();
+    data.episode = episodeId;
+
+    const res = await model.post('/links/create', data);
+
+    view.renderCreateLink(res, 'created', btnId);
+  } catch (error) {
+    view.displayError(error, btnId);
+  }
 }
 
 //
-async function updateLinks(episodeId) {
-  const links = view.getLinks();
-  // console.log(links);
+async function controlUpdateLink(linkId, btnId) {
+  try {
+    const data = view.getLinkData();
 
-  links.forEach(async (link) => {
-    // console.log('link', link);
-    if (link.link && link.link !== link.old) {
-      // console.log(`/links/${link.id}`);
-      await model.patch(`/links/${link.id}`, link);
-    }
-    if (link.old && !link.link) {
-      await model.deletefull(`/links/${link.id}`);
-    }
-    if (link.link && !link.id) {
-      link.episode = episodeId;
-      const re = await model.post(`/links/create`, link);
-      // console.log(re);
-    }
-  });
+    let res;
+    if (data.link) res = await model.patch(`/links/${linkId}`, data);
+    if (!data.link) res = await model.deletefull(`/links/${linkId}`);
+
+    view.renderCreateLink(res, 'updated', btnId);
+  } catch (error) {
+    view.displayError(error, btnId);
+  }
 }
 
+//
+async function controlDeleteLink(linkId, btnId) {
+  try {
+    const res = await model.deletefull(`/links/${linkId}`);
+
+    view.renderDeleteLInk(res, btnId);
+  } catch (error) {
+    view.displayError(error, btnId);
+  }
+}
 /*
 
 
@@ -125,6 +122,8 @@ async function init() {
   view.handleCreate(controlCreate, controlUpdate);
   view.handleCreateEpisode(controlCreateEpisode, controlUpdateEpisode);
   view.handleDeleteEpisode(controlDeleteEpisode);
+  view.handleCreateLink(controlCreateLink, controlUpdateLink);
+  view.handleDeleteLink(controlDeleteLink);
 }
 init();
 

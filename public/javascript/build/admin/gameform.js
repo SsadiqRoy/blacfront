@@ -673,6 +673,7 @@ function renderCreated(data, action, btnId) {
     _utilsJs.alertResponse(`${data.title} has been ${action}`);
     _utilsJs.stopRotateBtn(btnId);
     window.setTimeout(()=>{
+        if (action === "created") return window.location.assign(`/dashboard/updategame/${data.id}`);
         window.location.assign("/dashboard/games");
     }, 3500);
 }
@@ -744,8 +745,10 @@ function getGameData() {
 function getLinkData() {
     const part = document.getElementById("gamepart-part").value;
     const link = document.getElementById("gamepart-link").value;
+    const title = document.getElementById("gamepart-title").value;
     // const { gameId } = document.getElementById('create-gamepart').dataset;
     return {
+        title,
         part,
         link
     };
@@ -825,16 +828,18 @@ function initilizer() {
         // when the card icon is clicked
         const { target  } = e;
         const card = target.closest(".gamelink-card");
-        const { linkId , part , link  } = card.dataset;
+        const { linkId , part , link , title  } = card.dataset;
         // when the edit button is clickd
         if (target.classList.contains("edit-link-btn")) {
             form.dataset.gamepartId = linkId;
             document.getElementById("gamepart-part").value = part;
             document.getElementById("gamepart-link").value = link;
+            document.getElementById("gamepart-title").value = title;
             _utilsJs.openPopup("create-gamepart-popup", ()=>{
                 form.dataset.gamepartId = "";
                 document.getElementById("gamepart-part").value = "";
                 document.getElementById("gamepart-link").value = "";
+                document.getElementById("gamepart-title").value = "";
             });
         }
         // when the delect icon is clicked
@@ -884,16 +889,20 @@ parcelHelpers.export(exports, "clientSearchBar", ()=>clientSearchBar);
 parcelHelpers.export(exports, "cardsSlider", ()=>cardsSlider);
 parcelHelpers.export(exports, "suggestPopup", ()=>suggestPopup);
 parcelHelpers.export(exports, "clientSidebar", ()=>clientSidebar);
-parcelHelpers.export(exports, "baseUrl", ()=>baseUrl);
 parcelHelpers.export(exports, "api_url", ()=>api_url);
 parcelHelpers.export(exports, "main_url", ()=>main_url);
+parcelHelpers.export(exports, "countries", ()=>countries);
+parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
+parcelHelpers.export(exports, "resolutions", ()=>resolutions);
 parcelHelpers.export(exports, "alertResponse", ()=>alertResponse);
 parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
 parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
 parcelHelpers.export(exports, "fillSelects", ()=>fillSelects);
-parcelHelpers.export(exports, "pageQuery", ()=>pageQuery);
+parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
 parcelHelpers.export(exports, "displayError", ()=>displayError);
 parcelHelpers.export(exports, "structureQuery", ()=>structureQuery);
+parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
+parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
 parcelHelpers.export(exports, "dbMovieCard", ()=>dbMovieCard);
 parcelHelpers.export(exports, "notificationCard", ()=>notificationCard);
 parcelHelpers.export(exports, "scheduleCard", ()=>scheduleCard);
@@ -910,16 +919,20 @@ const clientSearchBar = _responsiveJs.clientSearchBar;
 const cardsSlider = _responsiveJs.cardsSlider;
 const suggestPopup = _responsiveJs.suggestPopup;
 const clientSidebar = _responsiveJs.clientSidebar;
-const baseUrl = _envJs.baseUrl;
 const api_url = _envJs.api_url;
 const main_url = _envJs.main_url;
+const countries = _envJs.countries;
+const serieStatus = _envJs.serieStatus;
+const resolutions = _envJs.resolutions;
 const alertResponse = _domJs.alertResponse;
 const rotateBtn = _domJs.rotateBtn;
 const stopRotateBtn = _domJs.stopRotateBtn;
 const fillSelects = _domJs.fillSelects;
-const pageQuery = _domJs.pageQuery;
+const metaQuery = _domJs.metaQuery;
 const displayError = _functionsJs.displayError;
 const structureQuery = _functionsJs.structureQuery;
+const stringifyQuery = _functionsJs.stringifyQuery;
+const parseQuery = _functionsJs.parseQuery;
 const dbMovieCard = _markupsJs.dbMovieCard;
 const notificationCard = _markupsJs.notificationCard;
 const scheduleCard = _markupsJs.scheduleCard;
@@ -1134,6 +1147,8 @@ parcelHelpers.defineInteropFlag(exports);
  * @param {String} search search value
  * @returns query in String (query string)
  */ parcelHelpers.export(exports, "structureQuery", ()=>structureQuery);
+parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
+parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
 var _domJs = require("./dom.js");
 function displayError(error, btnid, type) {
     console.log(error);
@@ -1147,12 +1162,25 @@ function structureQuery(search) {
         text
     };
     else {
-        query = _domJs.pageQuery();
+        query = _domJs.metaQuery();
         const { page , limit , total  } = query;
         query.page = page + 1;
     }
     const queryString = Object.entries(query).map(([key, value])=>`${key}=${value}`).join("&");
     return `?${queryString}`;
+}
+function stringifyQuery(query) {
+    const queryString = Object.entries(query).map(([key, value])=>`${key}=${value}`).join("&");
+    return `?${queryString}`;
+}
+function parseQuery(queryString) {
+    const query = {};
+    const queries = queryString.slice(1).split("&");
+    queries.forEach((q)=>{
+        const a = q.split("=");
+        query[a[0]] = a[1];
+    });
+    return query;
 }
 
 },{"./dom.js":"gBwFC","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"gBwFC":[function(require,module,exports) {
@@ -1188,8 +1216,9 @@ parcelHelpers.defineInteropFlag(exports);
  * takes in a query meta data and set it to body dataset. If no query is supplied, it gets the current meta data from the body
  * @param {Object} query the meta query to be set to the body element
  * @returns Object, meta of a query
- */ parcelHelpers.export(exports, "pageQuery", ()=>pageQuery);
-var _envJs = require("./env.js");
+ */ parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
+// import * as env from './env.js';
+var _utilsJs = require("./utils.js");
 function alertResponse(message, timer = 3, type = "success") {
     const markup = `
     <div class="message message--${type}">
@@ -1261,18 +1290,18 @@ function stopRotateBtn(btnid, type = "btn-black") {
         return;
     }
 }
-function fillSelects(selectId, variables) {
+function fillSelects(selectId, variables, clear = true, list) {
     const select = document.getElementById(selectId);
     if (!select) return console.warn("blaciris - select element not on this page - ", selectId);
     const { value  } = select.dataset;
-    const vars = _envJs[variables];
-    select.innerHTML = "";
+    const vars = list || _utilsJs[variables];
+    if (clear) select.innerHTML = "";
     vars.forEach((v)=>{
         const markup = `<option value='${v}' ${v === value ? "selected" : ""}>${v}</option>`;
         select.insertAdjacentHTML("beforeend", markup);
     });
 }
-function pageQuery(query) {
+function metaQuery(query) {
     const body = document.querySelector("body");
     if (query) {
         body.dataset.meta = JSON.stringify(query);
@@ -1282,13 +1311,14 @@ function pageQuery(query) {
     return meta;
 }
 
-},{"./env.js":"7qgA7","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"7qgA7":[function(require,module,exports) {
+},{"./utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"7qgA7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "api_url", ()=>api_url);
 parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
+parcelHelpers.export(exports, "resolutions", ()=>resolutions);
 const api_url = "http://localhost:2000/v1";
 const main_url = "http://localhost:2500";
 const countries = [
@@ -1548,6 +1578,15 @@ const serieStatus = [
     "ended",
     "paused",
     "stopped"
+];
+const resolutions = [
+    "1",
+    "360",
+    "480",
+    "720",
+    "1080",
+    "2160",
+    "10000"
 ];
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"doi6o":[function(require,module,exports) {

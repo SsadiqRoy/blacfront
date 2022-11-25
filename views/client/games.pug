@@ -5,25 +5,19 @@ block content
   include ../externals/cards
 
   section.redirects
-    h3 search 
-      i
-        u dracula 
+    p Find 
+      i dracula 
       | in 
-      a(href='/movies')
-        i movies
-    h3 search 
-      i
-        u dracula 
-      | in 
-      a(href='/series')
-        i tv series
+      a(href='/movies') movies 
+      | or in 
+      a(href='/series') tv series
 
   section.container
     .section-heading
       h2 results for trending
     .content.content-games
       - let n = 1
-      while n < 21
+      while n < 3
         +gameCard(n)
         - n++
  

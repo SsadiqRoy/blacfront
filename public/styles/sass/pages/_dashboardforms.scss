@@ -18,6 +18,36 @@ body {
   }
 
   &__logo {
+    display: flex;
+    align-items: center;
+
+    a {
+      height: 4rem;
+      display: inline-block;
+
+      @include respond(phone) {
+        height: 3rem;
+      }
+    }
+
+    img {
+      height: 100%;
+    }
+
+    .favicon-trans {
+      display: none;
+      height: 3rem;
+
+      @include respond(phone) {
+        display: initial;
+      }
+    }
+    .logo-trans {
+      @include respond(phone) {
+        display: none;
+      }
+    }
+
     .dashboard-header__logo-menu {
       font-size: 2rem;
       margin-right: 1rem;
@@ -106,7 +136,8 @@ body {
   padding-inline: 2rem;
   padding-bottom: 3rem;
 
-  .add-game-link {
+  .add-game-link,
+  .add-movie-link {
     font-size: $fs-larger;
     margin-block: 1rem;
 
@@ -117,6 +148,7 @@ body {
 }
 
 .gamelink-card,
+.movielink-card,
 .episodelink-card {
   width: 100%;
   border: 1px solid $black;
@@ -132,6 +164,7 @@ body {
     display: flex;
     gap: 2rem;
     align-items: center;
+    justify-content: space-between;
   }
   h3 {
     flex-shrink: 0;
@@ -139,7 +172,7 @@ body {
   }
   p {
     flex-shrink: 0;
-    flex-basis: 80%;
+    // flex-basis: 80%;
     overflow: hidden;
     display: inline-block;
 

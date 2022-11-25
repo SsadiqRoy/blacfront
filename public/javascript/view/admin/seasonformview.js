@@ -33,11 +33,11 @@ export function renderCreateEpisode(data, action, btnId) {
     );
   }
 
-  utils.alertResponse(`Episode - ${data.title || ''} - has been ${action}`);
+  utils.alertResponse(`Episode - ${data.title || data.episode} - has been ${action}`);
   utils.stopRotateBtn(btnId);
 
   window.setTimeout(() => {
-    window.location.reload();
+    window.location.assign(`/dashboard/updateepisode/${data.id}`);
   }, 3500);
 }
 
@@ -57,9 +57,44 @@ export function renderDeleteEpisode(data, btn) {
 
   utils.closePopup('delete-episode-popup', () => window.location.reload());
 }
-//
 
-//
+/**
+ * render response after creating or updating game
+ * @param {Object} data response object (game link)
+ * @param {String} action updated or created
+ * @returns null - break action
+ */
+export function renderCreateLink(data, action, btnId) {
+  if (!data) {
+    utils.stopRotateBtn(btnId);
+    utils.alertResponse('failed creating or could not display results - am reloading', 6, 'failed');
+    window.setTimeout(() => window.location.reload(), 6500);
+  }
+
+  utils.alertResponse(`link ${data.title} has been ${action}`);
+  utils.stopRotateBtn(btnId);
+
+  utils.closePopup('create-link-popup', () => {
+    window.setTimeout(() => window.location.reload(), 3500);
+  });
+}
+
+/**
+ * render response after creating or updating game
+ * @param {Object} data response object (deleted game)
+ * @returns null - break action
+ */
+export function renderDeleteLInk(data, btnId) {
+  if (!data) {
+    utils.alertResponse('failed deleting or could not display results, am reloading', 6, 'failed');
+    utils.stopRotateBtn(btnId);
+    return window.setTimeout(() => window.location.reload(), 6500);
+  }
+  utils.alertResponse('Link has been deleted successfully');
+  utils.stopRotateBtn(btnId);
+
+  utils.closePopup('delete-link-popup', () => window.location.reload());
+}
 
 /*
 
@@ -90,45 +125,13 @@ export function getEpisodeData() {
   return { title, episode };
 }
 
-export function getLinks() {
-  const {
-    value: l480,
-    dataset: { link: l480Old, linkId: l480Id },
-  } = document.getElementById('episode-480-link');
+//
+export function getLinkData() {
+  const resolution = document.getElementById('link-resolution').value;
+  const link = document.getElementById('link-link').value;
+  const title = document.getElementById('link-title').value;
 
-  // const link720 = document.getElementById('episode-720-link').value;
-  const {
-    value: l720,
-    dataset: { link: l720Old, linkId: l720Id },
-  } = document.getElementById('episode-720-link');
-
-  // const link1080 = document.getElementById('episode-1080-link').value;
-  const {
-    value: l1080,
-    dataset: { link: l1080Old, linkId: l1080Id },
-  } = document.getElementById('episode-1080-link');
-
-  // const linkOther = document.getElementById('episode-other-link').value;
-  const {
-    value: l1,
-    dataset: { link: l1Old, linkId: l1Id },
-  } = document.getElementById('episode-other-link');
-
-  // const subtitle = document.getElementById('episode-subtitle-link').value;
-  const {
-    value: l10000,
-    dataset: { link: l10000Old, linkId: l10000Id },
-  } = document.getElementById('episode-subtitle-link');
-
-  const links = [
-    { link: l480, resolution: 480, old: l480Old, id: l480Id },
-    { link: l720, resolution: 720, old: l720Old, id: l720Id },
-    { link: l1080, resolution: 1080, old: l1080Old, id: l1080Id },
-    { link: l1, resolution: 1, old: l1Old, id: l1Id },
-    { link: l10000, resolution: 10000, old: l10000Old, id: l10000Id },
-  ];
-  // const validLinks = links.filter((link) => link.link.length);
-  return links;
+  return { title, resolution, link };
 }
 
 /*
@@ -186,6 +189,41 @@ export function handleDeleteEpisode(controlDeleteEpisode) {
     });
 }
 
+//
+export function handleCreateLink(controlCreateLink, controlUpdateLink) {
+  const form = document.getElementById('create-link');
+
+  form &&
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      utils.rotateBtn('link-btn');
+      const { linkId, episodeId } = form.dataset;
+      // console.log(linkId, episodeId);
+      // return;
+      if (!linkId) {
+        return controlCreateLink(episodeId, 'link-btn');
+      }
+
+      // return console.log('👉', linkId, gameId);
+      controlUpdateLink(linkId, 'link-btn');
+    });
+}
+
+//
+export function handleDeleteLink(controlDeleteLink) {
+  const form = document.getElementById('delete-link');
+
+  form &&
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const { linkId } = form.dataset;
+
+      if (!linkId) return;
+      utils.rotateBtn('delete-link-btn');
+      controlDeleteLink(linkId, 'delete-link');
+    });
+}
+
 /*
 
 
@@ -195,13 +233,18 @@ export function handleDeleteEpisode(controlDeleteEpisode) {
 */
 // =================== INITIALIZER ============
 export function initializer() {
-  const btn = document.getElementById('add-episode');
+  // const btn = document.getElementById('add-episode');
 
   manageEpisodesPopup();
+  manageLinkPopup();
 
-  btn &&
-    btn.addEventListener('click', (e) => {
-      utils.openPopup('create-episode-popup', clearEpisodeData);
+  const episodeLinkBtn = document.getElementById('add-episode-link');
+
+  // displaying popup on for creating movie link
+  episodeLinkBtn &&
+    episodeLinkBtn.addEventListener('click', (e) => {
+      utils.fillSelects('link-resolution', 'resolutions');
+      utils.openPopup('create-link-popup');
     });
 }
 
@@ -213,36 +256,36 @@ export function initializer() {
 
 */
 // =================== NON EXPORTING FUNTIONS =
-function clearEpisodeData() {
-  document.getElementById('create-episode').dataset.episodeId = '';
-  document.getElementById('episode-title').value = '';
-  document.getElementById('episode-episode').value = '';
+// function clearEpisodeData() {
+//   document.getElementById('create-episode').dataset.episodeId = '';
+//   document.getElementById('episode-title').value = '';
+//   document.getElementById('episode-episode').value = '';
 
-  const l480 = document.getElementById('episode-480-link');
-  l480.value = '';
-  l480.dataset.linkId = '';
-  l480.dataset.link = '';
+//   const l480 = document.getElementById('episode-480-link');
+//   l480.value = '';
+//   l480.dataset.linkId = '';
+//   l480.dataset.link = '';
 
-  const l720 = document.getElementById('episode-720-link');
-  l720.value = '';
-  l720.dataset.linkId = '';
-  l720.dataset.link = '';
+//   const l720 = document.getElementById('episode-720-link');
+//   l720.value = '';
+//   l720.dataset.linkId = '';
+//   l720.dataset.link = '';
 
-  const l1080 = document.getElementById('episode-1080-link');
-  l1080.value = '';
-  l1080.dataset.linkId = '';
-  l1080.dataset.link = '';
+//   const l1080 = document.getElementById('episode-1080-link');
+//   l1080.value = '';
+//   l1080.dataset.linkId = '';
+//   l1080.dataset.link = '';
 
-  const lother = document.getElementById('episode-other-link');
-  lother.value = '';
-  lother.dataset.linkId = '';
-  lother.dataset.link = '';
+//   const lother = document.getElementById('episode-other-link');
+//   lother.value = '';
+//   lother.dataset.linkId = '';
+//   lother.dataset.link = '';
 
-  const lsubtitle = document.getElementById('episode-subtitle-link');
-  lsubtitle.value = '';
-  lsubtitle.dataset.linkId = '';
-  lsubtitle.dataset.link = '';
-}
+//   const lsubtitle = document.getElementById('episode-subtitle-link');
+//   lsubtitle.value = '';
+//   lsubtitle.dataset.linkId = '';
+//   lsubtitle.dataset.link = '';
+// }
 
 /** display popup for creating links or deleting links */
 function manageEpisodesPopup() {
@@ -255,48 +298,88 @@ function manageEpisodesPopup() {
       const { target } = e;
 
       // when edite button is clicked
-      if (target.classList.contains('edit-episode-btn')) {
-        // getting the whole episode data
-        const card = target.closest('.episodelink-card');
-        const { episode: e } = card.dataset;
-        const episode = JSON.parse(e);
-        // getting links out of the episodes
-        const { Links: links } = episode;
+      // if (target.classList.contains('edit-episode-btn')) {
+      //   // getting the whole episode data
+      //   const card = target.closest('.episodelink-card');
+      //   const { episode: e } = card.dataset;
+      //   const episode = JSON.parse(e);
+      //   // getting links out of the episodes
+      //   const { Links: links } = episode;
 
-        // setting the popup form episode id to dataset object
-        form.dataset.episodeId = episode.id;
-        document.getElementById('episode-title').value = episode.title;
-        document.getElementById('episode-episode').value = episode.episode;
+      //   // setting the popup form episode id to dataset object
+      //   form.dataset.episodeId = episode.id;
+      //   document.getElementById('episode-title').value = episode.title;
+      //   document.getElementById('episode-episode').value = episode.episode;
 
-        // looping through links and setting the dataset and value to their various elements
-        links.forEach((link) => {
-          // knowing the type of link to be able to select its input by id
-          let resolution = link.resolution === 1 ? 'other' : link.resolution;
-          resolution = link.resolution === 10000 ? 'subtitle' : resolution;
-          const id = `episode-${resolution}-link`;
-          const input = document.getElementById(id);
+      //   // looping through links and setting the dataset and value to their various elements
+      //   links.forEach((link) => {
+      //     // knowing the type of link to be able to select its input by id
+      //     let resolution = link.resolution === 1 ? 'other' : link.resolution;
+      //     resolution = link.resolution === 10000 ? 'subtitle' : resolution;
+      //     const id = `episode-${resolution}-link`;
+      //     const input = document.getElementById(id);
 
-          // resseting dataset and filling in values
-          input.value = link.link;
-          input.dataset.linkId = link.id;
-          input.dataset.link = link.link;
-        });
+      //     // resseting dataset and filling in values
+      //     input.value = link.link;
+      //     input.dataset.linkId = link.id;
+      //     input.dataset.link = link.link;
+      //   });
 
-        utils.openPopup('create-episode-popup', clearEpisodeData);
-      }
+      //   utils.openPopup('create-episode-popup', clearEpisodeData);
+      // }
 
       // when delete button is clicked
       if (target.classList.contains('delete-episode-btn')) {
         // getting the whole episode data
         const card = target.closest('.episodelink-card');
-        const { episode: e } = card.dataset;
-        const episode = JSON.parse(e);
+        // const { episode: e } = ;
+        // const episode = JSON.parse(e);
         // getting links out of the episodes
-        const { id: episodeId } = episode;
+        const { episodeId } = card.dataset;
         deleteForm.dataset.episodeId = episodeId;
 
         utils.openPopup('delete-episode-popup', () => {
           deleteForm.dataset.episodeId = '';
+        });
+      }
+    });
+}
+
+/** display popup for creating links or deleting links */
+function manageLinkPopup() {
+  const cover = document.getElementById('episode-links');
+  const form = document.getElementById('create-link');
+  const deleteForm = document.getElementById('delete-link');
+
+  cover &&
+    cover.addEventListener('click', (e) => {
+      // when the card icon is clicked
+      const { target } = e;
+      const card = target.closest('.movielink-card');
+      const { linkId, resolution, link, title } = card.dataset;
+
+      // when the edit button is clickd
+      if (target.classList.contains('edit-link-btn')) {
+        form.dataset.linkId = linkId;
+
+        document.getElementById('link-resolution').dataset.value = resolution;
+        utils.fillSelects('link-resolution', 'resolutions');
+        document.getElementById('link-link').value = link;
+        document.getElementById('link-title').value = title;
+
+        utils.openPopup('create-link-popup', () => {
+          form.dataset.linkId = '';
+          document.getElementById('link-resolution').dataset.value = '';
+          document.getElementById('link-link').value = '';
+          document.getElementById('link-title').value = '';
+        });
+      }
+
+      // when the delect icon is clicked
+      if (target.classList.contains('delete-link-btn')) {
+        deleteForm.dataset.linkId = linkId;
+        utils.openPopup('delete-link-popup', () => {
+          deleteForm.dataset.linkId = '';
         });
       }
     });

@@ -41,7 +41,7 @@ aside.sidebar#sidebar
 
         if(ext.page !== 'games' && ext.page !== 'game')
           ul
-            li(data-query='?q=trending') trending
+            li(data-query='?text=trending') trending
             li(data-query=`?date=gte,${new Date(Date.now() - (7776000000)).toLocaleDateString()}`) new
             li(data-query=`?updatedAt=gte,${new Date(Date.now() - (7776000000)).toLocaleDateString()}`) updated
             li(data-query='?rating=gte,6') top rated
@@ -72,21 +72,28 @@ aside.sidebar#sidebar
             li(data-query='?keywords=african') african
 
         if(ext.page === 'games' || ext.page === 'game')
+          //- ul
+            //- li(data-query='?keywords=rts') Real-time strategy (RTS)
+            //- li(data-query='?keywords=sandbox') Sandbox
+            //- li(data-query='?keywords=moba') Multiplayer online battle arena (MOBA)
+            //- li(data-query='?keywords=rpg-arpg') Role-playing (RPG, ARPG, and More)
+            //- li(data-query='?keywords=simulation-sports') Simulation and sports
+            //- li(data-query='?keywords=puzzle-party') Puzzlers and party games
+            //- li(data-query='?keywords=action-adventure') Action-adventure
+            //- li(data-query='?keywords=survival-horror') Survival and horror
+            //- li(data-query='?keywords=platformer') Platformer
           ul
-            li(data-query='?keywords=rts') Real-time strategy (RTS)
-            li(data-query='?keywords=sandbox') Sandbox
-            li(data-query='?keywords=moba') Multiplayer online battle arena (MOBA)
-            li(data-query='?keywords=rpg-arpg') Role-playing (RPG, ARPG, and More)
-            li(data-query='?keywords=simulation-sports') Simulation and sports
-            li(data-query='?keywords=puzzle-party') Puzzlers and party games
-            li(data-query='?keywords=action-adventure') Action-adventure
-            li(data-query='?keywords=survival-horror') Survival and horror
-            li(data-query='?keywords=platformer') Platformer
-          ul
-            li(data-query='?keywords=war') War
-            li(data-query='?keywords=racing') Racing
-            li(data-query='?keywords=arcade') arcade
-            li(data-query='?keywords=shooter') shooter
+            li(data-query='?text=adventure') adventure
+            li(data-query='?text=arcade') arcade
+            li(data-query='?text=fighting') fighting
+            li(data-query='?text=horror') horror
+            li(data-query='?text=open-word') open word
+            li(data-query='?text=puzzle') puzzle
+            li(data-query='?text=shooter') shooter
+            li(data-query='?text=racing') Racing
+            li(data-query='?text=sports') sports
+            li(data-query='?text=rpg') RPG
+            li(data-query='?text=war') War
         
         if(user)
           ul

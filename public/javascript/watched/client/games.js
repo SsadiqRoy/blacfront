@@ -142,14 +142,14 @@
       this[globalName] = mainExports;
     }
   }
-})({"4vuwo":[function(require,module,exports) {
+})({"4sBBr":[function(require,module,exports) {
 "use strict";
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "42036d7a98ade5a7";
-module.bundle.HMR_BUNDLE_ID = "5df255a24a57150d";
+module.bundle.HMR_BUNDLE_ID = "1ea4afe1171dda5a";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, chrome, browser, globalThis, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
   HMRAsset,
@@ -531,69 +531,49 @@ function hmrAcceptRun(bundle, id) {
     acceptedAssets[id] = true;
 }
 
-},{}],"2kBjB":[function(require,module,exports) {
-var _scheduleformviewJs = require("../../view/admin/scheduleformview.js");
+},{}],"6OBXV":[function(require,module,exports) {
+var _homeviewJs = require("../../view/client/homeview.js");
 var _modelJs = require("../../model/model.js");
-async function controlCreate(btnId) {
-    try {
-        const data = _scheduleformviewJs.getScheduleData();
-        // console.log(data);
-        const res = await _modelJs.post("/schedules/create", data);
-        _scheduleformviewJs.renderCreated(res, "created", btnId);
-    } catch (error) {
-        _scheduleformviewJs.displayError(error, btnId);
-    }
+async function initializer() {
+    _homeviewJs.initializer();
 }
-//
-async function controlUpdate(scheduleId, btnId) {
-    try {
-        const data = _scheduleformviewJs.getScheduleData();
-        const res = await _modelJs.patch(`/schedules/${scheduleId}`, data);
-        _scheduleformviewJs.renderCreated(res, "created", btnId);
-    } catch (error) {
-        _scheduleformviewJs.displayError(error, btnId);
-    }
-}
-async function init() {
-    _scheduleformviewJs.handleCreate(controlCreate, controlUpdate);
-}
-init();
+initializer();
 
-},{"../../view/admin/scheduleformview.js":"dhhH7","../../model/model.js":"cEBbY"}],"dhhH7":[function(require,module,exports) {
+},{"../../view/client/homeview.js":"2GxEX","../../model/model.js":"cEBbY"}],"2GxEX":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "displayError", ()=>displayError);
-//
-parcelHelpers.export(exports, "renderCreated", ()=>renderCreated);
+parcelHelpers.export(exports, "renderHeadingSlide", ()=>renderHeadingSlide);
 /*
 
 
 
 
 
-*/ // ================== GETTERS ============
-parcelHelpers.export(exports, "getScheduleData", ()=>getScheduleData);
+  */ // ================== GETTERS ============
 /*
 
 
 
 
 
-*/ // =================== HANDLERS ==========
-parcelHelpers.export(exports, "handleCreate", ()=>handleCreate) /*
+  */ // =================== HANDLERS ==========
+parcelHelpers.export(exports, "handleHeadingSlide", ()=>handleHeadingSlide);
+/*
 
 
 
 
 
-*/  // ================== INITIALIZER =========
- /*
+  */ // ================== INITIALIZER =========
+parcelHelpers.export(exports, "initializer", ()=>initializer) /*
 
 
 
 
 
-*/  // ================== NON EXPORTING FUNCTIONS =
+  */  // ================== NON EXPORTING FUNCTIONS =
+ // =======================================================================
  // ================= RENDERES ===========
  /*
 
@@ -626,36 +606,80 @@ parcelHelpers.export(exports, "handleCreate", ()=>handleCreate) /*
 ;
 var _utilsJs = require("../../utils/utils.js");
 const displayError = _utilsJs.displayError;
-function renderCreated(data, action, btnId) {
-    if (!data) {
-        _utilsJs.stopRotateBtn(btnId);
-        return _utilsJs.alertResponse("failed creating or could not display results - try find on schedules page", 6, "failed");
+function renderHeadingSlide(data) {
+    const mother = document.querySelector(".head-slider");
+    const first = mother.querySelector(".first-image");
+    const second = mother.querySelector(".second-image");
+    const third = mother.querySelector(".third-image");
+    const links = data;
+    // const j = [
+    //   {
+    //     title: 'We Crashed',
+    //     image: '/images/image-1.jpg',
+    //     description:
+    //       'Sit ratione optio aut velit nihil aspernatur magnam est, facere temporibus in neque necessitatibus assumenda. Aut doloremque voluptas incidunt natus itaque earum?',
+    //   },
+    //   {
+    //     title: 'M. Night from Shyamalan: Servant',
+    //     image: '/images/image-2.jpg',
+    //     description: 'Alias beatae sapiente dignissimos ipsa excepturi laboriosam fuga nemo, quaerat nostrum ad.',
+    //   },
+    //   {
+    //     title: 'For All Mankind',
+    //     image: '/images/image-3.jpg',
+    //     description: 'Id exercitationem illo, dolorem porro provident natus aspernatur corporis labore quas accusamus?',
+    //   },
+    //   {
+    //     title: 'Tehran',
+    //     image: '/images/image-4.jpg',
+    //     description: 'Quia aspernatur nesciunt porro! Temporibus, ullam! Possimus, distinctio nemo. Eum, cum labore?',
+    //   },
+    //   {
+    //     title: 'Black Bird',
+    //     image: '/images/image-5.jpg',
+    //     description: 'Cupiditate omnis placeat illum id nemo velit dolorem facere perspiciatis deserunt culpa!',
+    //   },
+    //   {
+    //     title: 'Truth Be Told',
+    //     image: '/images/image-6.jpg',
+    //     description: 'Ea doloremque temporibus aut adipisci, velit repellat eum fugit quasi sunt recusandae?',
+    //   },
+    // ];
+    function shiftLinks() {
+        const a = links.shift();
+        links.push(a);
     }
-    _utilsJs.alertResponse(`Schedule - ${new Date(data.date).toLocaleString()} - has been ${action}`);
-    _utilsJs.stopRotateBtn(btnId);
-    window.setTimeout(()=>{
-        window.location.assign("/dashboard/schedules");
-    }, 3500);
+    function swapper(box, position) {
+        const ob = links[position];
+        box.querySelector("img").setAttribute("src", ob.landscape);
+        if (box.classList.contains("second-image")) {
+            box.querySelector("h2").textContent = ob.title;
+            box.querySelector("p").textContent = ob.description;
+        }
+    }
+    function swapImage() {
+        // console.log('hitting');
+        swapper(third, 0);
+        setTimeout(()=>{
+            swapper(second, 1);
+        });
+        setTimeout(()=>{
+            swapper(first, 2);
+        });
+        setTimeout(()=>{
+            shiftLinks();
+        });
+    }
+    swapImage();
+    setInterval(swapImage, 5000);
 }
-function getScheduleData() {
-    const date = document.getElementById("schedule-date").value;
-    const message = document.getElementById("schedule-message").value;
-    const { user  } = document.getElementById("create-schedule").dataset;
-    return {
-        date,
-        message,
-        user
-    };
-}
-function handleCreate(controlCreate, controlUpdate) {
-    const form = document.getElementById("create-schedule");
-    form && form.addEventListener("submit", (e)=>{
-        e.preventDefault();
-        _utilsJs.rotateBtn("create-schedule-btn");
-        const { scheduleId  } = form.dataset;
-        if (scheduleId) return controlUpdate(scheduleId, "create-schedule-btn");
-        controlCreate("create-schedule-btn");
+function handleHeadingSlide(controlHeadingSlide) {
+    document.addEventListener("DOMContentLoaded", ()=>{
+        controlHeadingSlide();
     });
+}
+function initializer() {
+    _utilsJs.clientSearchBar(), _utilsJs.cardsSlider(), _utilsJs.suggestPopup(), _utilsJs.clientSidebar();
 }
 
 },{"../../utils/utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"bvANu":[function(require,module,exports) {
@@ -668,14 +692,21 @@ parcelHelpers.export(exports, "adminSearchBar", ()=>adminSearchBar);
 parcelHelpers.export(exports, "clientSearchBar", ()=>clientSearchBar);
 parcelHelpers.export(exports, "cardsSlider", ()=>cardsSlider);
 parcelHelpers.export(exports, "suggestPopup", ()=>suggestPopup);
-parcelHelpers.export(exports, "baseUrl", ()=>baseUrl);
+parcelHelpers.export(exports, "clientSidebar", ()=>clientSidebar);
+parcelHelpers.export(exports, "api_url", ()=>api_url);
+parcelHelpers.export(exports, "main_url", ()=>main_url);
+parcelHelpers.export(exports, "countries", ()=>countries);
+parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
+parcelHelpers.export(exports, "resolutions", ()=>resolutions);
 parcelHelpers.export(exports, "alertResponse", ()=>alertResponse);
 parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
 parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
 parcelHelpers.export(exports, "fillSelects", ()=>fillSelects);
-parcelHelpers.export(exports, "pageQuery", ()=>pageQuery);
+parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
 parcelHelpers.export(exports, "displayError", ()=>displayError);
 parcelHelpers.export(exports, "structureQuery", ()=>structureQuery);
+parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
+parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
 parcelHelpers.export(exports, "dbMovieCard", ()=>dbMovieCard);
 parcelHelpers.export(exports, "notificationCard", ()=>notificationCard);
 parcelHelpers.export(exports, "scheduleCard", ()=>scheduleCard);
@@ -691,14 +722,21 @@ const adminSearchBar = _responsiveJs.adminSearchBar;
 const clientSearchBar = _responsiveJs.clientSearchBar;
 const cardsSlider = _responsiveJs.cardsSlider;
 const suggestPopup = _responsiveJs.suggestPopup;
-const baseUrl = _envJs.baseUrl;
+const clientSidebar = _responsiveJs.clientSidebar;
+const api_url = _envJs.api_url;
+const main_url = _envJs.main_url;
+const countries = _envJs.countries;
+const serieStatus = _envJs.serieStatus;
+const resolutions = _envJs.resolutions;
 const alertResponse = _domJs.alertResponse;
 const rotateBtn = _domJs.rotateBtn;
 const stopRotateBtn = _domJs.stopRotateBtn;
 const fillSelects = _domJs.fillSelects;
-const pageQuery = _domJs.pageQuery;
+const metaQuery = _domJs.metaQuery;
 const displayError = _functionsJs.displayError;
 const structureQuery = _functionsJs.structureQuery;
+const stringifyQuery = _functionsJs.stringifyQuery;
+const parseQuery = _functionsJs.parseQuery;
 const dbMovieCard = _markupsJs.dbMovieCard;
 const notificationCard = _markupsJs.notificationCard;
 const scheduleCard = _markupsJs.scheduleCard;
@@ -720,7 +758,13 @@ parcelHelpers.defineInteropFlag(exports);
 /**
  * Opens and close the admin sidebar when the menu bars on the header is clicked
  */ parcelHelpers.export(exports, "adminSidebar", ()=>adminSidebar);
-/**
+parcelHelpers.export(exports, "clientSidebar", ()=>clientSidebar);
+/*
+
+- name: FTP Deploy 
+  uses: SamKirkland/FTP-Deploy-Action@4.3.2
+
+*/ /**
  * Made for devices with width under 400px.
  * Making the search bar visible when the search icon is clicked and
  * hiding it on blur
@@ -781,6 +825,17 @@ function adminSidebar() {
         }
     });
 }
+function clientSidebar() {
+    const bars = document.getElementById("menu-bar");
+    const close = document.getElementById("close-sidebar");
+    const sidebar = document.getElementById("sidebar");
+    bars && bars.addEventListener("click", ()=>{
+        if (sidebar) sidebar.style.left = "0";
+    });
+    close && close.addEventListener("click", ()=>{
+        if (sidebar) sidebar.style.left = "-100%";
+    });
+}
 function adminSearchBar() {
     const searchBtn = document.getElementById("search-button");
     const logo = document.querySelector(".dashboard-header__logo");
@@ -795,7 +850,7 @@ function adminSearchBar() {
         searchBar.focus();
     });
     // hiding searchbar and unhiding logo and username
-    searchBar.addEventListener("blur", ()=>{
+    searchBar && searchBar.addEventListener("blur", ()=>{
         if (window.innerWidth < 400 && searchBar.value.length < 1) {
             logo.style.display = "initial";
             user.style.display = "initial";
@@ -818,7 +873,7 @@ function clientSearchBar() {
         searchBar.focus();
     });
     // hiding searchbar and unhiding logo and username
-    searchBar.addEventListener("blur", ()=>{
+    searchBar && searchBar.addEventListener("blur", ()=>{
         if (window.innerWidth < 600 && searchBar.value.length < 1) {
             logo.style.display = "flex";
             user.style.display = "initial";
@@ -896,6 +951,8 @@ parcelHelpers.defineInteropFlag(exports);
  * @param {String} search search value
  * @returns query in String (query string)
  */ parcelHelpers.export(exports, "structureQuery", ()=>structureQuery);
+parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
+parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
 var _domJs = require("./dom.js");
 function displayError(error, btnid, type) {
     console.log(error);
@@ -909,12 +966,25 @@ function structureQuery(search) {
         text
     };
     else {
-        query = _domJs.pageQuery();
+        query = _domJs.metaQuery();
         const { page , limit , total  } = query;
         query.page = page + 1;
     }
     const queryString = Object.entries(query).map(([key, value])=>`${key}=${value}`).join("&");
     return `?${queryString}`;
+}
+function stringifyQuery(query) {
+    const queryString = Object.entries(query).map(([key, value])=>`${key}=${value}`).join("&");
+    return `?${queryString}`;
+}
+function parseQuery(queryString) {
+    const query = {};
+    const queries = queryString.slice(1).split("&");
+    queries.forEach((q)=>{
+        const a = q.split("=");
+        query[a[0]] = a[1];
+    });
+    return query;
 }
 
 },{"./dom.js":"gBwFC","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"gBwFC":[function(require,module,exports) {
@@ -950,8 +1020,9 @@ parcelHelpers.defineInteropFlag(exports);
  * takes in a query meta data and set it to body dataset. If no query is supplied, it gets the current meta data from the body
  * @param {Object} query the meta query to be set to the body element
  * @returns Object, meta of a query
- */ parcelHelpers.export(exports, "pageQuery", ()=>pageQuery);
-var _envJs = require("./env.js");
+ */ parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
+// import * as env from './env.js';
+var _utilsJs = require("./utils.js");
 function alertResponse(message, timer = 3, type = "success") {
     const markup = `
     <div class="message message--${type}">
@@ -1023,18 +1094,18 @@ function stopRotateBtn(btnid, type = "btn-black") {
         return;
     }
 }
-function fillSelects(selectId, variables) {
+function fillSelects(selectId, variables, clear = true, list) {
     const select = document.getElementById(selectId);
     if (!select) return console.warn("blaciris - select element not on this page - ", selectId);
     const { value  } = select.dataset;
-    const vars = _envJs[variables];
-    select.innerHTML = "";
+    const vars = list || _utilsJs[variables];
+    if (clear) select.innerHTML = "";
     vars.forEach((v)=>{
         const markup = `<option value='${v}' ${v === value ? "selected" : ""}>${v}</option>`;
         select.insertAdjacentHTML("beforeend", markup);
     });
 }
-function pageQuery(query) {
+function metaQuery(query) {
     const body = document.querySelector("body");
     if (query) {
         body.dataset.meta = JSON.stringify(query);
@@ -1044,13 +1115,16 @@ function pageQuery(query) {
     return meta;
 }
 
-},{"./env.js":"7qgA7","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"7qgA7":[function(require,module,exports) {
+},{"./utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"7qgA7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "baseUrl", ()=>baseUrl);
+parcelHelpers.export(exports, "api_url", ()=>api_url);
+parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
-const baseUrl = "http://localhost:2000/v1";
+parcelHelpers.export(exports, "resolutions", ()=>resolutions);
+const api_url = "https://apistaging.blaciris.com/v1";
+const main_url = "https://staging.blaciris.com";
 const countries = [
     "Afghanistan",
     "Albania",
@@ -1309,6 +1383,15 @@ const serieStatus = [
     "paused",
     "stopped"
 ];
+const resolutions = [
+    "1",
+    "360",
+    "480",
+    "720",
+    "1080",
+    "2160",
+    "10000"
+];
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"doi6o":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -1395,6 +1478,7 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "get", ()=>get);
 //
+//
 parcelHelpers.export(exports, "getfull", ()=>getfull);
 //
 parcelHelpers.export(exports, "patch", ()=>patch);
@@ -1411,7 +1495,7 @@ var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 async function get(url) {
     try {
-        const u = `${(0, _utilsJs.baseUrl)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         const res = await (0, _axiosDefault.default)({
             method: "get",
             url: u,
@@ -1419,13 +1503,13 @@ async function get(url) {
         });
         return res.data.data;
     } catch (error) {
-        console.log(error);
-        throw error.response.data;
+        console.log("blaciris \uD83D\uDD25", error);
+        throw error.response ? error.response.data : error;
     }
 }
 async function getfull(url) {
     try {
-        const u = `${(0, _utilsJs.baseUrl)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         const res = await (0, _axiosDefault.default)({
             method: "get",
             url: u,
@@ -1433,13 +1517,13 @@ async function getfull(url) {
         });
         return res.data;
     } catch (error) {
-        console.log(error);
-        throw error.response.data;
+        console.log("blaciris \uD83D\uDD25", error);
+        throw error.response ? error.response.data : error;
     }
 }
 async function patch(url, body) {
     try {
-        const u = `${(0, _utilsJs.baseUrl)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         const res = await (0, _axiosDefault.default)({
             method: "patch",
             url: u,
@@ -1449,13 +1533,13 @@ async function patch(url, body) {
         });
         return res.data.data;
     } catch (error) {
-        console.log(error);
-        throw error.response.data;
+        console.log("blaciris \uD83D\uDD25", error);
+        throw error.response ? error.response.data : error;
     }
 }
 async function patchfull(url, body) {
     try {
-        const u = `${(0, _utilsJs.baseUrl)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         const res = await (0, _axiosDefault.default)({
             method: "patch",
             url: u,
@@ -1465,13 +1549,13 @@ async function patchfull(url, body) {
         });
         return res.data;
     } catch (error) {
-        console.log(error);
-        throw error.response.data;
+        console.log("blaciris \uD83D\uDD25", error);
+        throw error.response ? error.response.data : error;
     }
 }
 async function post(url, body) {
     try {
-        const u = `${(0, _utilsJs.baseUrl)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         // console.log(body);
         const res = await (0, _axiosDefault.default)({
             method: "post",
@@ -1482,13 +1566,13 @@ async function post(url, body) {
         });
         return res.data.data;
     } catch (error) {
-        console.log(error);
-        throw error.response.data;
+        console.log("blaciris \uD83D\uDD25", error);
+        throw error.response ? error.response.data : error;
     }
 }
 async function postfull(url, body) {
     try {
-        const u = `${(0, _utilsJs.baseUrl)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         // console.log(body);
         const res = await (0, _axiosDefault.default)({
             method: "post",
@@ -1499,13 +1583,13 @@ async function postfull(url, body) {
         });
         return res.data;
     } catch (error) {
-        console.log(error);
-        throw error.response.data;
+        console.log("blaciris \uD83D\uDD25", error);
+        throw error.response ? error.response.data : error;
     }
 }
 async function deletefull(url) {
     try {
-        const u = `${(0, _utilsJs.baseUrl)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         const res = await (0, _axiosDefault.default)({
             method: "delete",
             url: u,
@@ -1513,8 +1597,8 @@ async function deletefull(url) {
         });
         return res.data;
     } catch (error) {
-        console.log(error);
-        throw error.response.data;
+        console.log("blaciris \uD83D\uDD25", error);
+        throw error.response ? error.response.data : error;
     }
 }
 
@@ -5765,5 +5849,5 @@ function isAxiosError(payload) {
 }
 exports.default = isAxiosError;
 
-},{"./../utils.js":"lbtnr","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}]},["4vuwo","2kBjB"], "2kBjB", "parcelRequire517a")
+},{"./../utils.js":"lbtnr","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}]},["4sBBr","6OBXV"], "6OBXV", "parcelRequire517a")
 

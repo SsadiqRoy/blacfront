@@ -66,79 +66,65 @@ block content
           .form-group
             label.label-basic(for="movie-country") country
             select#movie-country.input-basic(type="text" data-value=`${movie && movie.country || ''}` required)
-              //- option(value="Ghana") Ghana
-              //- option(value="china") China
+
           .form-group
             label.label-basic(for="movie-rating") rating
             input#movie-rating.input-basic(type="text" value=`${movie && movie.rating || ''}` required)
         
         
-        
-        .form-heading
-          h1 Download links
-        
-        .form-group
-          label.label-basic(for="movie-480-link") 480 link
-          - const l480 = movie && movie.Links.find(l=>l.resolution === 480)
-          input#movie-480-link.input-basic(type="text" value=`${l480 && l480.link || ''}` data-link-id=`${l480 && l480.id}` data-link=`${l480 && l480.link}`)
-        
-        .form-group
-          label.label-basic(for="movie-720-link") 720 link
-          - const l720 = movie && movie.Links.find(l=>l.resolution === 720)
-          input#movie-720-link.input-basic(type="text"  value=`${l720 && l720.link || ''}` data-link-id=`${l720 && l720.id}` data-link=`${l720 && l720.link}`)
-        
-        .form-group
-          label.label-basic(for="movie-1080-link") 1080 link
-          - const l1080 = movie && movie.Links.find(l=>l.resolution === 1080)
-          input#movie-1080-link.input-basic(type="text" value=`${l1080 && l1080.link || ''}` data-link-id=`${l1080 && l1080.id}` data-link=`${l1080 && l1080.link}`)
-        
-        .form-group
-          label.label-basic(for="movie-other-link") other link
-          - const l1 = movie && movie.Links.find(l=>l.resolution === 1)
-          input#movie-other-link.input-basic(type="text"  value=`${l1 && l1.link || ''}` data-link-id=`${l1 && l1.id}` data-link=`${l1 && l1.link}`)
-        
-        .form-group
-          label.label-basic(for="movie-subtitle-link") subtitle link
-          - const l10000 = movie && movie.Links.find(l=>l.resolution === 10000)
-          input#movie-subtitle-link.input-basic(type="text" value=`${l10000 && l10000.link || ''}` data-link-id=`${l10000 && l10000.id}` data-link=`${l10000 && l10000.link}`)
-        
+        if(movie && movie.Links.length)
+          .form-heading
+            h1 Download links
+          .movie-links#movie-links
+            .movie-links__cover
+              each link in movie.Links
+                +dbMovieLinkCard(link)
+
+        if(movie)
+          .center-components.add-movie-link
+            i.fas.fa-plus-circle#add-movie-link(title="add movie link")
+
         .center-components
           button.btn-black.btn-normal#movie-btn(type="submit")
             span.btn-content #{movie ? 'update' : 'create'}
 
-//-  Kevin Hart, Woody Harrelson,Jasmine Mathews
-  //- .popup.display-of#create-game-popup
-  //-   .popup-box
-  //-     .popup-close
-  //-       i.fas.fa-times
-  //-     .popup-content.create-content
-  //-       form.create-new#create-form
-  //-         .form-heading
-  //-           h1 episode links
-  //-         .form-group-double
-  //-           .form-group
-  //-             label.label-basic(for="episode-title") episode title
-  //-             input#episode-title.input-basic(type="text")
-  //-           .form-group
-  //-             label.label-basic(for="episode-number") episode number
-  //-             input#episode-number.input-basic(type="number")
-  //-         .form-group
-  //-           label.label-basic(for="episode-480-link") 480 link
-  //-           input#episode-480-link.input-basic(type="text")
-  //-         .form-group
-  //-           label.label-basic(for="episode-720-link") 720 link
-  //-           input#episode-720-link.input-basic(type="text")
 
-  //-         .form-group
-  //-           label.label-basic(for="episode-1080-link") 1080 link
-  //-           input#episode-1080-link.input-basic(type="text")
 
-  //-         .form-group
-  //-           label.label-basic(for="episode-other-link") other link
-  //-           input#episode-other-link.input-basic(type="text")
-  //-         .form-group
-  //-           label.label-basic(for="episode-subtitle-link") subtitle link
-  //-           input#episode-subtitle-link.input-basic(type="text")
-  //-         .center-components
-  //-           button.btn-black.btn-normal(type="submit")
-  //-             span.btn-content save
+  .popup.display-off#create-link-popup
+    .popup-box.popup-box-normal
+      .popup-close
+        i.fas.fa-times
+      .popup-content.create-content
+        form.create-new#create-link(data-movie-id=`${movieId}`)
+          .form-heading
+            h1 new movie link
+          .form-group
+            label.label-basic(for="link-title") link title
+            input#link-title.input-basic(type="text" required)
+          .form-group
+            label.label-basic(for="link-resolution") resolution
+            select#link-resolution.input-basic(type="text" data-value=`` required)
+              option(value="") -- select resolution --
+
+          .form-group
+            label.label-basic(for="link-link") link
+            input#link-link.input-basic(type="text" required)
+          .center-components
+            button.btn-black.btn-normal#link-btn(type="submit")
+              span.btn-content save
+
+
+  .popup.display-off#delete-link-popup
+    .popup-box.popup-box-normal
+      .popup-close
+        i.fas.fa-times
+      .popup-content.create-content
+        form.create-new#delete-link(data-link-id=`${linkId}`)
+          .form-heading
+            h1 Are you sure you want to delete the link
+          
+          .center-components
+            button.btn-black.btn-normal#delete-link-btn(type="submit")
+              span.btn-content yes, delete
+
+

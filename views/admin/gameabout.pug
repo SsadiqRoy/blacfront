@@ -9,7 +9,7 @@ block content
           h1 about game
         
         .form-group
-          textarea#game-about.textarea-basic(rows="10" required) #{game && game.about || ''}
+          textarea#game-about.textarea-basic(rows="20" required maxlength='7000') #{game && game.about || ''}
       
         .center-components
           button.btn-black.btn-normal#about-game-btn(data-game-id=`${gameId}` type="button")

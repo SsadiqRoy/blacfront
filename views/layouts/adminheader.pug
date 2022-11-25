@@ -1,8 +1,9 @@
 header.dashboard-header#dashboard-header
   .dashboard-header__cover
     .dashboard-header__logo
-      span.dashboard-header__logo-menu#dashboard-menubar
-        i.fas.fa-bars
+      if(ext.page === 'movies' || ext.page === 'series' || ext.page === 'games')
+        span.dashboard-header__logo-menu#dashboard-menubar
+          i.fas.fa-bars
       span.text-logo-secondary.logo-trans
         a(href='/')
           img(src='/images/logo-trans-black.svg')

@@ -1,4 +1,5 @@
-import * as env from './env.js';
+// import * as env from './env.js';
+import * as utils from './utils.js';
 
 /**
  * display a message on an alert box on the surface
@@ -104,13 +105,13 @@ export function stopRotateBtn(btnid, type = 'btn-black') {
  * @param {String} selectId id of the select Element
  * @param {String} variables the environment variable to fill the select
  */
-export function fillSelects(selectId, variables) {
+export function fillSelects(selectId, variables, clear = true, list) {
   const select = document.getElementById(selectId);
   if (!select) return console.warn('blaciris - select element not on this page - ', selectId);
   const { value } = select.dataset;
 
-  const vars = env[variables];
-  select.innerHTML = '';
+  const vars = list || utils[variables];
+  if (clear) select.innerHTML = '';
 
   vars.forEach((v) => {
     const markup = `<option value='${v}' ${v === value ? 'selected' : ''}>${v}</option>`;
@@ -123,7 +124,7 @@ export function fillSelects(selectId, variables) {
  * @param {Object} query the meta query to be set to the body element
  * @returns Object, meta of a query
  */
-export function pageQuery(query) {
+export function metaQuery(query) {
   const body = document.querySelector('body');
   if (query) {
     body.dataset.meta = JSON.stringify(query);

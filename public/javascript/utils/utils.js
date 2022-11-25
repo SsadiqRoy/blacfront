@@ -15,20 +15,24 @@ export const suggestPopup = res.suggestPopup;
 export const clientSidebar = res.clientSidebar;
 
 // ==================== ENVIRONMENT VARIABLES ========
-export const baseUrl = env.baseUrl;
 export const api_url = env.api_url;
 export const main_url = env.main_url;
+export const countries = env.countries;
+export const serieStatus = env.serieStatus;
+export const resolutions = env.resolutions;
 
 // ==================== DOM FUNCTONS ==================
 export const alertResponse = dom.alertResponse;
 export const rotateBtn = dom.rotateBtn;
 export const stopRotateBtn = dom.stopRotateBtn;
 export const fillSelects = dom.fillSelects;
-export const pageQuery = dom.pageQuery;
+export const metaQuery = dom.metaQuery;
 
 // ==================== FUNCTIONS ======================
 export const displayError = funcs.displayError;
 export const structureQuery = funcs.structureQuery;
+export const stringifyQuery = funcs.stringifyQuery;
+export const parseQuery = funcs.parseQuery;
 
 // ==================== MARKUP FUNCTIONS ===============
 export const dbMovieCard = markups.dbMovieCard;

@@ -25,7 +25,10 @@ block content
           textarea#game-description.textarea-basic(rows="3" required) #{game && game.description || ''}
         
         .center-components(style="font: bold 2rem poppins; color: blue;")
-          a(href=`/dashboard/aboutgame/${gameId}`) game about
+          if(gameId)
+            a(href=`/dashboard/aboutgame/${gameId}`) game about
+          if(!gameId)
+            a game about
           //- button.btn-primary.btn-normal(type="submit")
           //-   span.btn-content yes, delete
 
@@ -55,6 +58,7 @@ block content
             select#game-country.input-basic(type="text" data-value=`${game && game.country || ''}` required)
               option(value="Ghana") Ghana
               option(value="china") China
+
           .form-group
             label.label-basic(for="game-rating") rating
             input#game-rating.input-basic(type="text" value=`${game && game.rating || ''}` required)
@@ -88,11 +92,14 @@ block content
           .form-heading
             h1 new part
           .form-group
-            label.label-basic(for="gamepart-part") part number
-            input#gamepart-part.input-basic(type="number", name, min="1")
+            label.label-basic(for="gamepart-title") link title
+            input#gamepart-title.input-basic(type="text" required)
           .form-group
-            label.label-basic(for="gamepart-link") part link
-            input#gamepart-link.input-basic(type="text")
+            label.label-basic(for="gamepart-part") part number
+            input#gamepart-part.input-basic(type="number",  required)
+          .form-group
+            label.label-basic(for="gamepart-link") link
+            input#gamepart-link.input-basic(type="text" required)
           .center-components
             button.btn-black.btn-normal#gamepart-btn(type="submit")
               span.btn-content save

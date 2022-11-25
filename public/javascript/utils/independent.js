@@ -10,6 +10,8 @@ import * as utils from './utils.js';
  */
 export async function searchItem(model, containerId, cardType) {
   const form = document.getElementById('search-form');
+  const container = document.getElementById(containerId);
+
   const body = document.querySelector('body');
 
   // console.log('searchform ', form);
@@ -18,22 +20,22 @@ export async function searchItem(model, containerId, cardType) {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const input = form.querySelector('input');
-      const text = input.value;
+      const text = `?text=${input.value.split(' ').join('-')}`;
 
       search(text);
     });
 
   body.addEventListener('click', (e) => {
     const { target } = e;
-    if (!target.classList.contains('query-tag')) return;
+    if (!target.classList.contains('query')) return;
     const { query } = target.dataset;
+    search(query);
 
-    if (target.classList.contains('search')) {
-      search(query);
-    }
-    if (target.classList.contains('query')) {
-      search(query, 'query');
-    }
+    // if (target.classList.contains('search')) {
+    // }
+    // if (target.classList.contains('query')) {
+    //   search(query, 'query');
+    // }
   });
 
   /**
@@ -43,40 +45,30 @@ export async function searchItem(model, containerId, cardType) {
    * @returns null - breaks
    * type : search or query
    */
-  async function search(text, type = 'search') {
+  async function search(query) {
     try {
       // search for the data
-      let meta, data, suggestion;
-      if (type === 'search') {
-        const searchText = text.split(' ').join('-');
-        const { meta: m, data: d, suggestion: s } = await mod.getfull(`/${model}s/search?text=${searchText}`);
-        meta = m;
-        data = d;
-        suggestion = s;
-      }
-      if (type === 'query') {
-        const { meta: m, data: d, suggestion: s } = await mod.getfull(`/${model}s?${text}`);
-        meta = m;
-        data = d;
-        suggestion = s;
-      }
-
+      const oldquery = utils.metaQuery();
+      if (oldquery.fields) query = `${query}&fields=${oldquery.fields}`;
+      // console.log(oldquery);
+      const { meta, data, suggestion } = await mod.getfull(`/${model}s${query}`);
+      // console.log(meta);
       // if there is no more results
       // console.log(data);
       if (!data.length && (!suggestion || !suggestion.length)) {
         return utils.alertResponse(`Sorry!! Could not find anything.`, 4, 'failed');
       }
       // clearing the content area
-      const displayer = document.getElementById(containerId);
-      displayer.innerHTML = '';
+      // const displayer = document.getElementById(containerId);
+      container.innerHTML = '';
       // setting the query meta to the body for show more sake
-      utils.pageQuery(meta);
+      utils.metaQuery(meta);
       // displaying data to the container
       data.length &&
         data.forEach((item) => {
           const markuper = utils[cardType];
           const markup = markuper(item, model);
-          displayer.insertAdjacentHTML('beforeend', markup);
+          container.insertAdjacentHTML('beforeend', markup);
         });
 
       // adding more data if there are suggestion
@@ -84,7 +76,7 @@ export async function searchItem(model, containerId, cardType) {
         suggestion.forEach((item) => {
           const markuper = utils[cardType];
           const markup = markuper(item, model);
-          displayer.insertAdjacentHTML('beforeend', markup);
+          container.insertAdjacentHTML('beforeend', markup);
         });
       }
     } catch (error) {
@@ -101,45 +93,33 @@ export async function searchItem(model, containerId, cardType) {
  */
 export function showMore(model, containerId, cardType) {
   const showMore = document.getElementById('show-more');
+  const container = document.getElementById(containerId);
   // console.log('showMore ', showMore);
 
   showMore &&
     showMore.addEventListener('click', async (e) => {
       try {
-        const query = utils.structureQuery();
-        const oldmeta = utils.pageQuery();
+        const oldmeta = utils.metaQuery();
+        oldmeta.page = oldmeta.page + 1;
+        // console.log(oldmeta);
+        const query = utils.stringifyQuery(oldmeta);
 
-        if (!oldmeta.length) {
+        if (!oldmeta.next) {
           return utils.alertResponse(`No more ${model}s to show`, 4, 'failed');
         }
 
-        console.log(oldmeta);
-
-        let meta, data, suggestion;
-        if (oldmeta.text) {
-          const { meta: m, data: d, suggestion: s } = await mod.getfull(`/${model}s/search${query}`);
-          meta = m;
-          data = d;
-          suggestion = s;
-        } else {
-          const { meta: m, data: d, suggestion: s } = await mod.getfull(`/${model}s${query}`);
-          meta = m;
-          data = d;
-          suggestion = s;
-        }
+        const { meta, data, suggestion } = await mod.getfull(`/${model}s${query}`);
 
         // if there is no more results
         if (!meta.length && (!suggestion || !suggestion.length)) {
           return utils.alertResponse(`No more ${model}s to show for the search or tag`, 4, 'failed');
         }
-        utils.pageQuery(meta);
-        // clearing the content area
-        const displayer = document.getElementById(containerId);
+        utils.metaQuery(meta);
         // displaying data to the container
         data.forEach((item) => {
           const markuper = utils[cardType];
           const markup = markuper(item, model);
-          displayer.insertAdjacentHTML('beforeend', markup);
+          container.insertAdjacentHTML('beforeend', markup);
         });
 
         // adding more data if there are suggestion
@@ -147,7 +127,7 @@ export function showMore(model, containerId, cardType) {
           suggestion.forEach((item) => {
             const markuper = utils[cardType];
             const markup = markuper(item, model);
-            displayer.insertAdjacentHTML('beforeend', markup);
+            container.insertAdjacentHTML('beforeend', markup);
           });
         }
       } catch (error) {
@@ -164,5 +144,6 @@ export function logout() {
       const response = await mod.getfull('/users/logout');
 
       utils.alertResponse(response.message);
+      window.setTimeout(() => window.location.assign('/'), 3500);
     });
 }

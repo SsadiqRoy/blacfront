@@ -661,16 +661,20 @@ parcelHelpers.export(exports, "clientSearchBar", ()=>clientSearchBar);
 parcelHelpers.export(exports, "cardsSlider", ()=>cardsSlider);
 parcelHelpers.export(exports, "suggestPopup", ()=>suggestPopup);
 parcelHelpers.export(exports, "clientSidebar", ()=>clientSidebar);
-parcelHelpers.export(exports, "baseUrl", ()=>baseUrl);
 parcelHelpers.export(exports, "api_url", ()=>api_url);
 parcelHelpers.export(exports, "main_url", ()=>main_url);
+parcelHelpers.export(exports, "countries", ()=>countries);
+parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
+parcelHelpers.export(exports, "resolutions", ()=>resolutions);
 parcelHelpers.export(exports, "alertResponse", ()=>alertResponse);
 parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
 parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
 parcelHelpers.export(exports, "fillSelects", ()=>fillSelects);
-parcelHelpers.export(exports, "pageQuery", ()=>pageQuery);
+parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
 parcelHelpers.export(exports, "displayError", ()=>displayError);
 parcelHelpers.export(exports, "structureQuery", ()=>structureQuery);
+parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
+parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
 parcelHelpers.export(exports, "dbMovieCard", ()=>dbMovieCard);
 parcelHelpers.export(exports, "notificationCard", ()=>notificationCard);
 parcelHelpers.export(exports, "scheduleCard", ()=>scheduleCard);
@@ -687,16 +691,20 @@ const clientSearchBar = _responsiveJs.clientSearchBar;
 const cardsSlider = _responsiveJs.cardsSlider;
 const suggestPopup = _responsiveJs.suggestPopup;
 const clientSidebar = _responsiveJs.clientSidebar;
-const baseUrl = _envJs.baseUrl;
 const api_url = _envJs.api_url;
 const main_url = _envJs.main_url;
+const countries = _envJs.countries;
+const serieStatus = _envJs.serieStatus;
+const resolutions = _envJs.resolutions;
 const alertResponse = _domJs.alertResponse;
 const rotateBtn = _domJs.rotateBtn;
 const stopRotateBtn = _domJs.stopRotateBtn;
 const fillSelects = _domJs.fillSelects;
-const pageQuery = _domJs.pageQuery;
+const metaQuery = _domJs.metaQuery;
 const displayError = _functionsJs.displayError;
 const structureQuery = _functionsJs.structureQuery;
+const stringifyQuery = _functionsJs.stringifyQuery;
+const parseQuery = _functionsJs.parseQuery;
 const dbMovieCard = _markupsJs.dbMovieCard;
 const notificationCard = _markupsJs.notificationCard;
 const scheduleCard = _markupsJs.scheduleCard;
@@ -911,6 +919,8 @@ parcelHelpers.defineInteropFlag(exports);
  * @param {String} search search value
  * @returns query in String (query string)
  */ parcelHelpers.export(exports, "structureQuery", ()=>structureQuery);
+parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
+parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
 var _domJs = require("./dom.js");
 function displayError(error, btnid, type) {
     console.log(error);
@@ -924,12 +934,25 @@ function structureQuery(search) {
         text
     };
     else {
-        query = _domJs.pageQuery();
+        query = _domJs.metaQuery();
         const { page , limit , total  } = query;
         query.page = page + 1;
     }
     const queryString = Object.entries(query).map(([key, value])=>`${key}=${value}`).join("&");
     return `?${queryString}`;
+}
+function stringifyQuery(query) {
+    const queryString = Object.entries(query).map(([key, value])=>`${key}=${value}`).join("&");
+    return `?${queryString}`;
+}
+function parseQuery(queryString) {
+    const query = {};
+    const queries = queryString.slice(1).split("&");
+    queries.forEach((q)=>{
+        const a = q.split("=");
+        query[a[0]] = a[1];
+    });
+    return query;
 }
 
 },{"./dom.js":"gBwFC","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"gBwFC":[function(require,module,exports) {
@@ -965,8 +988,9 @@ parcelHelpers.defineInteropFlag(exports);
  * takes in a query meta data and set it to body dataset. If no query is supplied, it gets the current meta data from the body
  * @param {Object} query the meta query to be set to the body element
  * @returns Object, meta of a query
- */ parcelHelpers.export(exports, "pageQuery", ()=>pageQuery);
-var _envJs = require("./env.js");
+ */ parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
+// import * as env from './env.js';
+var _utilsJs = require("./utils.js");
 function alertResponse(message, timer = 3, type = "success") {
     const markup = `
     <div class="message message--${type}">
@@ -1038,18 +1062,18 @@ function stopRotateBtn(btnid, type = "btn-black") {
         return;
     }
 }
-function fillSelects(selectId, variables) {
+function fillSelects(selectId, variables, clear = true, list) {
     const select = document.getElementById(selectId);
     if (!select) return console.warn("blaciris - select element not on this page - ", selectId);
     const { value  } = select.dataset;
-    const vars = _envJs[variables];
-    select.innerHTML = "";
+    const vars = list || _utilsJs[variables];
+    if (clear) select.innerHTML = "";
     vars.forEach((v)=>{
         const markup = `<option value='${v}' ${v === value ? "selected" : ""}>${v}</option>`;
         select.insertAdjacentHTML("beforeend", markup);
     });
 }
-function pageQuery(query) {
+function metaQuery(query) {
     const body = document.querySelector("body");
     if (query) {
         body.dataset.meta = JSON.stringify(query);
@@ -1059,13 +1083,14 @@ function pageQuery(query) {
     return meta;
 }
 
-},{"./env.js":"7qgA7","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"7qgA7":[function(require,module,exports) {
+},{"./utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"7qgA7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "api_url", ()=>api_url);
 parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
+parcelHelpers.export(exports, "resolutions", ()=>resolutions);
 const api_url = "http://localhost:2000/v1";
 const main_url = "http://localhost:2500";
 const countries = [
@@ -1326,6 +1351,15 @@ const serieStatus = [
     "paused",
     "stopped"
 ];
+const resolutions = [
+    "1",
+    "360",
+    "480",
+    "720",
+    "1080",
+    "2160",
+    "10000"
+];
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"doi6o":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -1428,20 +1462,25 @@ var _modelJs = require("../model/model.js");
 var _utilsJs = require("./utils.js");
 async function searchItem(model, containerId, cardType) {
     const form = document.getElementById("search-form");
+    const container = document.getElementById(containerId);
     const body = document.querySelector("body");
     // console.log('searchform ', form);
     form && form.addEventListener("submit", async (e)=>{
         e.preventDefault();
         const input = form.querySelector("input");
-        const text = input.value;
+        const text = `?text=${input.value.split(" ").join("-")}`;
         search(text);
     });
     body.addEventListener("click", (e)=>{
         const { target  } = e;
-        if (!target.classList.contains("query-tag")) return;
+        if (!target.classList.contains("query")) return;
         const { query  } = target.dataset;
-        if (target.classList.contains("search")) search(query);
-        if (target.classList.contains("query")) search(query, "query");
+        search(query);
+    // if (target.classList.contains('search')) {
+    // }
+    // if (target.classList.contains('query')) {
+    //   search(query, 'query');
+    // }
     });
     /**
    * makes search or query for data
@@ -1449,42 +1488,33 @@ async function searchItem(model, containerId, cardType) {
    * @param {String} type whether your are making a search or a normal query
    * @returns null - breaks
    * type : search or query
-   */ async function search(text, type = "search") {
+   */ async function search(query) {
         try {
             // search for the data
-            let meta, data, suggestion;
-            if (type === "search") {
-                const searchText = text.split(" ").join("-");
-                const { meta: m , data: d , suggestion: s  } = await _modelJs.getfull(`/${model}s/search?text=${searchText}`);
-                meta = m;
-                data = d;
-                suggestion = s;
-            }
-            if (type === "query") {
-                const { meta: m1 , data: d1 , suggestion: s1  } = await _modelJs.getfull(`/${model}s?${text}`);
-                meta = m1;
-                data = d1;
-                suggestion = s1;
-            }
+            const oldquery = _utilsJs.metaQuery();
+            if (oldquery.fields) query = `${query}&fields=${oldquery.fields}`;
+            // console.log(oldquery);
+            const { meta , data , suggestion  } = await _modelJs.getfull(`/${model}s${query}`);
+            // console.log(meta);
             // if there is no more results
             // console.log(data);
             if (!data.length && (!suggestion || !suggestion.length)) return _utilsJs.alertResponse(`Sorry!! Could not find anything.`, 4, "failed");
             // clearing the content area
-            const displayer = document.getElementById(containerId);
-            displayer.innerHTML = "";
+            // const displayer = document.getElementById(containerId);
+            container.innerHTML = "";
             // setting the query meta to the body for show more sake
-            _utilsJs.pageQuery(meta);
+            _utilsJs.metaQuery(meta);
             // displaying data to the container
             data.length && data.forEach((item)=>{
                 const markuper = _utilsJs[cardType];
                 const markup = markuper(item, model);
-                displayer.insertAdjacentHTML("beforeend", markup);
+                container.insertAdjacentHTML("beforeend", markup);
             });
             // adding more data if there are suggestion
             if (suggestion && suggestion.length) suggestion.forEach((item)=>{
                 const markuper = _utilsJs[cardType];
                 const markup = markuper(item, model);
-                displayer.insertAdjacentHTML("beforeend", markup);
+                container.insertAdjacentHTML("beforeend", markup);
             });
         } catch (error) {
             _utilsJs.displayError(error);
@@ -1493,41 +1523,30 @@ async function searchItem(model, containerId, cardType) {
 }
 function showMore(model, containerId, cardType) {
     const showMore = document.getElementById("show-more");
+    const container = document.getElementById(containerId);
     // console.log('showMore ', showMore);
     showMore && showMore.addEventListener("click", async (e)=>{
         try {
-            const query = _utilsJs.structureQuery();
-            const oldmeta = _utilsJs.pageQuery();
-            if (!oldmeta.length) return _utilsJs.alertResponse(`No more ${model}s to show`, 4, "failed");
-            console.log(oldmeta);
-            let meta, data, suggestion;
-            if (oldmeta.text) {
-                const { meta: m , data: d , suggestion: s  } = await _modelJs.getfull(`/${model}s/search${query}`);
-                meta = m;
-                data = d;
-                suggestion = s;
-            } else {
-                const { meta: m1 , data: d1 , suggestion: s1  } = await _modelJs.getfull(`/${model}s${query}`);
-                meta = m1;
-                data = d1;
-                suggestion = s1;
-            }
+            const oldmeta = _utilsJs.metaQuery();
+            oldmeta.page = oldmeta.page + 1;
+            // console.log(oldmeta);
+            const query = _utilsJs.stringifyQuery(oldmeta);
+            if (!oldmeta.next) return _utilsJs.alertResponse(`No more ${model}s to show`, 4, "failed");
+            const { meta , data , suggestion  } = await _modelJs.getfull(`/${model}s${query}`);
             // if there is no more results
             if (!meta.length && (!suggestion || !suggestion.length)) return _utilsJs.alertResponse(`No more ${model}s to show for the search or tag`, 4, "failed");
-            _utilsJs.pageQuery(meta);
-            // clearing the content area
-            const displayer = document.getElementById(containerId);
+            _utilsJs.metaQuery(meta);
             // displaying data to the container
             data.forEach((item)=>{
                 const markuper = _utilsJs[cardType];
                 const markup = markuper(item, model);
-                displayer.insertAdjacentHTML("beforeend", markup);
+                container.insertAdjacentHTML("beforeend", markup);
             });
             // adding more data if there are suggestion
             if (suggestion && suggestion.length) suggestion.forEach((item)=>{
                 const markuper = _utilsJs[cardType];
                 const markup = markuper(item, model);
-                displayer.insertAdjacentHTML("beforeend", markup);
+                container.insertAdjacentHTML("beforeend", markup);
             });
         } catch (error) {
             _utilsJs.displayError(error);
@@ -1539,6 +1558,7 @@ function logout() {
     btn && btn.addEventListener("click", async (e)=>{
         const response = await _modelJs.getfull("/users/logout");
         _utilsJs.alertResponse(response.message);
+        window.setTimeout(()=>window.location.assign("/"), 3500);
     });
 }
 

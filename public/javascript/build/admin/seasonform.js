@@ -540,8 +540,6 @@ async function controlCreate(serieId, btnId) {
         const data = _seasonformviewJs.getSeasonData();
         data.serie = serieId || null;
         const season = await _modelJs.post("/seasons/create", data);
-        // const { id } = season;
-        // await saveLinks(id);
         _seasonformviewJs.renderCreate(season, "created", btnId);
     } catch (error) {
         _seasonformviewJs.displayError(error, btnId);
@@ -563,25 +561,17 @@ async function controlCreateEpisode(seasonId, btnId) {
         if (!seasonId) throw new Error("First save the Season and create the episodes later");
         const data = _seasonformviewJs.getEpisodeData();
         data.season = seasonId;
-        // console.log(data);
-        // return;
         const episode = await _modelJs.post("/episodes/create", data);
-        const { id  } = episode;
-        await saveLinks(id);
         _seasonformviewJs.renderCreateEpisode(episode, "created", btnId);
     } catch (error) {
-        // console.log(error);
-        _seasonformviewJs.displayError(error, btnId, btnId);
+        _seasonformviewJs.displayError(error, btnId);
     }
 }
 //
 async function controlUpdateEpisode(episodeId, btnId) {
     try {
         const data = _seasonformviewJs.getEpisodeData();
-        // console.log(episodeId);
         const res = await _modelJs.patch(`/episodes/${episodeId}`, data);
-        // console.log(res);
-        await updateLinks(episodeId);
         _seasonformviewJs.renderCreateEpisode(res, "updated", btnId);
     } catch (error) {
         _seasonformviewJs.displayError(error, btnId);
@@ -590,7 +580,6 @@ async function controlUpdateEpisode(episodeId, btnId) {
 //
 async function controlDeleteEpisode(episodeId, btnId) {
     try {
-        // console.log(episodeId);
         const res = await _modelJs.deletefull(`/episodes/${episodeId}`);
         _seasonformviewJs.renderDeleteEpisode(res, btnId);
     } catch (error) {
@@ -598,30 +587,37 @@ async function controlDeleteEpisode(episodeId, btnId) {
     }
 }
 //
-async function saveLinks(episodeId) {
-    const links = _seasonformviewJs.getLinks();
-    links.forEach(async (link)=>{
-        if (link.link) {
-            link.episode = episodeId;
-            await _modelJs.post("/links/create", link);
-        }
-    });
+async function controlCreateLink(episodeId, btnId) {
+    try {
+        if (!episodeId) throw new Error("First save the movie and update with the part links");
+        const data = _seasonformviewJs.getLinkData();
+        data.episode = episodeId;
+        const res = await _modelJs.post("/links/create", data);
+        _seasonformviewJs.renderCreateLink(res, "created", btnId);
+    } catch (error) {
+        _seasonformviewJs.displayError(error, btnId);
+    }
 }
 //
-async function updateLinks(episodeId) {
-    const links = _seasonformviewJs.getLinks();
-    // console.log(links);
-    links.forEach(async (link)=>{
-        // console.log('link', link);
-        if (link.link && link.link !== link.old) // console.log(`/links/${link.id}`);
-        await _modelJs.patch(`/links/${link.id}`, link);
-        if (link.old && !link.link) await _modelJs.deletefull(`/links/${link.id}`);
-        if (link.link && !link.id) {
-            link.episode = episodeId;
-            const re = await _modelJs.post(`/links/create`, link);
-        // console.log(re);
-        }
-    });
+async function controlUpdateLink(linkId, btnId) {
+    try {
+        const data = _seasonformviewJs.getLinkData();
+        let res;
+        if (data.link) res = await _modelJs.patch(`/links/${linkId}`, data);
+        if (!data.link) res = await _modelJs.deletefull(`/links/${linkId}`);
+        _seasonformviewJs.renderCreateLink(res, "updated", btnId);
+    } catch (error) {
+        _seasonformviewJs.displayError(error, btnId);
+    }
+}
+//
+async function controlDeleteLink(linkId, btnId) {
+    try {
+        const res = await _modelJs.deletefull(`/links/${linkId}`);
+        _seasonformviewJs.renderDeleteLInk(res, btnId);
+    } catch (error) {
+        _seasonformviewJs.displayError(error, btnId);
+    }
 }
 /*
 
@@ -635,6 +631,8 @@ async function init() {
     _seasonformviewJs.handleCreate(controlCreate, controlUpdate);
     _seasonformviewJs.handleCreateEpisode(controlCreateEpisode, controlUpdateEpisode);
     _seasonformviewJs.handleDeleteEpisode(controlDeleteEpisode);
+    _seasonformviewJs.handleCreateLink(controlCreateLink, controlUpdateLink);
+    _seasonformviewJs.handleDeleteLink(controlDeleteLink);
 }
 init(); /*
 
@@ -657,8 +655,17 @@ parcelHelpers.export(exports, "renderCreateEpisode", ()=>renderCreateEpisode);
  * @param {Object} data response object (deleted game)
  * @returns null - break action
  */ parcelHelpers.export(exports, "renderDeleteEpisode", ()=>renderDeleteEpisode);
-//
-//
+/**
+ * render response after creating or updating game
+ * @param {Object} data response object (game link)
+ * @param {String} action updated or created
+ * @returns null - break action
+ */ parcelHelpers.export(exports, "renderCreateLink", ()=>renderCreateLink);
+/**
+ * render response after creating or updating game
+ * @param {Object} data response object (deleted game)
+ * @returns null - break action
+ */ parcelHelpers.export(exports, "renderDeleteLInk", ()=>renderDeleteLInk);
 /*
 
 
@@ -669,7 +676,8 @@ parcelHelpers.export(exports, "renderCreateEpisode", ()=>renderCreateEpisode);
 parcelHelpers.export(exports, "getSeasonData", ()=>getSeasonData);
 //
 parcelHelpers.export(exports, "getEpisodeData", ()=>getEpisodeData);
-parcelHelpers.export(exports, "getLinks", ()=>getLinks);
+//
+parcelHelpers.export(exports, "getLinkData", ()=>getLinkData);
 /*
 
 
@@ -681,6 +689,10 @@ parcelHelpers.export(exports, "handleCreate", ()=>handleCreate);
 //
 parcelHelpers.export(exports, "handleCreateEpisode", ()=>handleCreateEpisode);
 parcelHelpers.export(exports, "handleDeleteEpisode", ()=>handleDeleteEpisode);
+//
+parcelHelpers.export(exports, "handleCreateLink", ()=>handleCreateLink);
+//
+parcelHelpers.export(exports, "handleDeleteLink", ()=>handleDeleteLink);
 /*
 
 
@@ -707,10 +719,10 @@ function renderCreateEpisode(data, action, btnId) {
         _utilsJs.stopRotateBtn(btnId);
         return _utilsJs.alertResponse("failed creating/updating or could not display results - try reloading this page", 6, "failed");
     }
-    _utilsJs.alertResponse(`Episode - ${data.title || ""} - has been ${action}`);
+    _utilsJs.alertResponse(`Episode - ${data.title || data.episode} - has been ${action}`);
     _utilsJs.stopRotateBtn(btnId);
     window.setTimeout(()=>{
-        window.location.reload();
+        window.location.assign(`/dashboard/updateepisode/${data.id}`);
     }, 3500);
 }
 function renderDeleteEpisode(data, btn) {
@@ -722,6 +734,28 @@ function renderDeleteEpisode(data, btn) {
     _utilsJs.alertResponse("Episode has been deleted successfully");
     _utilsJs.stopRotateBtn(btn);
     _utilsJs.closePopup("delete-episode-popup", ()=>window.location.reload());
+}
+function renderCreateLink(data, action, btnId) {
+    if (!data) {
+        _utilsJs.stopRotateBtn(btnId);
+        _utilsJs.alertResponse("failed creating or could not display results - am reloading", 6, "failed");
+        window.setTimeout(()=>window.location.reload(), 6500);
+    }
+    _utilsJs.alertResponse(`link ${data.title} has been ${action}`);
+    _utilsJs.stopRotateBtn(btnId);
+    _utilsJs.closePopup("create-link-popup", ()=>{
+        window.setTimeout(()=>window.location.reload(), 3500);
+    });
+}
+function renderDeleteLInk(data, btnId) {
+    if (!data) {
+        _utilsJs.alertResponse("failed deleting or could not display results, am reloading", 6, "failed");
+        _utilsJs.stopRotateBtn(btnId);
+        return window.setTimeout(()=>window.location.reload(), 6500);
+    }
+    _utilsJs.alertResponse("Link has been deleted successfully");
+    _utilsJs.stopRotateBtn(btnId);
+    _utilsJs.closePopup("delete-link-popup", ()=>window.location.reload());
 }
 function getSeasonData() {
     const title = document.getElementById("season-title").value;
@@ -749,50 +783,15 @@ function getEpisodeData() {
         episode
     };
 }
-function getLinks() {
-    const { value: l480 , dataset: { link: l480Old , linkId: l480Id  } ,  } = document.getElementById("episode-480-link");
-    // const link720 = document.getElementById('episode-720-link').value;
-    const { value: l720 , dataset: { link: l720Old , linkId: l720Id  } ,  } = document.getElementById("episode-720-link");
-    // const link1080 = document.getElementById('episode-1080-link').value;
-    const { value: l1080 , dataset: { link: l1080Old , linkId: l1080Id  } ,  } = document.getElementById("episode-1080-link");
-    // const linkOther = document.getElementById('episode-other-link').value;
-    const { value: l1 , dataset: { link: l1Old , linkId: l1Id  } ,  } = document.getElementById("episode-other-link");
-    // const subtitle = document.getElementById('episode-subtitle-link').value;
-    const { value: l10000 , dataset: { link: l10000Old , linkId: l10000Id  } ,  } = document.getElementById("episode-subtitle-link");
-    const links = [
-        {
-            link: l480,
-            resolution: 480,
-            old: l480Old,
-            id: l480Id
-        },
-        {
-            link: l720,
-            resolution: 720,
-            old: l720Old,
-            id: l720Id
-        },
-        {
-            link: l1080,
-            resolution: 1080,
-            old: l1080Old,
-            id: l1080Id
-        },
-        {
-            link: l1,
-            resolution: 1,
-            old: l1Old,
-            id: l1Id
-        },
-        {
-            link: l10000,
-            resolution: 10000,
-            old: l10000Old,
-            id: l10000Id
-        }, 
-    ];
-    // const validLinks = links.filter((link) => link.link.length);
-    return links;
+function getLinkData() {
+    const resolution = document.getElementById("link-resolution").value;
+    const link = document.getElementById("link-link").value;
+    const title = document.getElementById("link-title").value;
+    return {
+        title,
+        resolution,
+        link
+    };
 }
 function handleCreate(controlCreate, controlUpdate) {
     const form = document.getElementById("create-season");
@@ -825,11 +824,38 @@ function handleDeleteEpisode(controlDeleteEpisode) {
         controlDeleteEpisode(episodeId, btn);
     });
 }
+function handleCreateLink(controlCreateLink, controlUpdateLink) {
+    const form = document.getElementById("create-link");
+    form && form.addEventListener("submit", (e)=>{
+        e.preventDefault();
+        _utilsJs.rotateBtn("link-btn");
+        const { linkId , episodeId  } = form.dataset;
+        // console.log(linkId, episodeId);
+        // return;
+        if (!linkId) return controlCreateLink(episodeId, "link-btn");
+        // return console.log('👉', linkId, gameId);
+        controlUpdateLink(linkId, "link-btn");
+    });
+}
+function handleDeleteLink(controlDeleteLink) {
+    const form = document.getElementById("delete-link");
+    form && form.addEventListener("submit", (e)=>{
+        e.preventDefault();
+        const { linkId  } = form.dataset;
+        if (!linkId) return;
+        _utilsJs.rotateBtn("delete-link-btn");
+        controlDeleteLink(linkId, "delete-link");
+    });
+}
 function initializer() {
-    const btn = document.getElementById("add-episode");
+    // const btn = document.getElementById('add-episode');
     manageEpisodesPopup();
-    btn && btn.addEventListener("click", (e)=>{
-        _utilsJs.openPopup("create-episode-popup", clearEpisodeData);
+    manageLinkPopup();
+    const episodeLinkBtn = document.getElementById("add-episode-link");
+    // displaying popup on for creating movie link
+    episodeLinkBtn && episodeLinkBtn.addEventListener("click", (e)=>{
+        _utilsJs.fillSelects("link-resolution", "resolutions");
+        _utilsJs.openPopup("create-link-popup");
     });
 }
 /*
@@ -839,31 +865,31 @@ function initializer() {
 
 
 */ // =================== NON EXPORTING FUNTIONS =
-function clearEpisodeData() {
-    document.getElementById("create-episode").dataset.episodeId = "";
-    document.getElementById("episode-title").value = "";
-    document.getElementById("episode-episode").value = "";
-    const l480 = document.getElementById("episode-480-link");
-    l480.value = "";
-    l480.dataset.linkId = "";
-    l480.dataset.link = "";
-    const l720 = document.getElementById("episode-720-link");
-    l720.value = "";
-    l720.dataset.linkId = "";
-    l720.dataset.link = "";
-    const l1080 = document.getElementById("episode-1080-link");
-    l1080.value = "";
-    l1080.dataset.linkId = "";
-    l1080.dataset.link = "";
-    const lother = document.getElementById("episode-other-link");
-    lother.value = "";
-    lother.dataset.linkId = "";
-    lother.dataset.link = "";
-    const lsubtitle = document.getElementById("episode-subtitle-link");
-    lsubtitle.value = "";
-    lsubtitle.dataset.linkId = "";
-    lsubtitle.dataset.link = "";
-}
+// function clearEpisodeData() {
+//   document.getElementById('create-episode').dataset.episodeId = '';
+//   document.getElementById('episode-title').value = '';
+//   document.getElementById('episode-episode').value = '';
+//   const l480 = document.getElementById('episode-480-link');
+//   l480.value = '';
+//   l480.dataset.linkId = '';
+//   l480.dataset.link = '';
+//   const l720 = document.getElementById('episode-720-link');
+//   l720.value = '';
+//   l720.dataset.linkId = '';
+//   l720.dataset.link = '';
+//   const l1080 = document.getElementById('episode-1080-link');
+//   l1080.value = '';
+//   l1080.dataset.linkId = '';
+//   l1080.dataset.link = '';
+//   const lother = document.getElementById('episode-other-link');
+//   lother.value = '';
+//   lother.dataset.linkId = '';
+//   lother.dataset.link = '';
+//   const lsubtitle = document.getElementById('episode-subtitle-link');
+//   lsubtitle.value = '';
+//   lsubtitle.dataset.linkId = '';
+//   lsubtitle.dataset.link = '';
+// }
 /** display popup for creating links or deleting links */ function manageEpisodesPopup() {
     const cover = document.getElementById("season-episodes");
     const form = document.getElementById("create-episode");
@@ -871,42 +897,74 @@ function clearEpisodeData() {
     cover && cover.addEventListener("click", (e)=>{
         const { target  } = e;
         // when edite button is clicked
-        if (target.classList.contains("edit-episode-btn")) {
-            // getting the whole episode data
-            const card = target.closest(".episodelink-card");
-            const { episode: e1  } = card.dataset;
-            const episode = JSON.parse(e1);
-            // getting links out of the episodes
-            const { Links: links  } = episode;
-            // setting the popup form episode id to dataset object
-            form.dataset.episodeId = episode.id;
-            document.getElementById("episode-title").value = episode.title;
-            document.getElementById("episode-episode").value = episode.episode;
-            // looping through links and setting the dataset and value to their various elements
-            links.forEach((link)=>{
-                // knowing the type of link to be able to select its input by id
-                let resolution = link.resolution === 1 ? "other" : link.resolution;
-                resolution = link.resolution === 10000 ? "subtitle" : resolution;
-                const id = `episode-${resolution}-link`;
-                const input = document.getElementById(id);
-                // resseting dataset and filling in values
-                input.value = link.link;
-                input.dataset.linkId = link.id;
-                input.dataset.link = link.link;
-            });
-            _utilsJs.openPopup("create-episode-popup", clearEpisodeData);
-        }
+        // if (target.classList.contains('edit-episode-btn')) {
+        //   // getting the whole episode data
+        //   const card = target.closest('.episodelink-card');
+        //   const { episode: e } = card.dataset;
+        //   const episode = JSON.parse(e);
+        //   // getting links out of the episodes
+        //   const { Links: links } = episode;
+        //   // setting the popup form episode id to dataset object
+        //   form.dataset.episodeId = episode.id;
+        //   document.getElementById('episode-title').value = episode.title;
+        //   document.getElementById('episode-episode').value = episode.episode;
+        //   // looping through links and setting the dataset and value to their various elements
+        //   links.forEach((link) => {
+        //     // knowing the type of link to be able to select its input by id
+        //     let resolution = link.resolution === 1 ? 'other' : link.resolution;
+        //     resolution = link.resolution === 10000 ? 'subtitle' : resolution;
+        //     const id = `episode-${resolution}-link`;
+        //     const input = document.getElementById(id);
+        //     // resseting dataset and filling in values
+        //     input.value = link.link;
+        //     input.dataset.linkId = link.id;
+        //     input.dataset.link = link.link;
+        //   });
+        //   utils.openPopup('create-episode-popup', clearEpisodeData);
+        // }
         // when delete button is clicked
         if (target.classList.contains("delete-episode-btn")) {
             // getting the whole episode data
-            const card1 = target.closest(".episodelink-card");
-            const { episode: e2  } = card1.dataset;
-            const episode1 = JSON.parse(e2);
+            const card = target.closest(".episodelink-card");
+            // const { episode: e } = ;
+            // const episode = JSON.parse(e);
             // getting links out of the episodes
-            const { id: episodeId  } = episode1;
+            const { episodeId  } = card.dataset;
             deleteForm.dataset.episodeId = episodeId;
             _utilsJs.openPopup("delete-episode-popup", ()=>{
                 deleteForm.dataset.episodeId = "";
+            });
+        }
+    });
+}
+/** display popup for creating links or deleting links */ function manageLinkPopup() {
+    const cover = document.getElementById("episode-links");
+    const form = document.getElementById("create-link");
+    const deleteForm = document.getElementById("delete-link");
+    cover && cover.addEventListener("click", (e)=>{
+        // when the card icon is clicked
+        const { target  } = e;
+        const card = target.closest(".movielink-card");
+        const { linkId , resolution , link , title  } = card.dataset;
+        // when the edit button is clickd
+        if (target.classList.contains("edit-link-btn")) {
+            form.dataset.linkId = linkId;
+            document.getElementById("link-resolution").dataset.value = resolution;
+            _utilsJs.fillSelects("link-resolution", "resolutions");
+            document.getElementById("link-link").value = link;
+            document.getElementById("link-title").value = title;
+            _utilsJs.openPopup("create-link-popup", ()=>{
+                form.dataset.linkId = "";
+                document.getElementById("link-resolution").dataset.value = "";
+                document.getElementById("link-link").value = "";
+                document.getElementById("link-title").value = "";
+            });
+        }
+        // when the delect icon is clicked
+        if (target.classList.contains("delete-link-btn")) {
+            deleteForm.dataset.linkId = linkId;
+            _utilsJs.openPopup("delete-link-popup", ()=>{
+                deleteForm.dataset.linkId = "";
             });
         }
     });
@@ -923,16 +981,20 @@ parcelHelpers.export(exports, "clientSearchBar", ()=>clientSearchBar);
 parcelHelpers.export(exports, "cardsSlider", ()=>cardsSlider);
 parcelHelpers.export(exports, "suggestPopup", ()=>suggestPopup);
 parcelHelpers.export(exports, "clientSidebar", ()=>clientSidebar);
-parcelHelpers.export(exports, "baseUrl", ()=>baseUrl);
 parcelHelpers.export(exports, "api_url", ()=>api_url);
 parcelHelpers.export(exports, "main_url", ()=>main_url);
+parcelHelpers.export(exports, "countries", ()=>countries);
+parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
+parcelHelpers.export(exports, "resolutions", ()=>resolutions);
 parcelHelpers.export(exports, "alertResponse", ()=>alertResponse);
 parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
 parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
 parcelHelpers.export(exports, "fillSelects", ()=>fillSelects);
-parcelHelpers.export(exports, "pageQuery", ()=>pageQuery);
+parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
 parcelHelpers.export(exports, "displayError", ()=>displayError);
 parcelHelpers.export(exports, "structureQuery", ()=>structureQuery);
+parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
+parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
 parcelHelpers.export(exports, "dbMovieCard", ()=>dbMovieCard);
 parcelHelpers.export(exports, "notificationCard", ()=>notificationCard);
 parcelHelpers.export(exports, "scheduleCard", ()=>scheduleCard);
@@ -949,16 +1011,20 @@ const clientSearchBar = _responsiveJs.clientSearchBar;
 const cardsSlider = _responsiveJs.cardsSlider;
 const suggestPopup = _responsiveJs.suggestPopup;
 const clientSidebar = _responsiveJs.clientSidebar;
-const baseUrl = _envJs.baseUrl;
 const api_url = _envJs.api_url;
 const main_url = _envJs.main_url;
+const countries = _envJs.countries;
+const serieStatus = _envJs.serieStatus;
+const resolutions = _envJs.resolutions;
 const alertResponse = _domJs.alertResponse;
 const rotateBtn = _domJs.rotateBtn;
 const stopRotateBtn = _domJs.stopRotateBtn;
 const fillSelects = _domJs.fillSelects;
-const pageQuery = _domJs.pageQuery;
+const metaQuery = _domJs.metaQuery;
 const displayError = _functionsJs.displayError;
 const structureQuery = _functionsJs.structureQuery;
+const stringifyQuery = _functionsJs.stringifyQuery;
+const parseQuery = _functionsJs.parseQuery;
 const dbMovieCard = _markupsJs.dbMovieCard;
 const notificationCard = _markupsJs.notificationCard;
 const scheduleCard = _markupsJs.scheduleCard;
@@ -1173,6 +1239,8 @@ parcelHelpers.defineInteropFlag(exports);
  * @param {String} search search value
  * @returns query in String (query string)
  */ parcelHelpers.export(exports, "structureQuery", ()=>structureQuery);
+parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
+parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
 var _domJs = require("./dom.js");
 function displayError(error, btnid, type) {
     console.log(error);
@@ -1186,12 +1254,25 @@ function structureQuery(search) {
         text
     };
     else {
-        query = _domJs.pageQuery();
+        query = _domJs.metaQuery();
         const { page , limit , total  } = query;
         query.page = page + 1;
     }
     const queryString = Object.entries(query).map(([key, value])=>`${key}=${value}`).join("&");
     return `?${queryString}`;
+}
+function stringifyQuery(query) {
+    const queryString = Object.entries(query).map(([key, value])=>`${key}=${value}`).join("&");
+    return `?${queryString}`;
+}
+function parseQuery(queryString) {
+    const query = {};
+    const queries = queryString.slice(1).split("&");
+    queries.forEach((q)=>{
+        const a = q.split("=");
+        query[a[0]] = a[1];
+    });
+    return query;
 }
 
 },{"./dom.js":"gBwFC","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"gBwFC":[function(require,module,exports) {
@@ -1227,8 +1308,9 @@ parcelHelpers.defineInteropFlag(exports);
  * takes in a query meta data and set it to body dataset. If no query is supplied, it gets the current meta data from the body
  * @param {Object} query the meta query to be set to the body element
  * @returns Object, meta of a query
- */ parcelHelpers.export(exports, "pageQuery", ()=>pageQuery);
-var _envJs = require("./env.js");
+ */ parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
+// import * as env from './env.js';
+var _utilsJs = require("./utils.js");
 function alertResponse(message, timer = 3, type = "success") {
     const markup = `
     <div class="message message--${type}">
@@ -1300,18 +1382,18 @@ function stopRotateBtn(btnid, type = "btn-black") {
         return;
     }
 }
-function fillSelects(selectId, variables) {
+function fillSelects(selectId, variables, clear = true, list) {
     const select = document.getElementById(selectId);
     if (!select) return console.warn("blaciris - select element not on this page - ", selectId);
     const { value  } = select.dataset;
-    const vars = _envJs[variables];
-    select.innerHTML = "";
+    const vars = list || _utilsJs[variables];
+    if (clear) select.innerHTML = "";
     vars.forEach((v)=>{
         const markup = `<option value='${v}' ${v === value ? "selected" : ""}>${v}</option>`;
         select.insertAdjacentHTML("beforeend", markup);
     });
 }
-function pageQuery(query) {
+function metaQuery(query) {
     const body = document.querySelector("body");
     if (query) {
         body.dataset.meta = JSON.stringify(query);
@@ -1321,13 +1403,14 @@ function pageQuery(query) {
     return meta;
 }
 
-},{"./env.js":"7qgA7","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"7qgA7":[function(require,module,exports) {
+},{"./utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"7qgA7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "api_url", ()=>api_url);
 parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
+parcelHelpers.export(exports, "resolutions", ()=>resolutions);
 const api_url = "http://localhost:2000/v1";
 const main_url = "http://localhost:2500";
 const countries = [
@@ -1587,6 +1670,15 @@ const serieStatus = [
     "ended",
     "paused",
     "stopped"
+];
+const resolutions = [
+    "1",
+    "360",
+    "480",
+    "720",
+    "1080",
+    "2160",
+    "10000"
 ];
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"doi6o":[function(require,module,exports) {

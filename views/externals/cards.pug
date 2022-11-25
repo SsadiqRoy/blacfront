@@ -142,11 +142,23 @@ mixin scheduleCard(schedule)
 
 
 mixin gamelinkCard(link)
-  .gamelink-card(data-part=`${link.part}` data-link=`${link.link}` data-link-id=`${link.id}`)
+  .gamelink-card(data-part=`${link.part}` data-link=`${link.link}` data-title=`${link.title || ''}` data-link-id=`${link.id}`)
     .gamelink-card__cover
-      h3 part #{link.part}
-      p= link.link
+      h3= link.title ? link.title : `part ${link.part}`
+      p= link.title ? '' :  link.link
       .gamelink-card__buttons
+        span
+          i.fas.fa-edit.edit-link-btn(data-link-id=`${link.id}`)
+        span
+          i.fas.fa-trash.delete-link-btn(data-link-id=`${link.id}`)
+
+mixin dbMovieLinkCard(link)
+  .movielink-card(data-resolution=`${link.resolution}` data-link=`${link.link}` data-title=`${link.title || ''}` data-link-id=`${link.id}`)
+    //- - console.log(link)
+    .movielink-card__cover
+      h3= link.title ? link.title :  link.resolution
+      p= link.title ? '' :  link.resolution
+      .movielink-card__buttons
         span
           i.fas.fa-edit.edit-link-btn(data-link-id=`${link.id}`)
         span
@@ -154,11 +166,11 @@ mixin gamelinkCard(link)
 
 
 mixin dbEpisodelinkCard(episode)
-  .episodelink-card(data-episode=`${JSON.stringify(episode)}`)
+  .episodelink-card(data-episode-id=`${episode.id}`)
     .episodelink-card__cover
       h3 episode #{episode.episode}
       .episodelink-card__buttons
-        span
+        a(href=`/dashboard/updateepisode/${episode.id}`)
           i.fas.fa-edit.edit-episode-btn
         span
           i.fas.fa-trash.delete-episode-btn

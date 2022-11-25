@@ -26,7 +26,7 @@ export function structureQuery(search) {
   if (search) {
     query = { text };
   } else {
-    query = dom.pageQuery();
+    query = dom.metaQuery();
     const { page, limit, total } = query;
     query.page = page + 1;
   }
@@ -35,4 +35,24 @@ export function structureQuery(search) {
     .map(([key, value]) => `${key}=${value}`)
     .join('&');
   return `?${queryString}`;
+}
+
+export function stringifyQuery(query) {
+  const queryString = Object.entries(query)
+    .map(([key, value]) => `${key}=${value}`)
+    .join('&');
+
+  return `?${queryString}`;
+}
+
+export function parseQuery(queryString) {
+  const query = {};
+  const queries = queryString.slice(1).split('&');
+
+  queries.forEach((q) => {
+    const a = q.split('=');
+    query[a[0]] = a[1];
+  });
+
+  return query;
 }

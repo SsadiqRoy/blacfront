@@ -540,7 +540,7 @@ async function controlCreate(btnId) {
         const movieData = _movieformviewJs.getMovieData();
         const movie = await _modelJs.post("/movies/create", movieData);
         const { id  } = movie;
-        await saveLinks(id);
+        // await saveLinks(id);
         _movieformviewJs.renderCreated(movie, "created", btnId);
     } catch (error) {
         _movieformviewJs.displayError(error, btnId);
@@ -550,36 +550,79 @@ async function controlUpdate(movieId, btnId) {
     try {
         const movieData = _movieformviewJs.getMovieData();
         const movie = await _modelJs.patch(`/movies/${movieId}`, movieData);
-        await updateLinks(movieId);
+        // await updateLinks(movieId);
         _movieformviewJs.renderCreated(movie, "updated", btnId);
     } catch (error) {
         _movieformviewJs.displayError(error, btnId);
     }
 }
-async function saveLinks(movieId) {
-    const links = _movieformviewJs.getLinks();
-    links.forEach(async (link)=>{
-        if (link.link) {
-            link.movie = movieId;
-            await _modelJs.post("/links/create", link);
-        }
-    });
+//
+async function controlCreateLink(movieId, btnId) {
+    try {
+        if (!movieId) throw new Error("First save the movie and update with the part links");
+        const data = _movieformviewJs.getLinkData();
+        data.movie = movieId;
+        // console.log(data);
+        // return;
+        const res = await _modelJs.post("/links/create", data);
+        _movieformviewJs.renderCreateLink(res, "created", btnId);
+    } catch (error) {
+        _movieformviewJs.displayError(error, btnId);
+    }
 }
 //
-async function updateLinks(movieId) {
-    const links = _movieformviewJs.getLinks();
-    links.forEach(async (link)=>{
-        if (link.link && link.link !== link.old) await _modelJs.patch(`/links/${link.id}`, link);
-        if (link.old && !link.link) await _modelJs.deletefull(`/links/${link.id}`);
-        if (link.link && !link.id) {
-            link.movie = movieId;
-            await _modelJs.post(`/links/create`, link);
-        }
-    });
+async function controlUpdateLink(linkId, btnId) {
+    try {
+        const data = _movieformviewJs.getLinkData();
+        // console.log(data);
+        // return;
+        let res;
+        if (data.link) res = await _modelJs.patch(`/links/${linkId}`, data);
+        if (!data.link) res = await _modelJs.deletefull(`/links/${linkId}`);
+        _movieformviewJs.renderCreateLink(res, "updated", btnId);
+    } catch (error) {
+        _movieformviewJs.displayError(error, btnId);
+    }
 }
+//
+async function controlDeleteLink(linkId, btnId) {
+    try {
+        const res = await _modelJs.deletefull(`/links/${linkId}`);
+        _movieformviewJs.renderDeleteLInk(res, btnId);
+    } catch (error) {
+        _movieformviewJs.displayError(error, btnId);
+    }
+}
+// async function saveLinks(movieId) {
+//   const links = view.getLinks();
+//   links.forEach(async (link) => {
+//     if (link.link) {
+//       link.movie = movieId;
+//       await model.post('/links/create', link);
+//     }
+//   });
+// }
+//
+// async function updateLinks(movieId) {
+//   const links = view.getLinks();
+//   links.forEach(async (link) => {
+//     if (link.link && link.link !== link.old) {
+//       await model.patch(`/links/${link.id}`, link);
+//     }
+//     if (link.old && !link.link) {
+//       await model.deletefull(`/links/${link.id}`);
+//     }
+//     if (link.link && !link.id) {
+//       link.movie = movieId;
+//       await model.post(`/links/create`, link);
+//     }
+//   });
+// }
 async function init() {
     _movieformviewJs.initilizer();
     _movieformviewJs.handleCreate(controlCreate, controlUpdate);
+    _movieformviewJs.handleCreateLink(controlCreateLink, controlUpdateLink);
+    _movieformviewJs.handleDeleteLink(controlDeleteLink);
 }
 init();
 
@@ -588,12 +631,74 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "displayError", ()=>displayError);
 parcelHelpers.export(exports, "renderCreated", ()=>renderCreated);
-// ======================== GETTERS ===============
+/**
+ * render response after creating or updating game
+ * @param {Object} data response object (game link)
+ * @param {String} action updated or created
+ * @returns null - break action
+ */ parcelHelpers.export(exports, "renderCreateLink", ()=>renderCreateLink);
+/**
+ * render response after creating or updating game
+ * @param {Object} data response object (deleted game)
+ * @returns null - break action
+ */ parcelHelpers.export(exports, "renderDeleteLInk", ()=>renderDeleteLInk);
+/*
+
+
+
+
+
+*/ // ======================== GETTERS ===============
 parcelHelpers.export(exports, "getMovieData", ()=>getMovieData);
 //
-parcelHelpers.export(exports, "getLinks", ()=>getLinks);
-// ===================== HANDLERS
+// export function getLinks() {
+//   // const link480 = document.getElementById('movie-480-link').value;
+//   const {
+//     value: l480,
+//     dataset: { link: l480Old, linkId: l480Id },
+//   } = document.getElementById('movie-480-link');
+//   // const link720 = document.getElementById('movie-720-link').value;
+//   const {
+//     value: l720,
+//     dataset: { link: l720Old, linkId: l720Id },
+//   } = document.getElementById('movie-720-link');
+//   // const link1080 = document.getElementById('movie-1080-link').value;
+//   const {
+//     value: l1080,
+//     dataset: { link: l1080Old, linkId: l1080Id },
+//   } = document.getElementById('movie-1080-link');
+//   // const linkOther = document.getElementById('movie-other-link').value;
+//   const {
+//     value: l1,
+//     dataset: { link: l1Old, linkId: l1Id },
+//   } = document.getElementById('movie-other-link');
+//   // const subtitle = document.getElementById('movie-subtitle-link').value;
+//   const {
+//     value: l10000,
+//     dataset: { link: l10000Old, linkId: l10000Id },
+//   } = document.getElementById('movie-subtitle-link');
+//   const links = [
+//     { link: l480, resolution: 480, old: l480Old, id: l480Id },
+//     { link: l720, resolution: 720, old: l720Old, id: l720Id },
+//     { link: l1080, resolution: 1080, old: l1080Old, id: l1080Id },
+//     { link: l1, resolution: 1, old: l1Old, id: l1Id },
+//     { link: l10000, resolution: 10000, old: l10000Old, id: l10000Id },
+//   ];
+//   // const validLinks = links.filter((link) => link.link.length);
+//   return links;
+// }
+parcelHelpers.export(exports, "getLinkData", ()=>getLinkData);
+/*
+
+
+
+
+*/ // ===================== HANDLERS
 parcelHelpers.export(exports, "handleCreate", ()=>handleCreate);
+//
+parcelHelpers.export(exports, "handleCreateLink", ()=>handleCreateLink);
+//
+parcelHelpers.export(exports, "handleDeleteLink", ()=>handleDeleteLink);
 // =================== INITIALIZER ===========
 parcelHelpers.export(exports, "initilizer", ()=>initilizer);
 var _utilsJs = require("../../utils/utils.js");
@@ -608,6 +713,28 @@ function renderCreated(data, action, btnId) {
     window.setTimeout(()=>{
         window.location.assign("/dashboard/movies");
     }, 3500);
+}
+function renderCreateLink(data, action, btnId) {
+    if (!data) {
+        _utilsJs.stopRotateBtn(btnId);
+        _utilsJs.alertResponse("failed creating or could not display results - am reloading", 6, "failed");
+        window.setTimeout(()=>window.location.reload(), 6500);
+    }
+    _utilsJs.alertResponse(`link ${data.title} has been ${action}`);
+    _utilsJs.stopRotateBtn(btnId);
+    _utilsJs.closePopup("create-link-popup", ()=>{
+        window.setTimeout(()=>window.location.reload(), 3500);
+    });
+}
+function renderDeleteLInk(data, btnId) {
+    if (!data) {
+        _utilsJs.alertResponse("failed deleting or could not display results, am reloading", 6, "failed");
+        _utilsJs.stopRotateBtn(btnId);
+        return window.setTimeout(()=>window.location.reload(), 6500);
+    }
+    _utilsJs.alertResponse("Link has been deleted successfully");
+    _utilsJs.stopRotateBtn(btnId);
+    _utilsJs.closePopup("delete-link-popup", ()=>window.location.reload());
 }
 function getMovieData() {
     const title = document.getElementById("movie-title").value;
@@ -645,51 +772,15 @@ function getMovieData() {
     };
     return data;
 }
-function getLinks() {
-    // const link480 = document.getElementById('movie-480-link').value;
-    const { value: l480 , dataset: { link: l480Old , linkId: l480Id  } ,  } = document.getElementById("movie-480-link");
-    // const link720 = document.getElementById('movie-720-link').value;
-    const { value: l720 , dataset: { link: l720Old , linkId: l720Id  } ,  } = document.getElementById("movie-720-link");
-    // const link1080 = document.getElementById('movie-1080-link').value;
-    const { value: l1080 , dataset: { link: l1080Old , linkId: l1080Id  } ,  } = document.getElementById("movie-1080-link");
-    // const linkOther = document.getElementById('movie-other-link').value;
-    const { value: l1 , dataset: { link: l1Old , linkId: l1Id  } ,  } = document.getElementById("movie-other-link");
-    // const subtitle = document.getElementById('movie-subtitle-link').value;
-    const { value: l10000 , dataset: { link: l10000Old , linkId: l10000Id  } ,  } = document.getElementById("movie-subtitle-link");
-    const links = [
-        {
-            link: l480,
-            resolution: 480,
-            old: l480Old,
-            id: l480Id
-        },
-        {
-            link: l720,
-            resolution: 720,
-            old: l720Old,
-            id: l720Id
-        },
-        {
-            link: l1080,
-            resolution: 1080,
-            old: l1080Old,
-            id: l1080Id
-        },
-        {
-            link: l1,
-            resolution: 1,
-            old: l1Old,
-            id: l1Id
-        },
-        {
-            link: l10000,
-            resolution: 10000,
-            old: l10000Old,
-            id: l10000Id
-        }, 
-    ];
-    // const validLinks = links.filter((link) => link.link.length);
-    return links;
+function getLinkData() {
+    const resolution = document.getElementById("link-resolution").value;
+    const link = document.getElementById("link-link").value;
+    const title = document.getElementById("link-title").value;
+    return {
+        title,
+        resolution,
+        link
+    };
 }
 function handleCreate(controlCreate, controlUpdate) {
     const form = document.getElementById("create-movie");
@@ -701,8 +792,80 @@ function handleCreate(controlCreate, controlUpdate) {
         else controlUpdate(movieId, "movie-btn");
     });
 }
+function handleCreateLink(controlCreateLink, controlUpdateLink) {
+    const form = document.getElementById("create-link");
+    form && form.addEventListener("submit", (e)=>{
+        e.preventDefault();
+        _utilsJs.rotateBtn("link-btn");
+        const { linkId , movieId  } = form.dataset;
+        // console.log(linkId, movieId);
+        // return;
+        if (!linkId) return controlCreateLink(movieId, "link-btn");
+        // return console.log('👉', linkId, gameId);
+        controlUpdateLink(linkId, "link-btn");
+    });
+}
+function handleDeleteLink(controlDeleteLink) {
+    const form = document.getElementById("delete-link");
+    form && form.addEventListener("submit", (e)=>{
+        e.preventDefault();
+        const { linkId  } = form.dataset;
+        if (!linkId) return;
+        _utilsJs.rotateBtn("delete-link-btn");
+        controlDeleteLink(linkId, "delete-link");
+    });
+}
 function initilizer() {
+    _utilsJs.adminSidebar();
     _utilsJs.fillSelects("movie-country", "countries");
+    manageLinkPopup();
+    const movielinkBtn = document.getElementById("add-movie-link");
+    // displaying popup on for creating movie link
+    movielinkBtn && movielinkBtn.addEventListener("click", (e)=>{
+        _utilsJs.fillSelects("link-resolution", "resolutions");
+        _utilsJs.openPopup("create-link-popup");
+    });
+}
+/*
+
+
+
+
+
+
+
+*/ // ====================== NON EXPORTING FUNCTOINS =======
+/** display popup for creating links or deleting links */ function manageLinkPopup() {
+    const cover = document.getElementById("movie-links");
+    const form = document.getElementById("create-link");
+    const deleteForm = document.getElementById("delete-link");
+    cover && cover.addEventListener("click", (e)=>{
+        // when the card icon is clicked
+        const { target  } = e;
+        const card = target.closest(".movielink-card");
+        const { linkId , resolution , link , title  } = card.dataset;
+        // when the edit button is clickd
+        if (target.classList.contains("edit-link-btn")) {
+            form.dataset.linkId = linkId;
+            document.getElementById("link-resolution").dataset.value = resolution;
+            _utilsJs.fillSelects("link-resolution", "resolutions");
+            document.getElementById("link-link").value = link;
+            document.getElementById("link-title").value = title;
+            _utilsJs.openPopup("create-link-popup", ()=>{
+                form.dataset.linkId = "";
+                document.getElementById("link-resolution").dataset.value = "";
+                document.getElementById("link-link").value = "";
+                document.getElementById("link-title").value = "";
+            });
+        }
+        // when the delect icon is clicked
+        if (target.classList.contains("delete-link-btn")) {
+            deleteForm.dataset.linkId = linkId;
+            _utilsJs.openPopup("delete-link-popup", ()=>{
+                deleteForm.dataset.linkId = "";
+            });
+        }
+    });
 }
 
 },{"../../utils/utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"bvANu":[function(require,module,exports) {
@@ -716,16 +879,20 @@ parcelHelpers.export(exports, "clientSearchBar", ()=>clientSearchBar);
 parcelHelpers.export(exports, "cardsSlider", ()=>cardsSlider);
 parcelHelpers.export(exports, "suggestPopup", ()=>suggestPopup);
 parcelHelpers.export(exports, "clientSidebar", ()=>clientSidebar);
-parcelHelpers.export(exports, "baseUrl", ()=>baseUrl);
 parcelHelpers.export(exports, "api_url", ()=>api_url);
 parcelHelpers.export(exports, "main_url", ()=>main_url);
+parcelHelpers.export(exports, "countries", ()=>countries);
+parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
+parcelHelpers.export(exports, "resolutions", ()=>resolutions);
 parcelHelpers.export(exports, "alertResponse", ()=>alertResponse);
 parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
 parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
 parcelHelpers.export(exports, "fillSelects", ()=>fillSelects);
-parcelHelpers.export(exports, "pageQuery", ()=>pageQuery);
+parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
 parcelHelpers.export(exports, "displayError", ()=>displayError);
 parcelHelpers.export(exports, "structureQuery", ()=>structureQuery);
+parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
+parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
 parcelHelpers.export(exports, "dbMovieCard", ()=>dbMovieCard);
 parcelHelpers.export(exports, "notificationCard", ()=>notificationCard);
 parcelHelpers.export(exports, "scheduleCard", ()=>scheduleCard);
@@ -742,16 +909,20 @@ const clientSearchBar = _responsiveJs.clientSearchBar;
 const cardsSlider = _responsiveJs.cardsSlider;
 const suggestPopup = _responsiveJs.suggestPopup;
 const clientSidebar = _responsiveJs.clientSidebar;
-const baseUrl = _envJs.baseUrl;
 const api_url = _envJs.api_url;
 const main_url = _envJs.main_url;
+const countries = _envJs.countries;
+const serieStatus = _envJs.serieStatus;
+const resolutions = _envJs.resolutions;
 const alertResponse = _domJs.alertResponse;
 const rotateBtn = _domJs.rotateBtn;
 const stopRotateBtn = _domJs.stopRotateBtn;
 const fillSelects = _domJs.fillSelects;
-const pageQuery = _domJs.pageQuery;
+const metaQuery = _domJs.metaQuery;
 const displayError = _functionsJs.displayError;
 const structureQuery = _functionsJs.structureQuery;
+const stringifyQuery = _functionsJs.stringifyQuery;
+const parseQuery = _functionsJs.parseQuery;
 const dbMovieCard = _markupsJs.dbMovieCard;
 const notificationCard = _markupsJs.notificationCard;
 const scheduleCard = _markupsJs.scheduleCard;
@@ -966,6 +1137,8 @@ parcelHelpers.defineInteropFlag(exports);
  * @param {String} search search value
  * @returns query in String (query string)
  */ parcelHelpers.export(exports, "structureQuery", ()=>structureQuery);
+parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
+parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
 var _domJs = require("./dom.js");
 function displayError(error, btnid, type) {
     console.log(error);
@@ -979,12 +1152,25 @@ function structureQuery(search) {
         text
     };
     else {
-        query = _domJs.pageQuery();
+        query = _domJs.metaQuery();
         const { page , limit , total  } = query;
         query.page = page + 1;
     }
     const queryString = Object.entries(query).map(([key, value])=>`${key}=${value}`).join("&");
     return `?${queryString}`;
+}
+function stringifyQuery(query) {
+    const queryString = Object.entries(query).map(([key, value])=>`${key}=${value}`).join("&");
+    return `?${queryString}`;
+}
+function parseQuery(queryString) {
+    const query = {};
+    const queries = queryString.slice(1).split("&");
+    queries.forEach((q)=>{
+        const a = q.split("=");
+        query[a[0]] = a[1];
+    });
+    return query;
 }
 
 },{"./dom.js":"gBwFC","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"gBwFC":[function(require,module,exports) {
@@ -1020,8 +1206,9 @@ parcelHelpers.defineInteropFlag(exports);
  * takes in a query meta data and set it to body dataset. If no query is supplied, it gets the current meta data from the body
  * @param {Object} query the meta query to be set to the body element
  * @returns Object, meta of a query
- */ parcelHelpers.export(exports, "pageQuery", ()=>pageQuery);
-var _envJs = require("./env.js");
+ */ parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
+// import * as env from './env.js';
+var _utilsJs = require("./utils.js");
 function alertResponse(message, timer = 3, type = "success") {
     const markup = `
     <div class="message message--${type}">
@@ -1093,18 +1280,18 @@ function stopRotateBtn(btnid, type = "btn-black") {
         return;
     }
 }
-function fillSelects(selectId, variables) {
+function fillSelects(selectId, variables, clear = true, list) {
     const select = document.getElementById(selectId);
     if (!select) return console.warn("blaciris - select element not on this page - ", selectId);
     const { value  } = select.dataset;
-    const vars = _envJs[variables];
-    select.innerHTML = "";
+    const vars = list || _utilsJs[variables];
+    if (clear) select.innerHTML = "";
     vars.forEach((v)=>{
         const markup = `<option value='${v}' ${v === value ? "selected" : ""}>${v}</option>`;
         select.insertAdjacentHTML("beforeend", markup);
     });
 }
-function pageQuery(query) {
+function metaQuery(query) {
     const body = document.querySelector("body");
     if (query) {
         body.dataset.meta = JSON.stringify(query);
@@ -1114,13 +1301,14 @@ function pageQuery(query) {
     return meta;
 }
 
-},{"./env.js":"7qgA7","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"7qgA7":[function(require,module,exports) {
+},{"./utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"7qgA7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "api_url", ()=>api_url);
 parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
+parcelHelpers.export(exports, "resolutions", ()=>resolutions);
 const api_url = "http://localhost:2000/v1";
 const main_url = "http://localhost:2500";
 const countries = [
@@ -1380,6 +1568,15 @@ const serieStatus = [
     "ended",
     "paused",
     "stopped"
+];
+const resolutions = [
+    "1",
+    "360",
+    "480",
+    "720",
+    "1080",
+    "2160",
+    "10000"
 ];
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"doi6o":[function(require,module,exports) {

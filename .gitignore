@@ -1,5 +1,6 @@
-.vscode/
+# .vscode/
 .parcel-cache/
 /node_modules
 *.env
 *.map
+*.l

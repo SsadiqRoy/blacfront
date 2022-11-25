@@ -36,51 +36,50 @@ block content
           .season-episodes__list
             each episode in season.Episodes
               +dbEpisodelinkCard(episode)
-            //- - let a = 1
-            //- while a < 4
-            //-   -a++
+           
 
       if(season)
         .center-components
-          button.btn-black.btn-normal#add-episode(type="button")
-            span.btn-content add episode
+          a(href=`/dashboard/episodeform/${seasonId}` style="display: inline-block;")
+            button.btn-black.btn-normal(type='button' style="width: max-content; display: inline-block;")
+              span.btn-content add episode
 
-  .popup.display-off#create-episode-popup
-    .popup-box
-      .popup-close
-        i.fas.fa-times
-      .popup-content.create-content
-        form.create-new#create-episode(data-season-id=`${seasonId}`)
-          .form-heading
-            h1 episode links
-          .form-group-double
-            .form-group
-              label.label-basic(for="episode-title") episode title
-              input#episode-title.input-basic(type="text")
-            .form-group
-              label.label-basic(for="episode-number") episode number
-              input#episode-episode.input-basic(type="number" required)
-          .form-group
-            label.label-basic(for="episode-480-link") 480 link
-            input#episode-480-link.input-basic(type="text")
-          .form-group
-            label.label-basic(for="episode-720-link") 720 link
-            input#episode-720-link.input-basic(type="text")
+  //- .popup.display-off#create-episode-popup
+  //-   .popup-box
+  //-     .popup-close
+  //-       i.fas.fa-times
+  //-     .popup-content.create-content
+  //-       form.create-new#create-episode(data-season-id=`${seasonId}`)
+  //-         .form-heading
+  //-           h1 episode links
+  //-         .form-group-double
+  //-           .form-group
+  //-             label.label-basic(for="episode-title") episode title
+  //-             input#episode-title.input-basic(type="text")
+  //-           .form-group
+  //-             label.label-basic(for="episode-number") episode number
+  //-             input#episode-episode.input-basic(type="number" required)
+  //-         .form-group
+  //-           label.label-basic(for="episode-480-link") 480 link
+  //-           input#episode-480-link.input-basic(type="text")
+  //-         .form-group
+  //-           label.label-basic(for="episode-720-link") 720 link
+  //-           input#episode-720-link.input-basic(type="text")
 
-          .form-group
-            label.label-basic(for="episode-1080-link") 1080 link
-            input#episode-1080-link.input-basic(type="text")
+  //-         .form-group
+  //-           label.label-basic(for="episode-1080-link") 1080 link
+  //-           input#episode-1080-link.input-basic(type="text")
 
-          .form-group
-            label.label-basic(for="episode-other-link") other link
-            input#episode-other-link.input-basic(type="text")
-          .form-group
-            label.label-basic(for="episode-subtitle-link") subtitle link
-            input#episode-subtitle-link.input-basic(type="text")
+  //-         .form-group
+  //-           label.label-basic(for="episode-other-link") other link
+  //-           input#episode-other-link.input-basic(type="text")
+  //-         .form-group
+  //-           label.label-basic(for="episode-subtitle-link") subtitle link
+  //-           input#episode-subtitle-link.input-basic(type="text")
           
-          .center-components
-            button.btn-black.btn-normal#create-episode-btn(type="submit")
-              span.btn-content save
+  //-         .center-components
+  //-           button.btn-black.btn-normal#create-episode-btn(type="submit")
+  //-             span.btn-content save
 
 
   .popup.display-off#delete-episode-popup

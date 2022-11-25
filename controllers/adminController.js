@@ -1,5 +1,6 @@
 const { catchAsync, getRequest, stringifyQuery } = require('../utils/utils');
-const jsPath = '/javascript/build/admin';
+// const jsPath = `/javascript/${process.env.js_folder}/admin`;
+const jsPath = `/javascript/watched/admin`;
 
 //
 exports.profile = catchAsync(async (req, res, next) => {
@@ -156,6 +157,18 @@ exports.scheduleform = catchAsync(async (req, res, next) => {
   res.status(200).render('admin/scheduleform', { ext });
 });
 
+exports.episodeform = catchAsync(async (req, res, next) => {
+  const { seasonId } = req.params;
+  const ext = {
+    title: 'Create Movie',
+    page: 'episodeform',
+    searchPlaceholder: '',
+    js: `${jsPath}/seasonform`,
+  };
+
+  res.status(200).render('admin/episodeform', { ext, seasonId });
+});
+
 /*
 
 
@@ -231,6 +244,20 @@ exports.updateseason = catchAsync(async (req, res, next) => {
   };
 
   res.status(200).render('admin/seasonform', { ext, season });
+});
+
+//
+exports.updateepisode = catchAsync(async (req, res, next) => {
+  const { data: episode } = await getRequest(req, `/episodes/${req.params.id}`);
+
+  const ext = {
+    title: `Update ${episode.title}`,
+    page: 'episodeform',
+    searchPlaceholder: 'in episodes',
+    js: `${jsPath}/seasonform`,
+  };
+
+  res.status(200).render('admin/episodeform', { ext, episode });
 });
 
 //

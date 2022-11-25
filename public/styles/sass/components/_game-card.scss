@@ -1,5 +1,10 @@
 .game-card {
   // height: 25rem;
+  border: 1px solid $secondary;
+
+  @media (min-width: 30.9375em) {
+    max-width: 32rem;
+  }
 
   &__cover {
     width: 100%;

@@ -5,20 +5,19 @@ block content
     .main__cover
       .main__filter#main-filter
         .main__filter__cover
-          span.main__filter-tag.query-tag.query(data-query=`order=releasedDate,desc`) new
-          span.main__filter-tag.query-tag.query(data-query=`order=updatedAt,desc`) last updated
-          span.main__filter-tag.query-tag.query(data-query=`rating=gte,7&order=releasedDate,desc`) top
-          span.main__filter-tag.query-tag.search(data-query=`trending`) trending
-          span.main__filter-tag.query-tag.query(data-query=`releasedDate=gte,01/01/2022&order=releasedDate,desc`) this year
+          span.main__filter-tag.query(data-query=`?`) all
+          span.main__filter-tag.query(data-query=`?order=releasedDate,desc`) new
+          span.main__filter-tag.query(data-query=`?order=updatedAt,desc`) last updated
+          span.main__filter-tag.query(data-query=`?rating=gte,7&order=releasedDate,desc`) top
+          span.main__filter-tag.query(data-query=`?text=trending`) trending
+          span.main__filter-tag.query(data-query=`?releasedDate=gte,01/01/2022&order=releasedDate,desc`) this year
 
       .main__container#main-container
         .main__container__cover#items-container
           if(games && games.length)
             each game in games
               +dbmovieCard(game, 'game')
-            //- - let a = 11
-            //- while a < 27
-              -a++
+            
 
 
         .center-components.padding-a1
