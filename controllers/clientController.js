@@ -1,5 +1,6 @@
 const { catchAsync } = require('../utils/utils');
-const jsPath = '/javascript/build/client';
+const jsPath = `/javascript/${process.env.js_folder}/client`;
+// const jsPath = '/javascript/watched/client';
 
 exports.signup = catchAsync(async (req, res, next) => {
   const ext = {

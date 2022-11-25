@@ -1,6 +1,6 @@
 const { catchAsync, getRequest, stringifyQuery } = require('../utils/utils');
-// const jsPath = `/javascript/${process.env.js_folder}/admin`;
-const jsPath = `/javascript/watched/admin`;
+const jsPath = `/javascript/${process.env.js_folder}/admin`;
+// const jsPath = `/javascript/watched/admin`;
 
 //
 exports.profile = catchAsync(async (req, res, next) => {
