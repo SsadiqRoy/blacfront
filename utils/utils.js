@@ -15,7 +15,7 @@ exports.userRoleLevel = (role) => {
 //
 exports.getRequest = async function (req, u) {
   try {
-    new LogToFile(`cookies: ${req.cookies}`);
+    // new LogToFile(`cookies: ${req.cookies}`);
     const url = `${process.env.api_url}${u}`;
     const response = await axios({
       method: 'get',
