@@ -686,6 +686,8 @@ parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
 parcelHelpers.export(exports, "dbMovieCard", ()=>dbMovieCard);
 parcelHelpers.export(exports, "notificationCard", ()=>notificationCard);
 parcelHelpers.export(exports, "scheduleCard", ()=>scheduleCard);
+parcelHelpers.export(exports, "movieCard", ()=>movieCard);
+parcelHelpers.export(exports, "gameCard", ()=>gameCard);
 var _responsiveJs = require("./responsive.js");
 var _functionsJs = require("./functions.js");
 var _envJs = require("./env.js");
@@ -716,6 +718,8 @@ const parseQuery = _functionsJs.parseQuery;
 const dbMovieCard = _markupsJs.dbMovieCard;
 const notificationCard = _markupsJs.notificationCard;
 const scheduleCard = _markupsJs.scheduleCard;
+const movieCard = _markupsJs.movieCard;
+const gameCard = _markupsJs.gameCard;
 
 },{"./responsive.js":"4wcQt","./functions.js":"d2Ury","./env.js":"7qgA7","./dom.js":"gBwFC","./markups.js":"doi6o","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"4wcQt":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -1376,6 +1380,8 @@ parcelHelpers.export(exports, "dbMovieCard", ()=>dbMovieCard);
 parcelHelpers.export(exports, "notificationCard", ()=>notificationCard);
 //
 parcelHelpers.export(exports, "scheduleCard", ()=>scheduleCard);
+parcelHelpers.export(exports, "movieCard", ()=>movieCard);
+parcelHelpers.export(exports, "gameCard", ()=>gameCard);
 function dbMovieCard(movie, type = "movie") {
     const markup = `
   <div class="dbmovie-card" data-card-id="${movie.id}">
@@ -1445,6 +1451,31 @@ function scheduleCard(schedule) {
     </div>
     ${due}
   </div>
+  `;
+    return markup;
+}
+function movieCard(movie, type) {
+    const markup = `
+    <div class="movie-card card-game">
+      <a href="/${type}/${movie.title.toLowerCase().split(" ").join("-")}/${movie.id}">
+        <img src="${movie.portrait}" alt="${movie.title}" />
+        <h2>
+          ${movie.title}
+          <span><i class="fas fa-star"></i> ${movie.rating}</span>
+        </h2>
+      </a>
+    </div>
+  `;
+    return markup;
+}
+function gameCard(game) {
+    const markup = `
+    <div class="game-card">
+      <a href="/game/${game.title.toLowerCase().split(" ").join("-")}/${game.id}" class="game-card__cover">
+        <div class="game-card__image" style="background-image: url(${game.landscape})"></div>
+        <div class="game-card__title">${game.title}</div>
+      </a>
+    </div>
   `;
     return markup;
 }

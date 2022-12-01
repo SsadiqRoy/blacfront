@@ -1,21 +1,23 @@
 mixin movieCard(movie)
-  .movie-card
+  .movie-card(style='border: 1px solid white;')
     a(href='/movie')
       //- - const m = a < 20 ? a : Math.trunc(Math.random()*16+1)
       //- img(src=`/images/image-${m}.jpg`)
-      img(src=`${movie.landscape}`)
-      h2= movie.title
+      //- img(src=`${movie.landscape}`)
+      //- h2= movie.title
+      h2
         span
           i.fas.fa-star
-          |  8.3
+          //- |  8.3
 
 
 mixin gameCard(b)
-  .game-card
+  .game-card(style='border: 1px solid white;')
     a.game-card__cover(href='/game')
-      - const n = b < 20 ? b : Math.trunc(Math.random()*16+1)
-      .game-card__image(style=`background-image: url(/images/image-${n}.jpg)`)
-      .game-card__title The rise of the spartans of the modern day:
+      //- - const n = b < 20 ? b : Math.trunc(Math.random()*16+1)
+      .game-card__image(style=`background-image: url()`)
+      //- .game-card__title The rise of the spartans of the modern day:
+      .game-card__title 
 
 
 mixin linkCard(b)
@@ -25,16 +27,15 @@ mixin linkCard(b)
       i.fas.fa-download
 
 
-mixin seasonCard(c)
-  a.season-card(href='/season')
+mixin seasonCard(season)
+  a.season-card(href=`/serie/${slug}/season/${season.number}/${season.serie}/${season.id}` style='border: 1px solid white;')
     .season-card__cover
       .season-card__image
-        - const o = c < 20 ? c : Math.trunc(Math.random()*16+1)
         .season-card__image-box
-          img(src=`/images/image-${o}.jpg`, alt="season image")
+          img(src=`${season.landscape}`, alt=`${slug} | season image`)
       .season-card__data
         .season-card__data-box
-          h2 season #{o}
+          h2 season #{season.number}
 
 mixin dbSeasonCard(season)
   .season-card(data-season-id=`${season.id}`)
@@ -53,32 +54,22 @@ mixin dbSeasonCard(season)
             i.fas.fa-trash.delete-item
 
 
-mixin episodeCard(d)
+mixin episodeCard(episode)
   .episode-card
     .episode-card__cover
-      .episode-card__title episode 20
+      .episode-card__title episode #{episode.episode}
       .episode-card__links
-        span.episode-link.episode-link--black
-          a(href)
-            i.fas.fa-download
-            |  480p
-        span.episode-link.episode-link--black
-          a(href)
-            i.fas.fa-download
-            |  720p
-        span.episode-link.episode-link--black
-          a(href)
-            i.fas.fa-download
-            |  720x256p
-        span.episode-link.episode-link--black
-          a(href)
-            i.fas.fa-download
-            |  1080p
-        span.episode-link.episode-link--black
-          a(href)
-            i.fas.fa-download
-            |  2160p
-
+        each link in episode.Links
+          - const color = link.resolution === 480 || link.resolution === 1080 || link.resolution > 1080 ? 'episode-link--black' : ''
+          span.episode-link(class=`${color}`)
+            a(href=`/download/episode-${episode.episode}-${link.title || link.resolution}/${link.id}`)
+              i.fas.fa-download
+              | #{link.title || link.resolution }
+        //- span.episode-link.episode-link--black
+        //-   a(href)
+        //-     i.fas.fa-download
+        //-     |  720p
+        
 
 mixin dbmovieCard(movie, type = 'movie')
   .dbmovie-card(data-card-id=`${movie.id}`)
@@ -174,3 +165,10 @@ mixin dbEpisodelinkCard(episode)
           i.fas.fa-edit.edit-episode-btn
         span
           i.fas.fa-trash.delete-episode-btn
+
+
+mixin downloadLink(link, type)
+  .link
+    span= link.title || link.resolution || `part ${link.part}` 
+    a(href=`/download/${type}-${link.title || link.resolution || link.part}/${link.id}`)
+      i.fas.fa-download

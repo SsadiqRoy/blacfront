@@ -79,13 +79,16 @@
       padding-inline: 0.4rem;
     }
 
-    &:nth-child(odd) {
-      background-color: $black;
-      color: $white;
-    }
+    // &:nth-child(odd) {
+
+    // }
   }
   .episode-link--empty {
     opacity: 0;
     visibility: hidden;
+  }
+  .episode-link--black {
+    background-color: $black;
+    color: $white;
   }
 }

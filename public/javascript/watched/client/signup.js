@@ -610,6 +610,8 @@ parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
 parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
 parcelHelpers.export(exports, "fillSelects", ()=>fillSelects);
 parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
+parcelHelpers.export(exports, "clientSearch", ()=>clientSearch);
+parcelHelpers.export(exports, "noMenu", ()=>noMenu);
 parcelHelpers.export(exports, "displayError", ()=>displayError);
 parcelHelpers.export(exports, "structureQuery", ()=>structureQuery);
 parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
@@ -617,6 +619,8 @@ parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
 parcelHelpers.export(exports, "dbMovieCard", ()=>dbMovieCard);
 parcelHelpers.export(exports, "notificationCard", ()=>notificationCard);
 parcelHelpers.export(exports, "scheduleCard", ()=>scheduleCard);
+parcelHelpers.export(exports, "movieCard", ()=>movieCard);
+parcelHelpers.export(exports, "gameCard", ()=>gameCard);
 var _responsiveJs = require("./responsive.js");
 var _functionsJs = require("./functions.js");
 var _envJs = require("./env.js");
@@ -640,6 +644,8 @@ const rotateBtn = _domJs.rotateBtn;
 const stopRotateBtn = _domJs.stopRotateBtn;
 const fillSelects = _domJs.fillSelects;
 const metaQuery = _domJs.metaQuery;
+const clientSearch = _domJs.clientSearch;
+const noMenu = _domJs.noMenu;
 const displayError = _functionsJs.displayError;
 const structureQuery = _functionsJs.structureQuery;
 const stringifyQuery = _functionsJs.stringifyQuery;
@@ -647,6 +653,8 @@ const parseQuery = _functionsJs.parseQuery;
 const dbMovieCard = _markupsJs.dbMovieCard;
 const notificationCard = _markupsJs.notificationCard;
 const scheduleCard = _markupsJs.scheduleCard;
+const movieCard = _markupsJs.movieCard;
+const gameCard = _markupsJs.gameCard;
 
 },{"./responsive.js":"4wcQt","./functions.js":"d2Ury","./env.js":"7qgA7","./dom.js":"gBwFC","./markups.js":"doi6o","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"4wcQt":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -811,6 +819,7 @@ function suggestPopup() {
     const body = document.querySelector("body");
     body.addEventListener("click", (e)=>{
         if (e.target.classList.contains("suggest")) openPopup("suggest-popup");
+        if (e.target.classList.contains("problem")) openPopup("problem-popup");
     });
 }
 
@@ -897,6 +906,7 @@ function parseQuery(queryString) {
 },{"./dom.js":"gBwFC","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"gBwFC":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "noMenu", ()=>noMenu);
 /**
  * display a message on an alert box on the surface
  * @param {String} message the message to display in the alert box
@@ -928,8 +938,15 @@ parcelHelpers.defineInteropFlag(exports);
  * @param {Object} query the meta query to be set to the body element
  * @returns Object, meta of a query
  */ parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
+parcelHelpers.export(exports, "clientSearch", ()=>clientSearch);
 // import * as env from './env.js';
 var _utilsJs = require("./utils.js");
+function noMenu() {
+    const body = document.querySelector("body");
+    body.addEventListener("contextmenu", (e)=>{
+        e.preventDefault();
+    });
+}
 function alertResponse(message, timer = 3, type = "success") {
     const markup = `
     <div class="message message--${type}">
@@ -1021,6 +1038,15 @@ function metaQuery(query) {
     const meta = JSON.parse(body.dataset.meta);
     return meta;
 }
+function clientSearch(type = "movie") {
+    const form = document.getElementById("client-search");
+    form.addEventListener("submit", (e)=>{
+        e.preventDefault();
+        const { value  } = form.querySelector("input");
+        if (!value) return;
+        window.location.assign(`/${type}s?text=${value.split(" ").join("-")}`);
+    });
+}
 
 },{"./utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"7qgA7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -1030,8 +1056,8 @@ parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
 parcelHelpers.export(exports, "resolutions", ()=>resolutions);
-const api_url = "https://apistaging.blaciris.com/v1";
-const main_url = "https://staging.blaciris.com";
+const api_url = "http://localhost:2000/v1";
+const main_url = "http://localhost:2500";
 const countries = [
     "Afghanistan",
     "Albania",
@@ -1307,6 +1333,8 @@ parcelHelpers.export(exports, "dbMovieCard", ()=>dbMovieCard);
 parcelHelpers.export(exports, "notificationCard", ()=>notificationCard);
 //
 parcelHelpers.export(exports, "scheduleCard", ()=>scheduleCard);
+parcelHelpers.export(exports, "movieCard", ()=>movieCard);
+parcelHelpers.export(exports, "gameCard", ()=>gameCard);
 function dbMovieCard(movie, type = "movie") {
     const markup = `
   <div class="dbmovie-card" data-card-id="${movie.id}">
@@ -1376,6 +1404,31 @@ function scheduleCard(schedule) {
     </div>
     ${due}
   </div>
+  `;
+    return markup;
+}
+function movieCard(movie, type) {
+    const markup = `
+    <div class="movie-card card-game">
+      <a href="/${type}/${movie.title.toLowerCase().split(" ").join("-")}/${movie.id}">
+        <img src="${movie.portrait}" alt="${movie.title}" />
+        <h2>
+          ${movie.title}
+          <span><i class="fas fa-star"></i> ${movie.rating}</span>
+        </h2>
+      </a>
+    </div>
+  `;
+    return markup;
+}
+function gameCard(game) {
+    const markup = `
+    <div class="game-card">
+      <a href="/game/${game.title.toLowerCase().split(" ").join("-")}/${game.id}" class="game-card__cover">
+        <div class="game-card__image" style="background-image: url(${game.landscape})"></div>
+        <div class="game-card__title">${game.title}</div>
+      </a>
+    </div>
   `;
     return markup;
 }

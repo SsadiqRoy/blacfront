@@ -52,10 +52,14 @@ export function renderHeadingSlide(data) {
   function swapper(box, position) {
     const ob = links[position];
     box.querySelector('img').setAttribute('src', ob.landscape);
+    box.querySelector('a').setAttribute('href', `/movie/${ob.title.toLowerCase().split(' ').join('-')}/${ob.id}`);
 
     if (box.classList.contains('second-image')) {
       box.querySelector('h2').textContent = ob.title;
       box.querySelector('p').textContent = ob.description;
+      box
+        .querySelector('.image-box-about a')
+        .setAttribute('href', `/movie/${ob.title.toLowerCase().split(' ').join('-')}/${ob.id}`);
     }
   }
 
@@ -76,6 +80,34 @@ export function renderHeadingSlide(data) {
   setInterval(swapImage, 5000);
 }
 
+//
+export function renderFillSliders({ response, containerId, type, cardName }) {
+  const { data, meta } = response;
+  const container = document.getElementById(containerId);
+  const button = container.querySelector('.slider__container-box-button');
+
+  container.innerHTML = '';
+
+  data.forEach((item) => {
+    const card = utils[cardName];
+    const markup = card(item, type);
+    container.insertAdjacentHTML('beforeend', markup);
+  });
+
+  // adding meta to the see more button and adding the button to the container
+  if (meta.total) {
+    delete meta.total, delete meta.length, delete meta.consumed;
+    delete meta.next, delete meta.limit, delete meta.page;
+
+    const queryString = utils.stringifyQuery(meta);
+    button.querySelector('a').href = `/${type}s${queryString}`;
+    container.insertAdjacentElement('beforeend', button);
+  } else {
+    const parent = container.closest('.slider');
+    parent.classList.add('display-off');
+  }
+}
+
 /*
 
 
@@ -93,9 +125,9 @@ export function renderHeadingSlide(data) {
 
   */
 // =================== HANDLERS ==========
-export function handleHeadingSlide(controlHeadingSlide) {
+export function handleFillSliders(controlFillSliders) {
   document.addEventListener('DOMContentLoaded', () => {
-    controlHeadingSlide();
+    controlFillSliders();
   });
 }
 
@@ -109,6 +141,7 @@ export function handleHeadingSlide(controlHeadingSlide) {
 // ================== INITIALIZER =========
 export function initializer() {
   utils.clientSearchBar(), utils.cardsSlider(), utils.suggestPopup(), utils.clientSidebar();
+  utils.clientSearch('movie');
 }
 
 /*

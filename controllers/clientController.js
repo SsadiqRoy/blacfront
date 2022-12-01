@@ -1,4 +1,4 @@
-const { catchAsync } = require('../utils/utils');
+const { catchAsync, getRequest } = require('../utils/utils');
 const jsPath = `/javascript/${process.env.js_folder}/client`;
 // const jsPath = '/javascript/watched/client';
 
@@ -75,56 +75,79 @@ exports.games = catchAsync(async (req, res, next) => {
 // ==================== main pages
 
 exports.game = catchAsync(async (req, res, next) => {
+  const { data: game } = await getRequest(req, `/games/${req.params.id}`);
+
   const ext = {
     css: 'main',
-    title: 'Call Of Duty: Morden Warfare',
+    title: game.title,
     js: `${jsPath}/game`,
     page: 'game',
   };
 
-  res.status(200).render('client/game', { ext });
+  res.status(200).render('client/game', { ext, game });
 });
 
 exports.movie = catchAsync(async (req, res, next) => {
+  const { data: movie } = await getRequest(req, `/movies/${req.params.id}`);
+
   const ext = {
     css: 'main',
-    title: 'Dune Collections',
+    title: movie.title,
     js: `${jsPath}/movie`,
     page: 'movie',
   };
 
-  res.status(200).render('client/movie', { ext });
+  res.status(200).render('client/movie', { ext, movie });
 });
 
 exports.serie = catchAsync(async (req, res, next) => {
+  const { data: serie } = await getRequest(req, `/series/${req.params.id}`);
+  // console.log(serie);
   const ext = {
     css: 'main',
-    title: 'The Lord Of The Rings: The Rings Of Power',
+    title: serie.title,
     js: `${jsPath}/serie`,
     page: 'serie',
   };
 
-  res.status(200).render('client/serie', { ext });
+  // console.log(serie);
+  res.status(200).render('client/serie', { ext, serie });
 });
 
 exports.season = catchAsync(async (req, res, next) => {
+  const { data: season } = await getRequest(req, `/seasons/one/${req.params.id}`);
+  const { data: serie } = await getRequest(req, `/series/basic/${req.params.serie}`);
+
+  // console.log(season.Episodes[0]);
   const ext = {
     css: 'main',
-    title: 'The Lord Of The Rings: The Rings Of Power',
-    js: `${jsPath}/season`,
+    title: serie.title,
+    js: `${jsPath}/serie`,
     page: 'season',
   };
 
-  res.status(200).render('client/season', { ext });
+  res.status(200).render('client/season', { ext, serie, season });
 });
 
 exports.download = catchAsync(async (req, res, next) => {
+  const { data } = await getRequest(req, `/links/getlink/${req.params.id}`);
+  const link = data.link;
+
+  const div = Math.floor(link.length / 3);
+  const one = 0;
+  const two = div;
+  const three = two + div;
+
+  const first = link.slice(one, two);
+  const second = link.slice(two, three);
+  const third = link.slice(three);
+
   const ext = {
     css: 'download',
-    title: '480p download',
+    title: `download ${link.title || link.resolution || 'part' + link.part}`,
     js: `${jsPath}/download`,
     page: 'download',
   };
 
-  res.status(200).render('client/download', { ext });
+  res.status(200).render('client/download', { ext, link: { first, second, third } });
 });

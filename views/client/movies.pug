@@ -13,14 +13,12 @@ block content
       a(href='/games') games
 
   section.container
-    .section-heading
-      h2 results for trending
-    .content.content-movies
+    .content.content-movies#content
       - let n = 1
-      while n < 2
+      while n < 19
         +movieCard(n)
         - n++
  
     .center-components
-      button.btn-primary--alt.btn-small
+      button.btn-primary--alt.btn-small#show-more
         span.btn-content load more

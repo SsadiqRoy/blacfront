@@ -9,12 +9,25 @@
   font-size: $fs-normal;
   font-family: $font-heading;
 
+  &__logo {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2rem;
+
+    span {
+      display: inline-block;
+      height: 5rem;
+      width: max-content;
+    }
+  }
+
   .disclaimer {
-    width: 50%;
+    width: 80%;
     display: inline-block;
     padding: 1rem;
     background-color: $white;
     color: $color-red;
+    color: $black;
     border-radius: 3px;
 
     @include respond(phone) {
@@ -43,6 +56,25 @@
       border-radius: 4px;
       color: $secondary;
       background-color: rgb(170, 5, 5) !important;
+    }
+  }
+
+  .links-logos {
+    margin-block: 2rem;
+
+    width: 100%;
+    a {
+      display: inline-block;
+      width: 6rem;
+      height: 6rem;
+      margin-inline: 1rem;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
     }
   }
 }

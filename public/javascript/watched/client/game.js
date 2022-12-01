@@ -532,18 +532,32 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"jT5qS":[function(require,module,exports) {
-var _homeviewJs = require("../../view/client/homeview.js");
+var _gameviewJs = require("../../view/client/gameview.js");
 var _modelJs = require("../../model/model.js");
+async function controlSuggestions({ In , notIn , text  }) {
+    try {
+        const response = await _modelJs.getfull(`/games?fields=title,landscape,rating,id&limit=12&text=${text}`);
+        _gameviewJs.renderFillSuggestions({
+            response,
+            containerId: "suggestions",
+            type: "game",
+            cardName: "gameCard"
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
 async function initializer() {
-    _homeviewJs.initializer();
+    _gameviewJs.initializer();
+    _gameviewJs.handleSuggestions(controlSuggestions);
 }
 initializer();
 
-},{"../../view/client/homeview.js":"2GxEX","../../model/model.js":"cEBbY"}],"2GxEX":[function(require,module,exports) {
+},{"../../view/client/gameview.js":"cdl6p","../../model/model.js":"cEBbY"}],"cdl6p":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "displayError", ()=>displayError);
-parcelHelpers.export(exports, "renderHeadingSlide", ()=>renderHeadingSlide);
+parcelHelpers.export(exports, "renderFillSuggestions", ()=>renderFillSuggestions);
 /*
 
 
@@ -558,7 +572,7 @@ parcelHelpers.export(exports, "renderHeadingSlide", ()=>renderHeadingSlide);
 
 
   */ // =================== HANDLERS ==========
-parcelHelpers.export(exports, "handleHeadingSlide", ()=>handleHeadingSlide);
+parcelHelpers.export(exports, "handleSuggestions", ()=>handleSuggestions);
 /*
 
 
@@ -566,120 +580,65 @@ parcelHelpers.export(exports, "handleHeadingSlide", ()=>handleHeadingSlide);
 
 
   */ // ================== INITIALIZER =========
-parcelHelpers.export(exports, "initializer", ()=>initializer) /*
-
-
-
-
-
-  */  // ================== NON EXPORTING FUNCTIONS =
- // =======================================================================
- // ================= RENDERES ===========
- /*
-
-
-
-
-
-  */  // ================== GETTERS ============
- /*
-
-
-
-
-
-  */  // =================== HANDLERS ==========
- /*
-
-
-
-
-
-  */  // ================== INITIALIZER =========
- /*
-
-
-
-
-
-  */  // ================== NON EXPORTING FUNCTIONS =
-;
+parcelHelpers.export(exports, "initializer", ()=>initializer);
 var _utilsJs = require("../../utils/utils.js");
 const displayError = _utilsJs.displayError;
-function renderHeadingSlide(data) {
-    const mother = document.querySelector(".head-slider");
-    const first = mother.querySelector(".first-image");
-    const second = mother.querySelector(".second-image");
-    const third = mother.querySelector(".third-image");
-    const links = data;
-    // const j = [
-    //   {
-    //     title: 'We Crashed',
-    //     image: '/images/image-1.jpg',
-    //     description:
-    //       'Sit ratione optio aut velit nihil aspernatur magnam est, facere temporibus in neque necessitatibus assumenda. Aut doloremque voluptas incidunt natus itaque earum?',
-    //   },
-    //   {
-    //     title: 'M. Night from Shyamalan: Servant',
-    //     image: '/images/image-2.jpg',
-    //     description: 'Alias beatae sapiente dignissimos ipsa excepturi laboriosam fuga nemo, quaerat nostrum ad.',
-    //   },
-    //   {
-    //     title: 'For All Mankind',
-    //     image: '/images/image-3.jpg',
-    //     description: 'Id exercitationem illo, dolorem porro provident natus aspernatur corporis labore quas accusamus?',
-    //   },
-    //   {
-    //     title: 'Tehran',
-    //     image: '/images/image-4.jpg',
-    //     description: 'Quia aspernatur nesciunt porro! Temporibus, ullam! Possimus, distinctio nemo. Eum, cum labore?',
-    //   },
-    //   {
-    //     title: 'Black Bird',
-    //     image: '/images/image-5.jpg',
-    //     description: 'Cupiditate omnis placeat illum id nemo velit dolorem facere perspiciatis deserunt culpa!',
-    //   },
-    //   {
-    //     title: 'Truth Be Told',
-    //     image: '/images/image-6.jpg',
-    //     description: 'Ea doloremque temporibus aut adipisci, velit repellat eum fugit quasi sunt recusandae?',
-    //   },
-    // ];
-    function shiftLinks() {
-        const a = links.shift();
-        links.push(a);
-    }
-    function swapper(box, position) {
-        const ob = links[position];
-        box.querySelector("img").setAttribute("src", ob.landscape);
-        if (box.classList.contains("second-image")) {
-            box.querySelector("h2").textContent = ob.title;
-            box.querySelector("p").textContent = ob.description;
+function renderFillSuggestions({ response , containerId , type , cardName  }) {
+    const { data: d , suggestions , meta  } = response;
+    const data = [
+        ...d,
+        ...suggestions || []
+    ].splice(0, 12);
+    const container = document.getElementById(containerId);
+    const button = document.querySelector(".show-more");
+    container.innerHTML = "";
+    data.forEach((item)=>{
+        const card = _utilsJs[cardName];
+        const markup = card(item, type);
+        container.insertAdjacentHTML("beforeend", markup);
+    });
+    // adding meta to the see more button and adding the button to the container
+    if (data.length) {
+        delete meta.total, delete meta.length, delete meta.consumed;
+        delete meta.next, delete meta.limit, delete meta.page;
+        const queryString = _utilsJs.stringifyQuery(meta);
+        button.href = `/${type}s${queryString}`;
+        if (!meta.total) {
+            const { text  } = document.getElementById("suggestions").dataset;
+            const queryString1 = `?text=${text}`;
+            button.href = `/${type}s${queryString1}`;
         }
+    } else {
+        const parent = container.closest(".container");
+        parent.classList.add("display-off");
     }
-    function swapImage() {
-        // console.log('hitting');
-        swapper(third, 0);
-        setTimeout(()=>{
-            swapper(second, 1);
-        });
-        setTimeout(()=>{
-            swapper(first, 2);
-        });
-        setTimeout(()=>{
-            shiftLinks();
-        });
-    }
-    swapImage();
-    setInterval(swapImage, 5000);
 }
-function handleHeadingSlide(controlHeadingSlide) {
-    document.addEventListener("DOMContentLoaded", ()=>{
-        controlHeadingSlide();
+function handleSuggestions(controlSuggestions) {
+    window.addEventListener("DOMContentLoaded", ()=>{
+        const content = document.getElementById("suggestions");
+        const { notIn , in: In , text  } = content.dataset;
+        controlSuggestions({
+            In,
+            notIn,
+            text
+        });
     });
 }
 function initializer() {
     _utilsJs.clientSearchBar(), _utilsJs.cardsSlider(), _utilsJs.suggestPopup(), _utilsJs.clientSidebar();
+    _utilsJs.clientSearch("game");
+    loadAbout();
+}
+/*
+
+
+
+
+
+  */ // ================== NON EXPORTING FUNCTIONS =
+function loadAbout() {
+    const about = document.getElementById("game-about");
+    about.innerHTML = about.dataset.about;
 }
 
 },{"../../utils/utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"bvANu":[function(require,module,exports) {
@@ -703,6 +662,8 @@ parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
 parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
 parcelHelpers.export(exports, "fillSelects", ()=>fillSelects);
 parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
+parcelHelpers.export(exports, "clientSearch", ()=>clientSearch);
+parcelHelpers.export(exports, "noMenu", ()=>noMenu);
 parcelHelpers.export(exports, "displayError", ()=>displayError);
 parcelHelpers.export(exports, "structureQuery", ()=>structureQuery);
 parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
@@ -710,6 +671,8 @@ parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
 parcelHelpers.export(exports, "dbMovieCard", ()=>dbMovieCard);
 parcelHelpers.export(exports, "notificationCard", ()=>notificationCard);
 parcelHelpers.export(exports, "scheduleCard", ()=>scheduleCard);
+parcelHelpers.export(exports, "movieCard", ()=>movieCard);
+parcelHelpers.export(exports, "gameCard", ()=>gameCard);
 var _responsiveJs = require("./responsive.js");
 var _functionsJs = require("./functions.js");
 var _envJs = require("./env.js");
@@ -733,6 +696,8 @@ const rotateBtn = _domJs.rotateBtn;
 const stopRotateBtn = _domJs.stopRotateBtn;
 const fillSelects = _domJs.fillSelects;
 const metaQuery = _domJs.metaQuery;
+const clientSearch = _domJs.clientSearch;
+const noMenu = _domJs.noMenu;
 const displayError = _functionsJs.displayError;
 const structureQuery = _functionsJs.structureQuery;
 const stringifyQuery = _functionsJs.stringifyQuery;
@@ -740,6 +705,8 @@ const parseQuery = _functionsJs.parseQuery;
 const dbMovieCard = _markupsJs.dbMovieCard;
 const notificationCard = _markupsJs.notificationCard;
 const scheduleCard = _markupsJs.scheduleCard;
+const movieCard = _markupsJs.movieCard;
+const gameCard = _markupsJs.gameCard;
 
 },{"./responsive.js":"4wcQt","./functions.js":"d2Ury","./env.js":"7qgA7","./dom.js":"gBwFC","./markups.js":"doi6o","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"4wcQt":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -904,6 +871,7 @@ function suggestPopup() {
     const body = document.querySelector("body");
     body.addEventListener("click", (e)=>{
         if (e.target.classList.contains("suggest")) openPopup("suggest-popup");
+        if (e.target.classList.contains("problem")) openPopup("problem-popup");
     });
 }
 
@@ -990,6 +958,7 @@ function parseQuery(queryString) {
 },{"./dom.js":"gBwFC","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"gBwFC":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "noMenu", ()=>noMenu);
 /**
  * display a message on an alert box on the surface
  * @param {String} message the message to display in the alert box
@@ -1021,8 +990,15 @@ parcelHelpers.defineInteropFlag(exports);
  * @param {Object} query the meta query to be set to the body element
  * @returns Object, meta of a query
  */ parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
+parcelHelpers.export(exports, "clientSearch", ()=>clientSearch);
 // import * as env from './env.js';
 var _utilsJs = require("./utils.js");
+function noMenu() {
+    const body = document.querySelector("body");
+    body.addEventListener("contextmenu", (e)=>{
+        e.preventDefault();
+    });
+}
 function alertResponse(message, timer = 3, type = "success") {
     const markup = `
     <div class="message message--${type}">
@@ -1114,6 +1090,15 @@ function metaQuery(query) {
     const meta = JSON.parse(body.dataset.meta);
     return meta;
 }
+function clientSearch(type = "movie") {
+    const form = document.getElementById("client-search");
+    form.addEventListener("submit", (e)=>{
+        e.preventDefault();
+        const { value  } = form.querySelector("input");
+        if (!value) return;
+        window.location.assign(`/${type}s?text=${value.split(" ").join("-")}`);
+    });
+}
 
 },{"./utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"7qgA7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -1123,8 +1108,8 @@ parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
 parcelHelpers.export(exports, "resolutions", ()=>resolutions);
-const api_url = "https://apistaging.blaciris.com/v1";
-const main_url = "https://staging.blaciris.com";
+const api_url = "http://localhost:2000/v1";
+const main_url = "http://localhost:2500";
 const countries = [
     "Afghanistan",
     "Albania",
@@ -1400,6 +1385,8 @@ parcelHelpers.export(exports, "dbMovieCard", ()=>dbMovieCard);
 parcelHelpers.export(exports, "notificationCard", ()=>notificationCard);
 //
 parcelHelpers.export(exports, "scheduleCard", ()=>scheduleCard);
+parcelHelpers.export(exports, "movieCard", ()=>movieCard);
+parcelHelpers.export(exports, "gameCard", ()=>gameCard);
 function dbMovieCard(movie, type = "movie") {
     const markup = `
   <div class="dbmovie-card" data-card-id="${movie.id}">
@@ -1469,6 +1456,31 @@ function scheduleCard(schedule) {
     </div>
     ${due}
   </div>
+  `;
+    return markup;
+}
+function movieCard(movie, type) {
+    const markup = `
+    <div class="movie-card card-game">
+      <a href="/${type}/${movie.title.toLowerCase().split(" ").join("-")}/${movie.id}">
+        <img src="${movie.portrait}" alt="${movie.title}" />
+        <h2>
+          ${movie.title}
+          <span><i class="fas fa-star"></i> ${movie.rating}</span>
+        </h2>
+      </a>
+    </div>
+  `;
+    return markup;
+}
+function gameCard(game) {
+    const markup = `
+    <div class="game-card">
+      <a href="/game/${game.title.toLowerCase().split(" ").join("-")}/${game.id}" class="game-card__cover">
+        <div class="game-card__image" style="background-image: url(${game.landscape})"></div>
+        <div class="game-card__title">${game.title}</div>
+      </a>
+    </div>
   `;
     return markup;
 }

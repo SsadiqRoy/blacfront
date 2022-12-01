@@ -1,4 +1,4 @@
-const { WriteError, LogToFile } = require('../error/writeError');
+// const { WriteError, LogToFile } = require('../error/writeError');
 const { catchAsync, userRoleLevel, getRequest } = require('../utils/utils');
 
 exports.loggedIn = catchAsync(async (req, res, next) => {

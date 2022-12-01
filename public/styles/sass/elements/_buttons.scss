@@ -10,6 +10,10 @@
   &:hover {
     padding-inline: 1.5rem;
   }
+  &:disabled {
+    background-color: rgba(0, 0, 0, 0.103);
+    cursor: not-allowed;
+  }
 }
 
 .btn-black {

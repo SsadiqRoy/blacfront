@@ -34,13 +34,14 @@ app.use('*', (req, res, next) => {
 
 app.use((error, req, res, next) => {
   if (req.originalUrl.startsWith('/dashboard')) {
-    // console.log(error);
-    // error.message = 'You are not permitted to this page';
     new WriteError(error, req, 'Global Error');
     return res.status(200).render('admin/error', { error });
   }
 
-  new WriteError(error, req, 'Global Error');
+  if (!error.isOperational) {
+    new WriteError(error, req, 'Global Error');
+    console.log(error);
+  }
 
   res.status(500).json({
     status: 'failed',

@@ -185,5 +185,6 @@ export function suggestPopup() {
 
   body.addEventListener('click', (e) => {
     if (e.target.classList.contains('suggest')) openPopup('suggest-popup');
+    if (e.target.classList.contains('problem')) openPopup('problem-popup');
   });
 }

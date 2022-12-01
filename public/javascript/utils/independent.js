@@ -30,12 +30,6 @@ export async function searchItem(model, containerId, cardType) {
     if (!target.classList.contains('query')) return;
     const { query } = target.dataset;
     search(query);
-
-    // if (target.classList.contains('search')) {
-    // }
-    // if (target.classList.contains('query')) {
-    //   search(query, 'query');
-    // }
   });
 
   /**
@@ -50,11 +44,10 @@ export async function searchItem(model, containerId, cardType) {
       // search for the data
       const oldquery = utils.metaQuery();
       if (oldquery.fields) query = `${query}&fields=${oldquery.fields}`;
-      // console.log(oldquery);
+
       const { meta, data, suggestion } = await mod.getfull(`/${model}s${query}`);
-      // console.log(meta);
+
       // if there is no more results
-      // console.log(data);
       if (!data.length && (!suggestion || !suggestion.length)) {
         return utils.alertResponse(`Sorry!! Could not find anything.`, 4, 'failed');
       }
@@ -94,14 +87,13 @@ export async function searchItem(model, containerId, cardType) {
 export function showMore(model, containerId, cardType) {
   const showMore = document.getElementById('show-more');
   const container = document.getElementById(containerId);
-  // console.log('showMore ', showMore);
 
   showMore &&
     showMore.addEventListener('click', async (e) => {
       try {
         const oldmeta = utils.metaQuery();
         oldmeta.page = oldmeta.page + 1;
-        // console.log(oldmeta);
+
         const query = utils.stringifyQuery(oldmeta);
 
         if (!oldmeta.next) {
@@ -114,6 +106,7 @@ export function showMore(model, containerId, cardType) {
         if (!meta.length && (!suggestion || !suggestion.length)) {
           return utils.alertResponse(`No more ${model}s to show for the search or tag`, 4, 'failed');
         }
+
         utils.metaQuery(meta);
         // displaying data to the container
         data.forEach((item) => {

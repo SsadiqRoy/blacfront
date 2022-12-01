@@ -1,6 +1,13 @@
 // import * as env from './env.js';
 import * as utils from './utils.js';
 
+export function noMenu() {
+  const body = document.querySelector('body');
+  body.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+  });
+}
+
 /**
  * display a message on an alert box on the surface
  * @param {String} message the message to display in the alert box
@@ -132,4 +139,16 @@ export function metaQuery(query) {
   }
   const meta = JSON.parse(body.dataset.meta);
   return meta;
+}
+
+export function clientSearch(type = 'movie') {
+  const form = document.getElementById('client-search');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const { value } = form.querySelector('input');
+
+    if (!value) return;
+    window.location.assign(`/${type}s?text=${value.split(' ').join('-')}`);
+  });
 }

@@ -19,7 +19,8 @@ main {
 .counter {
   width: 100%;
   padding-block: 3rem;
-  margin-block: 3rem;
+  padding-bottom: 0;
+  // margin-block: 3rem;
 
   &__circle {
     margin-block: 3rem;
