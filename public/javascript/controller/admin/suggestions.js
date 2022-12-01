@@ -1,10 +1,11 @@
-import * as view from '../../view/admin/schedulesview.js';
+import * as view from '../../view/admin/suggestionsview.js';
 import * as model from '../../model/model.js';
 
 //
-async function controlDelete(scheduleId, btnId) {
+async function controlDelete(notificationId, btnId) {
   try {
-    const res = await model.deletefull(`/schedules/${scheduleId}`);
+    const res = await model.deletefull(`/suggestions/${notificationId}`);
+
     view.renderDelete(res, btnId);
   } catch (error) {
     view.displayError(error, btnId);

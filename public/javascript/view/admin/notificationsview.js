@@ -9,7 +9,9 @@ export const displayError = utils.displayError;
  * @param {Object} data response object (deleted game)
  * @returns null - break action
  */
-export function renderDelete(data, btn) {
+export function renderDelete(response, btn) {
+  const { data } = response;
+
   if (!data) {
     utils.alertResponse('failed deleting or could not display results, am reloading', 6, 'failed');
     utils.stopRotateBtn(btn);
@@ -18,7 +20,7 @@ export function renderDelete(data, btn) {
   utils.alertResponse(`Notification has been deleted successfully`);
   utils.stopRotateBtn(btn);
 
-  const id = data.data.id;
+  const id = data.id;
   const card = document.querySelector(`[data-notification-id="${id}"`);
   card.parentElement.removeChild(card);
 

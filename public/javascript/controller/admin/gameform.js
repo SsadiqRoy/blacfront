@@ -31,8 +31,7 @@ async function controlCreateLink(gameId, btnId) {
 
     const data = view.getLinkData();
     data.game = gameId;
-    // console.log(data);
-    // return;
+
     const res = await model.post('/links/create', data);
 
     view.renderCreateLink(res, 'created', btnId);
@@ -45,7 +44,7 @@ async function controlCreateLink(gameId, btnId) {
 async function controlUpdateLink(linkId, btnId) {
   try {
     const data = view.getLinkData();
-    // return console.log(data);
+
     let res;
     if (data.link) res = await model.patch(`/links/${linkId}`, data);
     if (!data.link) res = await model.deletefull(`/links/${linkId}`);
@@ -72,7 +71,6 @@ async function controlSaveAbout(gameId, btnId) {
   try {
     const data = view.getAboutData();
 
-    // return console.log(data, gameId);
     const res = await model.patch(`/games/${gameId}`, data);
     view.renderSaveAbout(res, btnId);
   } catch (error) {

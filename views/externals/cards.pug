@@ -98,8 +98,8 @@ mixin notificationCard(notification)
   .notification-card(data-notification-id=`${notification.id}`)
     .notification-card__cover
       .notification-card__notification
-        h2= notification.on
-        p= notification.message
+        h2 #{notification.on} #{notification.title && `- ${notification.title}` || ''} 
+        p= notification.message || 'No futher Message'
       .notification-card__buttons
         a(title="marked unviewed")
           i.fas.fa-eye-slash

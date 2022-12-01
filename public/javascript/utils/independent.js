@@ -140,3 +140,59 @@ export function logout() {
       window.setTimeout(() => window.location.assign('/'), 3500);
     });
 }
+
+export function suggest() {
+  const form = document.getElementById('create-suggest');
+
+  form.addEventListener('submit', async (e) => {
+    try {
+      e.preventDefault();
+      utils.rotateBtn('suggest-btn');
+      const on = document.getElementById('suggest-on').value;
+      const title = document.getElementById('suggest-title').value;
+      const message = document.getElementById('suggest-activity').value;
+      const by = document.getElementById('suggest-email').value;
+
+      const body = { on, title, message, by };
+      await mod.post('/suggestions/create', body);
+
+      utils.alertResponse('Thanks for your support. We would make sure to provide it');
+      utils.stopRotateBtn('suggest-btn');
+      utils.closePopup('suggest-popup');
+    } catch (error) {
+      console.error(error);
+      utils.alertResponse('Sorry! the system couldn`t save your suggestion. Please try again', 3, 'failed');
+      utils.stopRotateBtn('suggest-btn');
+      utils.closePopup('suggest-popup');
+    }
+  });
+}
+
+//
+export function problem() {
+  const form = document.getElementById('create-problem');
+
+  form.addEventListener('submit', async (e) => {
+    try {
+      e.preventDefault();
+      utils.rotateBtn('problem-btn');
+
+      const by = document.getElementById('problem-email').value;
+      const on = document.getElementById('problem-on').value;
+      const message = document.getElementById('problem-activity').value;
+
+      const body = { on, message, by };
+      await mod.post('/problems/create', body);
+
+      utils.alertResponse('Thanks for your support. We would make sure to fix it');
+      utils.stopRotateBtn('problem-btn');
+      utils.closePopup('problem-popup');
+    } catch (error) {
+      console.error(error);
+      utils.stopRotateBtn('problem-btn');
+
+      utils.alertResponse('Sorry! the system couldn`t save your problem. Please try again', 3, 'failed');
+      utils.closePopup('problem-popup');
+    }
+  });
+}

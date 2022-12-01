@@ -562,8 +562,6 @@ async function controlCreateLink(movieId, btnId) {
         if (!movieId) throw new Error("First save the movie and update with the part links");
         const data = _movieformviewJs.getLinkData();
         data.movie = movieId;
-        // console.log(data);
-        // return;
         const res = await _modelJs.post("/links/create", data);
         _movieformviewJs.renderCreateLink(res, "created", btnId);
     } catch (error) {
@@ -574,8 +572,6 @@ async function controlCreateLink(movieId, btnId) {
 async function controlUpdateLink(linkId, btnId) {
     try {
         const data = _movieformviewJs.getLinkData();
-        // console.log(data);
-        // return;
         let res;
         if (data.link) res = await _modelJs.patch(`/links/${linkId}`, data);
         if (!data.link) res = await _modelJs.deletefull(`/links/${linkId}`);
@@ -798,10 +794,7 @@ function handleCreateLink(controlCreateLink, controlUpdateLink) {
         e.preventDefault();
         _utilsJs.rotateBtn("link-btn");
         const { linkId , movieId  } = form.dataset;
-        // console.log(linkId, movieId);
-        // return;
         if (!linkId) return controlCreateLink(movieId, "link-btn");
-        // return console.log('👉', linkId, gameId);
         controlUpdateLink(linkId, "link-btn");
     });
 }
@@ -889,6 +882,8 @@ parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
 parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
 parcelHelpers.export(exports, "fillSelects", ()=>fillSelects);
 parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
+parcelHelpers.export(exports, "clientSearch", ()=>clientSearch);
+parcelHelpers.export(exports, "noMenu", ()=>noMenu);
 parcelHelpers.export(exports, "displayError", ()=>displayError);
 parcelHelpers.export(exports, "structureQuery", ()=>structureQuery);
 parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
@@ -921,6 +916,8 @@ const rotateBtn = _domJs.rotateBtn;
 const stopRotateBtn = _domJs.stopRotateBtn;
 const fillSelects = _domJs.fillSelects;
 const metaQuery = _domJs.metaQuery;
+const clientSearch = _domJs.clientSearch;
+const noMenu = _domJs.noMenu;
 const displayError = _functionsJs.displayError;
 const structureQuery = _functionsJs.structureQuery;
 const stringifyQuery = _functionsJs.stringifyQuery;
@@ -1094,6 +1091,7 @@ function suggestPopup() {
     const body = document.querySelector("body");
     body.addEventListener("click", (e)=>{
         if (e.target.classList.contains("suggest")) openPopup("suggest-popup");
+        if (e.target.classList.contains("problem")) openPopup("problem-popup");
     });
 }
 
@@ -1180,6 +1178,7 @@ function parseQuery(queryString) {
 },{"./dom.js":"gBwFC","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"gBwFC":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "noMenu", ()=>noMenu);
 /**
  * display a message on an alert box on the surface
  * @param {String} message the message to display in the alert box
@@ -1211,8 +1210,15 @@ parcelHelpers.defineInteropFlag(exports);
  * @param {Object} query the meta query to be set to the body element
  * @returns Object, meta of a query
  */ parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
+parcelHelpers.export(exports, "clientSearch", ()=>clientSearch);
 // import * as env from './env.js';
 var _utilsJs = require("./utils.js");
+function noMenu() {
+    const body = document.querySelector("body");
+    body.addEventListener("contextmenu", (e)=>{
+        e.preventDefault();
+    });
+}
 function alertResponse(message, timer = 3, type = "success") {
     const markup = `
     <div class="message message--${type}">
@@ -1303,6 +1309,15 @@ function metaQuery(query) {
     }
     const meta = JSON.parse(body.dataset.meta);
     return meta;
+}
+function clientSearch(type = "movie") {
+    const form = document.getElementById("client-search");
+    form.addEventListener("submit", (e)=>{
+        e.preventDefault();
+        const { value  } = form.querySelector("input");
+        if (!value) return;
+        window.location.assign(`/${type}s?text=${value.split(" ").join("-")}`);
+    });
 }
 
 },{"./utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"7qgA7":[function(require,module,exports) {

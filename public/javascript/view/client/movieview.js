@@ -1,4 +1,5 @@
 import * as utils from '../../utils/utils.js';
+import * as ind from '../../utils/independent.js';
 
 // ================= RENDERES ===========
 export const displayError = utils.displayError;
@@ -71,6 +72,7 @@ export function handleSuggestions(controlSuggestions) {
 export function initializer() {
   utils.clientSearchBar(), utils.cardsSlider(), utils.suggestPopup(), utils.clientSidebar();
   utils.clientSearch('movie');
+  ind.suggest(), ind.problem();
 }
 
 /*

@@ -537,7 +537,6 @@ var _modelJs = require("../../model/model.js");
 //
 async function controlDelete(cardId, btnId) {
     try {
-        console.log(cardId);
         const res = await _modelJs.deletefull(`/games/${cardId}`);
         _gamesviewJs.renderDelete(res, btnId);
     } catch (error) {
@@ -661,6 +660,8 @@ parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
 parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
 parcelHelpers.export(exports, "fillSelects", ()=>fillSelects);
 parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
+parcelHelpers.export(exports, "clientSearch", ()=>clientSearch);
+parcelHelpers.export(exports, "noMenu", ()=>noMenu);
 parcelHelpers.export(exports, "displayError", ()=>displayError);
 parcelHelpers.export(exports, "structureQuery", ()=>structureQuery);
 parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
@@ -693,6 +694,8 @@ const rotateBtn = _domJs.rotateBtn;
 const stopRotateBtn = _domJs.stopRotateBtn;
 const fillSelects = _domJs.fillSelects;
 const metaQuery = _domJs.metaQuery;
+const clientSearch = _domJs.clientSearch;
+const noMenu = _domJs.noMenu;
 const displayError = _functionsJs.displayError;
 const structureQuery = _functionsJs.structureQuery;
 const stringifyQuery = _functionsJs.stringifyQuery;
@@ -866,6 +869,7 @@ function suggestPopup() {
     const body = document.querySelector("body");
     body.addEventListener("click", (e)=>{
         if (e.target.classList.contains("suggest")) openPopup("suggest-popup");
+        if (e.target.classList.contains("problem")) openPopup("problem-popup");
     });
 }
 
@@ -952,6 +956,7 @@ function parseQuery(queryString) {
 },{"./dom.js":"gBwFC","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"gBwFC":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "noMenu", ()=>noMenu);
 /**
  * display a message on an alert box on the surface
  * @param {String} message the message to display in the alert box
@@ -983,8 +988,15 @@ parcelHelpers.defineInteropFlag(exports);
  * @param {Object} query the meta query to be set to the body element
  * @returns Object, meta of a query
  */ parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
+parcelHelpers.export(exports, "clientSearch", ()=>clientSearch);
 // import * as env from './env.js';
 var _utilsJs = require("./utils.js");
+function noMenu() {
+    const body = document.querySelector("body");
+    body.addEventListener("contextmenu", (e)=>{
+        e.preventDefault();
+    });
+}
 function alertResponse(message, timer = 3, type = "success") {
     const markup = `
     <div class="message message--${type}">
@@ -1075,6 +1087,15 @@ function metaQuery(query) {
     }
     const meta = JSON.parse(body.dataset.meta);
     return meta;
+}
+function clientSearch(type = "movie") {
+    const form = document.getElementById("client-search");
+    form.addEventListener("submit", (e)=>{
+        e.preventDefault();
+        const { value  } = form.querySelector("input");
+        if (!value) return;
+        window.location.assign(`/${type}s?text=${value.split(" ").join("-")}`);
+    });
 }
 
 },{"./utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"7qgA7":[function(require,module,exports) {
@@ -1479,6 +1500,9 @@ parcelHelpers.defineInteropFlag(exports);
  * @param {String} cardType the type of card the data would be using. eg: dbmovieCard, scheduleCard
  */ parcelHelpers.export(exports, "showMore", ()=>showMore);
 parcelHelpers.export(exports, "logout", ()=>logout);
+parcelHelpers.export(exports, "suggest", ()=>suggest);
+//
+parcelHelpers.export(exports, "problem", ()=>problem);
 var _modelJs = require("../model/model.js");
 var _utilsJs = require("./utils.js");
 async function searchItem(model, containerId, cardType) {
@@ -1537,12 +1561,10 @@ async function searchItem(model, containerId, cardType) {
 function showMore(model, containerId, cardType) {
     const showMore = document.getElementById("show-more");
     const container = document.getElementById(containerId);
-    // console.log('showMore ', showMore);
     showMore && showMore.addEventListener("click", async (e)=>{
         try {
             const oldmeta = _utilsJs.metaQuery();
             oldmeta.page = oldmeta.page + 1;
-            // console.log(oldmeta);
             const query = _utilsJs.stringifyQuery(oldmeta);
             if (!oldmeta.next) return _utilsJs.alertResponse(`No more ${model}s to show`, 4, "failed");
             const { meta , data , suggestion  } = await _modelJs.getfull(`/${model}s${query}`);
@@ -1572,6 +1594,60 @@ function logout() {
         const response = await _modelJs.getfull("/users/logout");
         _utilsJs.alertResponse(response.message);
         window.setTimeout(()=>window.location.assign("/"), 3500);
+    });
+}
+function suggest() {
+    const form = document.getElementById("create-suggest");
+    form.addEventListener("submit", async (e)=>{
+        try {
+            e.preventDefault();
+            _utilsJs.rotateBtn("suggest-btn");
+            const on = document.getElementById("suggest-on").value;
+            const title = document.getElementById("suggest-title").value;
+            const message = document.getElementById("suggest-activity").value;
+            const by = document.getElementById("suggest-email").value;
+            const body = {
+                on,
+                title,
+                message,
+                by
+            };
+            await _modelJs.post("/suggestions/create", body);
+            _utilsJs.alertResponse("Thanks for your support. We would make sure to provide it");
+            _utilsJs.stopRotateBtn("suggest-btn");
+            _utilsJs.closePopup("suggest-popup");
+        } catch (error) {
+            console.error(error);
+            _utilsJs.alertResponse("Sorry! the system couldn`t save your suggestion. Please try again", 3, "failed");
+            _utilsJs.stopRotateBtn("suggest-btn");
+            _utilsJs.closePopup("suggest-popup");
+        }
+    });
+}
+function problem() {
+    const form = document.getElementById("create-problem");
+    form.addEventListener("submit", async (e)=>{
+        try {
+            e.preventDefault();
+            _utilsJs.rotateBtn("problem-btn");
+            const by = document.getElementById("problem-email").value;
+            const on = document.getElementById("problem-on").value;
+            const message = document.getElementById("problem-activity").value;
+            const body = {
+                on,
+                message,
+                by
+            };
+            await _modelJs.post("/problems/create", body);
+            _utilsJs.alertResponse("Thanks for your support. We would make sure to fix it");
+            _utilsJs.stopRotateBtn("problem-btn");
+            _utilsJs.closePopup("problem-popup");
+        } catch (error) {
+            console.error(error);
+            _utilsJs.stopRotateBtn("problem-btn");
+            _utilsJs.alertResponse("Sorry! the system couldn`t save your problem. Please try again", 3, "failed");
+            _utilsJs.closePopup("problem-popup");
+        }
     });
 }
 

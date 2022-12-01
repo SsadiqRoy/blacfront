@@ -25,4 +25,9 @@ html(lang="en")
             button.btn-black.btn-full#login-btn(type="submit")
               span.btn-content log in
 
+  script.
+    const body = document.querySelector('body');
+    body.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+    });
   script(src=`${ext.js}.js`, type='module')

@@ -1,0 +1,15 @@
+NODE_ENV=production
+
+host='localhost'
+port=2500
+
+# local variables
+api_url=http://localhost:2000/v1
+login=blaciris_user
+js_folder=watched
+
+# online variables
+# "client": "parcel ./public/javascript/controller/admin/login.js ./public/javascript/controller/admin/signup.js ./public/javascript/controller/admin/home.js  --dist-dir ./public/javascript/build/admin",
+
+# other vaiables
+# "main": "server.js",

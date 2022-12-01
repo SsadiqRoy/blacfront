@@ -1,4 +1,5 @@
 import * as utils from '../../utils/utils.js';
+import * as ind from '../../utils/independent.js';
 
 // ================= RENDERES ===========
 export const displayError = utils.displayError;
@@ -31,6 +32,7 @@ export const displayError = utils.displayError;
 // ================== INITIALIZER =========
 export function initializer() {
   utils.clientSearchBar(), utils.cardsSlider(), utils.suggestPopup(), utils.clientSidebar();
+  ind.suggest();
   downloadMedia();
 }
 
@@ -72,6 +74,8 @@ function downloadMedia() {
 
     const a = document.createElement('a');
     a.setAttribute('href', link);
+    a.setAttribute('target', '_blank');
+
     a.setAttribute('download', '');
     a.click();
   });

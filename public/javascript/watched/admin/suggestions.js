@@ -142,14 +142,14 @@
       this[globalName] = mainExports;
     }
   }
-})({"kBclF":[function(require,module,exports) {
+})({"jRO8q":[function(require,module,exports) {
 "use strict";
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "42036d7a98ade5a7";
-module.bundle.HMR_BUNDLE_ID = "de3580bb3abb30be";
+module.bundle.HMR_BUNDLE_ID = "33c3ca160773e794";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, chrome, browser, globalThis, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
   HMRAsset,
@@ -531,278 +531,88 @@ function hmrAcceptRun(bundle, id) {
     acceptedAssets[id] = true;
 }
 
-},{}],"fSkAd":[function(require,module,exports) {
-var _gameformviewJs = require("../../view/admin/gameformview.js");
+},{}],"2qS0g":[function(require,module,exports) {
+var _suggestionsviewJs = require("../../view/admin/suggestionsview.js");
 var _modelJs = require("../../model/model.js");
 //
-async function controlCreate(btnId) {
+async function controlDelete(notificationId, btnId) {
     try {
-        const data = _gameformviewJs.getGameData();
-        const res = await _modelJs.post("/games/create", data);
-        _gameformviewJs.renderCreated(res, "created", btnId);
+        const res = await _modelJs.deletefull(`/suggestions/${notificationId}`);
+        _suggestionsviewJs.renderDelete(res, btnId);
     } catch (error) {
-        _gameformviewJs.displayError(error, btnId);
-    }
-}
-async function controlUpdate(gameId, btnId) {
-    try {
-        const data = _gameformviewJs.getGameData();
-        const res = await _modelJs.patch(`/games/${gameId}`, data);
-        _gameformviewJs.renderCreated(res, "updated", btnId);
-    } catch (error) {
-        _gameformviewJs.displayError(error, btnId);
-    }
-}
-//
-async function controlCreateLink(gameId, btnId) {
-    try {
-        if (!gameId) throw new Error("First save the game and update with the part links");
-        const data = _gameformviewJs.getLinkData();
-        data.game = gameId;
-        const res = await _modelJs.post("/links/create", data);
-        _gameformviewJs.renderCreateLink(res, "created", btnId);
-    } catch (error) {
-        _gameformviewJs.displayError(error, btnId);
-    }
-}
-//
-async function controlUpdateLink(linkId, btnId) {
-    try {
-        const data = _gameformviewJs.getLinkData();
-        let res;
-        if (data.link) res = await _modelJs.patch(`/links/${linkId}`, data);
-        if (!data.link) res = await _modelJs.deletefull(`/links/${linkId}`);
-        _gameformviewJs.renderCreateLink(res, "updated", btnId);
-    } catch (error) {
-        _gameformviewJs.displayError(error, btnId);
-    }
-}
-//
-async function controlDeleteLink(linkId, btnId) {
-    try {
-        const res = await _modelJs.deletefull(`/links/${linkId}`);
-        _gameformviewJs.renderDeleteLInk(res, btnId);
-    } catch (error) {
-        _gameformviewJs.displayError(error, btnId);
-    }
-}
-//
-async function controlSaveAbout(gameId, btnId) {
-    try {
-        const data = _gameformviewJs.getAboutData();
-        const res = await _modelJs.patch(`/games/${gameId}`, data);
-        _gameformviewJs.renderSaveAbout(res, btnId);
-    } catch (error) {
-        _gameformviewJs.displayError(error, btnId);
+        _suggestionsviewJs.displayError(error, btnId);
     }
 }
 async function init() {
-    _gameformviewJs.initilizer();
-    _gameformviewJs.handleCreate(controlCreate, controlUpdate);
-    _gameformviewJs.handleCreateLink(controlCreateLink, controlUpdateLink);
-    _gameformviewJs.handleDeleteLink(controlDeleteLink);
-    _gameformviewJs.handleSaveAbout(controlSaveAbout);
+    _suggestionsviewJs.initializer();
+    _suggestionsviewJs.handleDelete(controlDelete);
 }
 init();
 
-},{"../../view/admin/gameformview.js":"8pzbJ","../../model/model.js":"cEBbY"}],"8pzbJ":[function(require,module,exports) {
+},{"../../view/admin/suggestionsview.js":"aTp6Y","../../model/model.js":"cEBbY"}],"aTp6Y":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "displayError", ()=>displayError);
 /**
  * render response after creating or updating game
- * @param {Object} data response object (game)
- * @param {String} action updated or created
- * @returns null - break action
- */ parcelHelpers.export(exports, "renderCreated", ()=>renderCreated);
-/**
- * render response after creating or updating game
- * @param {Object} data response object (game link)
- * @param {String} action updated or created
- * @returns null - break action
- */ parcelHelpers.export(exports, "renderCreateLink", ()=>renderCreateLink);
-/**
- * render response after creating or updating game
  * @param {Object} data response object (deleted game)
  * @returns null - break action
- */ parcelHelpers.export(exports, "renderDeleteLInk", ()=>renderDeleteLInk);
-/**
- * render response after creating or updating game
- * @param {Object} data response object (game)
- * @returns null - break action
- */ parcelHelpers.export(exports, "renderSaveAbout", ()=>renderSaveAbout);
+ */ parcelHelpers.export(exports, "renderDelete", ()=>renderDelete);
 /*
 
 
 
 
 
-*/ // ================== GETTERS =============
-parcelHelpers.export(exports, "getGameData", ()=>getGameData);
-//
-parcelHelpers.export(exports, "getLinkData", ()=>getLinkData);
-//
-parcelHelpers.export(exports, "getAboutData", ()=>getAboutData);
+  */ // ================== GETTERS ============
 /*
 
 
 
 
 
-*/ // =================== HANDLERS ==============
-parcelHelpers.export(exports, "handleCreate", ()=>handleCreate);
-//
-parcelHelpers.export(exports, "handleCreateLink", ()=>handleCreateLink);
-//
-parcelHelpers.export(exports, "handleDeleteLink", ()=>handleDeleteLink);
-//
-parcelHelpers.export(exports, "handleSaveAbout", ()=>handleSaveAbout);
-// =================== INITIALIZER ===========
-parcelHelpers.export(exports, "initilizer", ()=>initilizer);
+  */ // =================== HANDLERS ==========
+parcelHelpers.export(exports, "handleDelete", ()=>handleDelete);
+/*
+
+
+
+
+
+  */ // ================== INITIALIZER =========
+parcelHelpers.export(exports, "initializer", ()=>initializer);
 var _utilsJs = require("../../utils/utils.js");
+var _independentJs = require("../../utils/independent.js");
 const displayError = _utilsJs.displayError;
-function renderCreated(data, action, btnId) {
-    if (!data) {
-        _utilsJs.stopRotateBtn(btnId);
-        return _utilsJs.alertResponse("failed creating or could not display results - try find on games page", 6, "failed");
-    }
-    _utilsJs.alertResponse(`${data.title} has been ${action}`);
-    _utilsJs.stopRotateBtn(btnId);
-    window.setTimeout(()=>{
-        if (action === "created") return window.location.assign(`/dashboard/updategame/${data.id}`);
-        window.location.assign("/dashboard/games");
-    }, 3500);
-}
-function renderCreateLink(data, action, btnId) {
-    if (!data) {
-        _utilsJs.stopRotateBtn(btnId);
-        _utilsJs.alertResponse("failed creating or could not display results - am reloading", 6, "failed");
-        window.setTimeout(()=>window.location.reload(), 6500);
-    }
-    _utilsJs.alertResponse(`part ${data.part} has been ${action}`);
-    _utilsJs.stopRotateBtn(btnId);
-    // document.getElementById('create-gamepart').gamepartId = '';
-    // document.getElementById('gamepart-part').value = '';
-    // document.getElementById('gamepart-link').value = '';
-    _utilsJs.closePopup("create-gamepart-popup", ()=>window.location.reload());
-}
-function renderDeleteLInk(data, btnId) {
+function renderDelete(response, btn) {
+    const { data  } = response;
     if (!data) {
         _utilsJs.alertResponse("failed deleting or could not display results, am reloading", 6, "failed");
-        _utilsJs.stopRotateBtn(btnId);
+        _utilsJs.stopRotateBtn(btn);
         return window.setTimeout(()=>window.location.reload(), 6500);
     }
-    _utilsJs.alertResponse("Link has been deleted successfully");
-    _utilsJs.stopRotateBtn(btnId);
-    _utilsJs.closePopup("delete-gamepart-popup", ()=>window.location.reload());
+    _utilsJs.alertResponse(`Notification has been deleted successfully`);
+    _utilsJs.stopRotateBtn(btn);
+    const id = data.id;
+    const card = document.querySelector(`[data-notification-id="${id}"`);
+    card.parentElement.removeChild(card);
+    _utilsJs.closePopup("delete-notification-popup");
 }
-function renderSaveAbout(data, btnId) {
-    if (!data) {
-        _utilsJs.alertResponse("failed saving about or could not display results - try find on games page", 6, "failed");
-        _utilsJs.stopRotateBtn(btnId);
-        return;
-    }
-    _utilsJs.alertResponse(`The about has been saved`);
-    _utilsJs.stopRotateBtn(btnId);
-    window.setTimeout(()=>{
-        window.location.assign("/dashboard/games");
-    }, 3500);
-}
-function getGameData() {
-    const title = document.getElementById("game-title").value;
-    const portrait = document.getElementById("game-image-portrait").value;
-    const landscape = document.getElementById("game-image-landscape").value;
-    const description = document.getElementById("game-description").value;
-    const tags = document.getElementById("game-tags").value.split(",");
-    const keywords = document.getElementById("game-keywords").value.split(",");
-    const companies = document.getElementById("game-companies").value.split(",");
-    const company = document.getElementById("game-company").value;
-    const releasedDate = document.getElementById("game-date").value;
-    const country = document.getElementById("game-country").value;
-    const rating = document.getElementById("game-rating").value;
-    let data = {
-        title,
-        portrait,
-        landscape,
-        description,
-        tags,
-        keywords,
-        companies
-    };
-    data = {
-        ...data,
-        company,
-        releasedDate,
-        country,
-        rating
-    };
-    return data;
-}
-function getLinkData() {
-    const part = document.getElementById("gamepart-part").value;
-    const link = document.getElementById("gamepart-link").value;
-    const title = document.getElementById("gamepart-title").value;
-    // const { gameId } = document.getElementById('create-gamepart').dataset;
-    return {
-        title,
-        part,
-        link
-    };
-}
-function getAboutData() {
-    const about = tinymce.get("game-about");
-    const content = about.getContent();
-    return {
-        about: content
-    };
-}
-function handleCreate(controlCreate, controlUpdate) {
-    const form = document.getElementById("create-game");
+function handleDelete(controlDelete) {
+    const form = document.getElementById("delete-notification");
     form && form.addEventListener("submit", (e)=>{
         e.preventDefault();
-        _utilsJs.rotateBtn("game-btn");
-        const { gameId  } = form.dataset;
-        if (!gameId) controlCreate("game-btn");
-        else controlUpdate(gameId, "game-btn");
+        const { notificationId  } = form.dataset;
+        const btn = "delete-notification-btn";
+        _utilsJs.rotateBtn(btn);
+        controlDelete(notificationId, btn);
     });
 }
-function handleCreateLink(controlCreateLink, controlUpdateLink) {
-    const form = document.getElementById("create-gamepart");
-    form && form.addEventListener("submit", (e)=>{
-        e.preventDefault();
-        _utilsJs.rotateBtn("gamepart-btn");
-        const { gamepartId , gameId  } = form.dataset;
-        if (!gamepartId) return controlCreateLink(gameId, "gamepart-btn");
-        controlUpdateLink(gamepartId, "gamepart-btn");
-    });
-}
-function handleDeleteLink(controlDeleteLink) {
-    const form = document.getElementById("delete-gamepart");
-    form && form.addEventListener("submit", (e)=>{
-        e.preventDefault();
-        const { gamepartId  } = form.dataset;
-        if (!gamepartId) return;
-        _utilsJs.rotateBtn("delete-gamepart-btn");
-        controlDeleteLink(gamepartId, "delete-gamepart");
-    });
-}
-function handleSaveAbout(controlSaveAbout) {
-    const btn = document.getElementById("about-game-btn");
-    btn && btn.addEventListener("click", (e)=>{
-        const { gameId  } = btn.dataset;
-        _utilsJs.rotateBtn("about-game-btn");
-        controlSaveAbout(gameId, "about-game-btn");
-    });
-}
-function initilizer() {
-    _utilsJs.fillSelects("game-country", "countries");
-    const gamelinkBtn = document.getElementById("add-game-link");
-    // displaying popup on for creating game link
-    gamelinkBtn && gamelinkBtn.addEventListener("click", (e)=>{
-        _utilsJs.openPopup("create-gamepart-popup");
-    });
-    editor();
-    manageLinkPopup();
+function initializer() {
+    _utilsJs.adminSidebar(), _utilsJs.adminSearchBar();
+    managePopups();
+    _independentJs.showMore("notification", "items-container", "notificationCard");
+    _independentJs.logout();
 }
 /*
 
@@ -810,68 +620,24 @@ function initilizer() {
 
 
 
-
-
-*/ // ====================== NON EXPORTING FUNCTOINS =======
-/** display popup for creating links or deleting links */ function manageLinkPopup() {
-    const cover = document.getElementById("game-links");
-    const form = document.getElementById("create-gamepart");
-    const deleteForm = document.getElementById("delete-gamepart");
-    cover && cover.addEventListener("click", (e)=>{
-        // when the card icon is clicked
+  */ // ================== NON EXPORTING FUNCTIONS =
+function managePopups() {
+    const container = document.getElementById("main-container");
+    const form = document.getElementById("delete-notification");
+    container && container.addEventListener("click", (e)=>{
         const { target  } = e;
-        const card = target.closest(".gamelink-card");
-        const { linkId , part , link , title  } = card.dataset;
-        // when the edit button is clickd
-        if (target.classList.contains("edit-link-btn")) {
-            form.dataset.gamepartId = linkId;
-            document.getElementById("gamepart-part").value = part;
-            document.getElementById("gamepart-link").value = link;
-            document.getElementById("gamepart-title").value = title;
-            _utilsJs.openPopup("create-gamepart-popup", ()=>{
-                form.dataset.gamepartId = "";
-                document.getElementById("gamepart-part").value = "";
-                document.getElementById("gamepart-link").value = "";
-                document.getElementById("gamepart-title").value = "";
+        if (target.classList.contains("delete-item")) {
+            const card = target.closest(".notification-card");
+            const { notificationId  } = card.dataset;
+            form.dataset.notificationId = notificationId;
+            _utilsJs.openPopup("delete-notification-popup", ()=>{
+                form.dataset.notificationId = "";
             });
         }
-        // when the delect icon is clicked
-        if (target.classList.contains("delete-link-btn")) {
-            deleteForm.dataset.gamepartId = linkId;
-            _utilsJs.openPopup("delete-gamepart-popup", ()=>{
-                deleteForm.dataset.gamepartId = "";
-            });
-        }
-    });
-}
-//
-/** initiazes tinymce editor on game about page */ function editor() {
-    const about = document.getElementById("game-about");
-    if (!about) return;
-    tinymce.init({
-        selector: "#game-about",
-        plugins: [
-            "advlist autolink link lists charmap preview hr anchor pagebreak",
-            "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime nonbreaking",
-            "table emoticons template paste help", 
-        ],
-        toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | fullscreen | forecolor backcolor emoticons | help",
-        menu: {
-            favs: {
-                title: "My Favorites",
-                items: "code visualaid | searchreplace | emoticons"
-            }
-        },
-        menubar: "favs file edit view insert format tools table help",
-        // skin: (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'oxide-dark' : 'oxide'),
-        // content_css: (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default'),
-        images_upload_url: "http://localhost:3000/api/v1/eventeos/abouts/uploadDataImage",
-        automatic_uploads: false,
-        images_upload_credentials: true
     });
 }
 
-},{"../../utils/utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"bvANu":[function(require,module,exports) {
+},{"../../utils/utils.js":"bvANu","../../utils/independent.js":"gaDpA","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"bvANu":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "openPopup", ()=>openPopup);
@@ -1715,7 +1481,175 @@ function gameCard(game) {
     return markup;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"cEBbY":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"gaDpA":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * An independent Functon - takes a search text and request for results. Then display the results on the display container
+ * @param {String} model sequelize model name in singular. eg "movie", "game"
+ * @param {String} containerId element id of the container where the data will be displayed in
+ * @param {String} cardType the type of card the data would be using. eg: dbmovieCard, scheduleCard
+ * @returns null - break function
+ */ parcelHelpers.export(exports, "searchItem", ()=>searchItem);
+/**
+ * An independent Functon - gets the query meta from the body and query for the next page
+ * @param {String} model sequelize model name in singular. eg "movie", "game"
+ * @param {String} containerId element id of the container where the data will be displayed in
+ * @param {String} cardType the type of card the data would be using. eg: dbmovieCard, scheduleCard
+ */ parcelHelpers.export(exports, "showMore", ()=>showMore);
+parcelHelpers.export(exports, "logout", ()=>logout);
+parcelHelpers.export(exports, "suggest", ()=>suggest);
+//
+parcelHelpers.export(exports, "problem", ()=>problem);
+var _modelJs = require("../model/model.js");
+var _utilsJs = require("./utils.js");
+async function searchItem(model, containerId, cardType) {
+    const form = document.getElementById("search-form");
+    const container = document.getElementById(containerId);
+    const body = document.querySelector("body");
+    // console.log('searchform ', form);
+    form && form.addEventListener("submit", async (e)=>{
+        e.preventDefault();
+        const input = form.querySelector("input");
+        const text = `?text=${input.value.split(" ").join("-")}`;
+        search(text);
+    });
+    body.addEventListener("click", (e)=>{
+        const { target  } = e;
+        if (!target.classList.contains("query")) return;
+        const { query  } = target.dataset;
+        search(query);
+    });
+    /**
+   * makes search or query for data
+   * @param {String} text a search word or tag data-query
+   * @param {String} type whether your are making a search or a normal query
+   * @returns null - breaks
+   * type : search or query
+   */ async function search(query) {
+        try {
+            // search for the data
+            const oldquery = _utilsJs.metaQuery();
+            if (oldquery.fields) query = `${query}&fields=${oldquery.fields}`;
+            const { meta , data , suggestion  } = await _modelJs.getfull(`/${model}s${query}`);
+            // if there is no more results
+            if (!data.length && (!suggestion || !suggestion.length)) return _utilsJs.alertResponse(`Sorry!! Could not find anything.`, 4, "failed");
+            // clearing the content area
+            // const displayer = document.getElementById(containerId);
+            container.innerHTML = "";
+            // setting the query meta to the body for show more sake
+            _utilsJs.metaQuery(meta);
+            // displaying data to the container
+            data.length && data.forEach((item)=>{
+                const markuper = _utilsJs[cardType];
+                const markup = markuper(item, model);
+                container.insertAdjacentHTML("beforeend", markup);
+            });
+            // adding more data if there are suggestion
+            if (suggestion && suggestion.length) suggestion.forEach((item)=>{
+                const markuper = _utilsJs[cardType];
+                const markup = markuper(item, model);
+                container.insertAdjacentHTML("beforeend", markup);
+            });
+        } catch (error) {
+            _utilsJs.displayError(error);
+        }
+    }
+}
+function showMore(model, containerId, cardType) {
+    const showMore = document.getElementById("show-more");
+    const container = document.getElementById(containerId);
+    showMore && showMore.addEventListener("click", async (e)=>{
+        try {
+            const oldmeta = _utilsJs.metaQuery();
+            oldmeta.page = oldmeta.page + 1;
+            const query = _utilsJs.stringifyQuery(oldmeta);
+            if (!oldmeta.next) return _utilsJs.alertResponse(`No more ${model}s to show`, 4, "failed");
+            const { meta , data , suggestion  } = await _modelJs.getfull(`/${model}s${query}`);
+            // if there is no more results
+            if (!meta.length && (!suggestion || !suggestion.length)) return _utilsJs.alertResponse(`No more ${model}s to show for the search or tag`, 4, "failed");
+            _utilsJs.metaQuery(meta);
+            // displaying data to the container
+            data.forEach((item)=>{
+                const markuper = _utilsJs[cardType];
+                const markup = markuper(item, model);
+                container.insertAdjacentHTML("beforeend", markup);
+            });
+            // adding more data if there are suggestion
+            if (suggestion && suggestion.length) suggestion.forEach((item)=>{
+                const markuper = _utilsJs[cardType];
+                const markup = markuper(item, model);
+                container.insertAdjacentHTML("beforeend", markup);
+            });
+        } catch (error) {
+            _utilsJs.displayError(error);
+        }
+    });
+}
+function logout() {
+    const btn = document.getElementById("logout");
+    btn && btn.addEventListener("click", async (e)=>{
+        const response = await _modelJs.getfull("/users/logout");
+        _utilsJs.alertResponse(response.message);
+        window.setTimeout(()=>window.location.assign("/"), 3500);
+    });
+}
+function suggest() {
+    const form = document.getElementById("create-suggest");
+    form.addEventListener("submit", async (e)=>{
+        try {
+            e.preventDefault();
+            _utilsJs.rotateBtn("suggest-btn");
+            const on = document.getElementById("suggest-on").value;
+            const title = document.getElementById("suggest-title").value;
+            const message = document.getElementById("suggest-activity").value;
+            const by = document.getElementById("suggest-email").value;
+            const body = {
+                on,
+                title,
+                message,
+                by
+            };
+            await _modelJs.post("/suggestions/create", body);
+            _utilsJs.alertResponse("Thanks for your support. We would make sure to provide it");
+            _utilsJs.stopRotateBtn("suggest-btn");
+            _utilsJs.closePopup("suggest-popup");
+        } catch (error) {
+            console.error(error);
+            _utilsJs.alertResponse("Sorry! the system couldn`t save your suggestion. Please try again", 3, "failed");
+            _utilsJs.stopRotateBtn("suggest-btn");
+            _utilsJs.closePopup("suggest-popup");
+        }
+    });
+}
+function problem() {
+    const form = document.getElementById("create-problem");
+    form.addEventListener("submit", async (e)=>{
+        try {
+            e.preventDefault();
+            _utilsJs.rotateBtn("problem-btn");
+            const by = document.getElementById("problem-email").value;
+            const on = document.getElementById("problem-on").value;
+            const message = document.getElementById("problem-activity").value;
+            const body = {
+                on,
+                message,
+                by
+            };
+            await _modelJs.post("/problems/create", body);
+            _utilsJs.alertResponse("Thanks for your support. We would make sure to fix it");
+            _utilsJs.stopRotateBtn("problem-btn");
+            _utilsJs.closePopup("problem-popup");
+        } catch (error) {
+            console.error(error);
+            _utilsJs.stopRotateBtn("problem-btn");
+            _utilsJs.alertResponse("Sorry! the system couldn`t save your problem. Please try again", 3, "failed");
+            _utilsJs.closePopup("problem-popup");
+        }
+    });
+}
+
+},{"../model/model.js":"cEBbY","./utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"cEBbY":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "get", ()=>get);
@@ -6091,5 +6025,5 @@ function isAxiosError(payload) {
 }
 exports.default = isAxiosError;
 
-},{"./../utils.js":"lbtnr","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}]},["kBclF","fSkAd"], "fSkAd", "parcelRequire517a")
+},{"./../utils.js":"lbtnr","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}]},["jRO8q","2qS0g"], "2qS0g", "parcelRequire517a")
 

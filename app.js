@@ -26,28 +26,29 @@ app.use('/', clientRoutes);
 app.use('/dashboard', dashboard);
 
 app.use('*', (req, res, next) => {
-  res.status(404).json({
-    status: 'failed',
-    message: `could not get ${req.get('host')}${req.originalUrl}`,
-  });
+  const error = {
+    title: 'Page not available.',
+    message: 'Report as problem if you have ever visited this page',
+  };
+  res.status(200).render('admin/error', { error });
 });
 
 app.use((error, req, res, next) => {
-  if (req.originalUrl.startsWith('/dashboard')) {
-    new WriteError(error, req, 'Global Error');
-    return res.status(200).render('admin/error', { error });
-  }
+  // if (req.originalUrl.startsWith('/dashboard')) {
+  // new WriteError(error, req, 'Global Error');
+  // }
 
   if (!error.isOperational) {
     new WriteError(error, req, 'Global Error');
     console.log(error);
   }
 
-  res.status(500).json({
-    status: 'failed',
-    message: error.message,
-    error,
-  });
+  return res.status(200).render('admin/error', { error });
+  // res.status(500).json({
+  //   status: 'failed',
+  //   message: error.message,
+  //   error,
+  // });
 });
 
 module.exports = app;

@@ -34,8 +34,7 @@ async function controlCreateLink(movieId, btnId) {
 
     const data = view.getLinkData();
     data.movie = movieId;
-    // console.log(data);
-    // return;
+
     const res = await model.post('/links/create', data);
 
     view.renderCreateLink(res, 'created', btnId);
@@ -48,8 +47,7 @@ async function controlCreateLink(movieId, btnId) {
 async function controlUpdateLink(linkId, btnId) {
   try {
     const data = view.getLinkData();
-    // console.log(data);
-    // return;
+
     let res;
     if (data.link) res = await model.patch(`/links/${linkId}`, data);
     if (!data.link) res = await model.deletefull(`/links/${linkId}`);

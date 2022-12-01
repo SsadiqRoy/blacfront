@@ -23,5 +23,10 @@ html(lang="en")
   if(ext.about)
       script(src='/javascript/tinymce/tinymce.min.js')
 
+  script.
+    const body = document.querySelector('body');
+    body.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+    });
   script(src=`${ext.js}.js`, type='module')
 

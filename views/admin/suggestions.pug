@@ -4,16 +4,16 @@ block content
   main.main
     .main__cover
       //- .main__filter#main-filter
-        //- .main__filter__cover
-        //-   span.main__filter-tag unviewed
-        //-   span.main__filter-tag viewed
+        .main__filter__cover
+          span.main__filter-tag unviewed
+          span.main__filter-tag viewed
           //- span.main__filter-tag problem
           //- span.main__filter-tag suggestions
       .main__container#main-container
         .main__container__cover#items-container
-          if(notifications && notifications.length)
-            each notification in notifications
-              +notificationCard(notification)
+          if(suggestions && suggestions.length)
+            each suggestion in suggestions
+              +notificationCard(suggestion)
 
 
         .center-components.padding-a1

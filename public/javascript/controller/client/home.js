@@ -56,13 +56,11 @@ async function fillGames() {
 
 */
 async function controlFillSliders() {
-  // console.log('we fucking here');
   controlHeadingSlide();
   fillMovies(), fillSeries(), fillGames();
 }
 
 async function initializer() {
-  // console.log('we fucking here');
   view.initializer();
   view.handleFillSliders(controlFillSliders);
 }

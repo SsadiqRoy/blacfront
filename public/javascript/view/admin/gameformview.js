@@ -158,13 +158,11 @@ export function handleCreateLink(controlCreateLink, controlUpdateLink) {
       e.preventDefault();
       utils.rotateBtn('gamepart-btn');
       const { gamepartId, gameId } = form.dataset;
-      // console.log(gamepartId, gameId);
-      // return;
+
       if (!gamepartId) {
         return controlCreateLink(gameId, 'gamepart-btn');
       }
 
-      // return console.log('👉', gamepartId, gameId);
       controlUpdateLink(gamepartId, 'gamepart-btn');
     });
 }

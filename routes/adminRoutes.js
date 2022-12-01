@@ -13,6 +13,8 @@ router.get('/series', controller.series);
 router.get('/games', controller.games);
 router.get('/notifications', controller.notifications);
 router.get('/schedules', controller.schedules);
+router.get('/problems', controller.problems);
+router.get('/suggestions', controller.suggestions);
 
 // ============= form pages ==========
 router.get('/movieform', controller.movieform);

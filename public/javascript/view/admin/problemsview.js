@@ -11,20 +11,19 @@ export const displayError = utils.displayError;
  */
 export function renderDelete(response, btn) {
   const { data } = response;
-
   if (!data) {
     utils.alertResponse('failed deleting or could not display results, am reloading', 6, 'failed');
     utils.stopRotateBtn(btn);
     return window.setTimeout(() => window.location.reload(), 6500);
   }
-  utils.alertResponse(`Schedule has been deleted successfully`);
+  utils.alertResponse(`Notification has been deleted successfully`);
   utils.stopRotateBtn(btn);
 
   const id = data.id;
-  const card = document.querySelector(`[data-schedule-id="${id}"`);
+  const card = document.querySelector(`[data-notification-id="${id}"`);
   card.parentElement.removeChild(card);
 
-  utils.closePopup('delete-schedule-popup');
+  utils.closePopup('delete-notification-popup');
 }
 
 /*
@@ -46,17 +45,17 @@ export function renderDelete(response, btn) {
 // =================== HANDLERS ==========
 
 export function handleDelete(controlDelete) {
-  const form = document.getElementById('delete-schedule');
+  const form = document.getElementById('delete-notification');
 
   form &&
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      const { scheduleId } = form.dataset;
+      const { notificationId } = form.dataset;
 
-      const btn = 'delete-schedule-btn';
+      const btn = 'delete-notification-btn';
       utils.rotateBtn(btn);
 
-      controlDelete(scheduleId, btn);
+      controlDelete(notificationId, btn);
     });
 }
 
@@ -71,7 +70,7 @@ export function handleDelete(controlDelete) {
 export function initializer() {
   utils.adminSidebar(), utils.adminSearchBar();
   managePopups();
-  ind.showMore('schedule', 'items-container', 'scheduleCard');
+  ind.showMore('notification', 'items-container', 'notificationCard');
   ind.logout();
 }
 
@@ -85,18 +84,18 @@ export function initializer() {
 // ================== NON EXPORTING FUNCTIONS =
 function managePopups() {
   const container = document.getElementById('main-container');
-  const form = document.getElementById('delete-schedule');
+  const form = document.getElementById('delete-notification');
 
   container &&
     container.addEventListener('click', (e) => {
       const { target } = e;
       if (target.classList.contains('delete-item')) {
-        const card = target.closest('.schedule-card');
-        const { scheduleId } = card.dataset;
+        const card = target.closest('.notification-card');
+        const { notificationId } = card.dataset;
 
-        form.dataset.scheduleId = scheduleId;
-        utils.openPopup('delete-schedule-popup', () => {
-          form.dataset.scheduleId = '';
+        form.dataset.notificationId = notificationId;
+        utils.openPopup('delete-notification-popup', () => {
+          form.dataset.notificationId = '';
         });
       }
     });

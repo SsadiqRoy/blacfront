@@ -164,13 +164,11 @@ export function handleCreateLink(controlCreateLink, controlUpdateLink) {
       e.preventDefault();
       utils.rotateBtn('link-btn');
       const { linkId, movieId } = form.dataset;
-      // console.log(linkId, movieId);
-      // return;
+
       if (!linkId) {
         return controlCreateLink(movieId, 'link-btn');
       }
 
-      // return console.log('👉', linkId, gameId);
       controlUpdateLink(linkId, 'link-btn');
     });
 }

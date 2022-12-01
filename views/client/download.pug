@@ -8,6 +8,7 @@ html(lang="en")
     title blaciris | #{ext.title}
     link(rel="stylesheet", href=`/styles/fontawsome/css/all.min.css`)
     link(rel="stylesheet", href=`/styles/css/${ext.css}.css`)
+    link(rel="icon", href="/images/favicon.png")
 
   body(data-first=`${link.first}`)
     main(data-third=`${link.third}`)
@@ -32,5 +33,10 @@ html(lang="en")
             span.btn-content download
             
     include ../layouts/footer
-    
+
+  script.
+    const body = document.querySelector('body');
+    body.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+    });
   script(src=`${ext.js}.js`, type='module')

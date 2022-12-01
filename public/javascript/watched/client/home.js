@@ -611,12 +611,10 @@ async function fillGames() {
 
 
 */ async function controlFillSliders() {
-    // console.log('we fucking here');
     controlHeadingSlide();
     fillMovies(), fillSeries(), fillGames();
 }
 async function initializer() {
-    // console.log('we fucking here');
     _homeviewJs.initializer();
     _homeviewJs.handleFillSliders(controlFillSliders);
 }
@@ -690,6 +688,7 @@ parcelHelpers.export(exports, "initializer", ()=>initializer) /*
   */  // ================== NON EXPORTING FUNCTIONS =
 ;
 var _utilsJs = require("../../utils/utils.js");
+var _independentJs = require("../../utils/independent.js");
 const displayError = _utilsJs.displayError;
 function renderHeadingSlide(data) {
     const mother = document.querySelector(".head-slider");
@@ -745,7 +744,6 @@ function renderHeadingSlide(data) {
         }
     }
     function swapImage() {
-        // console.log('hitting');
         swapper(third, 0);
         setTimeout(()=>{
             swapper(second, 1);
@@ -790,9 +788,10 @@ function handleFillSliders(controlFillSliders) {
 function initializer() {
     _utilsJs.clientSearchBar(), _utilsJs.cardsSlider(), _utilsJs.suggestPopup(), _utilsJs.clientSidebar();
     _utilsJs.clientSearch("movie");
+    _independentJs.suggest();
 }
 
-},{"../../utils/utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"bvANu":[function(require,module,exports) {
+},{"../../utils/utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh","../../utils/independent.js":"gaDpA"}],"bvANu":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "openPopup", ()=>openPopup);
@@ -1636,7 +1635,175 @@ function gameCard(game) {
     return markup;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"cEBbY":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"gaDpA":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * An independent Functon - takes a search text and request for results. Then display the results on the display container
+ * @param {String} model sequelize model name in singular. eg "movie", "game"
+ * @param {String} containerId element id of the container where the data will be displayed in
+ * @param {String} cardType the type of card the data would be using. eg: dbmovieCard, scheduleCard
+ * @returns null - break function
+ */ parcelHelpers.export(exports, "searchItem", ()=>searchItem);
+/**
+ * An independent Functon - gets the query meta from the body and query for the next page
+ * @param {String} model sequelize model name in singular. eg "movie", "game"
+ * @param {String} containerId element id of the container where the data will be displayed in
+ * @param {String} cardType the type of card the data would be using. eg: dbmovieCard, scheduleCard
+ */ parcelHelpers.export(exports, "showMore", ()=>showMore);
+parcelHelpers.export(exports, "logout", ()=>logout);
+parcelHelpers.export(exports, "suggest", ()=>suggest);
+//
+parcelHelpers.export(exports, "problem", ()=>problem);
+var _modelJs = require("../model/model.js");
+var _utilsJs = require("./utils.js");
+async function searchItem(model, containerId, cardType) {
+    const form = document.getElementById("search-form");
+    const container = document.getElementById(containerId);
+    const body = document.querySelector("body");
+    // console.log('searchform ', form);
+    form && form.addEventListener("submit", async (e)=>{
+        e.preventDefault();
+        const input = form.querySelector("input");
+        const text = `?text=${input.value.split(" ").join("-")}`;
+        search(text);
+    });
+    body.addEventListener("click", (e)=>{
+        const { target  } = e;
+        if (!target.classList.contains("query")) return;
+        const { query  } = target.dataset;
+        search(query);
+    });
+    /**
+   * makes search or query for data
+   * @param {String} text a search word or tag data-query
+   * @param {String} type whether your are making a search or a normal query
+   * @returns null - breaks
+   * type : search or query
+   */ async function search(query) {
+        try {
+            // search for the data
+            const oldquery = _utilsJs.metaQuery();
+            if (oldquery.fields) query = `${query}&fields=${oldquery.fields}`;
+            const { meta , data , suggestion  } = await _modelJs.getfull(`/${model}s${query}`);
+            // if there is no more results
+            if (!data.length && (!suggestion || !suggestion.length)) return _utilsJs.alertResponse(`Sorry!! Could not find anything.`, 4, "failed");
+            // clearing the content area
+            // const displayer = document.getElementById(containerId);
+            container.innerHTML = "";
+            // setting the query meta to the body for show more sake
+            _utilsJs.metaQuery(meta);
+            // displaying data to the container
+            data.length && data.forEach((item)=>{
+                const markuper = _utilsJs[cardType];
+                const markup = markuper(item, model);
+                container.insertAdjacentHTML("beforeend", markup);
+            });
+            // adding more data if there are suggestion
+            if (suggestion && suggestion.length) suggestion.forEach((item)=>{
+                const markuper = _utilsJs[cardType];
+                const markup = markuper(item, model);
+                container.insertAdjacentHTML("beforeend", markup);
+            });
+        } catch (error) {
+            _utilsJs.displayError(error);
+        }
+    }
+}
+function showMore(model, containerId, cardType) {
+    const showMore = document.getElementById("show-more");
+    const container = document.getElementById(containerId);
+    showMore && showMore.addEventListener("click", async (e)=>{
+        try {
+            const oldmeta = _utilsJs.metaQuery();
+            oldmeta.page = oldmeta.page + 1;
+            const query = _utilsJs.stringifyQuery(oldmeta);
+            if (!oldmeta.next) return _utilsJs.alertResponse(`No more ${model}s to show`, 4, "failed");
+            const { meta , data , suggestion  } = await _modelJs.getfull(`/${model}s${query}`);
+            // if there is no more results
+            if (!meta.length && (!suggestion || !suggestion.length)) return _utilsJs.alertResponse(`No more ${model}s to show for the search or tag`, 4, "failed");
+            _utilsJs.metaQuery(meta);
+            // displaying data to the container
+            data.forEach((item)=>{
+                const markuper = _utilsJs[cardType];
+                const markup = markuper(item, model);
+                container.insertAdjacentHTML("beforeend", markup);
+            });
+            // adding more data if there are suggestion
+            if (suggestion && suggestion.length) suggestion.forEach((item)=>{
+                const markuper = _utilsJs[cardType];
+                const markup = markuper(item, model);
+                container.insertAdjacentHTML("beforeend", markup);
+            });
+        } catch (error) {
+            _utilsJs.displayError(error);
+        }
+    });
+}
+function logout() {
+    const btn = document.getElementById("logout");
+    btn && btn.addEventListener("click", async (e)=>{
+        const response = await _modelJs.getfull("/users/logout");
+        _utilsJs.alertResponse(response.message);
+        window.setTimeout(()=>window.location.assign("/"), 3500);
+    });
+}
+function suggest() {
+    const form = document.getElementById("create-suggest");
+    form.addEventListener("submit", async (e)=>{
+        try {
+            e.preventDefault();
+            _utilsJs.rotateBtn("suggest-btn");
+            const on = document.getElementById("suggest-on").value;
+            const title = document.getElementById("suggest-title").value;
+            const message = document.getElementById("suggest-activity").value;
+            const by = document.getElementById("suggest-email").value;
+            const body = {
+                on,
+                title,
+                message,
+                by
+            };
+            await _modelJs.post("/suggestions/create", body);
+            _utilsJs.alertResponse("Thanks for your support. We would make sure to provide it");
+            _utilsJs.stopRotateBtn("suggest-btn");
+            _utilsJs.closePopup("suggest-popup");
+        } catch (error) {
+            console.error(error);
+            _utilsJs.alertResponse("Sorry! the system couldn`t save your suggestion. Please try again", 3, "failed");
+            _utilsJs.stopRotateBtn("suggest-btn");
+            _utilsJs.closePopup("suggest-popup");
+        }
+    });
+}
+function problem() {
+    const form = document.getElementById("create-problem");
+    form.addEventListener("submit", async (e)=>{
+        try {
+            e.preventDefault();
+            _utilsJs.rotateBtn("problem-btn");
+            const by = document.getElementById("problem-email").value;
+            const on = document.getElementById("problem-on").value;
+            const message = document.getElementById("problem-activity").value;
+            const body = {
+                on,
+                message,
+                by
+            };
+            await _modelJs.post("/problems/create", body);
+            _utilsJs.alertResponse("Thanks for your support. We would make sure to fix it");
+            _utilsJs.stopRotateBtn("problem-btn");
+            _utilsJs.closePopup("problem-popup");
+        } catch (error) {
+            console.error(error);
+            _utilsJs.stopRotateBtn("problem-btn");
+            _utilsJs.alertResponse("Sorry! the system couldn`t save your problem. Please try again", 3, "failed");
+            _utilsJs.closePopup("problem-popup");
+        }
+    });
+}
+
+},{"../model/model.js":"cEBbY","./utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"cEBbY":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "get", ()=>get);

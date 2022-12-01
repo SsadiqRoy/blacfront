@@ -48,15 +48,15 @@ footer.footer
         .form-group
           label.label-basic(for="suggest-activity") message
           textarea#suggest-activity.input-basic(type="text", placeholder="optional")
-        .form-group-double
-          .form-group
-            label.label-basic(for="suggest-name") your name
-            input#suggest-name.input-basic(type="text", placeholder="optional")
-          .form-group
-            label.label-basic(for="suggest-email") email
-            input#suggest-email.input-basic(type="email", placeholder="optional")
+        //- .form-group-double
+          //- .form-group
+          //-   label.label-basic(for="suggest-name") your name
+          //-   input#suggest-name.input-basic(type="text", placeholder="optional")
+        .form-group
+          label.label-basic(for="suggest-email") email
+          input#suggest-email.input-basic(type="email", placeholder="optional")
         .center-components
-          button.btn-black.btn-normal(type="submit")
+          button.btn-black.btn-normal#suggest-btn(type="submit")
             span.btn-content create
 
 
@@ -70,22 +70,23 @@ footer.footer
         .form-heading
           h1 Report Problem
         .form-group
-          label.label-basic(for="problem-country") problem on
-          select#problem-country.input-basic(type="text")
+          label.label-basic(for="problem-on") problem on
+          select#problem-on.input-basic(type="text" required)
+            option(value="") --select--
             option(value="broken-link") broken link
             option(value="other") other
         .form-group
           label.label-basic(for="problem-activity") message
-          textarea#problem-activity.input-basic(type="text")
-        .form-group-double
-          .form-group
-            label.label-basic(for="problem-name") name
-            input#problem-name.input-basic(type="text", placeholder="optional")
-          .form-group
-            label.label-basic(for="problem-email") email
-            input#problem-email.input-basic(type="email", placeholder="optional")
+          textarea#problem-activity.input-basic(type="text" placeholder='describe with link resolution/part/name, movie/serie/game title, season & episode' required)
+        //- .form-group-double
+        //-   .form-group
+        //-     label.label-basic(for="problem-name") name
+        //-     input#problem-name.input-basic(type="text", placeholder="optional")
+        .form-group
+          label.label-basic(for="problem-email") email
+          input#problem-email.input-basic(type="email", placeholder="optional")
         .center-components
-          button.btn-black.btn-normal(type="submit")
+          button.btn-black.btn-normal#problem-btn(type="submit")
             span.btn-content create
 
 

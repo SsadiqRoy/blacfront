@@ -1,4 +1,5 @@
 import * as utils from '../../utils/utils.js';
+import * as ind from '../../utils/independent.js';
 
 // ================= RENDERES ===========
 export const displayError = utils.displayError;
@@ -64,7 +65,6 @@ export function renderHeadingSlide(data) {
   }
 
   function swapImage() {
-    // console.log('hitting');
     swapper(third, 0);
     setTimeout(() => {
       swapper(second, 1), 1000;
@@ -142,6 +142,8 @@ export function handleFillSliders(controlFillSliders) {
 export function initializer() {
   utils.clientSearchBar(), utils.cardsSlider(), utils.suggestPopup(), utils.clientSidebar();
   utils.clientSearch('movie');
+
+  ind.suggest();
 }
 
 /*
