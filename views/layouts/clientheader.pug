@@ -41,59 +41,86 @@ aside.sidebar#sidebar
 
         if(ext.page !== 'games' && ext.page !== 'game')
           ul
-            li(data-query='?text=trending') trending
-            li(data-query=`?date=gte,${new Date(Date.now() - (7776000000)).toLocaleDateString()}`) new
-            li(data-query=`?updatedAt=gte,${new Date(Date.now() - (7776000000)).toLocaleDateString()}`) updated
-            li(data-query='?rating=gte,6') top rated
+            li
+              a(href='/movies?text=trending') trending
+            li 
+              a(href=`/movies?date=gte,${new Date(Date.now() - (7776000000)).toLocaleDateString()}`) new
+            li
+              a(href=`/movies?updatedAt=gte,${new Date(Date.now() - (7776000000)).toLocaleDateString()}`) updated
+            li
+              a(href='/movies?rating=gte,6') top rated
           ul
-            li(data-query='?keywords=action') action
-            li(data-query='?keywords=adventure') adventure
-            li(data-query='?keywords=crime') crime
-            li(data-query='?keywords=drama') drama
-            li(data-query='?keywords=fantasy') fantasy
-            li(data-query='?keywords=politics') politics
-            li(data-query='?keywords=sci-fi') sci-fi
-            li(data-query='?keywords=thriller') thriller
-            li(data-query='?keywords=war') war
+            li
+              a(href='/movies?keywords=action') action
+            li
+              a(href='/movies?keywords=adventure') adventure
+            li
+              a(href='/movies?keywords=crime') crime
+            li
+              a(href='/movies?keywords=drama') drama
+            li
+              a(href='/movies?keywords=fantasy') fantasy
+            li
+              a(href='/movies?keywords=politics') politics
+            li
+              a(href='/movies?keywords=sci-fi') sci-fi
+            li
+              a(href='/movies?keywords=thriller') thriller
+            li
+              a(href='/movies?keywords=war') war
           ul
-            li(data-query='?companies=apple') apple tv
-            li(data-query='?companies=dc') dc
-            li(data-query='?companies=marvel') marvel
-            li(data-query='?companies=netflix') netflix
-            li(data-query='?companies=prime') prime video
+            li(data-query='') apple tv
+              a(href='/movies?companies=apple') apple tv
+            li
+              a(href='/movies?companies=dc') dc
+            li
+              a(href='/movies?companies=marvel') marvel
+            li
+              a(href='/movies?companies=netflix') netflix
+            li
+              a(href='/movies?companies=prime') prime
         
           ul
-            li(data-query='?country=United-States') hollywood
-            li(data-query='?country=india') bollywood
-            li(data-query='?country=china') chinese
-            li(data-query='?country=japan') japanese
-            li(data-query='?country=korea') korean
-            li(data-query='?country=united-kingdom') uk
-            li(data-query='?keywords=african') african
+            li
+              a(href='/movies?country=united-states') United-States
+            li
+              a(href='/movies?country=india') india
+            li
+              a(href='/movies?country=china') china
+            li
+              a(href='/movies?country=japan') japan
+            li
+              a(href='/movies?country=korea') korea
+            li
+              a(href='/movies?country=united-kingdom') united-kingdom
+            li
+              a(href='/movies?country=african') african
 
         if(ext.page === 'games' || ext.page === 'game')
-          //- ul
-            //- li(data-query='?keywords=rts') Real-time strategy (RTS)
-            //- li(data-query='?keywords=sandbox') Sandbox
-            //- li(data-query='?keywords=moba') Multiplayer online battle arena (MOBA)
-            //- li(data-query='?keywords=rpg-arpg') Role-playing (RPG, ARPG, and More)
-            //- li(data-query='?keywords=simulation-sports') Simulation and sports
-            //- li(data-query='?keywords=puzzle-party') Puzzlers and party games
-            //- li(data-query='?keywords=action-adventure') Action-adventure
-            //- li(data-query='?keywords=survival-horror') Survival and horror
-            //- li(data-query='?keywords=platformer') Platformer
+         
           ul
-            li(data-query='?text=adventure') adventure
-            li(data-query='?text=arcade') arcade
-            li(data-query='?text=fighting') fighting
-            li(data-query='?text=horror') horror
-            li(data-query='?text=open-word') open word
-            li(data-query='?text=puzzle') puzzle
-            li(data-query='?text=shooter') shooter
-            li(data-query='?text=racing') Racing
-            li(data-query='?text=sports') sports
-            li(data-query='?text=rpg') RPG
-            li(data-query='?text=war') War
+            li
+              a(href='/games?country=adventure') adventure
+            li
+              a(href='/games?country=arcade') arcade
+            li
+              a(href='/games?country=fighting') fighting
+            li
+              a(href='/games?country=horror') horror
+            li
+              a(href='/games?country=open-word') open-word
+            li
+              a(href='/games?country=puzzle') puzzle
+            li
+              a(href='/games?country=shooter') shooter
+            li
+              a(href='/games?country=racing') racing
+            li
+              a(href='/games?country=sports') sports
+            li
+              a(href='/games?country=rpg') rpg
+            li
+              a(href='/games?country=war') war
         
         if(user)
           ul
