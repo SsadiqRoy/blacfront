@@ -264,4 +264,4 @@ export const countries = [
 ];
 
 export const serieStatus = ['ongoing', 'ended', 'paused', 'stopped'];
-export const resolutions = ['1', '360', '480', '720', '1080', '2160', '10000'];
+export const resolutions = ['1', '360', '480', '720', '721', '1080', '1081', '2160', '10000'];
