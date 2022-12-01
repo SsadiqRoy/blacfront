@@ -12,4 +12,6 @@ js_folder=watched
 # "client": "parcel ./public/javascript/controller/admin/login.js ./public/javascript/controller/admin/signup.js ./public/javascript/controller/admin/home.js  --dist-dir ./public/javascript/build/admin",
 
 # other vaiables
-# "main": "server.js",
+"main": "server.js",
+"engines": {
+   "node": "^16.0.0" }
