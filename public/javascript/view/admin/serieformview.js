@@ -18,7 +18,7 @@ export function renderCreated(data, action, btnId) {
   utils.stopRotateBtn(btnId);
 
   window.setTimeout(() => {
-    window.location.assign('/dashboard/series');
+    window.location.assign(`/dashboard/updateserie/${data.id}`);
   }, 3500);
 }
 

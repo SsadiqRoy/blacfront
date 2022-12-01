@@ -13,7 +13,7 @@ export function renderCreated(data, action, btnId) {
   utils.stopRotateBtn(btnId);
 
   window.setTimeout(() => {
-    window.location.assign('/dashboard/movies');
+    window.location.assign(`/dashboard/updatemovie/${data.id}`);
   }, 3500);
 }
 

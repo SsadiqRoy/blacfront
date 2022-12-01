@@ -707,7 +707,7 @@ function renderCreated(data, action, btnId) {
     _utilsJs.alertResponse(`Movie - ${data.title} - has been ${action}`);
     _utilsJs.stopRotateBtn(btnId);
     window.setTimeout(()=>{
-        window.location.assign("/dashboard/movies");
+        window.location.assign(`/dashboard/updatemovie/${data.id}`);
     }, 3500);
 }
 function renderCreateLink(data, action, btnId) {

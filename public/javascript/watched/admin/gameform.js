@@ -670,7 +670,7 @@ function renderCreated(data, action, btnId) {
     _utilsJs.stopRotateBtn(btnId);
     window.setTimeout(()=>{
         if (action === "created") return window.location.assign(`/dashboard/updategame/${data.id}`);
-        window.location.assign("/dashboard/games");
+        window.location.assign(`/dashboard/updategame/${data.id}`);
     }, 3500);
 }
 function renderCreateLink(data, action, btnId) {

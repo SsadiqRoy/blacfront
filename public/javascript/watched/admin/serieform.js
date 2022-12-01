@@ -631,7 +631,7 @@ function renderCreated(data, action, btnId) {
     _utilsJs.alertResponse(`Tv serie - ${data.title} - has been ${action}`);
     _utilsJs.stopRotateBtn(btnId);
     window.setTimeout(()=>{
-        window.location.assign("/dashboard/series");
+        window.location.assign(`/dashboard/updateserie/${data.id}`);
     }, 3500);
 }
 function renderDeleteSeason(data, btnId) {
