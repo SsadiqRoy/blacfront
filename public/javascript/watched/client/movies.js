@@ -660,7 +660,7 @@ function initializer() {
     _independentJs.suggest();
 }
 
-},{"../../utils/utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh","../../utils/independent.js":"gaDpA"}],"bvANu":[function(require,module,exports) {
+},{"../../utils/utils.js":"bvANu","../../utils/independent.js":"gaDpA","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"bvANu":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "openPopup", ()=>openPopup);
