@@ -8,6 +8,7 @@ async function controlCreate(serieId, btnId) {
     const data = view.getSeasonData();
     data.serie = serieId || null;
     const season = await model.post('/seasons/create', data);
+    await model.patch(`/serie/${serieId}`, { updatedAt: season.releasedDate });
 
     view.renderCreate(season, 'created', btnId);
   } catch (error) {
