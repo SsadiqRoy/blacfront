@@ -1073,7 +1073,7 @@ function fillSelects(selectId, variables, clear = true, list) {
     const vars = list || _utilsJs[variables];
     if (clear) select.innerHTML = "";
     vars.forEach((v)=>{
-        const markup = `<option value='${v}' ${v === value ? "selected" : ""}>${v}</option>`;
+        const markup = `<option value='${v}' ${v.toLowerCase() === value.toLowerCase() ? "selected" : ""}>${v}</option>`;
         select.insertAdjacentHTML("beforeend", markup);
     });
 }
