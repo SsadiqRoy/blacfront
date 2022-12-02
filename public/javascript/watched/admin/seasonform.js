@@ -540,7 +540,7 @@ async function controlCreate(serieId, btnId) {
         const data = _seasonformviewJs.getSeasonData();
         data.serie = serieId || null;
         const season = await _modelJs.post("/seasons/create", data);
-        await _modelJs.patch(`/serie/${serieId}`, {
+        await _modelJs.patch(`/series/${serieId}`, {
             updatedAt: season.releasedDate
         });
         _seasonformviewJs.renderCreate(season, "created", btnId);
