@@ -2,13 +2,10 @@ import * as view from '../../view/client/homeview.js';
 import * as model from '../../model/model.js';
 
 async function controlHeadingSlide() {
-  // console.log('We are hot here 🔥');
   try {
     const response = await model.get('/movies?fields=title,landscape,description,id&limit=5&rating=gte,5.5');
     view.renderHeadingSlide(response);
   } catch (error) {
-    // error.local = 'local error 🔥';
-
     await model.localPost('/write-to-log', error);
     console.log(error);
   }
@@ -24,7 +21,6 @@ async function fillMovies() {
   } catch (error) {
     console.log(error);
     await model.localPost('/write-to-log', error);
-    await model.localPost('/write-to-log', error.config);
   }
 }
 
@@ -37,7 +33,6 @@ async function fillSeries() {
     view.renderFillSliders({ response: res2, containerId: 'second-series', type: 'serie', cardName: 'movieCard' });
   } catch (error) {
     await model.localPost('/write-to-log', error);
-    await model.localPost('/write-to-log', error.config);
     console.log(error);
   }
 }
@@ -51,7 +46,6 @@ async function fillGames() {
     view.renderFillSliders({ response: res2, containerId: 'second-games', type: 'game', cardName: 'gameCard' });
   } catch (error) {
     await model.localPost('/write-to-log', error);
-    await model.localPost('/write-to-log', error.config);
     console.log(error);
   }
 }

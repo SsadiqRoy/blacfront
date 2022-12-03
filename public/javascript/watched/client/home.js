@@ -535,12 +535,10 @@ function hmrAcceptRun(bundle, id) {
 var _homeviewJs = require("../../view/client/homeview.js");
 var _modelJs = require("../../model/model.js");
 async function controlHeadingSlide() {
-    // console.log('We are hot here 🔥');
     try {
         const response = await _modelJs.get("/movies?fields=title,landscape,description,id&limit=5&rating=gte,5.5");
         _homeviewJs.renderHeadingSlide(response);
     } catch (error) {
-        // error.local = 'local error 🔥';
         await _modelJs.localPost("/write-to-log", error);
         console.log(error);
     }
@@ -564,7 +562,6 @@ async function fillMovies() {
     } catch (error) {
         console.log(error);
         await _modelJs.localPost("/write-to-log", error);
-        await _modelJs.localPost("/write-to-log", error.config);
     }
 }
 async function fillSeries() {
@@ -585,7 +582,6 @@ async function fillSeries() {
         });
     } catch (error) {
         await _modelJs.localPost("/write-to-log", error);
-        await _modelJs.localPost("/write-to-log", error.config);
         console.log(error);
     }
 }
@@ -607,7 +603,6 @@ async function fillGames() {
         });
     } catch (error) {
         await _modelJs.localPost("/write-to-log", error);
-        await _modelJs.localPost("/write-to-log", error.config);
         console.log(error);
     }
 }
@@ -1268,8 +1263,8 @@ parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
 parcelHelpers.export(exports, "resolutions", ()=>resolutions);
-const api_url = "http://apistaging.blaciris.com/v1";
-const main_url = "http://staging.blaciris.com";
+const api_url = "https://apistaging.blaciris.com/v1";
+const main_url = "https://staging.blaciris.com";
 const countries = [
     "Afghanistan",
     "Albania",
