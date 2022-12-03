@@ -1702,13 +1702,7 @@ async function getfull(url) {
     } catch (error) {
         // console.log('blaciris 🔥', error);
         error.local = "\uD83D\uDD25";
-        await (0, _axiosDefault.default)({
-            method: "post",
-            url: `${(0, _utilsJs.main_url)}/write-to-log`,
-            Cookies: true,
-            withCredentials: true,
-            data: error
-        });
+        this.localPost("/write-to-log", error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1809,7 +1803,6 @@ async function freePost(url, body) {
 }
 async function localPost(url, body) {
     try {
-        // console.log(body);
         const u = `${(0, _utilsJs.main_url)}${url}`;
         const res = await (0, _axiosDefault.default)({
             method: "post",
