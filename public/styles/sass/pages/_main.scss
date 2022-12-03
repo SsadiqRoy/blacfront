@@ -10,7 +10,7 @@ main {
 .product-title {
   font-size: 2rem;
   font-family: $font-title;
-  color: $secondary;
+  color: $text-primary;
   padding-block: 1rem;
 
   span {
@@ -54,7 +54,7 @@ main {
 
     .tag {
       display: inline-block;
-      border: 3px solid $secondary;
+      border: 3px solid $text-primary;
       margin-right: 0.5rem;
       border-radius: 20px;
       padding-inline: 1rem;
@@ -92,7 +92,6 @@ main {
   }
   &__list a {
     display: inline-block;
-    // padding-le: 0.4rem;
     color: $color-blue !important;
 
     &:not(:first-child) {

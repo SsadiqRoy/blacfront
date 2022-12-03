@@ -113,13 +113,13 @@
     text-align: center;
 
     i {
-      font-size: 3rem;
+      font-size: 2rem;
       display: none;
       color: $black-lighter;
 
-      @include respond(phone-small) {
-        font-size: 2rem;
-      }
+      // @include respond(phone-small) {
+      // font-size: 2rem;
+      // }
     }
 
     @include respond(tab-land) {
