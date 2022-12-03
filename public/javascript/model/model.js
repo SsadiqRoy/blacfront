@@ -31,7 +31,15 @@ export async function getfull(url) {
 
     return res.data;
   } catch (error) {
-    console.log('blaciris 🔥', error);
+    // console.log('blaciris 🔥', error);
+    error.local = '🔥';
+    await axios({
+      method: 'post',
+      url: `${main_url}/write-to-log`,
+      Cookies: true,
+      withCredentials: true,
+      data: error,
+    });
     throw error.response ? error.response.data : error;
   }
 }
@@ -169,14 +177,7 @@ export async function localPost(url, body) {
     return res.data;
   } catch (error) {
     // console.log('blaciris 🔥', error);
-    error.local = '🔥';
-    await axios({
-      method: 'post',
-      url: u,
-      Cookies: true,
-      withCredentials: true,
-      data: error,
-    });
+
     throw error.response ? error.response.data : error;
   }
 }

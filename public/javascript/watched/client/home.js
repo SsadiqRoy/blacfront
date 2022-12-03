@@ -1838,10 +1838,10 @@ var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 async function get(url) {
     try {
-        const u1 = `${(0, _utilsJs.api_url)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         const res = await (0, _axiosDefault.default)({
             method: "get",
-            url: u1,
+            url: u,
             withCredentials: true
         });
         return res.data.data;
@@ -1852,24 +1852,32 @@ async function get(url) {
 }
 async function getfull(url) {
     try {
-        const u1 = `${(0, _utilsJs.api_url)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         const res = await (0, _axiosDefault.default)({
             method: "get",
-            url: u1,
+            url: u,
             withCredentials: true
         });
         return res.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
+        error.local = "\uD83D\uDD25";
+        await (0, _axiosDefault.default)({
+            method: "post",
+            url: `${(0, _utilsJs.main_url)}/write-to-log`,
+            Cookies: true,
+            withCredentials: true,
+            data: error
+        });
         throw error.response ? error.response.data : error;
     }
 }
 async function patch(url, body) {
     try {
-        const u1 = `${(0, _utilsJs.api_url)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         const res = await (0, _axiosDefault.default)({
             method: "patch",
-            url: u1,
+            url: u,
             Cookies: true,
             withCredentials: true,
             data: body
@@ -1882,10 +1890,10 @@ async function patch(url, body) {
 }
 async function patchfull(url, body) {
     try {
-        const u1 = `${(0, _utilsJs.api_url)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         const res = await (0, _axiosDefault.default)({
             method: "patch",
-            url: u1,
+            url: u,
             Cookies: true,
             withCredentials: true,
             data: body
@@ -1898,11 +1906,11 @@ async function patchfull(url, body) {
 }
 async function post(url, body) {
     try {
-        const u1 = `${(0, _utilsJs.api_url)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         // console.log(body);
         const res = await (0, _axiosDefault.default)({
             method: "post",
-            url: u1,
+            url: u,
             Cookies: true,
             withCredentials: true,
             data: body
@@ -1915,11 +1923,11 @@ async function post(url, body) {
 }
 async function postfull(url, body) {
     try {
-        const u1 = `${(0, _utilsJs.api_url)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         // console.log(body);
         const res = await (0, _axiosDefault.default)({
             method: "post",
-            url: u1,
+            url: u,
             Cookies: true,
             withCredentials: true,
             data: body
@@ -1932,10 +1940,10 @@ async function postfull(url, body) {
 }
 async function deletefull(url) {
     try {
-        const u1 = `${(0, _utilsJs.api_url)}${url}`;
+        const u = `${(0, _utilsJs.api_url)}${url}`;
         const res = await (0, _axiosDefault.default)({
             method: "delete",
-            url: u1,
+            url: u,
             withCredentials: true
         });
         return res.data;
@@ -1962,10 +1970,10 @@ async function freePost(url, body) {
 async function localPost(url, body) {
     try {
         // console.log(body);
-        const u1 = `${(0, _utilsJs.main_url)}${url}`;
+        const u = `${(0, _utilsJs.main_url)}${url}`;
         const res = await (0, _axiosDefault.default)({
             method: "post",
-            url: u1,
+            url: u,
             Cookies: true,
             withCredentials: true,
             data: body
@@ -1973,14 +1981,6 @@ async function localPost(url, body) {
         return res.data;
     } catch (error) {
         // console.log('blaciris 🔥', error);
-        error.local = "\uD83D\uDD25";
-        await (0, _axiosDefault.default)({
-            method: "post",
-            url: u,
-            Cookies: true,
-            withCredentials: true,
-            data: error
-        });
         throw error.response ? error.response.data : error;
     }
 }
