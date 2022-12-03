@@ -6,6 +6,7 @@ async function controlHeadingSlide() {
     const response = await model.get('/movies?fields=title,landscape,description,id&limit=5&rating=gte,5.5');
     view.renderHeadingSlide(response);
   } catch (error) {
+    await model.localPost('/write-to-log', error);
     console.log(error);
   }
 }
@@ -18,6 +19,7 @@ async function fillMovies() {
     const res2 = await model.getfull('/movies?fields=title,portrait,rating,id&limit=14&page=2');
     view.renderFillSliders({ response: res2, containerId: 'second-movies', type: 'movie', cardName: 'movieCard' });
   } catch (error) {
+    await model.localPost('/write-to-log', error);
     console.log(error);
   }
 }
@@ -30,6 +32,7 @@ async function fillSeries() {
     const res2 = await model.getfull('/series?fields=title,portrait,rating,id&limit=20');
     view.renderFillSliders({ response: res2, containerId: 'second-series', type: 'serie', cardName: 'movieCard' });
   } catch (error) {
+    await model.localPost('/write-to-log', error);
     console.log(error);
   }
 }
@@ -42,6 +45,7 @@ async function fillGames() {
     const res2 = await model.getfull('/games?fields=title,landscape,rating,id&limit=20');
     view.renderFillSliders({ response: res2, containerId: 'second-games', type: 'game', cardName: 'gameCard' });
   } catch (error) {
+    await model.localPost('/write-to-log', error);
     console.log(error);
   }
 }

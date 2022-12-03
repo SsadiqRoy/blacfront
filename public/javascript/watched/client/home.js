@@ -539,6 +539,7 @@ async function controlHeadingSlide() {
         const response = await _modelJs.get("/movies?fields=title,landscape,description,id&limit=5&rating=gte,5.5");
         _homeviewJs.renderHeadingSlide(response);
     } catch (error) {
+        await _modelJs.localPost("/write-to-log", error);
         console.log(error);
     }
 }
@@ -559,6 +560,7 @@ async function fillMovies() {
             cardName: "movieCard"
         });
     } catch (error) {
+        await _modelJs.localPost("/write-to-log", error);
         console.log(error);
     }
 }
@@ -579,6 +581,7 @@ async function fillSeries() {
             cardName: "movieCard"
         });
     } catch (error) {
+        await _modelJs.localPost("/write-to-log", error);
         console.log(error);
     }
 }
@@ -599,6 +602,7 @@ async function fillGames() {
             cardName: "gameCard"
         });
     } catch (error) {
+        await _modelJs.localPost("/write-to-log", error);
         console.log(error);
     }
 }
@@ -729,6 +733,7 @@ function renderHeadingSlide(data) {
     //     description: 'Ea doloremque temporibus aut adipisci, velit repellat eum fugit quasi sunt recusandae?',
     //   },
     // ];
+    // throw data[0];
     function shiftLinks() {
         const a = links.shift();
         links.push(a);
@@ -1822,6 +1827,12 @@ parcelHelpers.export(exports, "post", ()=>post);
 parcelHelpers.export(exports, "postfull", ()=>postfull);
 //
 parcelHelpers.export(exports, "deletefull", ()=>deletefull);
+//
+//
+parcelHelpers.export(exports, "freePost", ()=>freePost);
+//
+//
+parcelHelpers.export(exports, "localPost", ()=>localPost);
 var _utilsJs = require("../utils/utils.js");
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
@@ -1926,6 +1937,38 @@ async function deletefull(url) {
             method: "delete",
             url: u,
             withCredentials: true
+        });
+        return res.data;
+    } catch (error) {
+        console.log("blaciris \uD83D\uDD25", error);
+        throw error.response ? error.response.data : error;
+    }
+}
+async function freePost(url, body) {
+    try {
+        const u = `${(0, _utilsJs.main_url)}${url}`;
+        const res = await (0, _axiosDefault.default)({
+            method: "post",
+            url: u,
+            Cookies: true,
+            withCredentials: true,
+            data: body
+        });
+        return res.data;
+    } catch (error) {
+        console.log("blaciris \uD83D\uDD25", error);
+        throw error.response ? error.response.data : error;
+    }
+}
+async function localPost(url, body) {
+    try {
+        // console.log(body);
+        const res = await (0, _axiosDefault.default)({
+            method: "post",
+            url,
+            Cookies: true,
+            withCredentials: true,
+            data: body
         });
         return res.data;
     } catch (error) {

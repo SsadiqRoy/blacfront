@@ -45,6 +45,7 @@ export function renderHeadingSlide(data) {
   //   },
   // ];
 
+  // throw data[0];
   function shiftLinks() {
     const a = links.shift();
     links.push(a);

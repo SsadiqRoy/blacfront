@@ -9,7 +9,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieparser());
-// app.use(cors({ origin: [], credentials: true }));
+app.use(cors({ origin: [`${process.env.cors_allowed}`], credentials: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('view engine', 'pug');
@@ -19,11 +19,19 @@ const clientRoutes = require('./routes/clientRoutes');
 const dashboard = require('./routes/adminRoutes');
 const { loggedIn } = require('./middlewares/globalMiddlewares');
 // const { updater } = require('./utils/utils');
-const { WriteError } = require('./error/writeError');
+const { WriteError, LogToFile } = require('./error/writeError');
 
 app.use(loggedIn);
 app.use('/', clientRoutes);
 app.use('/dashboard', dashboard);
+app.post('/write-to-log', (req, res, next) => {
+  req.body.type = 'Front End';
+  new LogToFile(req.body);
+  res.status(200).json({
+    status: 'success',
+    message: 'Message Writtent to log',
+  });
+});
 
 app.use('*', (req, res, next) => {
   const error = {

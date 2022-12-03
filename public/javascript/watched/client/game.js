@@ -1674,6 +1674,12 @@ parcelHelpers.export(exports, "post", ()=>post);
 parcelHelpers.export(exports, "postfull", ()=>postfull);
 //
 parcelHelpers.export(exports, "deletefull", ()=>deletefull);
+//
+//
+parcelHelpers.export(exports, "freePost", ()=>freePost);
+//
+//
+parcelHelpers.export(exports, "localPost", ()=>localPost);
 var _utilsJs = require("../utils/utils.js");
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
@@ -1778,6 +1784,38 @@ async function deletefull(url) {
             method: "delete",
             url: u,
             withCredentials: true
+        });
+        return res.data;
+    } catch (error) {
+        console.log("blaciris \uD83D\uDD25", error);
+        throw error.response ? error.response.data : error;
+    }
+}
+async function freePost(url, body) {
+    try {
+        const u = `${(0, _utilsJs.main_url)}${url}`;
+        const res = await (0, _axiosDefault.default)({
+            method: "post",
+            url: u,
+            Cookies: true,
+            withCredentials: true,
+            data: body
+        });
+        return res.data;
+    } catch (error) {
+        console.log("blaciris \uD83D\uDD25", error);
+        throw error.response ? error.response.data : error;
+    }
+}
+async function localPost(url, body) {
+    try {
+        // console.log(body);
+        const res = await (0, _axiosDefault.default)({
+            method: "post",
+            url,
+            Cookies: true,
+            withCredentials: true,
+            data: body
         });
         return res.data;
     } catch (error) {
