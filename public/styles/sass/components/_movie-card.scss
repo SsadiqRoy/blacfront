@@ -42,9 +42,9 @@
         margin-left: 1rem;
         font-size: 1.6rem;
 
-        .fas {
-          font-size: 1.2rem;
-        }
+        // .fas {
+        //   font-size: 1.2rem;
+        // }
       }
     }
   }
@@ -57,29 +57,29 @@
 .movie-card.card-game {
   h2 {
     font-size: 1.8rem;
-    font-family: $font-heading;
-    font-family: mukta;
+    // font-family: $font-heading;
+    font-family: $sans;
     // font-weight: bold;
   }
 }
 
-@include respond(phone-small) {
-  .movie-card {
-    height: 22rem;
+// @include respond(phone-small) {
+// .movie-card {
+// height: 22rem;
 
-    a h2 {
-      font-size: 1.3rem;
+// a h2 {
+//   font-size: 1.3rem;
 
-      span {
-        font-size: 1rem;
+//   span {
+//     font-size: 1rem;
 
-        .fas {
-          font-size: 0.8rem;
-        }
-      }
-    }
-  }
-}
+//     // .fas {
+//     //   font-size: 0.8rem;
+//     // }
+//   }
+// }
+//   }
+// }
 
 // @media (max-width: 400px) {
 // }
