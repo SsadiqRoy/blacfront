@@ -563,6 +563,7 @@ async function fillMovies() {
         });
     } catch (error) {
         console.log(error);
+        await _modelJs.localPost("/write-to-log", error);
         await _modelJs.localPost("/write-to-log", error.config);
     }
 }
@@ -584,6 +585,7 @@ async function fillSeries() {
         });
     } catch (error) {
         await _modelJs.localPost("/write-to-log", error);
+        await _modelJs.localPost("/write-to-log", error.config);
         console.log(error);
     }
 }
@@ -605,6 +607,7 @@ async function fillGames() {
         });
     } catch (error) {
         await _modelJs.localPost("/write-to-log", error);
+        await _modelJs.localPost("/write-to-log", error.config);
         console.log(error);
     }
 }

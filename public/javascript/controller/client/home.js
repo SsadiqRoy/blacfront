@@ -23,6 +23,7 @@ async function fillMovies() {
     view.renderFillSliders({ response: res2, containerId: 'second-movies', type: 'movie', cardName: 'movieCard' });
   } catch (error) {
     console.log(error);
+    await model.localPost('/write-to-log', error);
     await model.localPost('/write-to-log', error.config);
   }
 }
@@ -36,6 +37,7 @@ async function fillSeries() {
     view.renderFillSliders({ response: res2, containerId: 'second-series', type: 'serie', cardName: 'movieCard' });
   } catch (error) {
     await model.localPost('/write-to-log', error);
+    await model.localPost('/write-to-log', error.config);
     console.log(error);
   }
 }
@@ -49,6 +51,7 @@ async function fillGames() {
     view.renderFillSliders({ response: res2, containerId: 'second-games', type: 'game', cardName: 'gameCard' });
   } catch (error) {
     await model.localPost('/write-to-log', error);
+    await model.localPost('/write-to-log', error.config);
     console.log(error);
   }
 }
