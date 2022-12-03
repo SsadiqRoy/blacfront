@@ -1098,13 +1098,13 @@ function clientSearch(type = "movie") {
 },{"./utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"7qgA7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "api_url", ()=>api_url);
+parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
 parcelHelpers.export(exports, "resolutions", ()=>resolutions);
-const main_url = "http://localhost:2500";
 const api_url = "https://apistaging.blaciris.com/v1";
+const main_url = "https://staging.blaciris.com";
 const countries = [
     "Afghanistan",
     "Albania",

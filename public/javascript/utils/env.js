@@ -1,10 +1,10 @@
 // TOPIC: - lOCALHOST
 // export const api_url = 'http://localhost:2000/v1';
-export const main_url = 'http://localhost:2500';
+// export const main_url = 'http://localhost:2500';
 
 // TOPIC: - STAGING ONLINE
 export const api_url = 'https://apistaging.blaciris.com/v1';
-// export const main_url = 'https://staging.blaciris.com';
+export const main_url = 'https://staging.blaciris.com';
 
 // TOPIC: - MASTER
 // export const api_url = 'https://api.blaciris.com/v1';
