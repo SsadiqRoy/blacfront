@@ -95,7 +95,7 @@ export function renderFillSliders({ response, containerId, type, cardName }) {
   });
 
   // adding meta to the see more button and adding the button to the container
-  if (meta.total) {
+  if (data.length) {
     delete meta.total, delete meta.length, delete meta.consumed;
     delete meta.next, delete meta.limit, delete meta.page;
 

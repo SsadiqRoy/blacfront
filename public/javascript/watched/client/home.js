@@ -769,7 +769,7 @@ function renderFillSliders({ response , containerId , type , cardName  }) {
         container.insertAdjacentHTML("beforeend", markup);
     });
     // adding meta to the see more button and adding the button to the container
-    if (meta.total) {
+    if (data.length) {
         delete meta.total, delete meta.length, delete meta.consumed;
         delete meta.next, delete meta.limit, delete meta.page;
         const queryString = _utilsJs.stringifyQuery(meta);
@@ -1258,8 +1258,8 @@ parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
 parcelHelpers.export(exports, "resolutions", ()=>resolutions);
-const api_url = "http://localhost:2000/v1";
-const main_url = "http://localhost:2500";
+const api_url = "https://apistaging.blaciris.com/v1";
+const main_url = "https://staging.blaciris.com";
 const countries = [
     "Afghanistan",
     "Albania",
