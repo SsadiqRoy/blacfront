@@ -136,11 +136,9 @@ export async function deletefull(url) {
 //
 export async function freePost(url, body) {
   try {
-    const u = `${main_url}${url}`;
-
     const res = await axios({
       method: 'post',
-      url: u,
+      url,
       Cookies: true,
       withCredentials: true,
       data: body,
@@ -159,9 +157,10 @@ export async function freePost(url, body) {
 export async function localPost(url, body) {
   try {
     // console.log(body);
+    const u = `${main_url}${url}`;
     const res = await axios({
       method: 'post',
-      url,
+      url: u,
       Cookies: true,
       withCredentials: true,
       data: body,
@@ -169,7 +168,15 @@ export async function localPost(url, body) {
 
     return res.data;
   } catch (error) {
-    console.log('blaciris 🔥', error);
+    // console.log('blaciris 🔥', error);
+    error.local = '🔥';
+    await axios({
+      method: 'post',
+      url: u,
+      Cookies: true,
+      withCredentials: true,
+      data: error,
+    });
     throw error.response ? error.response.data : error;
   }
 }
