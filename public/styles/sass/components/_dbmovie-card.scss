@@ -23,6 +23,10 @@ $db-box-shadow: 0 0 1rem rgba(0, 0, 0, 0.26);
 
   & > *:not(:last-child) {
     padding-right: 1.5rem;
+
+    @include respond(phone) {
+      padding-right: unset;
+    }
   }
 
   &__image {

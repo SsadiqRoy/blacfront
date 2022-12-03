@@ -84,7 +84,7 @@ mixin dbmovieCard(movie, type = 'movie')
           |  #{movie.rating}
       p= movie.description
 
-    .dbmovie-card__buttons
+    .dbmovie-card__buttons.shit
       a(href=`/${type}/${movie.title.split(' ').join('-')}/${movie.id}`, title="view")
         i.fas.fa-eye
       a(href=`/dashboard/update${type}/${movie.id}`, title="edit")
