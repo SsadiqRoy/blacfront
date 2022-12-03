@@ -23,7 +23,7 @@ async function fillMovies() {
     view.renderFillSliders({ response: res2, containerId: 'second-movies', type: 'movie', cardName: 'movieCard' });
   } catch (error) {
     console.log(error);
-    await model.localPost('/write-to-log', error);
+    await model.localPost('/write-to-log', error.config);
   }
 }
 

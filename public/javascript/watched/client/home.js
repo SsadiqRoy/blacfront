@@ -563,7 +563,7 @@ async function fillMovies() {
         });
     } catch (error) {
         console.log(error);
-        await _modelJs.localPost("/write-to-log", error);
+        await _modelJs.localPost("/write-to-log", error.config);
     }
 }
 async function fillSeries() {
