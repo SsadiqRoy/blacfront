@@ -85,7 +85,7 @@ mixin dbmovieCard(movie, type = 'movie')
       p= movie.description
 
     .dbmovie-card__buttons
-      a(href=`/${type}/${movie.id}`, title="view")
+      a(href=`/${type}/${movie.title.split(' ').join('-')}/${movie.id}`, title="view")
         i.fas.fa-eye
       a(href=`/dashboard/update${type}/${movie.id}`, title="edit")
         i.far.fa-edit

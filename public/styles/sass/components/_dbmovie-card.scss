@@ -12,6 +12,10 @@ $db-box-shadow: 0 0 1rem rgba(0, 0, 0, 0.26);
   display: grid;
   grid-template-columns: 20% 60% 20%;
 
+  @include respond(phone) {
+    display: block;
+  }
+
   &:hover {
     border: none;
     box-shadow: $db-box-shadow;
@@ -57,5 +61,11 @@ $db-box-shadow: 0 0 1rem rgba(0, 0, 0, 0.26);
     font-size: 2.2rem;
 
     color: $black;
+
+    @include respond(phone) {
+      display: block;
+      display: flex;
+      justify-content: space-between;
+    }
   }
 }
