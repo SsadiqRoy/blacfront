@@ -1111,13 +1111,13 @@ function clientSearch(type = "movie") {
 },{"./utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"7qgA7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "api_url", ()=>api_url);
 parcelHelpers.export(exports, "main_url", ()=>main_url);
+parcelHelpers.export(exports, "api_url", ()=>api_url);
 parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
 parcelHelpers.export(exports, "resolutions", ()=>resolutions);
+const main_url = "http://localhost:2500";
 const api_url = "https://apistaging.blaciris.com/v1";
-const main_url = "https://staging.blaciris.com";
 const countries = [
     "Afghanistan",
     "Albania",
@@ -1699,7 +1699,7 @@ async function get(url) {
         });
         return res.data.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1714,8 +1714,8 @@ async function getfull(url) {
         return res.data;
     } catch (error) {
         // console.log('blaciris 🔥', error);
-        error.local = "\uD83D\uDD25";
-        this.localPost("/write-to-log", error);
+        // localPost('/write-to-log', error);
+        // error.olderMessage = 'local error';
         throw error.response ? error.response.data : error;
     }
 }
@@ -1731,7 +1731,7 @@ async function patch(url, body) {
         });
         return res.data.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1747,7 +1747,7 @@ async function patchfull(url, body) {
         });
         return res.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1764,7 +1764,7 @@ async function post(url, body) {
         });
         return res.data.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1781,7 +1781,7 @@ async function postfull(url, body) {
         });
         return res.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1795,7 +1795,7 @@ async function deletefull(url) {
         });
         return res.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1810,7 +1810,7 @@ async function freePost(url, body) {
         });
         return res.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
