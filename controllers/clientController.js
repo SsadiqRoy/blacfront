@@ -29,7 +29,7 @@ exports.login = catchAsync(async (req, res, next) => {
 exports.home = catchAsync(async (req, res, next) => {
   const ext = {
     css: 'home',
-    title: 'Movie, Games & Tv Series',
+    title: 'Free Download Movies, Games & Tv Series',
     js: `${jsPath}/home`,
     page: 'home',
     query: 'movies',
