@@ -144,6 +144,7 @@ body {
   }
 
   .sidebar {
+    display: block;
     background-color: $primary-light;
     width: 100%;
     height: 100%;
@@ -153,6 +154,9 @@ body {
       height: 100%;
       position: relative;
       border: 1px solid transparent;
+
+      overflow-y: auto;
+      height: 95vh;
     }
 
     ul {
@@ -216,9 +220,9 @@ body {
       background-color: $black;
       cursor: pointer;
 
-      position: absolute;
-      bottom: 2rem;
-      left: 0;
+      // position: absolute;
+      // bottom: 2rem;
+      // left: 0;
     }
   }
 

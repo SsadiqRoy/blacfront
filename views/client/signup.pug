@@ -13,7 +13,7 @@ html(lang="en")
   body
     main.signup
       .signup__cover
-        form.signup__form#signup(action)
+        form.signup__form#signup
           .form-heading
             h1 sign up
           .form-group
@@ -32,4 +32,9 @@ html(lang="en")
             button.btn-black.btn-full#signup-btn(type="submit")
               span.btn-content sign up
 
+  script.
+    const body = document.querySelector('body');
+    body.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+    });
   script(src=`${ext.js}.js`, type='module')

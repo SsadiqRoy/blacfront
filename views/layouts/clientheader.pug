@@ -9,7 +9,7 @@ header.header
           img(src='/images/logo-trans-black.svg')
     
     .search-bar
-      form.search-bar__form
+      form.search-bar__form#client-search
         input.input-search(type="serch", placeholder="search movie" id='search-bar')
         i.fas.fa-search#search-button
     
@@ -41,59 +41,86 @@ aside.sidebar#sidebar
 
         if(ext.page !== 'games' && ext.page !== 'game')
           ul
-            li(data-query='?text=trending') trending
-            li(data-query=`?date=gte,${new Date(Date.now() - (7776000000)).toLocaleDateString()}`) new
-            li(data-query=`?updatedAt=gte,${new Date(Date.now() - (7776000000)).toLocaleDateString()}`) updated
-            li(data-query='?rating=gte,6') top rated
+            li
+              a(href=`/${ext.query || 'movies'}?text=trending`) trending
+            li 
+              a(href=`/${ext.query || 'movies'}?date=gte,${new Date(Date.now() - (7776000000)).toLocaleDateString()}`) new
+            li
+              a(href=`/${ext.query || 'movies'}?updatedAt=gte,${new Date(Date.now() - (7776000000)).toLocaleDateString()}`) updated
+            li
+              a(href=`/${ext.query || 'movies'}?rating=gte,6`) top rated
           ul
-            li(data-query='?keywords=action') action
-            li(data-query='?keywords=adventure') adventure
-            li(data-query='?keywords=crime') crime
-            li(data-query='?keywords=drama') drama
-            li(data-query='?keywords=fantasy') fantasy
-            li(data-query='?keywords=politics') politics
-            li(data-query='?keywords=sci-fi') sci-fi
-            li(data-query='?keywords=thriller') thriller
-            li(data-query='?keywords=war') war
+            li
+              a(href=`/${ext.query || 'movies'}?text=action`) action
+            li
+              a(href=`/${ext.query || 'movies'}?text=adventure`) adventure
+            li
+              a(href=`/${ext.query || 'movies'}?text=crime`) crime
+            li
+              a(href=`/${ext.query || 'movies'}?text=drama`) drama
+            li
+              a(href=`/${ext.query || 'movies'}?text=fantasy`) fantasy
+            li
+              a(href=`/${ext.query || 'movies'}?text=politics`) politics
+            li
+              a(href=`/${ext.query || 'movies'}?text=sci-fi`) sci-fi
+            li
+              a(href=`/${ext.query || 'movies'}?text=thriller`) thriller
+            li
+              a(href=`/${ext.query || 'movies'}?text=war`) war
           ul
-            li(data-query='?companies=apple') apple tv
-            li(data-query='?companies=dc') dc
-            li(data-query='?companies=marvel') marvel
-            li(data-query='?companies=netflix') netflix
-            li(data-query='?companies=prime') prime video
+            li(data-query='') apple tv
+              a(href=`/${ext.query || 'movies'}?company=apple`) apple tv
+            li
+              a(href=`/${ext.query || 'movies'}?company=dc`) dc
+            li
+              a(href=`/${ext.query || 'movies'}?company=marvel`) marvel
+            li
+              a(href=`/${ext.query || 'movies'}?company=netflix`) netflix
+            li
+              a(href=`/${ext.query || 'movies'}?company=amazon`) amazon
         
           ul
-            li(data-query='?country=United-States') hollywood
-            li(data-query='?country=india') bollywood
-            li(data-query='?country=china') chinese
-            li(data-query='?country=japan') japanese
-            li(data-query='?country=korea') korean
-            li(data-query='?country=united-kingdom') uk
-            li(data-query='?keywords=african') african
+            li
+              a(href=`/${ext.query || 'movies'}?country=united states`) United States
+            li
+              a(href=`/${ext.query || 'movies'}?country=india`) india
+            li
+              a(href=`/${ext.query || 'movies'}?country=china`) china
+            li
+              a(href=`/${ext.query || 'movies'}?country=japan`) japan
+            li
+              a(href=`/${ext.query || 'movies'}?country=korea`) korea
+            li
+              a(href=`/${ext.query || 'movies'}?country=united kingdom`) United Kingdom
+            li
+              a(href=`/${ext.query || 'movies'}?country=african`) african
 
         if(ext.page === 'games' || ext.page === 'game')
-          //- ul
-            //- li(data-query='?keywords=rts') Real-time strategy (RTS)
-            //- li(data-query='?keywords=sandbox') Sandbox
-            //- li(data-query='?keywords=moba') Multiplayer online battle arena (MOBA)
-            //- li(data-query='?keywords=rpg-arpg') Role-playing (RPG, ARPG, and More)
-            //- li(data-query='?keywords=simulation-sports') Simulation and sports
-            //- li(data-query='?keywords=puzzle-party') Puzzlers and party games
-            //- li(data-query='?keywords=action-adventure') Action-adventure
-            //- li(data-query='?keywords=survival-horror') Survival and horror
-            //- li(data-query='?keywords=platformer') Platformer
+         
           ul
-            li(data-query='?text=adventure') adventure
-            li(data-query='?text=arcade') arcade
-            li(data-query='?text=fighting') fighting
-            li(data-query='?text=horror') horror
-            li(data-query='?text=open-word') open word
-            li(data-query='?text=puzzle') puzzle
-            li(data-query='?text=shooter') shooter
-            li(data-query='?text=racing') Racing
-            li(data-query='?text=sports') sports
-            li(data-query='?text=rpg') RPG
-            li(data-query='?text=war') War
+            li
+              a(href='/games?country=adventure') adventure
+            li
+              a(href='/games?country=arcade') arcade
+            li
+              a(href='/games?country=fighting') fighting
+            li
+              a(href='/games?country=horror') horror
+            li
+              a(href='/games?country=open-word') open-word
+            li
+              a(href='/games?country=puzzle') puzzle
+            li
+              a(href='/games?country=shooter') shooter
+            li
+              a(href='/games?country=racing') racing
+            li
+              a(href='/games?country=sports') sports
+            li
+              a(href='/games?country=rpg') rpg
+            li
+              a(href='/games?country=war') war
         
         if(user)
           ul

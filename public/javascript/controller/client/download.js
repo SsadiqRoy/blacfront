@@ -1,5 +1,4 @@
-import * as view from '../../view/client/homeview.js';
-import * as model from '../../model/model.js';
+import * as view from '../../view/client/downloadview.js';
 
 async function initializer() {
   view.initializer();

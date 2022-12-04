@@ -5,7 +5,7 @@ html(lang="en")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     meta(name="viewport", content="width=device-width,initial-scale=1")
 
-    title blaciris | #{ext.title}
+    title blaciris | #{ext.title} - Free Download
 
     link(rel="stylesheet", href="/styles/fontawsome/css/all.min.css")
     link(rel="stylesheet", href=`/styles/css/${ext.css}.css`)
@@ -20,6 +20,12 @@ html(lang="en")
 
     include ../layouts/footer
 
+  //- script.
+  //-   const body = document.querySelector('body');
+  //-   body.addEventListener('contextmenu', (e) => {
+  //-     e.preventDefault();
+  //-   });
+    
   script(src=`${ext.js}.js`, type='module')
 
 

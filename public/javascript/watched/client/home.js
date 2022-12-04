@@ -537,15 +537,90 @@ var _modelJs = require("../../model/model.js");
 async function controlHeadingSlide() {
     try {
         const response = await _modelJs.get("/movies?fields=title,landscape,description,id&limit=5&rating=gte,5.5");
-        // console.log(response);
         _homeviewJs.renderHeadingSlide(response);
     } catch (error) {
+        await _modelJs.localPost("/write-to-log", error);
         console.log(error);
     }
 }
+async function fillMovies() {
+    try {
+        const response = await _modelJs.getfull("/movies?fields=title,portrait,rating,id&limit=20");
+        _homeviewJs.renderFillSliders({
+            response,
+            containerId: "first-movies",
+            type: "movie",
+            cardName: "movieCard"
+        });
+        const res2 = await _modelJs.getfull("/movies?fields=title,portrait,rating,id&limit=14&page=2");
+        _homeviewJs.renderFillSliders({
+            response: res2,
+            containerId: "second-movies",
+            type: "movie",
+            cardName: "movieCard"
+        });
+    } catch (error) {
+        console.log(error);
+        await _modelJs.localPost("/write-to-log", error);
+    }
+}
+async function fillSeries() {
+    try {
+        const response = await _modelJs.getfull("/series?fields=title,portrait,rating,id&limit=20");
+        _homeviewJs.renderFillSliders({
+            response,
+            containerId: "first-series",
+            type: "serie",
+            cardName: "movieCard"
+        });
+        const res2 = await _modelJs.getfull("/series?fields=title,portrait,rating,id&limit=20");
+        _homeviewJs.renderFillSliders({
+            response: res2,
+            containerId: "second-series",
+            type: "serie",
+            cardName: "movieCard"
+        });
+    } catch (error) {
+        await _modelJs.localPost("/write-to-log", error);
+        console.log(error);
+    }
+}
+async function fillGames() {
+    try {
+        const response = await _modelJs.getfull("/games?fields=title,landscape,rating,id&limit=20");
+        _homeviewJs.renderFillSliders({
+            response,
+            containerId: "first-games",
+            type: "game",
+            cardName: "gameCard"
+        });
+        const res2 = await _modelJs.getfull("/games?fields=title,landscape,rating,id&limit=20");
+        _homeviewJs.renderFillSliders({
+            response: res2,
+            containerId: "second-games",
+            type: "game",
+            cardName: "gameCard"
+        });
+    } catch (error) {
+        await _modelJs.localPost("/write-to-log", error);
+        console.log(error);
+    }
+}
+/*
+
+
+
+
+
+
+
+*/ async function controlFillSliders() {
+    controlHeadingSlide();
+    fillMovies(), fillSeries(), fillGames();
+}
 async function initializer() {
     _homeviewJs.initializer();
-    _homeviewJs.handleHeadingSlide(controlHeadingSlide);
+    _homeviewJs.handleFillSliders(controlFillSliders);
 }
 initializer();
 
@@ -554,6 +629,8 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "displayError", ()=>displayError);
 parcelHelpers.export(exports, "renderHeadingSlide", ()=>renderHeadingSlide);
+//
+parcelHelpers.export(exports, "renderFillSliders", ()=>renderFillSliders);
 /*
 
 
@@ -568,7 +645,7 @@ parcelHelpers.export(exports, "renderHeadingSlide", ()=>renderHeadingSlide);
 
 
   */ // =================== HANDLERS ==========
-parcelHelpers.export(exports, "handleHeadingSlide", ()=>handleHeadingSlide);
+parcelHelpers.export(exports, "handleFillSliders", ()=>handleFillSliders);
 /*
 
 
@@ -615,6 +692,7 @@ parcelHelpers.export(exports, "initializer", ()=>initializer) /*
   */  // ================== NON EXPORTING FUNCTIONS =
 ;
 var _utilsJs = require("../../utils/utils.js");
+var _independentJs = require("../../utils/independent.js");
 const displayError = _utilsJs.displayError;
 function renderHeadingSlide(data) {
     const mother = document.querySelector(".head-slider");
@@ -655,6 +733,7 @@ function renderHeadingSlide(data) {
     //     description: 'Ea doloremque temporibus aut adipisci, velit repellat eum fugit quasi sunt recusandae?',
     //   },
     // ];
+    // throw data[0];
     function shiftLinks() {
         const a = links.shift();
         links.push(a);
@@ -662,13 +741,14 @@ function renderHeadingSlide(data) {
     function swapper(box, position) {
         const ob = links[position];
         box.querySelector("img").setAttribute("src", ob.landscape);
+        box.querySelector("a").setAttribute("href", `/movie/${ob.title.toLowerCase().split(" ").join("-")}/${ob.id}`);
         if (box.classList.contains("second-image")) {
             box.querySelector("h2").textContent = ob.title;
             box.querySelector("p").textContent = ob.description;
+            box.querySelector(".image-box-about a").setAttribute("href", `/movie/${ob.title.toLowerCase().split(" ").join("-")}/${ob.id}`);
         }
     }
     function swapImage() {
-        // console.log('hitting');
         swapper(third, 0);
         setTimeout(()=>{
             swapper(second, 1);
@@ -683,16 +763,40 @@ function renderHeadingSlide(data) {
     swapImage();
     setInterval(swapImage, 5000);
 }
-function handleHeadingSlide(controlHeadingSlide) {
+function renderFillSliders({ response , containerId , type , cardName  }) {
+    const { data , meta  } = response;
+    const container = document.getElementById(containerId);
+    const button = container.querySelector(".slider__container-box-button");
+    container.innerHTML = "";
+    data.forEach((item)=>{
+        const card = _utilsJs[cardName];
+        const markup = card(item, type);
+        container.insertAdjacentHTML("beforeend", markup);
+    });
+    // adding meta to the see more button and adding the button to the container
+    if (data.length) {
+        delete meta.total, delete meta.length, delete meta.consumed;
+        delete meta.next, delete meta.limit, delete meta.page;
+        const queryString = _utilsJs.stringifyQuery(meta);
+        button.querySelector("a").href = `/${type}s${queryString}`;
+        container.insertAdjacentElement("beforeend", button);
+    } else {
+        const parent = container.closest(".slider");
+        parent.classList.add("display-off");
+    }
+}
+function handleFillSliders(controlFillSliders) {
     document.addEventListener("DOMContentLoaded", ()=>{
-        controlHeadingSlide();
+        controlFillSliders();
     });
 }
 function initializer() {
     _utilsJs.clientSearchBar(), _utilsJs.cardsSlider(), _utilsJs.suggestPopup(), _utilsJs.clientSidebar();
+    _utilsJs.clientSearch("movie");
+    _independentJs.suggest();
 }
 
-},{"../../utils/utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"bvANu":[function(require,module,exports) {
+},{"../../utils/utils.js":"bvANu","../../utils/independent.js":"gaDpA","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"bvANu":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "openPopup", ()=>openPopup);
@@ -713,6 +817,8 @@ parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
 parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
 parcelHelpers.export(exports, "fillSelects", ()=>fillSelects);
 parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
+parcelHelpers.export(exports, "clientSearch", ()=>clientSearch);
+parcelHelpers.export(exports, "noMenu", ()=>noMenu);
 parcelHelpers.export(exports, "displayError", ()=>displayError);
 parcelHelpers.export(exports, "structureQuery", ()=>structureQuery);
 parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
@@ -720,6 +826,8 @@ parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
 parcelHelpers.export(exports, "dbMovieCard", ()=>dbMovieCard);
 parcelHelpers.export(exports, "notificationCard", ()=>notificationCard);
 parcelHelpers.export(exports, "scheduleCard", ()=>scheduleCard);
+parcelHelpers.export(exports, "movieCard", ()=>movieCard);
+parcelHelpers.export(exports, "gameCard", ()=>gameCard);
 var _responsiveJs = require("./responsive.js");
 var _functionsJs = require("./functions.js");
 var _envJs = require("./env.js");
@@ -743,6 +851,8 @@ const rotateBtn = _domJs.rotateBtn;
 const stopRotateBtn = _domJs.stopRotateBtn;
 const fillSelects = _domJs.fillSelects;
 const metaQuery = _domJs.metaQuery;
+const clientSearch = _domJs.clientSearch;
+const noMenu = _domJs.noMenu;
 const displayError = _functionsJs.displayError;
 const structureQuery = _functionsJs.structureQuery;
 const stringifyQuery = _functionsJs.stringifyQuery;
@@ -750,6 +860,8 @@ const parseQuery = _functionsJs.parseQuery;
 const dbMovieCard = _markupsJs.dbMovieCard;
 const notificationCard = _markupsJs.notificationCard;
 const scheduleCard = _markupsJs.scheduleCard;
+const movieCard = _markupsJs.movieCard;
+const gameCard = _markupsJs.gameCard;
 
 },{"./responsive.js":"4wcQt","./functions.js":"d2Ury","./env.js":"7qgA7","./dom.js":"gBwFC","./markups.js":"doi6o","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"4wcQt":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -914,6 +1026,7 @@ function suggestPopup() {
     const body = document.querySelector("body");
     body.addEventListener("click", (e)=>{
         if (e.target.classList.contains("suggest")) openPopup("suggest-popup");
+        if (e.target.classList.contains("problem")) openPopup("problem-popup");
     });
 }
 
@@ -1000,6 +1113,7 @@ function parseQuery(queryString) {
 },{"./dom.js":"gBwFC","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"gBwFC":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "noMenu", ()=>noMenu);
 /**
  * display a message on an alert box on the surface
  * @param {String} message the message to display in the alert box
@@ -1031,8 +1145,15 @@ parcelHelpers.defineInteropFlag(exports);
  * @param {Object} query the meta query to be set to the body element
  * @returns Object, meta of a query
  */ parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
+parcelHelpers.export(exports, "clientSearch", ()=>clientSearch);
 // import * as env from './env.js';
 var _utilsJs = require("./utils.js");
+function noMenu() {
+    const body = document.querySelector("body");
+    body.addEventListener("contextmenu", (e)=>{
+        e.preventDefault();
+    });
+}
 function alertResponse(message, timer = 3, type = "success") {
     const markup = `
     <div class="message message--${type}">
@@ -1111,7 +1232,7 @@ function fillSelects(selectId, variables, clear = true, list) {
     const vars = list || _utilsJs[variables];
     if (clear) select.innerHTML = "";
     vars.forEach((v)=>{
-        const markup = `<option value='${v}' ${v === value ? "selected" : ""}>${v}</option>`;
+        const markup = `<option value='${v}' ${v.toLowerCase() === value.toLowerCase() ? "selected" : ""}>${v}</option>`;
         select.insertAdjacentHTML("beforeend", markup);
     });
 }
@@ -1124,6 +1245,15 @@ function metaQuery(query) {
     const meta = JSON.parse(body.dataset.meta);
     return meta;
 }
+function clientSearch(type = "movie") {
+    const form = document.getElementById("client-search");
+    form.addEventListener("submit", (e)=>{
+        e.preventDefault();
+        const { value  } = form.querySelector("input");
+        if (!value) return;
+        window.location.assign(`/${type}s?text=${value.split(" ").join("-")}`);
+    });
+}
 
 },{"./utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"7qgA7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -1133,8 +1263,8 @@ parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
 parcelHelpers.export(exports, "resolutions", ()=>resolutions);
-const api_url = "https://apistaging.blaciris.com/v1";
-const main_url = "https://staging.blaciris.com";
+const api_url = "http://localhost:2000/v1";
+const main_url = "http://localhost:2500";
 const countries = [
     "Afghanistan",
     "Albania",
@@ -1398,7 +1528,9 @@ const resolutions = [
     "360",
     "480",
     "720",
+    "721",
     "1080",
+    "1081",
     "2160",
     "10000"
 ];
@@ -1410,6 +1542,8 @@ parcelHelpers.export(exports, "dbMovieCard", ()=>dbMovieCard);
 parcelHelpers.export(exports, "notificationCard", ()=>notificationCard);
 //
 parcelHelpers.export(exports, "scheduleCard", ()=>scheduleCard);
+parcelHelpers.export(exports, "movieCard", ()=>movieCard);
+parcelHelpers.export(exports, "gameCard", ()=>gameCard);
 function dbMovieCard(movie, type = "movie") {
     const markup = `
   <div class="dbmovie-card" data-card-id="${movie.id}">
@@ -1482,8 +1616,201 @@ function scheduleCard(schedule) {
   `;
     return markup;
 }
+function movieCard(movie, type) {
+    const markup = `
+    <div class="movie-card card-game">
+      <a href="/${type}/${movie.title.toLowerCase().split(" ").join("-")}/${movie.id}">
+        <img src="${movie.portrait}" alt="${movie.title}" />
+        <h2>
+          ${movie.title}
+          <span><i class="fas fa-star"></i> ${movie.rating}</span>
+        </h2>
+      </a>
+    </div>
+  `;
+    return markup;
+}
+function gameCard(game) {
+    const markup = `
+    <div class="game-card">
+      <a href="/game/${game.title.toLowerCase().split(" ").join("-")}/${game.id}" class="game-card__cover">
+        <div class="game-card__image" style="background-image: url(${game.landscape})"></div>
+        <div class="game-card__title">${game.title}</div>
+      </a>
+    </div>
+  `;
+    return markup;
+}
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"cEBbY":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"gaDpA":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * An independent Functon - takes a search text and request for results. Then display the results on the display container
+ * @param {String} model sequelize model name in singular. eg "movie", "game"
+ * @param {String} containerId element id of the container where the data will be displayed in
+ * @param {String} cardType the type of card the data would be using. eg: dbmovieCard, scheduleCard
+ * @returns null - break function
+ */ parcelHelpers.export(exports, "searchItem", ()=>searchItem);
+/**
+ * An independent Functon - gets the query meta from the body and query for the next page
+ * @param {String} model sequelize model name in singular. eg "movie", "game"
+ * @param {String} containerId element id of the container where the data will be displayed in
+ * @param {String} cardType the type of card the data would be using. eg: dbmovieCard, scheduleCard
+ */ parcelHelpers.export(exports, "showMore", ()=>showMore);
+parcelHelpers.export(exports, "logout", ()=>logout);
+parcelHelpers.export(exports, "suggest", ()=>suggest);
+//
+parcelHelpers.export(exports, "problem", ()=>problem);
+var _modelJs = require("../model/model.js");
+var _utilsJs = require("./utils.js");
+async function searchItem(model, containerId, cardType) {
+    const form = document.getElementById("search-form");
+    const container = document.getElementById(containerId);
+    const body = document.querySelector("body");
+    // console.log('searchform ', form);
+    form && form.addEventListener("submit", async (e)=>{
+        e.preventDefault();
+        const input = form.querySelector("input");
+        const text = `?text=${input.value.split(" ").join("-")}`;
+        search(text);
+    });
+    body.addEventListener("click", (e)=>{
+        const { target  } = e;
+        if (!target.classList.contains("query")) return;
+        const { query  } = target.dataset;
+        search(query);
+    });
+    /**
+   * makes search or query for data
+   * @param {String} text a search word or tag data-query
+   * @param {String} type whether your are making a search or a normal query
+   * @returns null - breaks
+   * type : search or query
+   */ async function search(query) {
+        try {
+            // search for the data
+            const oldquery = _utilsJs.metaQuery();
+            if (oldquery.fields) query = `${query}&fields=${oldquery.fields}`;
+            const { meta , data , suggestion  } = await _modelJs.getfull(`/${model}s${query}`);
+            // if there is no more results
+            if (!data.length && (!suggestion || !suggestion.length)) return _utilsJs.alertResponse(`Sorry!! Could not find anything.`, 4, "failed");
+            // clearing the content area
+            // const displayer = document.getElementById(containerId);
+            container.innerHTML = "";
+            // setting the query meta to the body for show more sake
+            _utilsJs.metaQuery(meta);
+            // displaying data to the container
+            data.length && data.forEach((item)=>{
+                const markuper = _utilsJs[cardType];
+                const markup = markuper(item, model);
+                container.insertAdjacentHTML("beforeend", markup);
+            });
+            // adding more data if there are suggestion
+            if (suggestion && suggestion.length) suggestion.forEach((item)=>{
+                const markuper = _utilsJs[cardType];
+                const markup = markuper(item, model);
+                container.insertAdjacentHTML("beforeend", markup);
+            });
+        } catch (error) {
+            _utilsJs.displayError(error);
+        }
+    }
+}
+function showMore(model, containerId, cardType) {
+    const showMore = document.getElementById("show-more");
+    const container = document.getElementById(containerId);
+    showMore && showMore.addEventListener("click", async (e)=>{
+        try {
+            const oldmeta = _utilsJs.metaQuery();
+            oldmeta.page = oldmeta.page + 1;
+            const query = _utilsJs.stringifyQuery(oldmeta);
+            if (!oldmeta.next) return _utilsJs.alertResponse(`No more ${model}s to show`, 4, "failed");
+            const { meta , data , suggestion  } = await _modelJs.getfull(`/${model}s${query}`);
+            // if there is no more results
+            if (!meta.length && (!suggestion || !suggestion.length)) return _utilsJs.alertResponse(`No more ${model}s to show for the search or tag`, 4, "failed");
+            _utilsJs.metaQuery(meta);
+            // displaying data to the container
+            data.forEach((item)=>{
+                const markuper = _utilsJs[cardType];
+                const markup = markuper(item, model);
+                container.insertAdjacentHTML("beforeend", markup);
+            });
+            // adding more data if there are suggestion
+            if (suggestion && suggestion.length) suggestion.forEach((item)=>{
+                const markuper = _utilsJs[cardType];
+                const markup = markuper(item, model);
+                container.insertAdjacentHTML("beforeend", markup);
+            });
+        } catch (error) {
+            _utilsJs.displayError(error);
+        }
+    });
+}
+function logout() {
+    const btn = document.getElementById("logout");
+    btn && btn.addEventListener("click", async (e)=>{
+        const response = await _modelJs.getfull("/users/logout");
+        _utilsJs.alertResponse(response.message);
+        window.setTimeout(()=>window.location.assign("/"), 3500);
+    });
+}
+function suggest() {
+    const form = document.getElementById("create-suggest");
+    form.addEventListener("submit", async (e)=>{
+        try {
+            e.preventDefault();
+            _utilsJs.rotateBtn("suggest-btn");
+            const on = document.getElementById("suggest-on").value;
+            const title = document.getElementById("suggest-title").value;
+            const message = document.getElementById("suggest-activity").value;
+            const by = document.getElementById("suggest-email").value;
+            const body = {
+                on,
+                title,
+                message,
+                by
+            };
+            await _modelJs.post("/suggestions/create", body);
+            _utilsJs.alertResponse("Thanks for your support. We would make sure to provide it");
+            _utilsJs.stopRotateBtn("suggest-btn");
+            _utilsJs.closePopup("suggest-popup");
+        } catch (error) {
+            console.error(error);
+            _utilsJs.alertResponse("Sorry! the system couldn`t save your suggestion. Please try again", 3, "failed");
+            _utilsJs.stopRotateBtn("suggest-btn");
+            _utilsJs.closePopup("suggest-popup");
+        }
+    });
+}
+function problem() {
+    const form = document.getElementById("create-problem");
+    form.addEventListener("submit", async (e)=>{
+        try {
+            e.preventDefault();
+            _utilsJs.rotateBtn("problem-btn");
+            const by = document.getElementById("problem-email").value;
+            const on = document.getElementById("problem-on").value;
+            const message = document.getElementById("problem-activity").value;
+            const body = {
+                on,
+                message,
+                by
+            };
+            await _modelJs.post("/problems/create", body);
+            _utilsJs.alertResponse("Thanks for your support. We would make sure to fix it");
+            _utilsJs.stopRotateBtn("problem-btn");
+            _utilsJs.closePopup("problem-popup");
+        } catch (error) {
+            console.error(error);
+            _utilsJs.stopRotateBtn("problem-btn");
+            _utilsJs.alertResponse("Sorry! the system couldn`t save your problem. Please try again", 3, "failed");
+            _utilsJs.closePopup("problem-popup");
+        }
+    });
+}
+
+},{"../model/model.js":"cEBbY","./utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"cEBbY":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "get", ()=>get);
@@ -1500,6 +1827,12 @@ parcelHelpers.export(exports, "post", ()=>post);
 parcelHelpers.export(exports, "postfull", ()=>postfull);
 //
 parcelHelpers.export(exports, "deletefull", ()=>deletefull);
+//
+//
+parcelHelpers.export(exports, "freePost", ()=>freePost);
+//
+//
+parcelHelpers.export(exports, "localPost", ()=>localPost);
 var _utilsJs = require("../utils/utils.js");
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
@@ -1513,7 +1846,7 @@ async function get(url) {
         });
         return res.data.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1527,7 +1860,9 @@ async function getfull(url) {
         });
         return res.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
+        // localPost('/write-to-log', error);
+        // error.olderMessage = 'local error';
         throw error.response ? error.response.data : error;
     }
 }
@@ -1543,7 +1878,7 @@ async function patch(url, body) {
         });
         return res.data.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1559,7 +1894,7 @@ async function patchfull(url, body) {
         });
         return res.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1576,7 +1911,7 @@ async function post(url, body) {
         });
         return res.data.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1593,7 +1928,7 @@ async function postfull(url, body) {
         });
         return res.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1607,7 +1942,38 @@ async function deletefull(url) {
         });
         return res.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
+        throw error.response ? error.response.data : error;
+    }
+}
+async function freePost(url, body) {
+    try {
+        const res = await (0, _axiosDefault.default)({
+            method: "post",
+            url,
+            Cookies: true,
+            withCredentials: true,
+            data: body
+        });
+        return res.data;
+    } catch (error) {
+        // console.log('blaciris 🔥', error);
+        throw error.response ? error.response.data : error;
+    }
+}
+async function localPost(url, body) {
+    try {
+        const u = `${(0, _utilsJs.main_url)}${url}`;
+        const res = await (0, _axiosDefault.default)({
+            method: "post",
+            url: u,
+            Cookies: true,
+            withCredentials: true,
+            data: body
+        });
+        return res.data;
+    } catch (error) {
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }

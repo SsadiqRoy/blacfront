@@ -13,7 +13,7 @@ export function renderCreated(data, action, btnId) {
   utils.stopRotateBtn(btnId);
 
   window.setTimeout(() => {
-    window.location.assign('/dashboard/movies');
+    window.location.assign(`/dashboard/updatemovie/${data.id}`);
   }, 3500);
 }
 
@@ -164,13 +164,11 @@ export function handleCreateLink(controlCreateLink, controlUpdateLink) {
       e.preventDefault();
       utils.rotateBtn('link-btn');
       const { linkId, movieId } = form.dataset;
-      // console.log(linkId, movieId);
-      // return;
+
       if (!linkId) {
         return controlCreateLink(movieId, 'link-btn');
       }
 
-      // return console.log('👉', linkId, gameId);
       controlUpdateLink(linkId, 'link-btn');
     });
 }

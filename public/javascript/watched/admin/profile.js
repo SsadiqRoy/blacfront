@@ -594,7 +594,6 @@ function renderUpdatedPassword(user) {
         _utilsJs.alertResponse("update failed or could not display", 3, "failed");
         _utilsJs.stopRotateBtn("update-password-btn");
     }
-    console.log(user);
     _utilsJs.alertResponse("Your password has been updated");
     _utilsJs.stopRotateBtn("change-password-btn");
 }
@@ -658,6 +657,8 @@ parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
 parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
 parcelHelpers.export(exports, "fillSelects", ()=>fillSelects);
 parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
+parcelHelpers.export(exports, "clientSearch", ()=>clientSearch);
+parcelHelpers.export(exports, "noMenu", ()=>noMenu);
 parcelHelpers.export(exports, "displayError", ()=>displayError);
 parcelHelpers.export(exports, "structureQuery", ()=>structureQuery);
 parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
@@ -665,6 +666,8 @@ parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
 parcelHelpers.export(exports, "dbMovieCard", ()=>dbMovieCard);
 parcelHelpers.export(exports, "notificationCard", ()=>notificationCard);
 parcelHelpers.export(exports, "scheduleCard", ()=>scheduleCard);
+parcelHelpers.export(exports, "movieCard", ()=>movieCard);
+parcelHelpers.export(exports, "gameCard", ()=>gameCard);
 var _responsiveJs = require("./responsive.js");
 var _functionsJs = require("./functions.js");
 var _envJs = require("./env.js");
@@ -688,6 +691,8 @@ const rotateBtn = _domJs.rotateBtn;
 const stopRotateBtn = _domJs.stopRotateBtn;
 const fillSelects = _domJs.fillSelects;
 const metaQuery = _domJs.metaQuery;
+const clientSearch = _domJs.clientSearch;
+const noMenu = _domJs.noMenu;
 const displayError = _functionsJs.displayError;
 const structureQuery = _functionsJs.structureQuery;
 const stringifyQuery = _functionsJs.stringifyQuery;
@@ -695,6 +700,8 @@ const parseQuery = _functionsJs.parseQuery;
 const dbMovieCard = _markupsJs.dbMovieCard;
 const notificationCard = _markupsJs.notificationCard;
 const scheduleCard = _markupsJs.scheduleCard;
+const movieCard = _markupsJs.movieCard;
+const gameCard = _markupsJs.gameCard;
 
 },{"./responsive.js":"4wcQt","./functions.js":"d2Ury","./env.js":"7qgA7","./dom.js":"gBwFC","./markups.js":"doi6o","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"4wcQt":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -859,6 +866,7 @@ function suggestPopup() {
     const body = document.querySelector("body");
     body.addEventListener("click", (e)=>{
         if (e.target.classList.contains("suggest")) openPopup("suggest-popup");
+        if (e.target.classList.contains("problem")) openPopup("problem-popup");
     });
 }
 
@@ -945,6 +953,7 @@ function parseQuery(queryString) {
 },{"./dom.js":"gBwFC","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"gBwFC":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "noMenu", ()=>noMenu);
 /**
  * display a message on an alert box on the surface
  * @param {String} message the message to display in the alert box
@@ -976,8 +985,15 @@ parcelHelpers.defineInteropFlag(exports);
  * @param {Object} query the meta query to be set to the body element
  * @returns Object, meta of a query
  */ parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
+parcelHelpers.export(exports, "clientSearch", ()=>clientSearch);
 // import * as env from './env.js';
 var _utilsJs = require("./utils.js");
+function noMenu() {
+    const body = document.querySelector("body");
+    body.addEventListener("contextmenu", (e)=>{
+        e.preventDefault();
+    });
+}
 function alertResponse(message, timer = 3, type = "success") {
     const markup = `
     <div class="message message--${type}">
@@ -1056,7 +1072,7 @@ function fillSelects(selectId, variables, clear = true, list) {
     const vars = list || _utilsJs[variables];
     if (clear) select.innerHTML = "";
     vars.forEach((v)=>{
-        const markup = `<option value='${v}' ${v === value ? "selected" : ""}>${v}</option>`;
+        const markup = `<option value='${v}' ${v.toLowerCase() === value.toLowerCase() ? "selected" : ""}>${v}</option>`;
         select.insertAdjacentHTML("beforeend", markup);
     });
 }
@@ -1068,6 +1084,15 @@ function metaQuery(query) {
     }
     const meta = JSON.parse(body.dataset.meta);
     return meta;
+}
+function clientSearch(type = "movie") {
+    const form = document.getElementById("client-search");
+    form.addEventListener("submit", (e)=>{
+        e.preventDefault();
+        const { value  } = form.querySelector("input");
+        if (!value) return;
+        window.location.assign(`/${type}s?text=${value.split(" ").join("-")}`);
+    });
 }
 
 },{"./utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"7qgA7":[function(require,module,exports) {
@@ -1343,7 +1368,9 @@ const resolutions = [
     "360",
     "480",
     "720",
+    "721",
     "1080",
+    "1081",
     "2160",
     "10000"
 ];
@@ -1355,6 +1382,8 @@ parcelHelpers.export(exports, "dbMovieCard", ()=>dbMovieCard);
 parcelHelpers.export(exports, "notificationCard", ()=>notificationCard);
 //
 parcelHelpers.export(exports, "scheduleCard", ()=>scheduleCard);
+parcelHelpers.export(exports, "movieCard", ()=>movieCard);
+parcelHelpers.export(exports, "gameCard", ()=>gameCard);
 function dbMovieCard(movie, type = "movie") {
     const markup = `
   <div class="dbmovie-card" data-card-id="${movie.id}">
@@ -1427,6 +1456,31 @@ function scheduleCard(schedule) {
   `;
     return markup;
 }
+function movieCard(movie, type) {
+    const markup = `
+    <div class="movie-card card-game">
+      <a href="/${type}/${movie.title.toLowerCase().split(" ").join("-")}/${movie.id}">
+        <img src="${movie.portrait}" alt="${movie.title}" />
+        <h2>
+          ${movie.title}
+          <span><i class="fas fa-star"></i> ${movie.rating}</span>
+        </h2>
+      </a>
+    </div>
+  `;
+    return markup;
+}
+function gameCard(game) {
+    const markup = `
+    <div class="game-card">
+      <a href="/game/${game.title.toLowerCase().split(" ").join("-")}/${game.id}" class="game-card__cover">
+        <div class="game-card__image" style="background-image: url(${game.landscape})"></div>
+        <div class="game-card__title">${game.title}</div>
+      </a>
+    </div>
+  `;
+    return markup;
+}
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"gaDpA":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -1445,6 +1499,9 @@ parcelHelpers.defineInteropFlag(exports);
  * @param {String} cardType the type of card the data would be using. eg: dbmovieCard, scheduleCard
  */ parcelHelpers.export(exports, "showMore", ()=>showMore);
 parcelHelpers.export(exports, "logout", ()=>logout);
+parcelHelpers.export(exports, "suggest", ()=>suggest);
+//
+parcelHelpers.export(exports, "problem", ()=>problem);
 var _modelJs = require("../model/model.js");
 var _utilsJs = require("./utils.js");
 async function searchItem(model, containerId, cardType) {
@@ -1463,11 +1520,6 @@ async function searchItem(model, containerId, cardType) {
         if (!target.classList.contains("query")) return;
         const { query  } = target.dataset;
         search(query);
-    // if (target.classList.contains('search')) {
-    // }
-    // if (target.classList.contains('query')) {
-    //   search(query, 'query');
-    // }
     });
     /**
    * makes search or query for data
@@ -1480,11 +1532,8 @@ async function searchItem(model, containerId, cardType) {
             // search for the data
             const oldquery = _utilsJs.metaQuery();
             if (oldquery.fields) query = `${query}&fields=${oldquery.fields}`;
-            // console.log(oldquery);
             const { meta , data , suggestion  } = await _modelJs.getfull(`/${model}s${query}`);
-            // console.log(meta);
             // if there is no more results
-            // console.log(data);
             if (!data.length && (!suggestion || !suggestion.length)) return _utilsJs.alertResponse(`Sorry!! Could not find anything.`, 4, "failed");
             // clearing the content area
             // const displayer = document.getElementById(containerId);
@@ -1511,12 +1560,10 @@ async function searchItem(model, containerId, cardType) {
 function showMore(model, containerId, cardType) {
     const showMore = document.getElementById("show-more");
     const container = document.getElementById(containerId);
-    // console.log('showMore ', showMore);
     showMore && showMore.addEventListener("click", async (e)=>{
         try {
             const oldmeta = _utilsJs.metaQuery();
             oldmeta.page = oldmeta.page + 1;
-            // console.log(oldmeta);
             const query = _utilsJs.stringifyQuery(oldmeta);
             if (!oldmeta.next) return _utilsJs.alertResponse(`No more ${model}s to show`, 4, "failed");
             const { meta , data , suggestion  } = await _modelJs.getfull(`/${model}s${query}`);
@@ -1548,6 +1595,60 @@ function logout() {
         window.setTimeout(()=>window.location.assign("/"), 3500);
     });
 }
+function suggest() {
+    const form = document.getElementById("create-suggest");
+    form.addEventListener("submit", async (e)=>{
+        try {
+            e.preventDefault();
+            _utilsJs.rotateBtn("suggest-btn");
+            const on = document.getElementById("suggest-on").value;
+            const title = document.getElementById("suggest-title").value;
+            const message = document.getElementById("suggest-activity").value;
+            const by = document.getElementById("suggest-email").value;
+            const body = {
+                on,
+                title,
+                message,
+                by
+            };
+            await _modelJs.post("/suggestions/create", body);
+            _utilsJs.alertResponse("Thanks for your support. We would make sure to provide it");
+            _utilsJs.stopRotateBtn("suggest-btn");
+            _utilsJs.closePopup("suggest-popup");
+        } catch (error) {
+            console.error(error);
+            _utilsJs.alertResponse("Sorry! the system couldn`t save your suggestion. Please try again", 3, "failed");
+            _utilsJs.stopRotateBtn("suggest-btn");
+            _utilsJs.closePopup("suggest-popup");
+        }
+    });
+}
+function problem() {
+    const form = document.getElementById("create-problem");
+    form.addEventListener("submit", async (e)=>{
+        try {
+            e.preventDefault();
+            _utilsJs.rotateBtn("problem-btn");
+            const by = document.getElementById("problem-email").value;
+            const on = document.getElementById("problem-on").value;
+            const message = document.getElementById("problem-activity").value;
+            const body = {
+                on,
+                message,
+                by
+            };
+            await _modelJs.post("/problems/create", body);
+            _utilsJs.alertResponse("Thanks for your support. We would make sure to fix it");
+            _utilsJs.stopRotateBtn("problem-btn");
+            _utilsJs.closePopup("problem-popup");
+        } catch (error) {
+            console.error(error);
+            _utilsJs.stopRotateBtn("problem-btn");
+            _utilsJs.alertResponse("Sorry! the system couldn`t save your problem. Please try again", 3, "failed");
+            _utilsJs.closePopup("problem-popup");
+        }
+    });
+}
 
 },{"../model/model.js":"cEBbY","./utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"cEBbY":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -1566,6 +1667,12 @@ parcelHelpers.export(exports, "post", ()=>post);
 parcelHelpers.export(exports, "postfull", ()=>postfull);
 //
 parcelHelpers.export(exports, "deletefull", ()=>deletefull);
+//
+//
+parcelHelpers.export(exports, "freePost", ()=>freePost);
+//
+//
+parcelHelpers.export(exports, "localPost", ()=>localPost);
 var _utilsJs = require("../utils/utils.js");
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
@@ -1579,7 +1686,7 @@ async function get(url) {
         });
         return res.data.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1593,7 +1700,9 @@ async function getfull(url) {
         });
         return res.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
+        // localPost('/write-to-log', error);
+        // error.olderMessage = 'local error';
         throw error.response ? error.response.data : error;
     }
 }
@@ -1609,7 +1718,7 @@ async function patch(url, body) {
         });
         return res.data.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1625,7 +1734,7 @@ async function patchfull(url, body) {
         });
         return res.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1642,7 +1751,7 @@ async function post(url, body) {
         });
         return res.data.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1659,7 +1768,7 @@ async function postfull(url, body) {
         });
         return res.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1673,7 +1782,38 @@ async function deletefull(url) {
         });
         return res.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
+        throw error.response ? error.response.data : error;
+    }
+}
+async function freePost(url, body) {
+    try {
+        const res = await (0, _axiosDefault.default)({
+            method: "post",
+            url,
+            Cookies: true,
+            withCredentials: true,
+            data: body
+        });
+        return res.data;
+    } catch (error) {
+        // console.log('blaciris 🔥', error);
+        throw error.response ? error.response.data : error;
+    }
+}
+async function localPost(url, body) {
+    try {
+        const u = `${(0, _utilsJs.main_url)}${url}`;
+        const res = await (0, _axiosDefault.default)({
+            method: "post",
+            url: u,
+            Cookies: true,
+            withCredentials: true,
+            data: body
+        });
+        return res.data;
+    } catch (error) {
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }

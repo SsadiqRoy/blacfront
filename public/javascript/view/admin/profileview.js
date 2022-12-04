@@ -18,7 +18,7 @@ export function renderUpdatedPassword(user) {
     utils.alertResponse('update failed or could not display', 3, 'failed');
     utils.stopRotateBtn('update-password-btn');
   }
-  console.log(user);
+
   utils.alertResponse('Your password has been updated');
   utils.stopRotateBtn('change-password-btn');
 }

@@ -9,7 +9,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieparser());
-// app.use(cors({ origin: [], credentials: true }));
+app.use(cors({ origin: [`${process.env.cors_allowed}`], credentials: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('view engine', 'pug');
@@ -19,34 +19,44 @@ const clientRoutes = require('./routes/clientRoutes');
 const dashboard = require('./routes/adminRoutes');
 const { loggedIn } = require('./middlewares/globalMiddlewares');
 // const { updater } = require('./utils/utils');
-const { WriteError } = require('./error/writeError');
+const { WriteError, LogToFile } = require('./error/writeError');
 
 app.use(loggedIn);
 app.use('/', clientRoutes);
 app.use('/dashboard', dashboard);
-
-app.use('*', (req, res, next) => {
-  res.status(404).json({
-    status: 'failed',
-    message: `could not get ${req.get('host')}${req.originalUrl}`,
+app.post('/write-to-log', (req, res, next) => {
+  req.body.type = 'Front End';
+  new LogToFile(req.body);
+  res.status(200).json({
+    status: 'success',
+    message: 'Message Writtent to log',
   });
 });
 
+app.use('*', (req, res, next) => {
+  const error = {
+    title: 'Page not available.',
+    message: 'Report as problem if you have ever visited this page',
+  };
+  res.status(200).render('admin/error', { error });
+});
+
 app.use((error, req, res, next) => {
-  if (req.originalUrl.startsWith('/dashboard')) {
-    // console.log(error);
-    // error.message = 'You are not permitted to this page';
+  // if (req.originalUrl.startsWith('/dashboard')) {
+  // new WriteError(error, req, 'Global Error');
+  // }
+
+  if (!error.isOperational) {
     new WriteError(error, req, 'Global Error');
-    return res.status(200).render('admin/error', { error });
+    console.log(error);
   }
 
-  new WriteError(error, req, 'Global Error');
-
-  res.status(500).json({
-    status: 'failed',
-    message: error.message,
-    error,
-  });
+  return res.status(200).render('admin/error', { error });
+  // res.status(500).json({
+  //   status: 'failed',
+  //   message: error.message,
+  //   error,
+  // });
 });
 
 module.exports = app;

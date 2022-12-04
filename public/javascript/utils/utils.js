@@ -27,6 +27,8 @@ export const rotateBtn = dom.rotateBtn;
 export const stopRotateBtn = dom.stopRotateBtn;
 export const fillSelects = dom.fillSelects;
 export const metaQuery = dom.metaQuery;
+export const clientSearch = dom.clientSearch;
+export const noMenu = dom.noMenu;
 
 // ==================== FUNCTIONS ======================
 export const displayError = funcs.displayError;
@@ -38,3 +40,5 @@ export const parseQuery = funcs.parseQuery;
 export const dbMovieCard = markups.dbMovieCard;
 export const notificationCard = markups.notificationCard;
 export const scheduleCard = markups.scheduleCard;
+export const movieCard = markups.movieCard;
+export const gameCard = markups.gameCard;

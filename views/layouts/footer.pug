@@ -2,17 +2,33 @@
 footer.footer
   .footer__container
     .footer__logo
-      span.text-logo-secondary blaciris
+      span.text-logo-secondary
+        a(href='/')
+          img(src='/images/logo-trans-white.svg')
     .disclaimer
       span.disclaimer__disclaimer disclaimer
-      span.dislaimer-message.
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus, cumque eum. Id, obcaecati debitis sint velit molestias totam reiciendis excepturi deserunt cum itaque, expedita adipisci, repellendus ab fugiat vel sapiente.
+      span.dislaimer-message
+        | blaciris provide these links to those who are unable to watch or buy them from their source so please if you are able to watch or buy them from their direct source go to their website and watch or buy it from there to support their producers.
+        br 
+        | We do not own any of the link. We only share downloadable links from other sources.
+        br 
+        | Watch or buy from these  plateforms
+      .center-componenet.links-logos
+        a(href='https://www.imdb.com/')
+          img(src='https://ia.media-imdb.com/images/M/MV5BODc4MTA3NjkzNl5BMl5BcG5nXkFtZTgwMDg0MzQ2OTE@._V1_.png')
+        a(href='https://www.netflix.com/')
+          img(src='https://cdn.dribbble.com/users/9378043/screenshots/16832559/netflix__1__4x.png')
+        a(href='https://www.vudu.com/')
+          img(src='https://archive.org/download/vudu-logo/VUDU%20Logo.jpeg')
+        a(href='https://www.epicgames.com/')
+          img(src='https://www.pngfind.com/pngs/m/52-528164_epic-games-png-epic-games-logo-png-transparent.png')
         
       .center-componenet
         button.btn-red.suggest suggest
 
 .popup.display-off#suggest-popup
-  .popup-box.popup-box-normal
+  .popup-box
+    //- .popup-box-normal
     .popup-close
       i.fas.fa-times
     
@@ -22,7 +38,7 @@ footer.footer
           h1 Suggest
         .form-group
           label.label-basic(for="suggest-country") suggest on
-          select#suggest-country.input-basic(type="text" required)
+          select#suggest-on.input-basic(type="text" required)
             option(value="") --select--
             option(value="movie") movie
             option(value="serie") serie
@@ -33,15 +49,46 @@ footer.footer
         .form-group
           label.label-basic(for="suggest-activity") message
           textarea#suggest-activity.input-basic(type="text", placeholder="optional")
-        .form-group-double
-          .form-group
-            label.label-basic(for="suggest-name") your name
-            input#suggest-name.input-basic(type="text", placeholder="optional")
-          .form-group
-            label.label-basic(for="suggest-email") email
-            input#suggest-email.input-basic(type="email", placeholder="optional")
+        //- .form-group-double
+          //- .form-group
+          //-   label.label-basic(for="suggest-name") your name
+          //-   input#suggest-name.input-basic(type="text", placeholder="optional")
+        .form-group
+          label.label-basic(for="suggest-email") email
+          input#suggest-email.input-basic(type="email", placeholder="optional")
         .center-components
-          button.btn-black.btn-normal(type="submit")
+          button.btn-black.btn-normal#suggest-btn(type="submit")
+            span.btn-content create
+
+
+
+.popup.display-off#problem-popup
+  .popup-box
+    //- .popup-box-normal
+    .popup-close
+      i.fas.fa-times
+    .popup-content.create-content
+      form.create-new#create-problem
+        .form-heading
+          h1 Report Problem
+        .form-group
+          label.label-basic(for="problem-on") problem on
+          select#problem-on.input-basic(type="text" required)
+            option(value="") --select--
+            option(value="broken-link") broken link
+            option(value="other") other
+        .form-group
+          label.label-basic(for="problem-activity") message
+          textarea#problem-activity.input-basic(type="text" placeholder='describe with link resolution/part/name, movie/serie/game title, season & episode' required)
+        //- .form-group-double
+        //-   .form-group
+        //-     label.label-basic(for="problem-name") name
+        //-     input#problem-name.input-basic(type="text", placeholder="optional")
+        .form-group
+          label.label-basic(for="problem-email") email
+          input#problem-email.input-basic(type="email", placeholder="optional")
+        .center-components
+          button.btn-black.btn-normal#problem-btn(type="submit")
             span.btn-content create
 
 

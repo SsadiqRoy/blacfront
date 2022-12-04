@@ -537,7 +537,6 @@ var _modelJs = require("../../model/model.js");
 async function controlCreate(btnId) {
     try {
         const data = _scheduleformviewJs.getScheduleData();
-        // console.log(data);
         const res = await _modelJs.post("/schedules/create", data);
         _scheduleformviewJs.renderCreated(res, "created", btnId);
     } catch (error) {
@@ -679,6 +678,8 @@ parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
 parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
 parcelHelpers.export(exports, "fillSelects", ()=>fillSelects);
 parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
+parcelHelpers.export(exports, "clientSearch", ()=>clientSearch);
+parcelHelpers.export(exports, "noMenu", ()=>noMenu);
 parcelHelpers.export(exports, "displayError", ()=>displayError);
 parcelHelpers.export(exports, "structureQuery", ()=>structureQuery);
 parcelHelpers.export(exports, "stringifyQuery", ()=>stringifyQuery);
@@ -686,6 +687,8 @@ parcelHelpers.export(exports, "parseQuery", ()=>parseQuery);
 parcelHelpers.export(exports, "dbMovieCard", ()=>dbMovieCard);
 parcelHelpers.export(exports, "notificationCard", ()=>notificationCard);
 parcelHelpers.export(exports, "scheduleCard", ()=>scheduleCard);
+parcelHelpers.export(exports, "movieCard", ()=>movieCard);
+parcelHelpers.export(exports, "gameCard", ()=>gameCard);
 var _responsiveJs = require("./responsive.js");
 var _functionsJs = require("./functions.js");
 var _envJs = require("./env.js");
@@ -709,6 +712,8 @@ const rotateBtn = _domJs.rotateBtn;
 const stopRotateBtn = _domJs.stopRotateBtn;
 const fillSelects = _domJs.fillSelects;
 const metaQuery = _domJs.metaQuery;
+const clientSearch = _domJs.clientSearch;
+const noMenu = _domJs.noMenu;
 const displayError = _functionsJs.displayError;
 const structureQuery = _functionsJs.structureQuery;
 const stringifyQuery = _functionsJs.stringifyQuery;
@@ -716,6 +721,8 @@ const parseQuery = _functionsJs.parseQuery;
 const dbMovieCard = _markupsJs.dbMovieCard;
 const notificationCard = _markupsJs.notificationCard;
 const scheduleCard = _markupsJs.scheduleCard;
+const movieCard = _markupsJs.movieCard;
+const gameCard = _markupsJs.gameCard;
 
 },{"./responsive.js":"4wcQt","./functions.js":"d2Ury","./env.js":"7qgA7","./dom.js":"gBwFC","./markups.js":"doi6o","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"4wcQt":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -880,6 +887,7 @@ function suggestPopup() {
     const body = document.querySelector("body");
     body.addEventListener("click", (e)=>{
         if (e.target.classList.contains("suggest")) openPopup("suggest-popup");
+        if (e.target.classList.contains("problem")) openPopup("problem-popup");
     });
 }
 
@@ -966,6 +974,7 @@ function parseQuery(queryString) {
 },{"./dom.js":"gBwFC","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"gBwFC":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "noMenu", ()=>noMenu);
 /**
  * display a message on an alert box on the surface
  * @param {String} message the message to display in the alert box
@@ -997,8 +1006,15 @@ parcelHelpers.defineInteropFlag(exports);
  * @param {Object} query the meta query to be set to the body element
  * @returns Object, meta of a query
  */ parcelHelpers.export(exports, "metaQuery", ()=>metaQuery);
+parcelHelpers.export(exports, "clientSearch", ()=>clientSearch);
 // import * as env from './env.js';
 var _utilsJs = require("./utils.js");
+function noMenu() {
+    const body = document.querySelector("body");
+    body.addEventListener("contextmenu", (e)=>{
+        e.preventDefault();
+    });
+}
 function alertResponse(message, timer = 3, type = "success") {
     const markup = `
     <div class="message message--${type}">
@@ -1077,7 +1093,7 @@ function fillSelects(selectId, variables, clear = true, list) {
     const vars = list || _utilsJs[variables];
     if (clear) select.innerHTML = "";
     vars.forEach((v)=>{
-        const markup = `<option value='${v}' ${v === value ? "selected" : ""}>${v}</option>`;
+        const markup = `<option value='${v}' ${v.toLowerCase() === value.toLowerCase() ? "selected" : ""}>${v}</option>`;
         select.insertAdjacentHTML("beforeend", markup);
     });
 }
@@ -1089,6 +1105,15 @@ function metaQuery(query) {
     }
     const meta = JSON.parse(body.dataset.meta);
     return meta;
+}
+function clientSearch(type = "movie") {
+    const form = document.getElementById("client-search");
+    form.addEventListener("submit", (e)=>{
+        e.preventDefault();
+        const { value  } = form.querySelector("input");
+        if (!value) return;
+        window.location.assign(`/${type}s?text=${value.split(" ").join("-")}`);
+    });
 }
 
 },{"./utils.js":"bvANu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"7qgA7":[function(require,module,exports) {
@@ -1364,7 +1389,9 @@ const resolutions = [
     "360",
     "480",
     "720",
+    "721",
     "1080",
+    "1081",
     "2160",
     "10000"
 ];
@@ -1376,6 +1403,8 @@ parcelHelpers.export(exports, "dbMovieCard", ()=>dbMovieCard);
 parcelHelpers.export(exports, "notificationCard", ()=>notificationCard);
 //
 parcelHelpers.export(exports, "scheduleCard", ()=>scheduleCard);
+parcelHelpers.export(exports, "movieCard", ()=>movieCard);
+parcelHelpers.export(exports, "gameCard", ()=>gameCard);
 function dbMovieCard(movie, type = "movie") {
     const markup = `
   <div class="dbmovie-card" data-card-id="${movie.id}">
@@ -1448,6 +1477,31 @@ function scheduleCard(schedule) {
   `;
     return markup;
 }
+function movieCard(movie, type) {
+    const markup = `
+    <div class="movie-card card-game">
+      <a href="/${type}/${movie.title.toLowerCase().split(" ").join("-")}/${movie.id}">
+        <img src="${movie.portrait}" alt="${movie.title}" />
+        <h2>
+          ${movie.title}
+          <span><i class="fas fa-star"></i> ${movie.rating}</span>
+        </h2>
+      </a>
+    </div>
+  `;
+    return markup;
+}
+function gameCard(game) {
+    const markup = `
+    <div class="game-card">
+      <a href="/game/${game.title.toLowerCase().split(" ").join("-")}/${game.id}" class="game-card__cover">
+        <div class="game-card__image" style="background-image: url(${game.landscape})"></div>
+        <div class="game-card__title">${game.title}</div>
+      </a>
+    </div>
+  `;
+    return markup;
+}
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"cEBbY":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -1466,6 +1520,12 @@ parcelHelpers.export(exports, "post", ()=>post);
 parcelHelpers.export(exports, "postfull", ()=>postfull);
 //
 parcelHelpers.export(exports, "deletefull", ()=>deletefull);
+//
+//
+parcelHelpers.export(exports, "freePost", ()=>freePost);
+//
+//
+parcelHelpers.export(exports, "localPost", ()=>localPost);
 var _utilsJs = require("../utils/utils.js");
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
@@ -1479,7 +1539,7 @@ async function get(url) {
         });
         return res.data.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1493,7 +1553,9 @@ async function getfull(url) {
         });
         return res.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
+        // localPost('/write-to-log', error);
+        // error.olderMessage = 'local error';
         throw error.response ? error.response.data : error;
     }
 }
@@ -1509,7 +1571,7 @@ async function patch(url, body) {
         });
         return res.data.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1525,7 +1587,7 @@ async function patchfull(url, body) {
         });
         return res.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1542,7 +1604,7 @@ async function post(url, body) {
         });
         return res.data.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1559,7 +1621,7 @@ async function postfull(url, body) {
         });
         return res.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1573,7 +1635,38 @@ async function deletefull(url) {
         });
         return res.data;
     } catch (error) {
-        console.log("blaciris \uD83D\uDD25", error);
+        // console.log('blaciris 🔥', error);
+        throw error.response ? error.response.data : error;
+    }
+}
+async function freePost(url, body) {
+    try {
+        const res = await (0, _axiosDefault.default)({
+            method: "post",
+            url,
+            Cookies: true,
+            withCredentials: true,
+            data: body
+        });
+        return res.data;
+    } catch (error) {
+        // console.log('blaciris 🔥', error);
+        throw error.response ? error.response.data : error;
+    }
+}
+async function localPost(url, body) {
+    try {
+        const u = `${(0, _utilsJs.main_url)}${url}`;
+        const res = await (0, _axiosDefault.default)({
+            method: "post",
+            url: u,
+            Cookies: true,
+            withCredentials: true,
+            data: body
+        });
+        return res.data;
+    } catch (error) {
+        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }

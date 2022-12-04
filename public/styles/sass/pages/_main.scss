@@ -10,7 +10,7 @@ main {
 .product-title {
   font-size: 2rem;
   font-family: $font-title;
-  color: $secondary;
+  color: $text-primary;
   padding-block: 1rem;
 
   span {
@@ -44,13 +44,17 @@ main {
     color: $text-primary;
     overflow-x: auto;
 
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
     &__cover {
       display: flex;
     }
 
     .tag {
       display: inline-block;
-      border: 3px solid $secondary;
+      border: 3px solid $text-primary;
       margin-right: 0.5rem;
       border-radius: 20px;
       padding-inline: 1rem;
@@ -88,7 +92,6 @@ main {
   }
   &__list a {
     display: inline-block;
-    // padding-le: 0.4rem;
     color: $color-blue !important;
 
     &:not(:first-child) {
@@ -99,29 +102,40 @@ main {
 
 .screenshots {
   width: 100%;
+  font: 1.6rem $font-heading;
+  color: $text-primary;
   // padding-block: 3rem;
 
   .screenshot-box {
     width: 100%;
     padding-block: 1rem;
 
-    .screenshot {
-      width: 100%;
-      height: 40vh;
-
-      img {
-        width: 100%;
-        height: 100%;
-        // max-height: 100%;
-        object-fit: cover;
-        object-position: center;
-      }
+    img {
+      // max-width: 100% !important;
+      // max-height: 50vh !important;
+      margin-block: 2rem;
+      // max-height: 100%;
+      object-fit: cover;
+      object-position: center;
     }
 
-    p {
-      font: 1.6rem $font-heading;
-      color: $text-primary;
-    }
+    // .screenshot {
+    //   width: 100%;
+    //   height: 40vh;
+
+    //   img {
+    //     max-width: 100% !important;
+    //     max-height: 50vh !important;
+    //     // max-height: 100%;
+    //     object-fit: cover;
+    //     object-position: center;
+    //   }
+    // }
+
+    // p {
+    //   font: 1.6rem $font-heading;
+    //   color: $text-primary;
+    // }
   }
 }
 

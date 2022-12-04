@@ -4,7 +4,6 @@ import * as model from '../../model/model.js';
 //
 async function controlDelete(notificationId, btnId) {
   try {
-    console.log(notificationId);
     const res = await model.deletefull(`/notifications/${notificationId}`);
 
     view.renderDelete(res, btnId);

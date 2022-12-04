@@ -23,8 +23,9 @@ class LogToFile {
     this.writeToFile();
   }
   writeToFile() {
-    if (typeof this.log === 'object') this.log = Object.entries(this.log);
     // console.log(this.log);
+    if (typeof this.log === 'object') this.log = Object.entries(this.log);
+
     fs.appendFile('./error/console.log', `\n \n${this.log}`, (e) => {
       if (e) console.log(e);
     });

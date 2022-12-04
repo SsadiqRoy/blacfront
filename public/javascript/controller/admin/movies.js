@@ -4,7 +4,6 @@ import * as model from '../../model/model.js';
 //
 async function controlDelete(cardId, btnId) {
   try {
-    console.log(cardId);
     const res = await model.deletefull(`/movies/${cardId}`);
 
     view.renderDelete(res, btnId);

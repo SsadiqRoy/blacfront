@@ -8,23 +8,35 @@ html(lang="en")
     title blaciris | #{ext.title}
     link(rel="stylesheet", href=`/styles/fontawsome/css/all.min.css`)
     link(rel="stylesheet", href=`/styles/css/${ext.css}.css`)
+    link(rel="icon", href="/images/favicon.png")
 
-  body
-    main
+  body(data-first=`${link.first}`)
+    main(data-third=`${link.third}`)
       .download-heading
         .center-components
-          span.text-logo-secondary blaciris
+          span.text-logo-secondary
+            a(href='/')
+              img(src='/images/logo-trans-black.svg')
+    
           p download movies, tv shows and games
-      section.counter
+      section.counter(data-second=`${link.second}`)
         .center-components
-          .counter__circle 5
-          p Your download will begin after this counter
+          .counter__circle 10
+          p Your download link will be ready after this counter
           p.margin-t1.
-            
-            If your download does not start, go back and try again and if it still dont start, you could report link as broken
-            
+            If your download link does not work, go back and try again and if it still doesn't work, you could report link as broken
           p.margin-t2.
-            
-            If you don't find what you are looking for, suggest it to us and we would have for you in your next time back
+            If you don't find what you are looking for, suggest it to us and we would have it for you in your next time back
+          
+        .center-components.margin-t3
+          button.btn-black.btn-normal#download-btn(disabled)
+            span.btn-content download
             
     include ../layouts/footer
+
+  script.
+    const body = document.querySelector('body');
+    body.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+    });
+  script(src=`${ext.js}.js`, type='module')

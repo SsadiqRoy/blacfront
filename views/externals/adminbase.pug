@@ -41,7 +41,10 @@ html(lang="en")
       mainContainerHeight()
       
 
-    //- include ../layouts/footer
-  
+  script.
+    const body = document.querySelector('body');
+    body.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+    });
   script(src=`${ext.js}.js`, type='module')
 

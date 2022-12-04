@@ -81,3 +81,31 @@ export function scheduleCard(schedule) {
 
   return markup;
 }
+
+export function movieCard(movie, type) {
+  const markup = `
+    <div class="movie-card card-game">
+      <a href="/${type}/${movie.title.toLowerCase().split(' ').join('-')}/${movie.id}">
+        <img src="${movie.portrait}" alt="${movie.title}" />
+        <h2>
+          ${movie.title}
+          <span><i class="fas fa-star"></i> ${movie.rating}</span>
+        </h2>
+      </a>
+    </div>
+  `;
+
+  return markup;
+}
+
+export function gameCard(game) {
+  const markup = `
+    <div class="game-card">
+      <a href="/game/${game.title.toLowerCase().split(' ').join('-')}/${game.id}" class="game-card__cover">
+        <div class="game-card__image" style="background-image: url(${game.landscape})"></div>
+        <div class="game-card__title">${game.title}</div>
+      </a>
+    </div>
+  `;
+  return markup;
+}

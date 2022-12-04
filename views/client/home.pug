@@ -36,47 +36,47 @@ block content
     .filter-bar__container
       ul.ul-inline
         li
-          a(href="") Trending
+          a(href="/movies?text=trending") Trending
         li
-          a(href="") popular
+          a(href="/movies?text=popular") popular
         li
-          a(href="") crime
+          a(href="/movies?text=crime") crime
         li
-          a(href="") comedy
+          a(href="/movies?text=comedy") comedy
         li
-          a(href="") netflix
+          a(href="/movies?text=netflix") netflix
         li
-          a(href="") amazon
+          a(href="/movies?text=amazon") amazon
         li
-          a(href="") apple
+          a(href="/movies?text=apple") apple
         li
-          a(href="") animations
+          a(href="/movies?text=animations") animations
         li
-          a(href="") action
+          a(href="/movies?text=action") action
         li
-          a(href="") politics
+          a(href="/movies?text=politics") politics
         li
-          a(href="") drama
+          a(href="/movies?text=drama") drama
         li
-          a(href="") adventure
+          a(href="/movies?text=adventure") adventure
 
 
   section.slider
     .section-heading
       h2 trending movies
     i.fas.fa-chevron-left.slider-btn.slider-btn--left
-    
+
     .slider__container
-      .slider__container-box
+      .slider__container-box#first-movies
         //- mixin of cards
         - let a = 1
-        while a < 2
+        while a < 16
           +movieCard(a)
           - a++
     
         .slider__container-box-button
           span
-            a(href="") see more
+            a.see-more(href="") see more
     i.fas.fa-chevron-right.slider-btn.slider-btn--right
 
   section.slider
@@ -84,16 +84,16 @@ block content
       h2 top tv shows
     i.fas.fa-chevron-left.slider-btn.slider-btn--left
     .slider__container
-      .slider__container-box
+      .slider__container-box#first-series
         //- mixin of cards
-        - let b = 31
-        while b > 11
+        - let b = 1
+        while b < 16
           +movieCard(b)
-          - b--
+          - b++
 
         .slider__container-box-button
           span
-            a(href="") see more
+            a.see-more(href="") see more
     i.fas.fa-chevron-right.slider-btn.slider-btn--right
 
   section.slider
@@ -101,16 +101,54 @@ block content
       h2 top games
     i.fas.fa-chevron-left.slider-btn.slider-btn--left
     .slider__container
-      .slider__container-box
+      .slider__container-box#first-games
         //- mixin of card
-        - let c = 24
-        while c > 4
+        - let c = 1
+        while c < 16
           +gameCard(c)
-          - c--
+          - c++
 
         .slider__container-box-button
           span
-            a(href="") see more
+            a.see-more(href="") see more
+    i.fas.fa-chevron-right.slider-btn.slider-btn--right
+
+
+  section.slider
+    .section-heading
+      h2 more movies
+    i.fas.fa-chevron-left.slider-btn.slider-btn--left
+
+    .slider__container
+      .slider__container-box#second-movies
+        //- mixin of cards
+        - let d = 1
+        while d < 16
+          +movieCard(d)
+          - d++
+    
+        .slider__container-box-button
+          span
+            a.see-more(href="") see more
+    i.fas.fa-chevron-right.slider-btn.slider-btn--right
+
+
+  section.slider
+    .section-heading
+      h2 More Tv Series
+    i.fas.fa-chevron-left.slider-btn.slider-btn--left
+
+    .slider__container
+      .slider__container-box#second-series
+        //- mixin of cards
+        - let e = 1
+        while e < 16
+          +movieCard(e)
+          - e++
+    
+        .slider__container-box-button
+          span
+            a.see-more(href="") see more
     i.fas.fa-chevron-right.slider-btn.slider-btn--right
 
 
@@ -119,16 +157,16 @@ block content
       h2 more games
     i.fas.fa-chevron-left.slider-btn.slider-btn--left
     .slider__container
-      .slider__container-box
+      .slider__container-box#second-games
         //- mixin of cards
-        - let d = 7
-        while d < 27
-          +gameCard(d)
-          - d++
+        - let f = 1
+        while f < 16
+          +gameCard(f)
+          - f++
 
         .slider__container-box-button
           span
-            a(href="") see more
+            a.see-more(href="") see more
     i.fas.fa-chevron-right.slider-btn.slider-btn--right
 
 

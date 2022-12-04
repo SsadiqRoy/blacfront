@@ -4,7 +4,6 @@ import * as model from '../../model/model.js';
 async function controlCreate(btnId) {
   try {
     const data = view.getScheduleData();
-    // console.log(data);
 
     const res = await model.post('/schedules/create', data);
     view.renderCreated(res, 'created', btnId);

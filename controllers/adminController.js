@@ -66,7 +66,6 @@ exports.games = catchAsync(async (req, res, next) => {
 //
 exports.notifications = catchAsync(async (req, res, next) => {
   const { meta, data: notifications } = await getRequest(req, '/notifications');
-  // console.log(notifications);
 
   const ext = {
     title: 'notifications',
@@ -90,6 +89,35 @@ exports.schedules = catchAsync(async (req, res, next) => {
   };
 
   res.status(200).render('admin/schedules', { ext, schedules, meta });
+});
+
+//
+exports.problems = catchAsync(async (req, res, next) => {
+  const { meta, data: problems } = await getRequest(req, '/problems');
+
+  const ext = {
+    title: 'problems',
+    page: 'problems',
+    searchPlaceholder: 'in problems',
+    js: `${jsPath}/problems`,
+  };
+
+  res.status(200).render('admin/problems', { ext, problems, meta });
+});
+
+//
+exports.suggestions = catchAsync(async (req, res, next) => {
+  const { meta, data: suggestions } = await getRequest(req, '/suggestions?limit=30&order=createdAt,asc');
+  // console.log(suggestions);
+
+  const ext = {
+    title: 'suggestions',
+    page: 'suggestions',
+    searchPlaceholder: 'in suggestions',
+    js: `${jsPath}/suggestions`,
+  };
+
+  res.status(200).render('admin/suggestions', { ext, suggestions, meta });
 });
 
 /*

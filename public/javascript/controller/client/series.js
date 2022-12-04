@@ -1,7 +1,27 @@
-import * as view from '../../view/client/homeview.js';
+import * as view from '../../view/client/seriesview.js';
 import * as model from '../../model/model.js';
+
+async function controlLoadContent(query) {
+  try {
+    const response = await model.getfull(`/series?fields=title,portrait,rating,id${query}`);
+    view.renderLoadContent({ response, containerId: 'content', type: 'serie', cardName: 'movieCard' });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function controlLoadMore(query) {
+  try {
+    const response = await model.getfull(`/series${query}`);
+    view.renderLoadMore({ response, containerId: 'content', type: 'serie', cardName: 'movieCard' });
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 async function initializer() {
   view.initializer();
+  view.handleLoadContent(controlLoadContent);
+  view.handleLoadMore(controlLoadMore);
 }
 initializer();

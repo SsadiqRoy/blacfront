@@ -20,6 +20,10 @@
     &:active {
       transform: translateY(-1px);
     }
+
+    @include respond(phone) {
+      display: none;
+    }
   }
   .slider-btn--right {
     right: 1rem;

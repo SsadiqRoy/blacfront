@@ -2,169 +2,119 @@ extends ../externals/clientbase
 
 block content
   include ../externals/cards
-
+  
   main
     .product-title
-      h2 We crached
+      h2= movie.title || ''
       .product-tile-tags
-        span 2022
-        span 7.8/10
+        span= new Date(movie.releasedDate).getFullYear()
+        | &nbsp; &nbsp; 
+        span #{movie.rating || 'unrated'}/10
     .product-image
-      img(src="/images/image-1.jpg")
+      img(src=`${movie.landscape}`)
     .product-description
       .product-tags
         .product-tags__cover
           span.tag
-            a(href) TV-MA
-          span.tag
-            a(href) 2022
-          span.tag
-            a(href) PG-13
-          span.tag
-            a(href) Adventure
-          span.tag
-            a(href) Adventure
-          span.tag
-            a(href) Coming
-          span.tag
-            a(href) Ghana
-          span.tag
-            a(href) Amazon
-          span.tag
-            a(href) netflix
+            a(href=`/movies?text=${movie.company.split(' ').join('-')}`)= movie.company
+          each tag in movie.tags
+            span.tag
+              a(href=`/movies?text=${tag.toLowerCase().split(' ').join('-')}`)= tag
       
-      p  Harum praesentium quod quas architecto dicta obcaecati modi blanditiis recusandae aliquam atque soluta, similique doloremque, eius porro. Voluptatum, dolores. Sit, veniam temporibus. Odio, ipsa. Tenetur reiciendis voluptate dicta magni sit assumenda quasi sapiente dolor quam! Voluptatibus molestiae adipisci sit ipsam nostrum commodi eveniet harum!
+      p= movie.description
         
       //   
     .furthur-info
       .furthur-info__box
-        span.furthur-info__title writers:
+        span.furthur-info__title writers/producers/directors:
         span.furthur-info__list
-          a(href) Annie Johnson
+          each director in movie.directors
+            a(href=`/movies?directors=${director.toLowerCase().split(' ').join('-')}`) #{director},      
+      
       .furthur-info__box
-        span.furthur-info__title Directors:
+        span.furthur-info__title actors:
         span.furthur-info__list
-          a(href) Annie Johnson
-          | , 
-          a(href) Bruce Dave
-          | ,
-
-          a(href) Connie
-      .furthur-info__box
-        span.furthur-info__title Stars:
-        span.furthur-info__list
-          a(href) Annie Johnson
-          | , 
-          a(href) Bruce Dave
-          | ,
-
-          a(href) Connie
-      .furthur-info__box
-        span.furthur-info__title characters:
-        span.furthur-info__list
-          a(href) Annie Johnson
-          | , 
-          a(href) Bruce Dave
-          | , 
-          a(href) Connie
-          | , 
-          a(href) Bruce Dave
-          | ,
-
-          a(href) Connie
+          each actor in movie.actors
+            a(href=`/movies?charactors=${actor.toLowerCase().split(' ').join('-')}`) #{actor},
+      
     
     section.container.links
       .links__container
-        .link
-          span 480p 
-          a(href)
-            i.fas.fa-download
-        .link
-          span 720p 
-          a(href)
-            i.fas.fa-download
-        .link
-          span 720x256p 
-          a(href)
-            i.fas.fa-download
-        .link
-          span 1080p 
-          a(href)
-            i.fas.fa-download
-        .link
-          span 2160p 
-          a(href)
-            i.fas.fa-download
-    //   
+        each link in movie.Links
+          +downloadLink(link, 'movie')
+        
     section.report.center-components
       button.btn-red.suggest.margin-a1 suggest
-      button.btn-red.report.margin-a1 report problem
+      button.btn-red.problem.margin-a1 report problem
 
   section.container
-    .content.content-movies
-      - let n = 6
+    .content.content-movies#suggestions(data-in=`${['keywords', ...movie.keywords].join(',')}` data-not-in=`${['id',movie.id]}` data-text=`${movie.company.split(' ').join('-')}-${movie.keywords.join('-')}`)
+      - let n = 1
       while n < 18
         +movieCard(n)
         - n++
 
+    .center-components
+      a.show-more(href='')
+        button.btn-primary--alt.btn-small
+          span.btn-content load more
 
-  //   
-  .center-components
-    button.btn-primary--alt.btn-small
-      span.btn-content load more
 
-  .popup.display-off#suggest-popup
-    .popup-box.popup-box-normal
-      .popup-close
-        i.fas.fa-times
-      .popup-content.create-content
-        form.create-new#create-suggest
-          .form-heading
-            h1 Suggest
-          .form-group
-            label.label-basic(for="suggest-country") suggest on
-            select#suggest-country.input-basic(type="text")
-              option(value="movie") movie
-              option(value="serie") serie
-              option(value="game") game
-          .form-group
-            label.label-basic(for="suggest-activity") message
-            textarea#suggest-activity.input-basic(type="text")
-          .form-group-double
-            .form-group
-              label.label-basic(for="suggest-name") name
-              input#suggest-name.input-basic(type="text", placeholder="optional")
-            .form-group
-              label.label-basic(for="suggest-email") email
-              input#suggest-email.input-basic(type="email", placeholder="optional")
-          .center-components
-            button.btn-black.btn-normal(type="submit")
-              span.btn-content create
+
+  //- .popup.display-off#suggest-popup
+  //-   .popup-box.popup-box-normal
+  //-     .popup-close
+  //-       i.fas.fa-times
+  //-     .popup-content.create-content
+  //-       form.create-new#create-suggest
+  //-         .form-heading
+  //-           h1 Suggest
+  //-         .form-group
+  //-           label.label-basic(for="suggest-country") suggest on
+  //-           select#suggest-country.input-basic(type="text")
+  //-             option(value="movie") movie
+  //-             option(value="serie") serie
+  //-             option(value="game") game
+  //-         .form-group
+  //-           label.label-basic(for="suggest-activity") message
+  //-           textarea#suggest-activity.input-basic(type="text")
+  //-         .form-group-double
+  //-           .form-group
+  //-             label.label-basic(for="suggest-name") name
+  //-             input#suggest-name.input-basic(type="text", placeholder="optional")
+  //-           .form-group
+  //-             label.label-basic(for="suggest-email") email
+  //-             input#suggest-email.input-basic(type="email", placeholder="optional")
+  //-         .center-components
+  //-           button.btn-black.btn-normal(type="submit")
+  //-             span.btn-content create
   
   
-  .popup.display-off#problem-popup
-    .popup-box.popup-box-normal
-      .popup-close
-        i.fas.fa-times
-      .popup-content.create-content
-        form.create-new#create-problem
-          .form-heading
-            h1 Report Problem
-          .form-group
-            label.label-basic(for="problem-country") problem on
-            select#problem-country.input-basic(type="text")
-              option(value="broken-link") broken link
-              option(value="other") other
-          .form-group
-            label.label-basic(for="problem-activity") message
-            textarea#problem-activity.input-basic(type="text")
-          .form-group-double
-            .form-group
-              label.label-basic(for="problem-name") name
-              input#problem-name.input-basic(type="text", placeholder="optional")
-            .form-group
-              label.label-basic(for="problem-email") email
-              input#problem-email.input-basic(type="email", placeholder="optional")
-          .center-components
-            button.btn-black.btn-normal(type="submit")
-              span.btn-content create
+  //- .popup.display-off#problem-popup
+  //-   .popup-box.popup-box-normal
+  //-     .popup-close
+  //-       i.fas.fa-times
+  //-     .popup-content.create-content
+  //-       form.create-new#create-problem
+  //-         .form-heading
+  //-           h1 Report Problem
+  //-         .form-group
+  //-           label.label-basic(for="problem-country") problem on
+  //-           select#problem-country.input-basic(type="text")
+  //-             option(value="broken-link") broken link
+  //-             option(value="other") other
+  //-         .form-group
+  //-           label.label-basic(for="problem-activity") message
+  //-           textarea#problem-activity.input-basic(type="text")
+  //-         .form-group-double
+  //-           .form-group
+  //-             label.label-basic(for="problem-name") name
+  //-             input#problem-name.input-basic(type="text", placeholder="optional")
+  //-           .form-group
+  //-             label.label-basic(for="problem-email") email
+  //-             input#problem-email.input-basic(type="email", placeholder="optional")
+  //-         .center-components
+  //-           button.btn-black.btn-normal(type="submit")
+  //-             span.btn-content create
+
+

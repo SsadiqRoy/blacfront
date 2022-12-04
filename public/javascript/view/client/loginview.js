@@ -15,7 +15,6 @@ export function renderLogin(data) {
 export function getUserData() {
   const email = document.getElementById('login-email').value;
   const password = document.getElementById('login-password').value;
-  // console.log(email, password);
 
   return { email, password };
 }

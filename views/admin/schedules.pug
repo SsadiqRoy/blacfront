@@ -3,12 +3,12 @@ extends ../externals/adminbase
 block content
   main.main
     .main__cover
-      .main__filter#main-filter
-        .main__filter__cover
-          span.main__filter-tag unviewed
-          span.main__filter-tag viewed
-          span.main__filter-tag problem
-          span.main__filter-tag suggestions
+      //- .main__filter#main-filter
+      //-   .main__filter__cover
+      //-     span.main__filter-tag unviewed
+      //-     span.main__filter-tag viewed
+      //-     span.main__filter-tag problem
+      //-     span.main__filter-tag suggestions
 
       .main__container#main-container
         .main__container__cover#items-container
@@ -23,7 +23,8 @@ block content
           span.show-more#show-more show more
 
   .popup.display-off#delete-schedule-popup
-    .popup-box.popup-box-normal
+    .popup-box
+      //- .popup-box-normal
       .popup-close
         i.fas.fa-times
       .popup-content.create-content

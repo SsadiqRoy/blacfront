@@ -10,7 +10,7 @@
     background-color: $secondary;
     color: $primary;
     border-radius: 10px;
-    padding-inline: 2rem 3rem;
+    padding-inline: 3rem;
     padding-block: 1rem;
     font: bold 2rem $font-description;
     text-transform: lowercase;
@@ -79,13 +79,16 @@
       padding-inline: 0.4rem;
     }
 
-    &:nth-child(odd) {
-      background-color: $black;
-      color: $white;
-    }
+    // &:nth-child(odd) {
+
+    // }
   }
   .episode-link--empty {
     opacity: 0;
     visibility: hidden;
+  }
+  .episode-link--black {
+    background-color: $black;
+    color: $white;
   }
 }
