@@ -42,59 +42,59 @@ aside.sidebar#sidebar
         if(ext.page !== 'games' && ext.page !== 'game')
           ul
             li
-              a(href='/movies?text=trending') trending
+              a(href=`/${ext.query || 'movies'}?text=trending`) trending
             li 
-              a(href=`/movies?date=gte,${new Date(Date.now() - (7776000000)).toLocaleDateString()}`) new
+              a(href=`/${ext.query || 'movies'}?date=gte,${new Date(Date.now() - (7776000000)).toLocaleDateString()}`) new
             li
-              a(href=`/movies?updatedAt=gte,${new Date(Date.now() - (7776000000)).toLocaleDateString()}`) updated
+              a(href=`/${ext.query || 'movies'}?updatedAt=gte,${new Date(Date.now() - (7776000000)).toLocaleDateString()}`) updated
             li
-              a(href='/movies?rating=gte,6') top rated
+              a(href=`/${ext.query || 'movies'}?rating=gte,6`) top rated
           ul
             li
-              a(href='/movies?keywords=action') action
+              a(href=`/${ext.query || 'movies'}?text=action`) action
             li
-              a(href='/movies?keywords=adventure') adventure
+              a(href=`/${ext.query || 'movies'}?text=adventure`) adventure
             li
-              a(href='/movies?keywords=crime') crime
+              a(href=`/${ext.query || 'movies'}?text=crime`) crime
             li
-              a(href='/movies?keywords=drama') drama
+              a(href=`/${ext.query || 'movies'}?text=drama`) drama
             li
-              a(href='/movies?keywords=fantasy') fantasy
+              a(href=`/${ext.query || 'movies'}?text=fantasy`) fantasy
             li
-              a(href='/movies?keywords=politics') politics
+              a(href=`/${ext.query || 'movies'}?text=politics`) politics
             li
-              a(href='/movies?keywords=sci-fi') sci-fi
+              a(href=`/${ext.query || 'movies'}?text=sci-fi`) sci-fi
             li
-              a(href='/movies?keywords=thriller') thriller
+              a(href=`/${ext.query || 'movies'}?text=thriller`) thriller
             li
-              a(href='/movies?keywords=war') war
+              a(href=`/${ext.query || 'movies'}?text=war`) war
           ul
             li(data-query='') apple tv
-              a(href='/movies?companies=apple') apple tv
+              a(href=`/${ext.query || 'movies'}?company=apple`) apple tv
             li
-              a(href='/movies?companies=dc') dc
+              a(href=`/${ext.query || 'movies'}?company=dc`) dc
             li
-              a(href='/movies?companies=marvel') marvel
+              a(href=`/${ext.query || 'movies'}?company=marvel`) marvel
             li
-              a(href='/movies?companies=netflix') netflix
+              a(href=`/${ext.query || 'movies'}?company=netflix`) netflix
             li
-              a(href='/movies?companies=prime') prime
+              a(href=`/${ext.query || 'movies'}?company=amazon`) amazon
         
           ul
             li
-              a(href='/movies?country=united states') United States
+              a(href=`/${ext.query || 'movies'}?country=united states`) United States
             li
-              a(href='/movies?country=india') india
+              a(href=`/${ext.query || 'movies'}?country=india`) india
             li
-              a(href='/movies?country=china') china
+              a(href=`/${ext.query || 'movies'}?country=china`) china
             li
-              a(href='/movies?country=japan') japan
+              a(href=`/${ext.query || 'movies'}?country=japan`) japan
             li
-              a(href='/movies?country=korea') korea
+              a(href=`/${ext.query || 'movies'}?country=korea`) korea
             li
-              a(href='/movies?country=united kingdom') United Kingdom
+              a(href=`/${ext.query || 'movies'}?country=united kingdom`) United Kingdom
             li
-              a(href='/movies?country=african') african
+              a(href=`/${ext.query || 'movies'}?country=african`) african
 
         if(ext.page === 'games' || ext.page === 'game')
          

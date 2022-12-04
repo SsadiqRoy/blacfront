@@ -32,6 +32,7 @@ exports.home = catchAsync(async (req, res, next) => {
     title: 'Movie, Games & Tv Series',
     js: `${jsPath}/home`,
     page: 'home',
+    query: 'movies',
   };
 
   res.status(200).render('client/home', { ext });
@@ -43,6 +44,7 @@ exports.movies = catchAsync(async (req, res, next) => {
     title: 'Movies',
     js: `${jsPath}/movies`,
     page: 'movies',
+    query: 'movies',
   };
 
   res.status(200).render('client/movies', { ext });
@@ -54,6 +56,7 @@ exports.series = catchAsync(async (req, res, next) => {
     title: 'Series',
     js: `${jsPath}/series`,
     page: 'series',
+    query: 'series',
   };
 
   res.status(200).render('client/series', { ext });
@@ -65,6 +68,7 @@ exports.games = catchAsync(async (req, res, next) => {
     title: 'Games',
     js: `${jsPath}/games`,
     page: 'games',
+    query: 'games',
   };
 
   res.status(200).render('client/games', { ext });
@@ -82,6 +86,7 @@ exports.game = catchAsync(async (req, res, next) => {
     title: game.title,
     js: `${jsPath}/game`,
     page: 'game',
+    query: 'games',
   };
 
   res.status(200).render('client/game', { ext, game });
@@ -95,6 +100,7 @@ exports.movie = catchAsync(async (req, res, next) => {
     title: movie.title,
     js: `${jsPath}/movie`,
     page: 'movie',
+    query: 'movies',
   };
 
   res.status(200).render('client/movie', { ext, movie });
@@ -108,6 +114,7 @@ exports.serie = catchAsync(async (req, res, next) => {
     title: serie.title,
     js: `${jsPath}/serie`,
     page: 'serie',
+    query: 'series',
   };
 
   // console.log(serie);
@@ -124,6 +131,7 @@ exports.season = catchAsync(async (req, res, next) => {
     title: serie.title,
     js: `${jsPath}/serie`,
     page: 'season',
+    query: 'series',
   };
 
   res.status(200).render('client/season', { ext, serie, season });
