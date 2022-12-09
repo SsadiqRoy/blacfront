@@ -136,7 +136,7 @@ mixin gamelinkCard(link)
   .gamelink-card(data-part=`${link.part}` data-link=`${link.link}` data-title=`${link.title || ''}` data-link-id=`${link.id}`)
     .gamelink-card__cover
       h3= link.title ? link.title : `part ${link.part}`
-      p= link.title ? '' :  link.link
+      //- p= link.title ? '' :  link.link
       .gamelink-card__buttons
         span
           i.fas.fa-edit.edit-link-btn(data-link-id=`${link.id}`)
@@ -148,7 +148,7 @@ mixin dbMovieLinkCard(link)
     //- - console.log(link)
     .movielink-card__cover
       h3= link.title ? link.title :  link.resolution
-      p= link.title ? '' :  link.resolution
+      //- p= link.title ? '' :  link.resolution
       .movielink-card__buttons
         span
           i.fas.fa-edit.edit-link-btn(data-link-id=`${link.id}`)
