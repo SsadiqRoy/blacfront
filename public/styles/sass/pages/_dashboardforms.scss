@@ -176,12 +176,12 @@ body {
     overflow: hidden;
     display: inline-block;
 
-    @media (max-width: 31.25rem) {
-      flex-basis: 70%;
-    }
-    @media (max-width: 25rem) {
-      flex-basis: 60%;
-    }
+    // @media (max-width: 31.25rem) {
+    //   flex-basis: 70%;
+    // }
+    // @media (max-width: 25rem) {
+    //   flex-basis: 60%;
+    // }
   }
 
   &__buttons {
