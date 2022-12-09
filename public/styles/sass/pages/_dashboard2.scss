@@ -252,6 +252,7 @@ body {
       }
 
       &-tag {
+        flex-shrink: 0;
         font: normal 1.5rem $poppins;
         border: 2px solid $white-light;
         border-radius: 10px;
@@ -325,7 +326,7 @@ body {
       left: -100%;
       z-index: 35;
       width: 80%;
-      max-width: 200px;
+      max-width: 300px;
       transition: $transition;
 
       &__icon {
