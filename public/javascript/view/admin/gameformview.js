@@ -21,7 +21,7 @@ export function renderCreated(data, action, btnId) {
   window.setTimeout(() => {
     if (action === 'created') return window.location.assign(`/dashboard/updategame/${data.id}`);
     window.location.assign(`/dashboard/updategame/${data.id}`);
-  }, 3500);
+  }, 1000);
 }
 
 /**
@@ -80,7 +80,7 @@ export function renderSaveAbout(data, btnId) {
 
   window.setTimeout(() => {
     window.location.assign('/dashboard/games');
-  }, 3500);
+  }, 1000);
 }
 
 /*

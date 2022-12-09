@@ -19,7 +19,7 @@ export function renderCreated(data, action, btnId) {
 
   window.setTimeout(() => {
     window.location.assign('/dashboard/schedules');
-  }, 3500);
+  }, 1000);
 }
 
 /*

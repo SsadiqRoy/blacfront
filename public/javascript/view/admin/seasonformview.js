@@ -19,7 +19,7 @@ export function renderCreate(data, action, btnId) {
 
   window.setTimeout(() => {
     window.location.assign(`/dashboard/updateserie/${data.serie}`);
-  }, 3500);
+  }, 1000);
 }
 
 //
@@ -38,7 +38,7 @@ export function renderCreateEpisode(data, action, btnId) {
 
   window.setTimeout(() => {
     window.location.assign(`/dashboard/updateepisode/${data.id}`);
-  }, 3500);
+  }, 1000);
 }
 
 /**
@@ -75,7 +75,7 @@ export function renderCreateLink(data, action, btnId) {
   utils.stopRotateBtn(btnId);
 
   utils.closePopup('create-link-popup', () => {
-    window.setTimeout(() => window.location.reload(), 3500);
+    window.setTimeout(() => window.location.reload(), 1000);
   });
 }
 

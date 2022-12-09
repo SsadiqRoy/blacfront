@@ -19,7 +19,7 @@ export function renderCreated(data, action, btnId) {
 
   window.setTimeout(() => {
     window.location.assign(`/dashboard/updateserie/${data.id}`);
-  }, 3500);
+  }, 1000);
 }
 
 //
@@ -39,7 +39,7 @@ export function renderDeleteSeason(data, btnId) {
 
   window.setTimeout(() => {
     window.location.reload();
-  }, 3500);
+  }, 1000);
 }
 
 /*

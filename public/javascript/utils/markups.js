@@ -12,7 +12,7 @@ export function dbMovieCard(movie, type = 'movie') {
       <p>${movie.description}</p>
     </div>
     <div class="dbmovie-card__buttons">
-    <a href="/${type}/${movie.id}" title="view"><i class="fas fa-eye"></i></a>
+    <a href="/${type}/${movie.title.split(' ').join('-')}/${movie.id}" title="view"><i class="fas fa-eye"></i></a>
     <a href="/dashboard/update${type}/${movie.id}" title="edit"><i class="far fa-edit"></i></a>
     <a title="delete"><i class="fas fa-trash delete-item"></i></a>
   </div>
