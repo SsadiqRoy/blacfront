@@ -16,6 +16,10 @@ body {
     -ms-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
+
+    @include respond(phone) {
+      height: unset;
+    }
   }
 
   .popup-content {
