@@ -3,13 +3,13 @@
   transition: transform 0.25s ease-out;
   max-width: 22rem;
 
-  @media (max-width: 31.25em) {
-    max-width: 17rem;
-  }
+  // @media (max-width: 31.25em) {
+  //   max-width: 17rem;
+  // }
 
-  @include respond(phone-small) {
-    max-width: 14rem;
-  }
+  // @include respond(phone-small) {
+  //   max-width: 14rem;
+  // }
 
   a {
     text-decoration: none;
