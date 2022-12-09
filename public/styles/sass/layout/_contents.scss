@@ -6,7 +6,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
 
-  grid-column-gap: 2rem;
+  // grid-column-gap: 2rem;
   grid-row-gap: 6rem;
 
   @media (max-width: 31.25em) {
