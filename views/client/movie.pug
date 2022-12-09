@@ -29,13 +29,13 @@ block content
         span.furthur-info__title writers/producers/directors:
         span.furthur-info__list
           each director in movie.directors
-            a(href=`/movies?directors=${director.toLowerCase().split(' ').join('-')}`) #{director},      
+            a(href=`/movies?text=${director.toLowerCase()}`) #{director},      
       
       .furthur-info__box
         span.furthur-info__title actors:
         span.furthur-info__list
           each actor in movie.actors
-            a(href=`/movies?charactors=${actor.toLowerCase().split(' ').join('-')}`) #{actor},
+            a(href=`/movies?text=${actor.toLowerCase()}`) #{actor},
       
     
     section.container.links
