@@ -14,7 +14,7 @@ export function renderCreated(data, action, btnId) {
 
   window.setTimeout(() => {
     window.location.assign(`/dashboard/updatemovie/${data.id}`);
-  }, 3500);
+  }, 1000);
 }
 
 /**
@@ -34,7 +34,7 @@ export function renderCreateLink(data, action, btnId) {
   utils.stopRotateBtn(btnId);
 
   utils.closePopup('create-link-popup', () => {
-    window.setTimeout(() => window.location.reload(), 3500);
+    window.setTimeout(() => window.location.reload(), 1000);
   });
 }
 
