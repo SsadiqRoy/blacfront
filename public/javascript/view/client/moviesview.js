@@ -64,8 +64,8 @@ export function handleLoadContent(controlLoadContent) {
     query = utils.parseQuery(query);
     query.fields = 'title,portrait,rating,id';
     query = utils.stringifyQuery(query);
+    window.alert(query);
     controlLoadContent(query);
-    //
   });
 }
 

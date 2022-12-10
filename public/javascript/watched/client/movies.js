@@ -643,8 +643,8 @@ function handleLoadContent(controlLoadContent) {
         query = _utilsJs.parseQuery(query);
         query.fields = "title,portrait,rating,id";
         query = _utilsJs.stringifyQuery(query);
+        window.alert(query);
         controlLoadContent(query);
-    //
     });
 }
 function handleLoadMore(controlLoadMore) {
