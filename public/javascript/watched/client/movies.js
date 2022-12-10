@@ -536,7 +536,7 @@ var _moviesviewJs = require("../../view/client/moviesview.js");
 var _modelJs = require("../../model/model.js");
 async function controlLoadContent(query) {
     try {
-        const response = await _modelJs.getfull(`/movies?fields=title,portrait,rating,id${query}`);
+        const response = await _modelJs.getfull(`/movies${query}`);
         _moviesviewJs.renderLoadContent({
             response,
             containerId: "content",
@@ -640,7 +640,9 @@ function renderLoadMore({ response , containerId , type , cardName  }) {
 function handleLoadContent(controlLoadContent) {
     window.addEventListener("DOMContentLoaded", ()=>{
         let query = window.location.search;
-        if (query.length) query = "&" + query.slice(1);
+        query = _utilsJs.parseQuery(query);
+        query.fields = "title,portrait,rating,id";
+        query = _utilsJs.stringifyQuery(query);
         controlLoadContent(query);
     });
 }

@@ -536,7 +536,7 @@ var _homeviewJs = require("../../view/client/homeview.js");
 var _modelJs = require("../../model/model.js");
 async function controlHeadingSlide() {
     try {
-        const response = await _modelJs.get("/movies?fields=title,landscape,description,id&limit=5&rating=gte,5.5");
+        const response = await _modelJs.get("/movies?fields=title,landscape,description,id&limit=10&rating=gte,5.5&order=createdAt,desc");
         _homeviewJs.renderHeadingSlide(response);
     } catch (error) {
         await _modelJs.localPost("/write-to-log", error);
@@ -545,14 +545,14 @@ async function controlHeadingSlide() {
 }
 async function fillMovies() {
     try {
-        const response = await _modelJs.getfull("/movies?fields=title,portrait,rating,id&limit=20");
+        const response = await _modelJs.getfull("/movies?fields=title,portrait,rating,id&limit=20&order=releasedDate,desc");
         _homeviewJs.renderFillSliders({
             response,
             containerId: "first-movies",
             type: "movie",
             cardName: "movieCard"
         });
-        const res2 = await _modelJs.getfull("/movies?fields=title,portrait,rating,id&limit=14&page=2");
+        const res2 = await _modelJs.getfull("/movies?fields=title,portrait,rating,id&limit=20&order=releasedDate,desc&rating=gte,5.5");
         _homeviewJs.renderFillSliders({
             response: res2,
             containerId: "second-movies",
@@ -566,17 +566,24 @@ async function fillMovies() {
 }
 async function fillSeries() {
     try {
-        const response = await _modelJs.getfull("/series?fields=title,portrait,rating,id&limit=20");
+        const response = await _modelJs.getfull("/series?fields=title,portrait,rating,id&limit=20&order=releasedDate,desc");
         _homeviewJs.renderFillSliders({
             response,
             containerId: "first-series",
             type: "serie",
             cardName: "movieCard"
         });
-        const res2 = await _modelJs.getfull("/series?fields=title,portrait,rating,id&limit=20");
+        const res2 = await _modelJs.getfull("/series?fields=title,portrait,rating,id&limit=20&order=releasedDate,desc&rating=gte,5.5");
         _homeviewJs.renderFillSliders({
             response: res2,
             containerId: "second-series",
+            type: "serie",
+            cardName: "movieCard"
+        });
+        const res3 = await _modelJs.getfull("/series?fields=title,portrait,rating,id&limit=20&order=updatedAt,desc&rating=gte,5.5");
+        _homeviewJs.renderFillSliders({
+            response: res3,
+            containerId: "third-series",
             type: "serie",
             cardName: "movieCard"
         });
@@ -587,14 +594,14 @@ async function fillSeries() {
 }
 async function fillGames() {
     try {
-        const response = await _modelJs.getfull("/games?fields=title,landscape,rating,id&limit=20");
+        const response = await _modelJs.getfull("/games?fields=title,landscape,rating,id&limit=20&order=releasedDate,desc");
         _homeviewJs.renderFillSliders({
             response,
             containerId: "first-games",
             type: "game",
             cardName: "gameCard"
         });
-        const res2 = await _modelJs.getfull("/games?fields=title,landscape,rating,id&limit=20");
+        const res2 = await _modelJs.getfull("/games?fields=title,landscape,rating,id&limit=20&order=releasedDate,desc&rating=gte,5.5");
         _homeviewJs.renderFillSliders({
             response: res2,
             containerId: "second-games",

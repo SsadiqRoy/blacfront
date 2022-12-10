@@ -63,7 +63,7 @@ block content
 
   section.slider
     .section-heading
-      h2 trending movies
+      h2 movies just in
     i.fas.fa-chevron-left.slider-btn.slider-btn--left
 
     .slider__container
@@ -81,7 +81,7 @@ block content
 
   section.slider
     .section-heading
-      h2 top tv shows
+      h2 series out now
     i.fas.fa-chevron-left.slider-btn.slider-btn--left
     .slider__container
       .slider__container-box#first-series
@@ -98,7 +98,7 @@ block content
 
   section.slider
     .section-heading
-      h2 top games
+      h2 new games
     i.fas.fa-chevron-left.slider-btn.slider-btn--left
     .slider__container
       .slider__container-box#first-games
@@ -116,7 +116,7 @@ block content
 
   section.slider
     .section-heading
-      h2 more movies
+      h2 top movies
     i.fas.fa-chevron-left.slider-btn.slider-btn--left
 
     .slider__container
@@ -135,7 +135,7 @@ block content
 
   section.slider
     .section-heading
-      h2 More Tv Series
+      h2 top tv series
     i.fas.fa-chevron-left.slider-btn.slider-btn--left
 
     .slider__container
@@ -154,7 +154,7 @@ block content
 
   section.slider
     .section-heading
-      h2 more games
+      h2 top games
     i.fas.fa-chevron-left.slider-btn.slider-btn--left
     .slider__container
       .slider__container-box#second-games
@@ -169,6 +169,22 @@ block content
             a.see-more(href="") see more
     i.fas.fa-chevron-right.slider-btn.slider-btn--right
 
+  section.slider
+    .section-heading
+      h2 new seasons added
+    i.fas.fa-chevron-left.slider-btn.slider-btn--left
+    .slider__container
+      .slider__container-box#third-series
+        //- mixin of cards
+        - let g = 1
+        while g < 16
+          +movieCard(g)
+          - g++
+
+        .slider__container-box-button
+          span
+            a.see-more(href="") see more
+    i.fas.fa-chevron-right.slider-btn.slider-btn--right
 
 
 

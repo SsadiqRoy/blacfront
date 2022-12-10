@@ -61,8 +61,12 @@ export function renderLoadMore({ response, containerId, type, cardName }) {
 
 export function handleLoadContent(controlLoadContent) {
   window.addEventListener('DOMContentLoaded', () => {
+    // let query = window.location.search;
+    // if (query.length) query = '&' + query.slice(1);
     let query = window.location.search;
-    if (query.length) query = '&' + query.slice(1);
+    query = utils.parseQuery(query);
+    query.fields = 'title,portrait,rating,id';
+    query = utils.stringifyQuery(query);
     controlLoadContent(query);
   });
 }
