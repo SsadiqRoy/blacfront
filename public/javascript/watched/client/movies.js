@@ -644,6 +644,7 @@ function handleLoadContent(controlLoadContent) {
         query.fields = "title,portrait,rating,id";
         query = _utilsJs.stringifyQuery(query);
         controlLoadContent(query);
+    //
     });
 }
 function handleLoadMore(controlLoadMore) {
