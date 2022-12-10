@@ -58,16 +58,16 @@ export function renderLoadMore({ response, containerId, type, cardName }) {
 
   */
 // =================== HANDLERS ==========
-export function handleLoadContent(controlLoadContent) {
-  window.addEventListener('DOMContentLoaded', () => {
-    let query = window.location.search;
-    query = utils.parseQuery(query);
-    query.fields = 'title,portrait,rating,id';
-    query = utils.stringifyQuery(query);
-    window.alert(query);
-    controlLoadContent(query);
-  });
-}
+// export function handleLoadContent(controlLoadContent) {
+//   window.addEventListener('DOMContentLoaded', () => {
+//     let query = window.location.search;
+//     query = utils.parseQuery(query);
+//     query.fields = 'title,portrait,rating,id';
+//     query = utils.stringifyQuery(query);
+//     window.alert(query);
+//     controlLoadContent(query);
+//   });
+// }
 
 export function handleLoadMore(controlLoadMore) {
   const btn = document.getElementById('show-more');
