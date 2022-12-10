@@ -169,6 +169,22 @@ block content
             a.see-more(href="") see more
     i.fas.fa-chevron-right.slider-btn.slider-btn--right
 
+  section.slider
+    .section-heading
+      h2 new seasons added
+    i.fas.fa-chevron-left.slider-btn.slider-btn--left
+    .slider__container
+      .slider__container-box#third-series
+        //- mixin of cards
+        - let g = 1
+        while g < 16
+          +movieCard(g)
+          - g++
+
+        .slider__container-box-button
+          span
+            a.see-more(href="") see more
+    i.fas.fa-chevron-right.slider-btn.slider-btn--right
 
 
 

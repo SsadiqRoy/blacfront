@@ -37,6 +37,11 @@ async function fillSeries() {
       '/series?fields=title,portrait,rating,id&limit=20&order=releasedDate,desc&rating=gte,5.5'
     );
     view.renderFillSliders({ response: res2, containerId: 'second-series', type: 'serie', cardName: 'movieCard' });
+
+    const res3 = await model.getfull(
+      '/series?fields=title,portrait,rating,id&limit=20&order=updatedAt,desc&rating=gte,5.5'
+    );
+    view.renderFillSliders({ response: res3, containerId: 'third-series', type: 'serie', cardName: 'movieCard' });
   } catch (error) {
     await model.localPost('/write-to-log', error);
     console.log(error);
