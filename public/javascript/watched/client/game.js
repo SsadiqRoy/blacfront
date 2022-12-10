@@ -1110,8 +1110,8 @@ parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
 parcelHelpers.export(exports, "resolutions", ()=>resolutions);
-const api_url = "https://api.blaciris.com/v1";
-const main_url = "https://blaciris.com";
+const api_url = "https://staging.api.blaciris.com/v1";
+const main_url = "https://staging.blaciris.com";
 const countries = [
     "Afghanistan",
     "Albania",
