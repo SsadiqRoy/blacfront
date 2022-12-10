@@ -3,7 +3,7 @@ import * as model from '../../model/model.js';
 
 async function controlLoadContent(query) {
   try {
-    const response = await model.getfull(`/series?fields=title,portrait,rating,id${query}`);
+    const response = await model.getfull(`/series${query}`);
     view.renderLoadContent({ response, containerId: 'content', type: 'serie', cardName: 'movieCard' });
   } catch (error) {
     console.log(error);

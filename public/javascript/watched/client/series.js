@@ -536,7 +536,7 @@ var _seriesviewJs = require("../../view/client/seriesview.js");
 var _modelJs = require("../../model/model.js");
 async function controlLoadContent(query) {
     try {
-        const response = await _modelJs.getfull(`/series?fields=title,portrait,rating,id${query}`);
+        const response = await _modelJs.getfull(`/series${query}`);
         _seriesviewJs.renderLoadContent({
             response,
             containerId: "content",
@@ -639,8 +639,12 @@ function renderLoadMore({ response , containerId , type , cardName  }) {
 }
 function handleLoadContent(controlLoadContent) {
     window.addEventListener("DOMContentLoaded", ()=>{
+        // let query = window.location.search;
+        // if (query.length) query = '&' + query.slice(1);
         let query = window.location.search;
-        if (query.length) query = "&" + query.slice(1);
+        query = _utilsJs.parseQuery(query);
+        query.fields = "title,portrait,rating,id";
+        query = _utilsJs.stringifyQuery(query);
         controlLoadContent(query);
     });
 }
@@ -1127,8 +1131,8 @@ parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
 parcelHelpers.export(exports, "resolutions", ()=>resolutions);
-const api_url = "http://localhost:2000/v1";
-const main_url = "http://localhost:2500";
+const api_url = "https://api.blaciris.com/v1";
+const main_url = "https://blaciris.com";
 const countries = [
     "Afghanistan",
     "Albania",
@@ -1422,7 +1426,7 @@ function dbMovieCard(movie, type = "movie") {
       <p>${movie.description}</p>
     </div>
     <div class="dbmovie-card__buttons">
-    <a href="/${type}/${movie.id}" title="view"><i class="fas fa-eye"></i></a>
+    <a href="/${type}/${movie.title.split(" ").join("-")}/${movie.id}" title="view"><i class="fas fa-eye"></i></a>
     <a href="/dashboard/update${type}/${movie.id}" title="edit"><i class="far fa-edit"></i></a>
     <a title="delete"><i class="fas fa-trash delete-item"></i></a>
   </div>
