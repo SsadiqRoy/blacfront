@@ -1718,9 +1718,6 @@ async function getfull(url) {
         });
         return res.data;
     } catch (error) {
-        // console.log('blaciris 🔥', error);
-        // localPost('/write-to-log', error);
-        // error.olderMessage = 'local error';
         throw error.response ? error.response.data : error;
     }
 }
@@ -1736,7 +1733,6 @@ async function patch(url, body) {
         });
         return res.data.data;
     } catch (error) {
-        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1752,7 +1748,6 @@ async function patchfull(url, body) {
         });
         return res.data;
     } catch (error) {
-        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
