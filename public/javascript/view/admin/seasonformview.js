@@ -230,8 +230,6 @@ export function handleDeleteLink(controlDeleteLink) {
 */
 // =================== INITIALIZER ============
 export function initializer() {
-  // const btn = document.getElementById('add-episode');
-
   manageEpisodesPopup();
   manageLinkPopup();
 
@@ -254,36 +252,6 @@ export function initializer() {
 
 */
 // =================== NON EXPORTING FUNTIONS =
-// function clearEpisodeData() {
-//   document.getElementById('create-episode').dataset.episodeId = '';
-//   document.getElementById('episode-title').value = '';
-//   document.getElementById('episode-episode').value = '';
-
-//   const l480 = document.getElementById('episode-480-link');
-//   l480.value = '';
-//   l480.dataset.linkId = '';
-//   l480.dataset.link = '';
-
-//   const l720 = document.getElementById('episode-720-link');
-//   l720.value = '';
-//   l720.dataset.linkId = '';
-//   l720.dataset.link = '';
-
-//   const l1080 = document.getElementById('episode-1080-link');
-//   l1080.value = '';
-//   l1080.dataset.linkId = '';
-//   l1080.dataset.link = '';
-
-//   const lother = document.getElementById('episode-other-link');
-//   lother.value = '';
-//   lother.dataset.linkId = '';
-//   lother.dataset.link = '';
-
-//   const lsubtitle = document.getElementById('episode-subtitle-link');
-//   lsubtitle.value = '';
-//   lsubtitle.dataset.linkId = '';
-//   lsubtitle.dataset.link = '';
-// }
 
 /** display popup for creating links or deleting links */
 function manageEpisodesPopup() {
@@ -299,8 +267,6 @@ function manageEpisodesPopup() {
       if (target.classList.contains('delete-episode-btn')) {
         // getting the whole episode data
         const card = target.closest('.episodelink-card');
-        // const { episode: e } = ;
-        // const episode = JSON.parse(e);
         // getting links out of the episodes
         const { episodeId } = card.dataset;
         deleteForm.dataset.episodeId = episodeId;
