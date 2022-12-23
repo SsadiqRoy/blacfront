@@ -265,3 +265,16 @@ export const countries = [
 
 export const serieStatus = ['ongoing', 'ended', 'paused', 'stopped'];
 export const resolutions = ['1', '360', '480', '720', '721', '1080', '1081', '2160', '10000'];
+export const titles = [
+  '360p',
+  '480p',
+  '480x264p',
+  '720p',
+  '720x264p',
+  '720x265p',
+  '1080p',
+  '1080x264p',
+  '1080x265p',
+  'hdcam',
+  'subtitle',
+];

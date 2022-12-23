@@ -130,7 +130,7 @@ export function getMovieData() {
 export function getLinkData() {
   const resolution = document.getElementById('link-resolution').value;
   const link = document.getElementById('link-link').value;
-  const title = document.getElementById('link-title').value;
+  const title = document.getElementById('link-title').value || document.getElementById('link-title-2');
 
   return { title, resolution, link };
 }
@@ -201,6 +201,7 @@ export function initilizer() {
   movielinkBtn &&
     movielinkBtn.addEventListener('click', (e) => {
       utils.fillSelects('link-resolution', 'resolutions');
+      utils.fillSelects('link-title', 'titles');
       utils.openPopup('create-link-popup');
     });
 }
@@ -235,13 +236,16 @@ function manageLinkPopup() {
         document.getElementById('link-resolution').dataset.value = resolution;
         utils.fillSelects('link-resolution', 'resolutions');
         document.getElementById('link-link').value = link;
-        document.getElementById('link-title').value = title;
+        document.getElementById('link-title').dataset.value = title;
+        utils.fillSelects('link-title', 'titles');
+        document.getElementById('link-title-2').value = title;
 
         utils.openPopup('create-link-popup', () => {
           form.dataset.linkId = '';
           document.getElementById('link-resolution').dataset.value = '';
+          document.getElementById('link-title').dataset.value = '';
           document.getElementById('link-link').value = '';
-          document.getElementById('link-title').value = '';
+          document.getElementById('link-title-2').value = '';
         });
       }
 

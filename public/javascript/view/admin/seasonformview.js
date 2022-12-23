@@ -129,7 +129,7 @@ export function getEpisodeData() {
 export function getLinkData() {
   const resolution = document.getElementById('link-resolution').value;
   const link = document.getElementById('link-link').value;
-  const title = document.getElementById('link-title').value;
+  const title = document.getElementById('link-title').value || document.getElementById('link-title-2');
 
   return { title, resolution, link };
 }
@@ -241,6 +241,7 @@ export function initializer() {
   episodeLinkBtn &&
     episodeLinkBtn.addEventListener('click', (e) => {
       utils.fillSelects('link-resolution', 'resolutions');
+      utils.fillSelects('link-title', 'titles');
       utils.openPopup('create-link-popup');
     });
 }
@@ -294,37 +295,6 @@ function manageEpisodesPopup() {
     cover.addEventListener('click', (e) => {
       const { target } = e;
 
-      // when edite button is clicked
-      // if (target.classList.contains('edit-episode-btn')) {
-      //   // getting the whole episode data
-      //   const card = target.closest('.episodelink-card');
-      //   const { episode: e } = card.dataset;
-      //   const episode = JSON.parse(e);
-      //   // getting links out of the episodes
-      //   const { Links: links } = episode;
-
-      //   // setting the popup form episode id to dataset object
-      //   form.dataset.episodeId = episode.id;
-      //   document.getElementById('episode-title').value = episode.title;
-      //   document.getElementById('episode-episode').value = episode.episode;
-
-      //   // looping through links and setting the dataset and value to their various elements
-      //   links.forEach((link) => {
-      //     // knowing the type of link to be able to select its input by id
-      //     let resolution = link.resolution === 1 ? 'other' : link.resolution;
-      //     resolution = link.resolution === 10000 ? 'subtitle' : resolution;
-      //     const id = `episode-${resolution}-link`;
-      //     const input = document.getElementById(id);
-
-      //     // resseting dataset and filling in values
-      //     input.value = link.link;
-      //     input.dataset.linkId = link.id;
-      //     input.dataset.link = link.link;
-      //   });
-
-      //   utils.openPopup('create-episode-popup', clearEpisodeData);
-      // }
-
       // when delete button is clicked
       if (target.classList.contains('delete-episode-btn')) {
         // getting the whole episode data
@@ -362,13 +332,16 @@ function manageLinkPopup() {
         document.getElementById('link-resolution').dataset.value = resolution;
         utils.fillSelects('link-resolution', 'resolutions');
         document.getElementById('link-link').value = link;
-        document.getElementById('link-title').value = title;
+        document.getElementById('link-title').dataset.value = title;
+        utils.fillSelects('link-title', 'titles');
+        document.getElementById('link-title-2').value = title;
 
         utils.openPopup('create-link-popup', () => {
           form.dataset.linkId = '';
           document.getElementById('link-resolution').dataset.value = '';
           document.getElementById('link-link').value = '';
-          document.getElementById('link-title').value = '';
+          document.getElementById('link-title').dataset.value = '';
+          document.getElementById('link-title-2').value = '';
         });
       }
 

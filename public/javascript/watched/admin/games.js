@@ -655,6 +655,7 @@ parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
 parcelHelpers.export(exports, "resolutions", ()=>resolutions);
+parcelHelpers.export(exports, "titles", ()=>titles);
 parcelHelpers.export(exports, "alertResponse", ()=>alertResponse);
 parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
 parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
@@ -689,6 +690,7 @@ const main_url = _envJs.main_url;
 const countries = _envJs.countries;
 const serieStatus = _envJs.serieStatus;
 const resolutions = _envJs.resolutions;
+const titles = _envJs.titles;
 const alertResponse = _domJs.alertResponse;
 const rotateBtn = _domJs.rotateBtn;
 const stopRotateBtn = _domJs.stopRotateBtn;
@@ -1106,8 +1108,9 @@ parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
 parcelHelpers.export(exports, "resolutions", ()=>resolutions);
-const api_url = "http://localhost:2000/v1";
-const main_url = "http://localhost:2500";
+parcelHelpers.export(exports, "titles", ()=>titles);
+const api_url = "https://api.blaciris.com/v1";
+const main_url = "https://blaciris.com";
 const countries = [
     "Afghanistan",
     "Albania",
@@ -1377,6 +1380,19 @@ const resolutions = [
     "2160",
     "10000"
 ];
+const titles = [
+    "360p",
+    "480p",
+    "480x264p",
+    "720p",
+    "720x264p",
+    "720x265p",
+    "1080p",
+    "1080x264p",
+    "1080x265p",
+    "hdcam",
+    "subtitle", 
+];
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"doi6o":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -1401,7 +1417,7 @@ function dbMovieCard(movie, type = "movie") {
       <p>${movie.description}</p>
     </div>
     <div class="dbmovie-card__buttons">
-    <a href="/${type}/${movie.id}" title="view"><i class="fas fa-eye"></i></a>
+    <a href="/${type}/${movie.title.split(" ").join("-")}/${movie.id}" title="view"><i class="fas fa-eye"></i></a>
     <a href="/dashboard/update${type}/${movie.id}" title="edit"><i class="far fa-edit"></i></a>
     <a title="delete"><i class="fas fa-trash delete-item"></i></a>
   </div>

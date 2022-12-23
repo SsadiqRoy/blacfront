@@ -20,6 +20,7 @@ export const main_url = env.main_url;
 export const countries = env.countries;
 export const serieStatus = env.serieStatus;
 export const resolutions = env.resolutions;
+export const titles = env.titles;
 
 // ==================== DOM FUNCTONS ==================
 export const alertResponse = dom.alertResponse;
