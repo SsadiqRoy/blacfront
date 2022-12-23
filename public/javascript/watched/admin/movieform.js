@@ -783,8 +783,6 @@ function initilizer() {
         _utilsJs.fillSelects("link-title", "titles");
         _utilsJs.openPopup("create-link-popup");
     });
-    console.log(window.location.protocol);
-    console.log(window.location.host);
 }
 /*
 
@@ -1301,9 +1299,9 @@ parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
 parcelHelpers.export(exports, "resolutions", ()=>resolutions);
 parcelHelpers.export(exports, "titles", ()=>titles);
-const { protocol  } = window.location;
-const api_url = `${protocol}://api.blaciris.com/v1`;
-const main_url = `${protocol}://blaciris.com`;
+const protocol = window.location.protocol;
+const api_url = `${protocol}//api.blaciris.com/v1`;
+const main_url = `${protocol}//blaciris.com`;
 const countries = [
     "Afghanistan",
     "Albania",

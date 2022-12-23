@@ -163,8 +163,6 @@ export function initilizer() {
       utils.fillSelects('link-title', 'titles');
       utils.openPopup('create-link-popup');
     });
-  console.log(window.location.protocol);
-  console.log(window.location.host);
 }
 
 /*

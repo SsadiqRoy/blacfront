@@ -1,15 +1,15 @@
-const { protocol } = window.location;
+const protocol = window.location.protocol;
 // TOPIC: - lOCALHOST
-// export const api_url = 'http://localhost:2000/v1';
-// export const main_url = 'http://localhost:2500';
+// export const api_url = `${protocol}//localhost:2000/v1`;
+// export const main_url = `${protocol}//localhost:2500`;
 
 // TOPIC: - STAGING ONLINE
 // export const api_url = `${protocol}://staging.api.blaciris.com/v1`;
 // export const main_url = `${protocol}://staging.blaciris.com`;
 
 // TOPIC: - MASTER
-export const api_url = `${protocol}://api.blaciris.com/v1`;
-export const main_url = `${protocol}://blaciris.com`;
+export const api_url = `${protocol}//api.blaciris.com/v1`;
+export const main_url = `${protocol}//blaciris.com`;
 
 export const countries = [
   'Afghanistan',
