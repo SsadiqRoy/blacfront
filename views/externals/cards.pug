@@ -62,7 +62,7 @@ mixin episodeCard(episode)
         each link in episode.Links
           - const color = link.resolution === 480 || link.resolution === 1080 || link.resolution > 1080 ? 'episode-link--black' : ''
           span.episode-link(class=`${color}`)
-            a(href=`/download/episode-${episode.episode}-${link.title || link.resolution}/${link.id}`)
+            a.download(href=`/download/episode-${episode.episode}-${link.title || link.resolution}/${link.id}`)
               i.fas.fa-download
               | #{link.title || link.resolution }
         //- span.episode-link.episode-link--black
@@ -170,5 +170,5 @@ mixin dbEpisodelinkCard(episode)
 mixin downloadLink(link, type)
   .link
     span= link.title || link.resolution || `part ${link.part}` 
-    a(href=`/download/${type}-${link.title || link.resolution || link.part}/${link.id}`)
+    a.download(href=`/download/${type}-${link.title || link.resolution || link.part}/${link.id}`)
       i.fas.fa-download

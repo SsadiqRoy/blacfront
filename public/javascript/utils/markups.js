@@ -84,7 +84,7 @@ export function scheduleCard(schedule) {
 
 export function movieCard(movie, type) {
   const markup = `
-    <div class="movie-card card-game">
+    <div class="movie-card type-${type}">
       <a href="/${type}/${movie.title.toLowerCase().split(' ').join('-')}/${movie.id}">
         <img src="${movie.portrait}" alt="${movie.title}" />
         <h2>

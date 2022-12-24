@@ -30,13 +30,13 @@ block content
         span.furthur-info__title writers/producers/directors:
         span.furthur-info__list
           each director in serie.directors
-            a(href=`/series?directors=${director.toLowerCase().split(' ').join('-')}`) #{director},      
+            a.actors(href=`/series?directors=${director.toLowerCase().split(' ').join('-')}`) #{director},      
       
       .furthur-info__box
         span.furthur-info__title actors:
         span.furthur-info__list
           each actor in serie.actors
-            a(href=`/series?charactors=${actor.toLowerCase().split(' ').join('-')}`) #{actor},
+            a.actors(href=`/series?charactors=${actor.toLowerCase().split(' ').join('-')}`) #{actor},
       
     
 
