@@ -115,7 +115,7 @@ export function stopRotateBtn(btnid, type = 'btn-black') {
 export function fillSelects(selectId, variables, clear = true, list) {
   const select = document.getElementById(selectId);
   if (!select) return console.warn('blaciris - select element not on this page - ', selectId);
-  const { value } = select.dataset || '';
+  const  value  = select.dataset.value || '';
 
   const vars = list || utils[variables];
   if (clear) select.innerHTML = '';
