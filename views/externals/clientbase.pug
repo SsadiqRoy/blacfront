@@ -4,30 +4,23 @@ html(lang="en")
     //  Google Tag Manager 
     script.
       (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-          })(window,document,'script','dataLayer','GTM-KS7T4R3');
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-KS7T4R3');
     //  End Google Tag Manager 
 
     meta(charset="UTF-8")
-    meta(http-equiv="X-UA-Compatible", content="IE=edge")
-    meta(name="viewport", content="width=device-width,initial-scale=1")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width,initial-scale=1")
 
     title blaciris | #{ext.title} - Free Download
 
-    link(rel="stylesheet", href="/styles/fontawsome/css/all.min.css")
+    link(rel="stylesheet" href="/styles/fontawsome/css/all.min.css")
     link(rel="stylesheet", href=`/styles/css/${ext.css}.css`)
-    link(rel="shortcut icon", href="/images/favicon.png" type="image/x-icon")
+    link(rel="shortcut icon" href="/images/favicon.png" type="image/x-icon")
 
-  //- //  Google tag (gtag.js) 
-  //- script(async, src="https://www.googletagmanager.com/gtag/js?id=G-9GLQHLKQC1")
-  //- script.
-  //-   window.dataLayer = window.dataLayer || [];
-  //-   function gtag(){dataLayer.push(arguments);}
-  //-   gtag('js', new Date());
-  //-   gtag('config', 'G-9GLQHLKQC1');
-    
+    block metaTags
   body
     //  Google Tag Manager (noscript) 
     noscript <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KS7T4R3" height="0" width="0" style="display:none;visibility:hidden"></iframe>
@@ -44,7 +37,7 @@ html(lang="en")
     body.addEventListener('contextmenu', (e) => {
       e.preventDefault();
     });
-    
+
   script(src=`${ext.js}.js`, type='module')
 
 

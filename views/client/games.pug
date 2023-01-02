@@ -1,12 +1,31 @@
 extends ../externals/clientbase
 
+block metaTags 
+  meta(name="keywords" content=`index of Games 2023, download Games for free, free Games download links`)
+  meta(name="description" content=`Download Games on blaciris for free and fast. Get other related Games and their links`)
+  meta(name="subject" content="Providing free download links for Movies, TV Series and Games for all around the world")
+  meta(name="copyright" content="blaciris")
+  meta(name="topic" content='Games Links: Download Games For Free')
+  //- meta(name="summary", content)
+  meta(name="Classification" content="Entertainment")
+  meta(name="url" content="http://blaciris.com")
+  meta(name="identifier-URL" content="http://blaciris.com")
+  meta(name="pagename" content=`List of Games`)
+  meta(name="category" content="Games")
+  meta(name="coverage" content="Worldwide")
+  meta(name="distribution" content="Global")
+  meta(name="rating" content="General")
+  meta(name="target" content="all")
+  meta(name="HandheldFriendly" content="True")
+  meta(name="MobileOptimized" content="320")
+  meta(name="pageKey" content="Movie Page")
 
 block content
   include ../externals/cards
 
   section.redirects
     p 
-    
+
 
   section.container
     .content.content-games#content
@@ -14,7 +33,7 @@ block content
       while n < 19
         +gameCard(n)
         - n++
- 
+
     .center-components
       button.btn-primary--alt.btn-small#show-more
         span.btn-content load more

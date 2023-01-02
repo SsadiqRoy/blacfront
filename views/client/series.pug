@@ -1,12 +1,30 @@
 extends ../externals/clientbase
-
+block metaTags 
+  meta(name="keywords" content=`index of TV Series 2023, download TV Series for free, free TV Series download links`)
+  meta(name="description" content=`Download TV Series on blaciris for free and fast. Get other related TV Series and their links`)
+  meta(name="subject" content="Providing free download links for Movies, TV Series and Games for all around the world")
+  meta(name="copyright" content="blaciris")
+  meta(name="topic" content='TV Series Links: Download TV Series For Free')
+  //- meta(name="summary", content)
+  meta(name="Classification" content="Entertainment")
+  meta(name="url" content="http://blaciris.com")
+  meta(name="identifier-URL" content="http://blaciris.com")
+  meta(name="pagename" content=`List of TV Series`)
+  meta(name="category" content="TV Series")
+  meta(name="coverage" content="Worldwide")
+  meta(name="distribution" content="Global")
+  meta(name="rating" content="General")
+  meta(name="target" content="all")
+  meta(name="HandheldFriendly" content="True")
+  meta(name="MobileOptimized" content="320")
+  meta(name="pageKey" content="Movie Page")
 
 block content
   include ../externals/cards
 
   section.redirects
     p 
-      
+
 
   section.container
     .content.content-movies#content
@@ -14,7 +32,7 @@ block content
       while n < 19
         +movieCard(n)
         - n++
- 
+
     .center-components
       button.btn-primary--alt.btn-small#show-more
         span.btn-content load more

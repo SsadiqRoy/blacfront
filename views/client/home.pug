@@ -1,5 +1,25 @@
 extends ../externals/clientbase
 
+block metaTags 
+  meta(name="keywords" content=`index of movies 2023, index of TV Series 2023, index of Games 2023, download TV Series for free, download Games for free, download movies for free, free movies download links, free games download links, free TV Series downlaod links`)
+  meta(name="description" content=`Download movies, TV Series and Games on blaciris for free and fast. Get other related links`)
+  meta(name="subject" content="Providing free download links for Movies, TV Series and Games for all around the world")
+  meta(name="copyright" content="blaciris")
+  meta(name="topic" content='Get Download links for movies, games and TV Series')
+  //- meta(name="summary", content)
+  meta(name="Classification" content="Entertainment")
+  meta(name="url" content="http://blaciris.com")
+  meta(name="identifier-URL" content="http://blaciris.com")
+  meta(name="pagename" content=`List of Movies`)
+  meta(name="category" content="Movies")
+  meta(name="coverage" content="Worldwide")
+  meta(name="distribution" content="Global")
+  meta(name="rating" content="General")
+  meta(name="target" content="all")
+  meta(name="HandheldFriendly" content="True")
+  meta(name="MobileOptimized" content="320")
+  meta(name="pageKey" content="Movie Page")
+
 block content
   include ../externals/cards
 
@@ -8,13 +28,13 @@ block content
     .head-slider__container
       .back-image.image-box.first-image
         a(href='/movie')
-          img(src="", alt="Movie Image")
+          img(src="" alt="Movie Image")
       .back-image.image-box.third-image
         a(href='/movie')
-          img(src="", alt="Movie Image")
+          img(src="" alt="Movie Image")
       .front-image.image-box.second-image
         a(href='/movie')
-          img(src="", alt="Movie Image")
+          img(src="" alt="Movie Image")
           //- a.front-image__cover(href='/movie')
         .image-box__shade
           .image-box-about
@@ -22,7 +42,7 @@ block content
               h2 
             .image-box-description
               p  
-                  
+
     .center-components.margin-bl2.display-off
       .switch-btns
         span.switch-btn
@@ -73,7 +93,7 @@ block content
         while a < 16
           +movieCard(a)
           - a++
-    
+
         .slider__container-box-button
           span
             a.see-more(href="") see more
@@ -126,7 +146,7 @@ block content
         while d < 16
           +movieCard(d)
           - d++
-    
+
         .slider__container-box-button
           span
             a.see-more(href="") see more
@@ -145,7 +165,7 @@ block content
         while e < 16
           +movieCard(e)
           - e++
-    
+
         .slider__container-box-button
           span
             a.see-more(href="") see more
