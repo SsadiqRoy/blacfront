@@ -69,7 +69,7 @@ mixin episodeCard(episode)
         //-   a(href)
         //-     i.fas.fa-download
         //-     |  720p
-        
+
 
 mixin dbmovieCard(movie, type = 'movie')
   .dbmovie-card(data-card-id=`${movie.id}`)
@@ -85,7 +85,7 @@ mixin dbmovieCard(movie, type = 'movie')
       p= movie.description
 
     .dbmovie-card__buttons.shit
-      a(href=`/${type}/${movie.title.split(' ').join('-')}/${movie.id}`, title="view")
+      a(href=`/${type}/${movie.title.toLowerCase().split(' ').join('-')}/${movie.id}`, title="view")
         i.fas.fa-eye
       a(href=`/dashboard/update${type}/${movie.id}`, title="edit")
         i.far.fa-edit
@@ -125,7 +125,7 @@ mixin scheduleCard(schedule)
           i.far.fa-edit
         a(title="delete")
           i.fas.fa-trash.delete-item
-      
+
     if(time <= timeNow )
       .schedule-card__time.schedule-card__time--due
         //- -const date = new Date(schedule.date).

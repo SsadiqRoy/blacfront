@@ -1,6 +1,6 @@
 extends ../externals/clientbase
 
-block metaTags 
+block metaTags
   meta(name="keywords" content=`index of movie ${movie.title}, download movies for free, index of ${movie.title}, free movie download links`)
   meta(name="description" content=`Download movie ${movie.title} on blaciris for free and fast. Get other related movies and their links`)
   meta(name="subject" content="Providing free download links for Movies, TV Series and Games for all around the world")
@@ -19,6 +19,7 @@ block metaTags
   meta(name="HandheldFriendly" content="True")
   meta(name="MobileOptimized" content="320")
   meta(name="pageKey" content="Movie Page")
+
   meta(name="og:title" content=`${movie.title}`)
   meta(name="og:type" content="movie")
   meta(name="og:url" content=`https://blaciris.com/movies/${movie.title.toLowerCase().replaceAll(' ', '-')}/${movie.id}`)
