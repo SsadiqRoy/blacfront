@@ -1,5 +1,32 @@
 extends ../externals/clientbase
 
+block metaTags 
+  meta(name="keywords" content=`index of game ${game.title}, download games for free, index of ${game.title}, free game download links`)
+  meta(name="description" content=`Download game ${game.title} on blaciris for free and fast. Get other related games and their links`)
+  meta(name="subject" content="Providing free download links for Movies, TV games and Games for all around the world")
+  meta(name="copyright" content="blaciris")
+  meta(name="topic" content='game Links: Download games For Free')
+  //- meta(name="summary", content)
+  meta(name="Classification" content="Entertainment")
+  meta(name="url" content="http://blaciris.com")
+  meta(name="identifier-URL" content="http://blaciris.com")
+  meta(name="pagename" content=`game ${game.title} Links and Download Page`)
+  meta(name="category" content="games")
+  meta(name="coverage" content="Worldwide")
+  meta(name="distribution" content="Global")
+  meta(name="rating" content="General")
+  meta(name="target" content="all")
+  meta(name="HandheldFriendly" content="True")
+  meta(name="MobileOptimized" content="320")
+  meta(name="pageKey" content="game Page")
+  meta(name="og:title" content=`${game.title}`)
+  meta(name="og:type" content="game")
+  meta(name="og:url" content=`https://blaciris.com/games/${game.title.toLowerCase().replaceAll(' ', '-')}/${game.id}`)
+  meta(name="og:image" content=`${game.portrait}`)
+  meta(name="og:site_name" content="blaciris")
+  meta(name="og:description" content=`${game.description}`)
+  meta(name="og:country-name" content=`${game.country}`)
+
 block content
   include ../externals/cards
 
@@ -21,22 +48,22 @@ block content
           each tag in game.tags
             span.tag
               a(href=`/games?text=${tag.toLowerCase().split(' ').join('-')}`)= tag
-      
+
       p= game.description
-         
-      
-    
+
+
+
     section.screenshots
       .screenshot-box#game-about(data-about=`${game.about}`)
         //- .screenshot
-     
+
 
 
     section.container.links
       .links__container
         each link in game.Links
           +downloadLink(link, 'game')
-       
+
     //   
     section.report.center-components
       button.btn-red.suggest.margin-a1 suggest
@@ -78,10 +105,10 @@ block content
   //-         .form-group-double
   //-           .form-group
   //-             label.label-basic(for="suggest-name") name
-  //-             input#suggest-name.input-basic(type="text", placeholder="optional")
+  //-             input#suggest-name.input-basic(type="text" placeholder="optional")
   //-           .form-group
   //-             label.label-basic(for="suggest-email") email
-  //-             input#suggest-email.input-basic(type="email", placeholder="optional")
+  //-             input#suggest-email.input-basic(type="email" placeholder="optional")
   //-         .center-components
   //-           button.btn-black.btn-normal(type="submit")
   //-             span.btn-content create
@@ -106,10 +133,10 @@ block content
           .form-group-double
             .form-group
               label.label-basic(for="problem-name") name
-              input#problem-name.input-basic(type="text", placeholder="optional")
+              input#problem-name.input-basic(type="text" placeholder="optional")
             .form-group
               label.label-basic(for="problem-email") email
-              input#problem-email.input-basic(type="email", placeholder="optional")
+              input#problem-email.input-basic(type="email" placeholder="optional")
           .center-components
             button.btn-black.btn-normal(type="submit")
               span.btn-content create
