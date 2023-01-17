@@ -22,16 +22,33 @@ footer.footer
           img(src='https://archive.org/download/vudu-logo/VUDU%20Logo.jpeg')
         a(href='https://www.epicgames.com/')
           img(src='https://www.pngfind.com/pngs/m/52-528164_epic-games-png-epic-games-logo-png-transparent.png')
-        
+
       .center-componenet
         button.btn-red.suggest suggest
+      div.center-components
+        button.btn-primary.margin-a1
+          a(href="https://web.facebook.com/groups/1307290496760982")  
+            i.fab.fa-facebook(style='color: dodgerblue;') 
+            |   blaciris.com
+          a(href="https://web.facebook.com/profile.php?id=100088740424959")  
+            i.fab.fa-facebook(style='color: dodgerblue;') 
+            |   Blaciris Wilton
+        button.btn-primary.margin-a1
+          a(href='https://t.me/blaciris')
+            i.fab.fa-telegram(style='color: dodgerblue;') 
+            |   @blaciris 
+        button.btn-primary.margin-a1
+          a(href='https://twitter.com/blaciris_')
+            i.fab.fa-twitter(style='color: dodgerblue;') 
+            |   @blaciris 
+
 
 .popup.display-off#suggest-popup
   .popup-box.popup-box-normal
     //- 
     .popup-close
       i.fas.fa-times
-    
+
     .popup-content.create-content
       form.create-new#create-suggest
         .form-heading
@@ -48,14 +65,14 @@ footer.footer
           input#suggest-title.input-basic(type="text" required)
         .form-group
           label.label-basic(for="suggest-activity") message
-          textarea#suggest-activity.input-basic(type="text", placeholder="optional")
+          textarea#suggest-activity.input-basic(type="text" placeholder="optional")
         //- .form-group-double
-          //- .form-group
-          //-   label.label-basic(for="suggest-name") your name
-          //-   input#suggest-name.input-basic(type="text", placeholder="optional")
+        //- .form-group
+        //-   label.label-basic(for="suggest-name") your name
+        //-   input#suggest-name.input-basic(type="text" placeholder="optional")
         .form-group
           label.label-basic(for="suggest-email") email
-          input#suggest-email.input-basic(type="email", placeholder="optional")
+          input#suggest-email.input-basic(type="email" placeholder="optional")
         .center-components
           button.btn-black.btn-normal#suggest-btn(type="submit")
             span.btn-content create
@@ -83,10 +100,10 @@ footer.footer
         //- .form-group-double
         //-   .form-group
         //-     label.label-basic(for="problem-name") name
-        //-     input#problem-name.input-basic(type="text", placeholder="optional")
+        //-     input#problem-name.input-basic(type="text" placeholder="optional")
         .form-group
           label.label-basic(for="problem-email") email
-          input#problem-email.input-basic(type="email", placeholder="optional")
+          input#problem-email.input-basic(type="email" placeholder="optional")
         .center-components
           button.btn-black.btn-normal#problem-btn(type="submit")
             span.btn-content create

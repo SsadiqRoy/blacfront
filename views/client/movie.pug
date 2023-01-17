@@ -79,14 +79,22 @@ block content
           +downloadLink(link, 'movie')
 
     section.report.center-components
-      button.btn-red.suggest.margin-a1 suggest
-      button.btn-red.problem.margin-a1 report problem
-      button.btn-primary.margin-a1  
-        i.fab.fa-facebook(style='color: dodgerblue;') 
-        |   @blaciris.com
-      button.btn-primary.margin-a1
-        i.fab.fa-telegram(style='color: dodgerblue;') 
-        |   @blaciris 
+      div.center-components
+        button.btn-red.suggest.margin-a1 suggest
+        button.btn-red.problem.margin-a1 report problem
+      div.center-components
+        button.btn-primary.margin-a1
+          a(href="https://web.facebook.com/profile.php?id=100088740424959")  
+            i.fab.fa-facebook(style='color: dodgerblue;') 
+            |   Blaciris Wilton
+        button.btn-primary.margin-a1
+          a(href='https://t.me/blaciris')
+            i.fab.fa-telegram(style='color: dodgerblue;') 
+            |   @blaciris 
+        button.btn-primary.margin-a1
+          a(href='https://twitter.com/blaciris_')
+            i.fab.fa-twitter(style='color: dodgerblue;') 
+            |   @blaciris 
 
   section.container
     .content.content-movies#suggestions(data-in=`${['keywords', ...movie.keywords].join(',')}` data-not-in=`${['id',movie.id]}` data-text=`${movie.company.split(' ').join('-')}-${movie.keywords.join('-')}`)
