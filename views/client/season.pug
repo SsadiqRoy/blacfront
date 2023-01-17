@@ -1,5 +1,41 @@
 extends ../externals/clientbase
 
+block metaTags 
+  meta(name="keywords" content=`index of serie ${serie.title}, download series for free, index of ${serie.title}, free serie download links`)
+  meta(name="description" content=`Download serie ${serie.title} on blaciris for free and fast. Get other related series and their links`)
+  meta(name="subject" content="Providing free download links for Movies, TV Series and Games for all around the world")
+  meta(name="copyright" content="blaciris")
+  meta(name="topic" content='serie Links: Download series For Free')
+  meta(name="summary", content=`${serie.description}`)
+  meta(name="Classification" content="Entertainment")
+  meta(name="url" content="http://blaciris.com")
+  meta(name="identifier-URL" content="http://blaciris.com")
+  meta(name="pagename" content=`serie ${serie.title} Links and Download Page`)
+  meta(name="category" content="series")
+  meta(name="coverage" content="Worldwide")
+  meta(name="distribution" content="Global")
+  meta(name="rating" content="General")
+  meta(name="target" content="all")
+  meta(name="HandheldFriendly" content="True")
+  meta(name="MobileOptimized" content="320")
+  meta(name="pageKey" content="serie Page")
+
+  meta(name="og:title" content=`${serie.title}`)
+  meta(name="og:type" content="serie")
+  meta(name="og:url" content=`https://blaciris.com/series/${serie.title.toLowerCase().replaceAll(' ', '-')}/${serie.id}`)
+  meta(name="og:image" content=`${serie.landscape}`)
+  meta(name="og:site_name" content="blaciris")
+  meta(name="og:description" content=`${serie.description}`)
+  meta(name="og:country-name" content=`${serie.country}`)
+
+  meta(name="twitter:title" content=`${serie.title}`)
+  meta(name="twitter:description" content=`${serie.description}`)
+  meta(name="twitter:image" content=`${serie.landscape}`)
+  meta(name="twitter:card" content=`summery_large_image`)
+  meta(name="twitter:site" content=`@blaciris_`)
+  meta(name="twitter:creator" content=`@blaciris_`)
+
+
 block content
   include ../externals/cards
 
@@ -10,7 +46,7 @@ block content
         span= new Date(serie.releasedDate).getFullYear()
         | &nbsp; &nbsp; 
         span #{serie.rating || 'unrated'}/10
-    
+
     .product-image
       img(src=`${serie.landscape}`)
     .product-description
@@ -21,23 +57,23 @@ block content
           each tag in serie.tags
             span.tag
               a(href=`/series?text=${tag.toLowerCase().split(' ').join('-')}`)= tag
-      
+
       p= serie.description
-        
-      
+
+
     .furthur-info
       .furthur-info__box
         span.furthur-info__title writers/producers/directors:
         span.furthur-info__list
           each director in serie.directors
             a(href=`/series?directors=${director.toLowerCase().split(' ')[0]}`) #{director},      
-      
+
       .furthur-info__box
         span.furthur-info__title actors:
         span.furthur-info__list
           each actor in serie.actors
             a(href=`/series?charactors=${actor.toLowerCase().split(' ')[0]}`) #{actor},
-      
+
     .season-links
       .season-links__cover
         each episode in season.Episodes
@@ -84,39 +120,39 @@ block content
   //-         .form-group-double
   //-           .form-group
   //-             label.label-basic(for="suggest-name") name
-  //-             input#suggest-name.input-basic(type="text", placeholder="optional")
+  //-             input#suggest-name.input-basic(type="text" placeholder="optional")
   //-           .form-group
   //-             label.label-basic(for="suggest-email") email
-  //-             input#suggest-email.input-basic(type="email", placeholder="optional")
+  //-             input#suggest-email.input-basic(type="email" placeholder="optional")
   //-         .center-components
   //-           button.btn-black.btn-normal(type="submit")
   //-             span.btn-content create
 
 
   //- .popup.display-off#problem-popup
-    //   
-    .popup-box.popup-box-normal
-      .popup-close
-        i.fas.fa-times
-      .popup-content.create-content
-        form.create-new#create-problem
-          .form-heading
-            h1 Report Problem
+  //   
+  .popup-box.popup-box-normal
+    .popup-close
+      i.fas.fa-times
+    .popup-content.create-content
+      form.create-new#create-problem
+        .form-heading
+          h1 Report Problem
+        .form-group
+          label.label-basic(for="problem-country") problem on
+          select#problem-country.input-basic(type="text")
+            option(value="broken-link") broken link
+            option(value="other") other
+        .form-group
+          label.label-basic(for="problem-activity") message
+          textarea#problem-activity.input-basic(type="text")
+        .form-group-double
           .form-group
-            label.label-basic(for="problem-country") problem on
-            select#problem-country.input-basic(type="text")
-              option(value="broken-link") broken link
-              option(value="other") other
+            label.label-basic(for="problem-name") name
+            input#problem-name.input-basic(type="text" placeholder="optional")
           .form-group
-            label.label-basic(for="problem-activity") message
-            textarea#problem-activity.input-basic(type="text")
-          .form-group-double
-            .form-group
-              label.label-basic(for="problem-name") name
-              input#problem-name.input-basic(type="text", placeholder="optional")
-            .form-group
-              label.label-basic(for="problem-email") email
-              input#problem-email.input-basic(type="email", placeholder="optional")
-          .center-components
-            button.btn-black.btn-normal(type="submit")
-              span.btn-content create
+            label.label-basic(for="problem-email") email
+            input#problem-email.input-basic(type="email" placeholder="optional")
+        .center-components
+          button.btn-black.btn-normal(type="submit")
+            span.btn-content create
