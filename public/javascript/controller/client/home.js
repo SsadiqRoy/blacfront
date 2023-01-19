@@ -4,7 +4,7 @@ import * as model from "../../model/model.js";
 async function controlHeadingSlide() {
   try {
     const response = await model.get(
-      "/movies?fields=title,landscape,description,id&limit=10&rating=gte,5.5&order=releasedDate,desc"
+      "/movies?fields=title,landscape,description,id&limit=10&rating=gte,7&order=releasedDate,desc"
     );
     view.renderHeadingSlide(response);
   } catch (error) {

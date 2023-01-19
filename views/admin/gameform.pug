@@ -7,23 +7,23 @@ block content
       form.create-new#create-game(data-game-id=`${gameId}`)
         .form-heading
           h1 #{game ? 'Update Game' : 'Create Game'}
-        
+
         .form-group
           label.label-basic(for="game-title") title
           input#game-title.input-basic(type="text" value=`${game && game.title || ''}` required)
-        
+
         .form-group
           label.label-basic(for="game-image-portrait") image portrait link
           input#game-image-portrait.input-basic(type="text" value=`${game && game.portrait || ''}` required)
-        
+
         .form-group
           label.label-basic(for="game-image-landscape") image landscape link
           input#game-image-landscape.input-basic(type="text" value=`${game && game.landscape || ''}` required)
-        
+
         .form-group
           label.label-basic(for="game-description") description
           textarea#game-description.textarea-basic(rows="3" required) #{game && game.description || ''}
-        
+
         .center-components(style="font: bold 2rem poppins; color: blue;")
           if(gameId)
             a(href=`/dashboard/aboutgame/${gameId}`) game about
@@ -35,15 +35,15 @@ block content
         .form-group
           label.label-basic(for="game-tags") tags
           input#game-tags.input-basic(type="text" value=`${game && game.tags.join(',') || ''}` required)
-        
+
         .form-group
           label.label-basic(for="game-key-words") key words
           input#game-keywords.input-basic(type="text" value=`${game && game.tags.join(',') || ''}` required)
-        
+
         .form-group
           label.label-basic(for="game-companies") companies
           input#game-companies.input-basic(type="text" value=`${game && game.tags.join(',') || ''}` required)
-        
+
         .form-group-double
           .form-group
             label.label-basic(for="game-company") company
@@ -51,7 +51,7 @@ block content
           .form-group
             label.label-basic(for="game-year") release year
             input#game-date.input-basic(type="date" value=`${game && game.releasedDate || ''}` required)
-        
+
         .form-group-double
           .form-group
             label.label-basic(for="game-country") country
@@ -62,8 +62,8 @@ block content
           .form-group
             label.label-basic(for="game-rating") rating
             input#game-rating.input-basic(type="text" value=`${game && game.rating || ''}` required)
-        
-        
+
+
         if(game && game.Links.length)
           .form-heading
             h1 Download links
@@ -94,7 +94,7 @@ block content
             h1 new part
           .form-group
             label.label-basic(for="gamepart-title") link title
-            input#gamepart-title.input-basic(type="text" required)
+            input#gamepart-title.input-basic(type="text" required value='part ')
           .form-group
             label.label-basic(for="gamepart-part") part number
             input#gamepart-part.input-basic(type="number",  required)
@@ -114,7 +114,7 @@ block content
         form.create-new#delete-gamepart(data-game-id=`${gameId}`)
           .form-heading
             h1 Are you sure you want to delete the link
-          
+
           .center-components
             button.btn-black.btn-normal#delete-gamepart-btn(type="submit")
               span.btn-content yes, delete

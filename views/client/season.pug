@@ -75,6 +75,7 @@ block content
             a(href=`/series?charactors=${actor.toLowerCase().split(' ')[0]}`) #{actor},
 
     .season-links
+      //- .season-links__note 
       .season-links__cover
         each episode in season.Episodes
           +episodeCard(episode)
