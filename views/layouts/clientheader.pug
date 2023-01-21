@@ -3,25 +3,69 @@ header.header
     .header__logo
       .header-menu
         i.fas.fa-bars#menu-bar
-       
+
       span.text-logo-secondary
         a(href='/')
           img(src='/images/logo-trans-black.svg')
-    
+
     .search-bar
       form.search-bar__form#client-search
-        input.input-search(type="serch", placeholder="search movie" id='search-bar')
+        input.input-search(type="serch" placeholder="search movie" id='search-bar')
         i.fas.fa-search#search-button
-    
-    .main-titles
+
+    nav.main-titles
       ul.title-list
+        li.title-list-item
+          a(href='/movies?order=releasedDate,desc,rating,desc') Movies
+          ul.title-list-inner
+            li.title-list-inner-item
+              a(href='/movies?order=releasedDate,desc,rating,desc') New Released
+            li.title-list-inner-item
+              a(href='/movies?order=rating,desc,releasedDate,desc') Top Rated
+            li.title-list-inner-item
+              a(href='/movies?text=animation') animation
+
+        li.title-list-item
+          a(href='/series?order=releasedDate,desc,rating,desc') Tv Series
+          ul.title-list-inner
+            li.title-list-inner-item
+              a(href='/series?order=releasedDate,desc,rating,desc') New Released
+            li.title-list-inner-item
+              a(href='/series?order=rating,desc,releasedDate,desc') Top Rated
+            li.title-list-inner-item
+            //-   a(href='/series?text=amimation') animation
+            //- li.title-list-inner-item
+              a(href='/series?order=updatedAt,desc,rating,desc') new episodes
+            li.title-list-inner-item
+              a(href='/series?text=animation') animation
+
+        li.title-list-item.title-list-item-3
+          a(href='/games?order=releasedDate,desc,rating,desc') Games
+          ul.title-list-inner
+            li.title-list-inner-item
+              a(href='/games?order=releasedDate,desc,rating,desc') New Released
+            li.title-list-inner-item
+              a(href='/games?order=rating,desc,releasedDate,desc') Top Rated
+            li.title-list-inner-item
+              a(href='/games?text=action') action
+
+        li.title-list-item.title-list-item-4
+          div More
+          ul.title-list-inner
+            li.title-list-inner-item
+              a(href=`/${ext.query || 'movies' }?text=action`) action
+            li.title-list-inner-item
+              a(href=`/${ext.query || 'movies' }?text=comedy`) comedy
+            li.title-list-inner-item
+              a(href=`/${ext.query || 'movies' }?text=thriller`) thriller
+            li.title-list-inner-item
+              a(href=`/${ext.query || 'movies' }?text=fantasy`) fantasy
+            li.title-list-inner-item
+              a(href=`/${ext.query || 'movies' }?text=war`) war
+            li.title-list-inner-item
+              a(href=`/${ext.query || 'movies' }?text=single-player`) single player
+
         button.btn-red.suggest suggest
-        //- li.title-list-item
-        //-   a(href='/movies') Movies
-        //- li.title-list-item
-        //-   a(href='/series') tv series
-        //- li.title-list-item
-        //-   a(href='/games') games
 
 aside.sidebar#sidebar
   .right-components
@@ -30,7 +74,7 @@ aside.sidebar#sidebar
     i.fas.fa-chevron-circle-left.close-sidebar#close-sidebar
   .sidebar__cover
     .sidebar__content
-      .sidebar__content-categories
+      nav.sidebar__content-categories
         ul
           li
             a(href='/movies') Movies
@@ -44,11 +88,11 @@ aside.sidebar#sidebar
             li
               a(href=`/${ext.query || 'movies'}?text=trending`) trending
             li 
-              a(href=`/${ext.query || 'movies'}?date=gte,${new Date(Date.now() - (7776000000)).toLocaleDateString()}`) new
+              a(href=`/${ext.query || 'movies'}?order=releasedDate,desc`) new
             li
-              a(href=`/${ext.query || 'movies'}?updatedAt=gte,${new Date(Date.now() - (7776000000)).toLocaleDateString()}`) updated
+              a(href=`/${ext.query || 'movies'}?order=updatedAt,desc`) updated
             li
-              a(href=`/${ext.query || 'movies'}?rating=gte,6`) top rated
+              a(href=`/${ext.query || 'movies'}?rating=gte,6.5`) top rated
           ul
             li
               a(href=`/${ext.query || 'movies'}?text=action`) action
@@ -70,58 +114,58 @@ aside.sidebar#sidebar
               a(href=`/${ext.query || 'movies'}?text=war`) war
           ul
             li(data-query='') apple tv
-              a(href=`/${ext.query || 'movies'}?company=apple`) apple tv
+              a(href=`/${ext.query || 'movies'}?text=apple`) apple tv
             li
-              a(href=`/${ext.query || 'movies'}?company=dc`) dc
+              a(href=`/${ext.query || 'movies'}?text=dc`) dc
             li
-              a(href=`/${ext.query || 'movies'}?company=marvel`) marvel
+              a(href=`/${ext.query || 'movies'}?text=marvel`) marvel
             li
-              a(href=`/${ext.query || 'movies'}?company=netflix`) netflix
+              a(href=`/${ext.query || 'movies'}?text=netflix`) netflix
             li
-              a(href=`/${ext.query || 'movies'}?company=amazon`) amazon
-        
+              a(href=`/${ext.query || 'movies'}?text=amazon`) amazon
+
           ul
             li
-              a(href=`/${ext.query || 'movies'}?country=united states`) United States
+              a(href=`/${ext.query || 'movies'}?text=united states`) United States
             li
-              a(href=`/${ext.query || 'movies'}?country=india`) india
+              a(href=`/${ext.query || 'movies'}?text=india`) india
             li
-              a(href=`/${ext.query || 'movies'}?country=china`) china
+              a(href=`/${ext.query || 'movies'}?text=china`) china
             li
-              a(href=`/${ext.query || 'movies'}?country=japan`) japan
+              a(href=`/${ext.query || 'movies'}?text=japan`) japan
             li
-              a(href=`/${ext.query || 'movies'}?country=korea`) korea
+              a(href=`/${ext.query || 'movies'}?text=korea`) korea
             li
-              a(href=`/${ext.query || 'movies'}?country=united kingdom`) United Kingdom
+              a(href=`/${ext.query || 'movies'}?text=united kingdom`) United Kingdom
             li
-              a(href=`/${ext.query || 'movies'}?country=african`) african
+              a(href=`/${ext.query || 'movies'}?text=african`) african
 
         if(ext.page === 'games' || ext.page === 'game')
-         
+
           ul
             li
-              a(href='/games?country=adventure') adventure
+              a(href='/games?text=adventure') adventure
             li
-              a(href='/games?country=arcade') arcade
+              a(href='/games?text=arcade') arcade
             li
-              a(href='/games?country=fighting') fighting
+              a(href='/games?text=fighting') fighting
             li
-              a(href='/games?country=horror') horror
+              a(href='/games?text=horror') horror
             li
-              a(href='/games?country=open-word') open-word
+              a(href='/games?text=open-word') open-word
             li
-              a(href='/games?country=puzzle') puzzle
+              a(href='/games?text=puzzle') puzzle
             li
-              a(href='/games?country=shooter') shooter
+              a(href='/games?text=shooter') shooter
             li
-              a(href='/games?country=racing') racing
+              a(href='/games?text=racing') racing
             li
-              a(href='/games?country=sports') sports
+              a(href='/games?text=sports') sports
             li
-              a(href='/games?country=rpg') rpg
+              a(href='/games?text=rpg') rpg
             li
-              a(href='/games?country=war') war
-        
+              a(href='/games?text=war') war
+
         if(user)
           ul
             li 

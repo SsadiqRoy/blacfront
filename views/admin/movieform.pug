@@ -99,9 +99,13 @@ block content
         form.create-new#create-link(data-movie-id=`${movieId}`)
           .form-heading
             h1 new movie link
-          .form-group
-            label.label-basic(for="link-title") link title
-            input#link-title.input-basic(type="text" required)
+          .form-group-double
+            .form-group
+              label.label-basic(for="link-title") link title
+              select#link-title.input-basic
+            .form-group
+              label.label-basic(for="link-title") link title
+              input#link-title-2.input-basic(type="text")
           .form-group
             label.label-basic(for="link-resolution") resolution
             select#link-resolution.input-basic(type="text" data-value=`` required)

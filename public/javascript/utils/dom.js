@@ -1,9 +1,9 @@
 // import * as env from './env.js';
-import * as utils from './utils.js';
+import * as utils from "./utils.js";
 
 export function noMenu() {
-  const body = document.querySelector('body');
-  body.addEventListener('contextmenu', (e) => {
+  const body = document.querySelector("body");
+  body.addEventListener("contextmenu", (e) => {
     e.preventDefault();
   });
 }
@@ -14,7 +14,7 @@ export function noMenu() {
  * @param {Strng} timer the time for the alert box to disappear from surface
  * @param {String} type success, failed,
  */
-export function alertResponse(message, timer = 3, type = 'success') {
+export function alertResponse(message, timer = 3, type = "success") {
   const markup = `
     <div class="message message--${type}">
       <div class="message__cover">
@@ -22,19 +22,19 @@ export function alertResponse(message, timer = 3, type = 'success') {
       </div>
     </div>
   `;
-  const body = document.querySelector('body');
+  const body = document.querySelector("body");
   // inserting the element into the body
-  body.insertAdjacentHTML('afterbegin', markup);
-  const alerter = document.querySelector('.message');
+  body.insertAdjacentHTML("afterbegin", markup);
+  const alerter = document.querySelector(".message");
   // showing in the message
 
   setTimeout(() => {
-    alerter.classList.add('message--in');
+    alerter.classList.add("message--in");
   }, 500);
 
   // taking out the message
   setTimeout(() => {
-    alerter.classList.remove('message--in');
+    alerter.classList.remove("message--in");
   }, (timer + 1) * 1000);
   // removing the message element from the body element
   setTimeout(() => {
@@ -49,27 +49,27 @@ export function alertResponse(message, timer = 3, type = 'success') {
  * @param {String} type of button
  * @returns null - breakpoints
  */
-export function rotateBtn(btnid, type = 'btn-black') {
+export function rotateBtn(btnid, type = "btn-black") {
   const btn = document.getElementById(btnid);
 
-  if (type === 'btn-black') {
-    btn.classList.add('btn-black--rotate');
+  if (type === "btn-black") {
+    btn.classList.add("btn-black--rotate");
     return;
   }
-  if (type === 'btn-primary') {
-    btn.classList.add('btn-primary--rotate');
+  if (type === "btn-primary") {
+    btn.classList.add("btn-primary--rotate");
     return;
   }
-  if (type === 'btn-primary--alt') {
-    btn.classList.add('btn-primary--alt--rotate');
+  if (type === "btn-primary--alt") {
+    btn.classList.add("btn-primary--alt--rotate");
     return;
   }
-  if (type === 'btn-secondary') {
-    btn.classList.add('btn-secondary--rotate');
+  if (type === "btn-secondary") {
+    btn.classList.add("btn-secondary--rotate");
     return;
   }
-  if (type === 'btn-secondary--alt') {
-    btn.classList.add('btn-secondary--alt--rotate');
+  if (type === "btn-secondary--alt") {
+    btn.classList.add("btn-secondary--alt--rotate");
     return;
   }
 }
@@ -81,27 +81,27 @@ export function rotateBtn(btnid, type = 'btn-black') {
  * @param {String} type the type of button
  * @returns null - breakpoints
  */
-export function stopRotateBtn(btnid, type = 'btn-black') {
+export function stopRotateBtn(btnid, type = "btn-black") {
   const btn = document.getElementById(btnid);
 
-  if (type === 'btn-black') {
-    btn.classList.remove('btn-black--rotate');
+  if (type === "btn-black") {
+    btn.classList.remove("btn-black--rotate");
     return;
   }
-  if (type === 'btn-primary') {
-    btn.classList.remove('btn-primary--rotate');
+  if (type === "btn-primary") {
+    btn.classList.remove("btn-primary--rotate");
     return;
   }
-  if (type === 'btn-primary--alt') {
-    btn.classList.remove('btn-primary--alt--rotate');
+  if (type === "btn-primary--alt") {
+    btn.classList.remove("btn-primary--alt--rotate");
     return;
   }
-  if (type === 'btn-secondary') {
-    btn.classList.remove('btn-secondary--rotate');
+  if (type === "btn-secondary") {
+    btn.classList.remove("btn-secondary--rotate");
     return;
   }
-  if (type === 'btn-secondary--alt') {
-    btn.classList.remove('btn-secondary--alt--rotate');
+  if (type === "btn-secondary--alt") {
+    btn.classList.remove("btn-secondary--alt--rotate");
     return;
   }
 }
@@ -114,15 +114,21 @@ export function stopRotateBtn(btnid, type = 'btn-black') {
  */
 export function fillSelects(selectId, variables, clear = true, list) {
   const select = document.getElementById(selectId);
-  if (!select) return console.warn('blaciris - select element not on this page - ', selectId);
-  const { value } = select.dataset;
+  if (!select)
+    return console.warn(
+      "blaciris - select element not on this page - ",
+      selectId
+    );
+  const value = select.dataset.value || "";
 
   const vars = list || utils[variables];
-  if (clear) select.innerHTML = '';
+  if (clear) select.innerHTML = "";
 
   vars.forEach((v) => {
-    const markup = `<option value='${v}' ${v.toLowerCase() === value.toLowerCase() ? 'selected' : ''}>${v}</option>`;
-    select.insertAdjacentHTML('beforeend', markup);
+    const markup = `<option value='${v}' ${
+      v.toLowerCase() === value.toLowerCase() ? "selected" : ""
+    }>${v}</option>`;
+    select.insertAdjacentHTML("beforeend", markup);
   });
 }
 
@@ -132,7 +138,7 @@ export function fillSelects(selectId, variables, clear = true, list) {
  * @returns Object, meta of a query
  */
 export function metaQuery(query) {
-  const body = document.querySelector('body');
+  const body = document.querySelector("body");
   if (query) {
     body.dataset.meta = JSON.stringify(query);
     return;
@@ -141,14 +147,14 @@ export function metaQuery(query) {
   return meta;
 }
 
-export function clientSearch(type = 'movie') {
-  const form = document.getElementById('client-search');
+export function clientSearch(type = "movie") {
+  const form = document.getElementById("client-search");
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const { value } = form.querySelector('input');
+    const { value } = form.querySelector("input");
 
     if (!value) return;
-    window.location.assign(`/${type}s?text=${value.split(' ').join('-')}`);
+    window.location.assign(`/${type}s?text=${value.split(" ").join("-")}`);
   });
 }

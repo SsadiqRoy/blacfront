@@ -1,5 +1,40 @@
 extends ../externals/clientbase
 
+block metaTags 
+  meta(name="keywords" content=`index of Pc games, index of ${game.title}, download pc games for free, blaciris pc games free download`)
+  meta(name="description" content=`${game.title} - ${game.description} - Free download on blaciris`)
+  meta(name="subject" content="Providing free download links for Movies, TV games and Games for all around the world")
+  meta(name="copyright" content="blaciris")
+  meta(name="topic" content='game Links: Download games For Free')
+  meta(name="summary", content=`${game.description}`)
+  meta(name="Classification" content="Entertainment")
+  meta(name="url" content="http://blaciris.com")
+  meta(name="identifier-URL" content="http://blaciris.com")
+  meta(name="pagename" content=`game ${game.title} Links and Download Page`)
+  meta(name="category" content="games")
+  meta(name="coverage" content="Worldwide")
+  meta(name="distribution" content="Global")
+  meta(name="rating" content="General")
+  meta(name="target" content="all")
+  meta(name="HandheldFriendly" content="True")
+  meta(name="MobileOptimized" content="320")
+  meta(name="pageKey" content="game Page")
+
+  meta(name="og:title" content=`${game.title}`)
+  meta(name="og:type" content="game")
+  meta(name="og:url" content=`https://blaciris.com/games/${game.title.toLowerCase().replaceAll(' ', '-')}/${game.id}`)
+  meta(name="og:image" content=`${game.landscape}`)
+  meta(name="og:site_name" content="blaciris")
+  meta(name="og:description" content=`${game.description}`)
+  meta(name="og:country-name" content=`${game.country}`)
+
+  meta(name="twitter:title" content=`${game.title}`)
+  meta(name="twitter:description" content=`${game.description}`)
+  meta(name="twitter:image" content=`${game.landscape}`)
+  meta(name="twitter:card" content=`summery_large_image`)
+  meta(name="twitter:site" content=`@blaciris_`)
+  meta(name="twitter:creator" content=`@blaciris_`)
+
 block content
   include ../externals/cards
 
@@ -21,26 +56,39 @@ block content
           each tag in game.tags
             span.tag
               a(href=`/games?text=${tag.toLowerCase().split(' ').join('-')}`)= tag
-      
+
       p= game.description
-         
-      
-    
+
+
+
     section.screenshots
       .screenshot-box#game-about(data-about=`${game.about}`)
         //- .screenshot
-     
+
 
 
     section.container.links
       .links__container
         each link in game.Links
           +downloadLink(link, 'game')
-       
-    //   
+
     section.report.center-components
-      button.btn-red.suggest.margin-a1 suggest
-      button.btn-red.problem.margin-a1 report problem
+      div.center-components
+        button.btn-red.suggest.margin-a1 suggest
+        button.btn-red.problem.margin-a1 report problem
+      div.center-components
+        button.btn-primary.margin-a1
+          a(href="https://web.facebook.com/profile.php?id=100088740424959")  
+            i.fab.fa-facebook(style='color: dodgerblue;') 
+            |   Blaciris Wilton
+        button.btn-primary.margin-a1
+          a(href='https://t.me/blaciris')
+            i.fab.fa-telegram(style='color: dodgerblue;') 
+            |   @blaciris 
+        button.btn-primary.margin-a1
+          a(href='https://twitter.com/blaciris_')
+            i.fab.fa-twitter(style='color: dodgerblue;') 
+            |   @blaciris 
 
 
   section.container
@@ -78,10 +126,10 @@ block content
   //-         .form-group-double
   //-           .form-group
   //-             label.label-basic(for="suggest-name") name
-  //-             input#suggest-name.input-basic(type="text", placeholder="optional")
+  //-             input#suggest-name.input-basic(type="text" placeholder="optional")
   //-           .form-group
   //-             label.label-basic(for="suggest-email") email
-  //-             input#suggest-email.input-basic(type="email", placeholder="optional")
+  //-             input#suggest-email.input-basic(type="email" placeholder="optional")
   //-         .center-components
   //-           button.btn-black.btn-normal(type="submit")
   //-             span.btn-content create
@@ -106,10 +154,10 @@ block content
           .form-group-double
             .form-group
               label.label-basic(for="problem-name") name
-              input#problem-name.input-basic(type="text", placeholder="optional")
+              input#problem-name.input-basic(type="text" placeholder="optional")
             .form-group
               label.label-basic(for="problem-email") email
-              input#problem-email.input-basic(type="email", placeholder="optional")
+              input#problem-email.input-basic(type="email" placeholder="optional")
           .center-components
             button.btn-black.btn-normal(type="submit")
               span.btn-content create

@@ -1,5 +1,5 @@
-@import '../components/logo';
-@import './sidebar';
+@import "../components/logo";
+@import "./sidebar";
 
 .header {
   width: 100%;
@@ -85,7 +85,7 @@
             }
           }
 
-          input[name='country'] ~ label {
+          input[name="country"] ~ label {
             text-transform: capitalize;
           }
         }
@@ -149,10 +149,7 @@
   }
 
   .main-titles {
-    // font-family: $font-description;
-    // font-size: 2rem;
-    // font-weight: bold;
-    font: bold 2rem $font-description;
+    font: normal 1.8rem sans;
     text-transform: capitalize;
     display: flex;
     align-items: center;
@@ -166,25 +163,84 @@
       font-size: 2rem;
     }
 
-    a {
-      color: $primary !important;
-    }
-
-    ul {
+    .title-list {
       list-style: none;
+      display: flex;
+      gap: 1rem;
 
+      .title-list-item-4 {
+        @include respond(tab-land) {
+          display: none;
+        }
+      }
+
+      .title-list-item-3 {
+        @include respond(tab-port) {
+          display: none;
+        }
+      }
+
+      .title-list-item {
+        @include respond(phone) {
+          display: none;
+        }
+      }
+
+      // .title-list-item
       @media (max-width: 21.875em) {
         button {
           display: none;
         }
       }
-    }
-    li {
-      display: inline-block;
-      padding-inline: 1rem;
 
-      @include respond(phone-small) {
-        padding-inline: 0.3rem;
+      &-item {
+        display: inline-block;
+        padding-inline: 1rem;
+        position: relative;
+        flex-shrink: 0;
+
+        @include respond(phone-small) {
+          padding-inline: 0.3rem;
+        }
+
+        div {
+          cursor: pointer;
+        }
+        &:hover .title-list-inner {
+          transform: scale(1);
+          opacity: 1;
+        }
+
+        .title-list-inner {
+          position: absolute;
+          top: 105%;
+          left: 0;
+          transform: scale(0);
+          opacity: 0;
+          transition: $transition;
+
+          background-color: $white;
+
+          a {
+            display: inline-block;
+            width: 100%;
+            padding-inline: 1rem;
+            transition: $transition;
+            min-width: max-content;
+            padding-block: 0.3rem;
+            border-bottom: 1px solid black;
+            text-transform: capitalize;
+            // font-size: 1.4rem;
+
+            &:hover {
+              // background-color: $black;
+              color: $color-red !important;
+            }
+          }
+        }
+      }
+      button {
+        flex-grow: 0;
       }
     }
   }

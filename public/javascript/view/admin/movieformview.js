@@ -85,52 +85,11 @@ export function getMovieData() {
 }
 
 //
-// export function getLinks() {
-//   // const link480 = document.getElementById('movie-480-link').value;
-//   const {
-//     value: l480,
-//     dataset: { link: l480Old, linkId: l480Id },
-//   } = document.getElementById('movie-480-link');
-
-//   // const link720 = document.getElementById('movie-720-link').value;
-//   const {
-//     value: l720,
-//     dataset: { link: l720Old, linkId: l720Id },
-//   } = document.getElementById('movie-720-link');
-
-//   // const link1080 = document.getElementById('movie-1080-link').value;
-//   const {
-//     value: l1080,
-//     dataset: { link: l1080Old, linkId: l1080Id },
-//   } = document.getElementById('movie-1080-link');
-
-//   // const linkOther = document.getElementById('movie-other-link').value;
-//   const {
-//     value: l1,
-//     dataset: { link: l1Old, linkId: l1Id },
-//   } = document.getElementById('movie-other-link');
-
-//   // const subtitle = document.getElementById('movie-subtitle-link').value;
-//   const {
-//     value: l10000,
-//     dataset: { link: l10000Old, linkId: l10000Id },
-//   } = document.getElementById('movie-subtitle-link');
-
-//   const links = [
-//     { link: l480, resolution: 480, old: l480Old, id: l480Id },
-//     { link: l720, resolution: 720, old: l720Old, id: l720Id },
-//     { link: l1080, resolution: 1080, old: l1080Old, id: l1080Id },
-//     { link: l1, resolution: 1, old: l1Old, id: l1Id },
-//     { link: l10000, resolution: 10000, old: l10000Old, id: l10000Id },
-//   ];
-//   // const validLinks = links.filter((link) => link.link.length);
-//   return links;
-// }
 
 export function getLinkData() {
   const resolution = document.getElementById('link-resolution').value;
   const link = document.getElementById('link-link').value;
-  const title = document.getElementById('link-title').value;
+  const title = document.getElementById('link-title').value || document.getElementById('link-title-2');
 
   return { title, resolution, link };
 }
@@ -201,6 +160,7 @@ export function initilizer() {
   movielinkBtn &&
     movielinkBtn.addEventListener('click', (e) => {
       utils.fillSelects('link-resolution', 'resolutions');
+      utils.fillSelects('link-title', 'titles');
       utils.openPopup('create-link-popup');
     });
 }
@@ -235,13 +195,16 @@ function manageLinkPopup() {
         document.getElementById('link-resolution').dataset.value = resolution;
         utils.fillSelects('link-resolution', 'resolutions');
         document.getElementById('link-link').value = link;
-        document.getElementById('link-title').value = title;
+        document.getElementById('link-title').dataset.value = title;
+        utils.fillSelects('link-title', 'titles');
+        document.getElementById('link-title-2').value = title;
 
         utils.openPopup('create-link-popup', () => {
           form.dataset.linkId = '';
           document.getElementById('link-resolution').dataset.value = '';
+          document.getElementById('link-title').dataset.value = '';
           document.getElementById('link-link').value = '';
-          document.getElementById('link-title').value = '';
+          document.getElementById('link-title-2').value = '';
         });
       }
 

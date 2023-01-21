@@ -1,10 +1,16 @@
-import * as view from '../../view/client/moviesview.js';
-import * as model from '../../model/model.js';
+import * as view from "../../view/client/moviesview.js";
+import * as model from "../../model/model.js";
 
 async function controlLoadContent(query) {
   try {
+    if (!query) query = `?order=releasedDate,desc,rating,desc`;
     const response = await model.getfull(`/movies${query}`);
-    view.renderLoadContent({ response, containerId: 'content', type: 'movie', cardName: 'movieCard' });
+    view.renderLoadContent({
+      response,
+      containerId: "content",
+      type: "movie",
+      cardName: "movieCard",
+    });
   } catch (error) {
     console.log(error);
   }
@@ -13,7 +19,12 @@ async function controlLoadContent(query) {
 async function controlLoadMore(query) {
   try {
     const response = await model.getfull(`/movies${query}`);
-    view.renderLoadMore({ response, containerId: 'content', type: 'movie', cardName: 'movieCard' });
+    view.renderLoadMore({
+      response,
+      containerId: "content",
+      type: "movie",
+      cardName: "movieCard",
+    });
   } catch (error) {
     console.log(error);
   }

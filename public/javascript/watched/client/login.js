@@ -598,6 +598,7 @@ parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
 parcelHelpers.export(exports, "resolutions", ()=>resolutions);
+parcelHelpers.export(exports, "titles", ()=>titles);
 parcelHelpers.export(exports, "alertResponse", ()=>alertResponse);
 parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
 parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
@@ -632,6 +633,7 @@ const main_url = _envJs.main_url;
 const countries = _envJs.countries;
 const serieStatus = _envJs.serieStatus;
 const resolutions = _envJs.resolutions;
+const titles = _envJs.titles;
 const alertResponse = _domJs.alertResponse;
 const rotateBtn = _domJs.rotateBtn;
 const stopRotateBtn = _domJs.stopRotateBtn;
@@ -1050,11 +1052,18 @@ parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
 parcelHelpers.export(exports, "resolutions", ()=>resolutions);
 <<<<<<< HEAD
+<<<<<<< HEAD
 const api_url = "https://staging.api.blaciris.com/v1";
 const main_url = "https://staging.blaciris.com";
 =======
 const api_url = "https://api.blaciris.com/v1";
 const main_url = "https://blaciris.com";
+>>>>>>> master
+=======
+parcelHelpers.export(exports, "titles", ()=>titles);
+const protocol = window.location.protocol;
+const api_url = `${protocol}//api.blaciris.com/v1`;
+const main_url = `${protocol}//blaciris.com`;
 >>>>>>> master
 const countries = [
     "Afghanistan",
@@ -1325,6 +1334,19 @@ const resolutions = [
     "2160",
     "10000"
 ];
+const titles = [
+    "360p",
+    "480p",
+    "480x264p",
+    "720p",
+    "720x264p",
+    "720x265p",
+    "1080p",
+    "1080x264p",
+    "1080x265p",
+    "hdcam",
+    "subtitle", 
+];
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"doi6o":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -1483,9 +1505,6 @@ async function getfull(url) {
         });
         return res.data;
     } catch (error) {
-        // console.log('blaciris 🔥', error);
-        // localPost('/write-to-log', error);
-        // error.olderMessage = 'local error';
         throw error.response ? error.response.data : error;
     }
 }
@@ -1501,7 +1520,6 @@ async function patch(url, body) {
         });
         return res.data.data;
     } catch (error) {
-        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1517,7 +1535,6 @@ async function patchfull(url, body) {
         });
         return res.data;
     } catch (error) {
-        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }

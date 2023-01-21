@@ -715,7 +715,7 @@ function renderCreate(data, action, btnId) {
     _utilsJs.stopRotateBtn(btnId);
     window.setTimeout(()=>{
         window.location.assign(`/dashboard/updateserie/${data.serie}`);
-    }, 3500);
+    }, 1000);
 }
 function renderCreateEpisode(data, action, btnId) {
     if (!data) {
@@ -726,7 +726,7 @@ function renderCreateEpisode(data, action, btnId) {
     _utilsJs.stopRotateBtn(btnId);
     window.setTimeout(()=>{
         window.location.assign(`/dashboard/updateepisode/${data.id}`);
-    }, 3500);
+    }, 1000);
 }
 function renderDeleteEpisode(data, btn) {
     if (!data) {
@@ -747,7 +747,7 @@ function renderCreateLink(data, action, btnId) {
     _utilsJs.alertResponse(`link ${data.title} has been ${action}`);
     _utilsJs.stopRotateBtn(btnId);
     _utilsJs.closePopup("create-link-popup", ()=>{
-        window.setTimeout(()=>window.location.reload(), 3500);
+        window.setTimeout(()=>window.location.reload(), 1000);
     });
 }
 function renderDeleteLInk(data, btnId) {
@@ -789,7 +789,7 @@ function getEpisodeData() {
 function getLinkData() {
     const resolution = document.getElementById("link-resolution").value;
     const link = document.getElementById("link-link").value;
-    const title = document.getElementById("link-title").value;
+    const title = document.getElementById("link-title").value || document.getElementById("link-title-2");
     return {
         title,
         resolution,
@@ -848,13 +848,13 @@ function handleDeleteLink(controlDeleteLink) {
     });
 }
 function initializer() {
-    // const btn = document.getElementById('add-episode');
     manageEpisodesPopup();
     manageLinkPopup();
     const episodeLinkBtn = document.getElementById("add-episode-link");
     // displaying popup on for creating movie link
     episodeLinkBtn && episodeLinkBtn.addEventListener("click", (e)=>{
         _utilsJs.fillSelects("link-resolution", "resolutions");
+        _utilsJs.fillSelects("link-title", "titles");
         _utilsJs.openPopup("create-link-popup");
     });
 }
@@ -865,69 +865,16 @@ function initializer() {
 
 
 */ // =================== NON EXPORTING FUNTIONS =
-// function clearEpisodeData() {
-//   document.getElementById('create-episode').dataset.episodeId = '';
-//   document.getElementById('episode-title').value = '';
-//   document.getElementById('episode-episode').value = '';
-//   const l480 = document.getElementById('episode-480-link');
-//   l480.value = '';
-//   l480.dataset.linkId = '';
-//   l480.dataset.link = '';
-//   const l720 = document.getElementById('episode-720-link');
-//   l720.value = '';
-//   l720.dataset.linkId = '';
-//   l720.dataset.link = '';
-//   const l1080 = document.getElementById('episode-1080-link');
-//   l1080.value = '';
-//   l1080.dataset.linkId = '';
-//   l1080.dataset.link = '';
-//   const lother = document.getElementById('episode-other-link');
-//   lother.value = '';
-//   lother.dataset.linkId = '';
-//   lother.dataset.link = '';
-//   const lsubtitle = document.getElementById('episode-subtitle-link');
-//   lsubtitle.value = '';
-//   lsubtitle.dataset.linkId = '';
-//   lsubtitle.dataset.link = '';
-// }
 /** display popup for creating links or deleting links */ function manageEpisodesPopup() {
     const cover = document.getElementById("season-episodes");
     const form = document.getElementById("create-episode");
     const deleteForm = document.getElementById("delete-episode");
     cover && cover.addEventListener("click", (e)=>{
         const { target  } = e;
-        // when edite button is clicked
-        // if (target.classList.contains('edit-episode-btn')) {
-        //   // getting the whole episode data
-        //   const card = target.closest('.episodelink-card');
-        //   const { episode: e } = card.dataset;
-        //   const episode = JSON.parse(e);
-        //   // getting links out of the episodes
-        //   const { Links: links } = episode;
-        //   // setting the popup form episode id to dataset object
-        //   form.dataset.episodeId = episode.id;
-        //   document.getElementById('episode-title').value = episode.title;
-        //   document.getElementById('episode-episode').value = episode.episode;
-        //   // looping through links and setting the dataset and value to their various elements
-        //   links.forEach((link) => {
-        //     // knowing the type of link to be able to select its input by id
-        //     let resolution = link.resolution === 1 ? 'other' : link.resolution;
-        //     resolution = link.resolution === 10000 ? 'subtitle' : resolution;
-        //     const id = `episode-${resolution}-link`;
-        //     const input = document.getElementById(id);
-        //     // resseting dataset and filling in values
-        //     input.value = link.link;
-        //     input.dataset.linkId = link.id;
-        //     input.dataset.link = link.link;
-        //   });
-        //   utils.openPopup('create-episode-popup', clearEpisodeData);
-        // }
         // when delete button is clicked
         if (target.classList.contains("delete-episode-btn")) {
             // getting the whole episode data
             const card = target.closest(".episodelink-card");
-            // const { episode: e } = ;
-            // const episode = JSON.parse(e);
             // getting links out of the episodes
             const { episodeId  } = card.dataset;
             deleteForm.dataset.episodeId = episodeId;
@@ -952,12 +899,15 @@ function initializer() {
             document.getElementById("link-resolution").dataset.value = resolution;
             _utilsJs.fillSelects("link-resolution", "resolutions");
             document.getElementById("link-link").value = link;
-            document.getElementById("link-title").value = title;
+            document.getElementById("link-title").dataset.value = title;
+            _utilsJs.fillSelects("link-title", "titles");
+            document.getElementById("link-title-2").value = title;
             _utilsJs.openPopup("create-link-popup", ()=>{
                 form.dataset.linkId = "";
                 document.getElementById("link-resolution").dataset.value = "";
                 document.getElementById("link-link").value = "";
-                document.getElementById("link-title").value = "";
+                document.getElementById("link-title").dataset.value = "";
+                document.getElementById("link-title-2").value = "";
             });
         }
         // when the delect icon is clicked
@@ -986,6 +936,7 @@ parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
 parcelHelpers.export(exports, "resolutions", ()=>resolutions);
+parcelHelpers.export(exports, "titles", ()=>titles);
 parcelHelpers.export(exports, "alertResponse", ()=>alertResponse);
 parcelHelpers.export(exports, "rotateBtn", ()=>rotateBtn);
 parcelHelpers.export(exports, "stopRotateBtn", ()=>stopRotateBtn);
@@ -1020,6 +971,7 @@ const main_url = _envJs.main_url;
 const countries = _envJs.countries;
 const serieStatus = _envJs.serieStatus;
 const resolutions = _envJs.resolutions;
+const titles = _envJs.titles;
 const alertResponse = _domJs.alertResponse;
 const rotateBtn = _domJs.rotateBtn;
 const stopRotateBtn = _domJs.stopRotateBtn;
@@ -1437,8 +1389,10 @@ parcelHelpers.export(exports, "main_url", ()=>main_url);
 parcelHelpers.export(exports, "countries", ()=>countries);
 parcelHelpers.export(exports, "serieStatus", ()=>serieStatus);
 parcelHelpers.export(exports, "resolutions", ()=>resolutions);
-const api_url = "http://localhost:2000/v1";
-const main_url = "http://localhost:2500";
+parcelHelpers.export(exports, "titles", ()=>titles);
+const protocol = window.location.protocol;
+const api_url = `${protocol}//api.blaciris.com/v1`;
+const main_url = `${protocol}//blaciris.com`;
 const countries = [
     "Afghanistan",
     "Albania",
@@ -1708,6 +1662,19 @@ const resolutions = [
     "2160",
     "10000"
 ];
+const titles = [
+    "360p",
+    "480p",
+    "480x264p",
+    "720p",
+    "720x264p",
+    "720x265p",
+    "1080p",
+    "1080x264p",
+    "1080x265p",
+    "hdcam",
+    "subtitle", 
+];
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"doi6o":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -1732,7 +1699,7 @@ function dbMovieCard(movie, type = "movie") {
       <p>${movie.description}</p>
     </div>
     <div class="dbmovie-card__buttons">
-    <a href="/${type}/${movie.id}" title="view"><i class="fas fa-eye"></i></a>
+    <a href="/${type}/${movie.title.split(" ").join("-")}/${movie.id}" title="view"><i class="fas fa-eye"></i></a>
     <a href="/dashboard/update${type}/${movie.id}" title="edit"><i class="far fa-edit"></i></a>
     <a title="delete"><i class="fas fa-trash delete-item"></i></a>
   </div>
@@ -1866,9 +1833,6 @@ async function getfull(url) {
         });
         return res.data;
     } catch (error) {
-        // console.log('blaciris 🔥', error);
-        // localPost('/write-to-log', error);
-        // error.olderMessage = 'local error';
         throw error.response ? error.response.data : error;
     }
 }
@@ -1884,7 +1848,6 @@ async function patch(url, body) {
         });
         return res.data.data;
     } catch (error) {
-        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }
@@ -1900,7 +1863,6 @@ async function patchfull(url, body) {
         });
         return res.data;
     } catch (error) {
-        // console.log('blaciris 🔥', error);
         throw error.response ? error.response.data : error;
     }
 }

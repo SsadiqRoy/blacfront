@@ -1,17 +1,46 @@
 extends ../externals/clientbase
 
+block metaTags 
+  meta(name="keywords" content=`index of movies 2023, download movies for free, download  movies, index of movies free download links, Where to Download movies for free, movies, new TV Series, Movies to watch in 2023, Trending Movies, new Movies`)
+  meta(name="description" content=`Download movies on blaciris for free and fast. Get other related movies and their links`)
+  meta(name="subject" content="Providing free download links for Movies, TV Series and Games for all around the world")
+  meta(name="copyright" content="blaciris")
+  meta(name="topic" content='Movies Links: Download Movies For Free')
+  meta(name="summary", content=`Download movies on blaciris for free and fast. Get other related movies and their links`)
+  meta(name="Classification" content="Entertainment")
+  meta(name="url" content="http://blaciris.com")
+  meta(name="identifier-URL" content="http://blaciris.com")
+  meta(name="pagename" content=`List of Movies`)
+  meta(name="category" content="Movies")
+  meta(name="coverage" content="Worldwide")
+  meta(name="distribution" content="Global")
+  meta(name="rating" content="General")
+  meta(name="target" content="all")
+  meta(name="HandheldFriendly" content="True")
+  meta(name="MobileOptimized" content="320")
+  meta(name="pageKey" content="Movie Page")
+
+  meta(name="og:title" content=`Explore and Download Trending and All kinds of Movies`)
+  meta(name="og:type" content="movie")
+  meta(name="og:url" content=`https://blaciris.com`)
+  meta(name="og:image" content=`/images/logo.png`)
+  meta(name="og:site_name" content="blaciris")
+  meta(name="og:description" content=`Download movies, TV Series and Games on blaciris for free and fast. Get other related links. Index of Movies. Index of Tv Series. Index of Games`)
+  //- meta(name="og:country-name" content=`${movie.country}`)
+
+  meta(name="twitter:title" content=`Explore and Download Trending and All kinds of Movies`)
+  meta(name="twitter:description" content=`Download movies, TV Series and Games on blaciris for free and fast. Get other related links. Index of Movies. Index of Tv Series. Index of Games`)
+  meta(name="twitter:image" content=`/images/logo.png`)
+  meta(name="twitter:card" content=`summery_large_image`)
+  meta(name="twitter:site" content=`@blaciris_`)
+  meta(name="twitter:creator" content=`@blaciris_`)
 
 block content
   include ../externals/cards
 
   section.redirects
     p 
-      //- | Find 
-      //- i dracula 
-      //- | in 
-      //- a(href='/series') tv series 
-      //- | or in 
-      //- a(href='/games') games
+
 
   section.container
     .content.content-movies#content
@@ -19,7 +48,7 @@ block content
       while n < 19
         +movieCard(n)
         - n++
- 
+
     .center-components
       button.btn-primary--alt.btn-small#show-more
         span.btn-content load more
