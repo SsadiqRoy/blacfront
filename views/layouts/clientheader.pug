@@ -13,15 +13,59 @@ header.header
         input.input-search(type="serch" placeholder="search movie" id='search-bar')
         i.fas.fa-search#search-button
 
-    .main-titles
+    nav.main-titles
       ul.title-list
+        li.title-list-item
+          a(href='/movies?order=releasedDate,desc,rating,desc') Movies
+          ul.title-list-inner
+            li.title-list-inner-item
+              a(href='/movies?order=releasedDate,desc,rating,desc') New Released
+            li.title-list-inner-item
+              a(href='/movies?order=rating,desc,releasedDate,desc') Top Rated
+            li.title-list-inner-item
+              a(href='/movies?text=animation') animation
+
+        li.title-list-item
+          a(href='/series?order=releasedDate,desc,rating,desc') Tv Series
+          ul.title-list-inner
+            li.title-list-inner-item
+              a(href='/series?order=releasedDate,desc,rating,desc') New Released
+            li.title-list-inner-item
+              a(href='/series?order=rating,desc,releasedDate,desc') Top Rated
+            li.title-list-inner-item
+            //-   a(href='/series?text=amimation') animation
+            //- li.title-list-inner-item
+              a(href='/series?order=updatedAt,desc,rating,desc') new episodes
+            li.title-list-inner-item
+              a(href='/series?text=animation') animation
+
+        li.title-list-item.title-list-item-3
+          a(href='/games?order=releasedDate,desc,rating,desc') Games
+          ul.title-list-inner
+            li.title-list-inner-item
+              a(href='/games?order=releasedDate,desc,rating,desc') New Released
+            li.title-list-inner-item
+              a(href='/games?order=rating,desc,releasedDate,desc') Top Rated
+            li.title-list-inner-item
+              a(href='/games?text=action') action
+
+        li.title-list-item.title-list-item-4
+          div More
+          ul.title-list-inner
+            li.title-list-inner-item
+              a(href=`/${ext.query || 'movies' }?text=action`) action
+            li.title-list-inner-item
+              a(href=`/${ext.query || 'movies' }?text=comedy`) comedy
+            li.title-list-inner-item
+              a(href=`/${ext.query || 'movies' }?text=thriller`) thriller
+            li.title-list-inner-item
+              a(href=`/${ext.query || 'movies' }?text=fantasy`) fantasy
+            li.title-list-inner-item
+              a(href=`/${ext.query || 'movies' }?text=war`) war
+            li.title-list-inner-item
+              a(href=`/${ext.query || 'movies' }?text=single-player`) single player
+
         button.btn-red.suggest suggest
-        //- li.title-list-item
-        //-   a(href='/movies') Movies
-        //- li.title-list-item
-        //-   a(href='/series') tv series
-        //- li.title-list-item
-        //-   a(href='/games') games
 
 aside.sidebar#sidebar
   .right-components
