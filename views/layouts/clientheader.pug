@@ -33,11 +33,11 @@ header.header
             li.title-list-inner-item
               a(href='/series?order=rating,desc,releasedDate,desc') Top Rated
             li.title-list-inner-item
-            //-   a(href='/series?text=amimation') animation
+              a(href='/series?text=amimation') animation
             //- li.title-list-inner-item
               a(href='/series?order=updatedAt,desc,rating,desc') new episodes
             li.title-list-inner-item
-              a(href='/series?text=animation') animation
+              a(href='/series?text=romance') romance
 
         li.title-list-item.title-list-item-3
           a(href='/games?order=releasedDate,desc,rating,desc') Games
@@ -83,65 +83,121 @@ aside.sidebar#sidebar
           li
             a(href='/games') Games
 
-        if(ext.page !== 'games' && ext.page !== 'game')
+        if(ext.page === 'movies' || ext.page === 'movie')
           ul
             li
-              a(href=`/${ext.query || 'movies'}?text=trending`) trending
+              a(href=`/movies?text=trending`) trending
             li 
-              a(href=`/${ext.query || 'movies'}?order=releasedDate,desc`) new
+              a(href=`/movies?order=releasedDate,desc`) new
             li
-              a(href=`/${ext.query || 'movies'}?order=updatedAt,desc`) updated
+              a(href=`/movies?order=updatedAt,desc`) updated
             li
-              a(href=`/${ext.query || 'movies'}?rating=gte,6.5`) top rated
+              a(href=`/movies?rating=gte,6.5`) top rated
           ul
             li
-              a(href=`/${ext.query || 'movies'}?text=action`) action
+              a(href=`/movies?text=action`) action
             li
-              a(href=`/${ext.query || 'movies'}?text=adventure`) adventure
+              a(href=`/movies?text=adventure`) adventure
             li
-              a(href=`/${ext.query || 'movies'}?text=crime`) crime
+              a(href=`/movies?text=crime`) crime
             li
-              a(href=`/${ext.query || 'movies'}?text=drama`) drama
+              a(href=`/movies?text=drama`) drama
             li
-              a(href=`/${ext.query || 'movies'}?text=fantasy`) fantasy
+              a(href=`/movies?text=fantasy`) fantasy
             li
-              a(href=`/${ext.query || 'movies'}?text=politics`) politics
+              a(href=`/movies?text=politics`) politics
             li
-              a(href=`/${ext.query || 'movies'}?text=sci-fi`) sci-fi
+              a(href=`/movies?text=sci-fi`) sci-fi
             li
-              a(href=`/${ext.query || 'movies'}?text=thriller`) thriller
+              a(href=`/movies?text=thriller`) thriller
             li
-              a(href=`/${ext.query || 'movies'}?text=war`) war
+              a(href=`/movies?text=war`) war
           ul
             li(data-query='') apple tv
-              a(href=`/${ext.query || 'movies'}?text=apple`) apple tv
+              a(href=`/movies?text=apple`) apple tv
             li
-              a(href=`/${ext.query || 'movies'}?text=dc`) dc
+              a(href=`/movies?text=dc`) dc
             li
-              a(href=`/${ext.query || 'movies'}?text=marvel`) marvel
+              a(href=`/movies?text=marvel`) marvel
             li
-              a(href=`/${ext.query || 'movies'}?text=netflix`) netflix
+              a(href=`/movies?text=netflix`) netflix
             li
-              a(href=`/${ext.query || 'movies'}?text=amazon`) amazon
+              a(href=`/movies?text=amazon`) amazon
 
           ul
             li
-              a(href=`/${ext.query || 'movies'}?text=united states`) United States
+              a(href=`/movies?text=united states`) United States
             li
-              a(href=`/${ext.query || 'movies'}?text=india`) india
+              a(href=`/movies?text=india`) india
             li
-              a(href=`/${ext.query || 'movies'}?text=china`) china
+              a(href=`/movies?text=china`) china
             li
-              a(href=`/${ext.query || 'movies'}?text=japan`) japan
+              a(href=`/movies?text=japan`) japan
             li
-              a(href=`/${ext.query || 'movies'}?text=korea`) korea
+              a(href=`/movies?text=korea`) korea
             li
-              a(href=`/${ext.query || 'movies'}?text=united kingdom`) United Kingdom
+              a(href=`/movies?text=united kingdom`) United Kingdom
             li
-              a(href=`/${ext.query || 'movies'}?text=african`) african
+              a(href=`/movies?text=african`) african
+
+        if(ext.page === 'series' || ext.page === 'serie')
+          ul
+            li
+              a(href=`/series?text=trending`) trending
+            li 
+              a(href=`/series?order=releasedDate,desc`) new
+            li
+              a(href=`/series?order=updatedAt,desc`) updated
+            li
+              a(href=`/series?rating=gte,6.5`) top rated
+          ul
+            li
+              a(href=`/series?text=action`) action
+            li
+              a(href=`/series?text=adventure`) adventure
+            li
+              a(href=`/series?text=crime`) crime
+            li
+              a(href=`/series?text=drama`) drama
+            li
+              a(href=`/series?text=fantasy`) fantasy
+            li
+              a(href=`/series?text=politics`) politics
+            li
+              a(href=`/series?text=sci-fi`) sci-fi
+            li
+              a(href=`/series?text=thriller`) thriller
+            li
+              a(href=`/series?text=war`) war
+          ul
+            li(data-query='') apple tv
+              a(href=`/series?text=apple`) apple tv
+            li
+              a(href=`/series?text=dc`) dc
+            li
+              a(href=`/series?text=marvel`) marvel
+            li
+              a(href=`/series?text=netflix`) netflix
+            li
+              a(href=`/series?text=amazon`) amazon
+
+          ul
+            li
+              a(href=`/series?text=united states`) United States
+            li
+              a(href=`/series?text=india`) india
+            li
+              a(href=`/series?text=china`) china
+            li
+              a(href=`/series?text=japan`) japan
+            li
+              a(href=`/series?text=korea`) korea
+            li
+              a(href=`/series?text=united kingdom`) United Kingdom
+            li
+              a(href=`/series?text=african`) african
 
         if(ext.page === 'games' || ext.page === 'game')
-
           ul
             li
               a(href='/games?text=adventure') adventure
@@ -152,17 +208,17 @@ aside.sidebar#sidebar
             li
               a(href='/games?text=horror') horror
             li
-              a(href='/games?text=open-word') open-word
+              a(href='/games?text=action') action
             li
               a(href='/games?text=puzzle') puzzle
             li
-              a(href='/games?text=shooter') shooter
+              a(href='/games?text=shooting') shooting
             li
               a(href='/games?text=racing') racing
             li
               a(href='/games?text=sports') sports
-            li
-              a(href='/games?text=rpg') rpg
+            //- li
+            //-   a(href='/games?text=rpg') rpg
             li
               a(href='/games?text=war') war
 

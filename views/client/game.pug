@@ -1,7 +1,7 @@
 extends ../externals/clientbase
 
 block metaTags 
-  meta(name="keywords" content=`index of Pc games, index of ${game.title}, download pc games for free, blaciris pc games free download`)
+  meta(name="keywords" content=`index of Pc games, index of ${game.title} ${new Date(game.releasedDate).getFullYear()}, download ${game.title} ${new Date(game.releasedDate).getFullYear()} for free, blaciris pc games free download`)
   meta(name="description" content=`${game.title} - ${game.description} - Free download on blaciris`)
   meta(name="subject" content="Providing free download links for Movies, TV games and Games for all around the world")
   meta(name="copyright" content="blaciris")

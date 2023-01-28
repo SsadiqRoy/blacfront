@@ -65,7 +65,7 @@ exports.series = catchAsync(async (req, res, next) => {
 exports.games = catchAsync(async (req, res, next) => {
   const ext = {
     css: "search",
-    title: "Index of Pc Games, New Serious Games",
+    title: "Index of Pc Games",
     js: `${jsPath}/games`,
     page: "games",
     query: "games",
