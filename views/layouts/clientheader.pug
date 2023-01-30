@@ -83,6 +83,63 @@ aside.sidebar#sidebar
           li
             a(href='/games') Games
 
+        if(ext.page === 'home')
+          ul
+            li
+              a(href=`/${ext.query || 'movies' }?text=trending`) trending
+            li 
+              a(href=`/${ext.query || 'movies' }?order=releasedDate,desc`) new
+            li
+              a(href=`/${ext.query || 'movies' }?order=updatedAt,desc`) updated
+            li
+              a(href=`/${ext.query || 'movies' }?rating=gte,6.5`) top rated
+          ul
+            li
+              a(href=`/${ext.query || 'movies' }?text=action`) action
+            li
+              a(href=`/${ext.query || 'movies' }?text=adventure`) adventure
+            li
+              a(href=`/${ext.query || 'movies' }?text=crime`) crime
+            li
+              a(href=`/${ext.query || 'movies' }?text=drama`) drama
+            li
+              a(href=`/${ext.query || 'movies' }?text=fantasy`) fantasy
+            li
+              a(href=`/${ext.query || 'movies' }?text=politics`) politics
+            li
+              a(href=`/${ext.query || 'movies' }?text=sci-fi`) sci-fi
+            li
+              a(href=`/${ext.query || 'movies' }?text=thriller`) thriller
+            li
+              a(href=`/${ext.query || 'movies' }?text=war`) war
+          ul
+            li(data-query='') apple tv
+              a(href=`/${ext.query || 'movies' }?text=apple`) apple tv
+            li
+              a(href=`/${ext.query || 'movies' }?text=dc`) dc
+            li
+              a(href=`/${ext.query || 'movies' }?text=marvel`) marvel
+            li
+              a(href=`/${ext.query || 'movies' }?text=netflix`) netflix
+            li
+              a(href=`/${ext.query || 'movies' }?text=amazon`) amazon
+
+          ul
+            li
+              a(href=`/${ext.query || 'movies' }?text=united states`) United States
+            li
+              a(href=`/${ext.query || 'movies' }?text=india`) india
+            li
+              a(href=`/${ext.query || 'movies' }?text=china`) china
+            li
+              a(href=`/${ext.query || 'movies' }?text=japan`) japan
+            li
+              a(href=`/${ext.query || 'movies' }?text=korea`) korea
+            li
+              a(href=`/${ext.query || 'movies' }?text=united kingdom`) United Kingdom
+            li
+              a(href=`/${ext.query || 'movies' }?text=african`) african
+
         if(ext.page === 'movies' || ext.page === 'movie')
           ul
             li
