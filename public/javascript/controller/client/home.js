@@ -3,8 +3,8 @@ import * as model from "../../model/model.js";
 
 async function controlHeadingSlide() {
   try {
-    const response = await model.get("/series?fields=title,landscape,description,rating,id&limit=5&rating=gte,7&order=releasedDate,desc");
-    const respons = await model.get("/movies?fields=title,landscape,description,rating,id&limit=5&rating=gte,7&order=releasedDate,desc");
+    const response = await model.get("/series?fields=title,landscape,description,rating,id&limit=5&rating=gte,8&order=releasedDate,desc");
+    const respons = await model.get("/movies?fields=title,landscape,description,rating,id&limit=5&rating=gte,7.5&order=releasedDate,desc");
 
     const all = [...response, ...respons].sort((a, b) => b.rating - a.rating);
     view.renderHeadingSlide(all);
