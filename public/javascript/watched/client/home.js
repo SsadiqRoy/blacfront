@@ -550,6 +550,7 @@ async function controlHeadingSlide() {
             ...response,
             ...respons
         ].sort((a, b)=>b.rating - a.rating);
+        console.log(all);
         _homeviewJs.renderHeadingSlide(all);
     } catch (error) {
         await _modelJs.localPost("/write-to-log", error);

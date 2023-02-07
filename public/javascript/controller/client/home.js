@@ -16,6 +16,7 @@ async function controlHeadingSlide() {
     });
 
     const all = [...response, ...respons].sort((a, b) => b.rating - a.rating);
+    console.log(all);
     view.renderHeadingSlide(all);
   } catch (error) {
     await model.localPost("/write-to-log", error);
