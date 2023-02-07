@@ -538,8 +538,14 @@ async function controlHeadingSlide() {
     try {
         let response = await _modelJs.get("/series?fields=title,landscape,description,rating,id&limit=5&rating=gte,8&order=releasedDate,desc");
         let respons = await _modelJs.get("/movies?fields=title,landscape,description,rating,id&limit=5&rating=gte,7.5&order=releasedDate,desc");
-        response = response.map((r)=>r.type = "serie");
-        respons = respons.map((r)=>r.type = "movie");
+        response = response.map((r)=>{
+            r.type = "serie";
+            return r;
+        });
+        respons = respons.map((r)=>{
+            r.type = "movie";
+            return r;
+        });
         const all = [
             ...response,
             ...respons
