@@ -536,8 +536,15 @@ var _homeviewJs = require("../../view/client/homeview.js");
 var _modelJs = require("../../model/model.js");
 async function controlHeadingSlide() {
     try {
-        const response = await _modelJs.get("/movies?fields=title,landscape,description,id&limit=10&rating=gte,5.5&order=createdAt,desc");
-        _homeviewJs.renderHeadingSlide(response);
+        let response = await _modelJs.get("/series?fields=title,landscape,description,rating,id&limit=5&rating=gte,8&order=releasedDate,desc");
+        let respons = await _modelJs.get("/movies?fields=title,landscape,description,rating,id&limit=5&rating=gte,7.5&order=releasedDate,desc");
+        response = response.map((r)=>r.type = "serie");
+        respons = respons.map((r)=>r.type = "movie");
+        const all = [
+            ...response,
+            ...respons
+        ].sort((a, b)=>b.rating - a.rating);
+        _homeviewJs.renderHeadingSlide(all);
     } catch (error) {
         await _modelJs.localPost("/write-to-log", error);
         console.log(error);
@@ -707,40 +714,6 @@ function renderHeadingSlide(data) {
     const second = mother.querySelector(".second-image");
     const third = mother.querySelector(".third-image");
     const links = data;
-    // const j = [
-    //   {
-    //     title: 'We Crashed',
-    //     image: '/images/image-1.jpg',
-    //     description:
-    //       'Sit ratione optio aut velit nihil aspernatur magnam est, facere temporibus in neque necessitatibus assumenda. Aut doloremque voluptas incidunt natus itaque earum?',
-    //   },
-    //   {
-    //     title: 'M. Night from Shyamalan: Servant',
-    //     image: '/images/image-2.jpg',
-    //     description: 'Alias beatae sapiente dignissimos ipsa excepturi laboriosam fuga nemo, quaerat nostrum ad.',
-    //   },
-    //   {
-    //     title: 'For All Mankind',
-    //     image: '/images/image-3.jpg',
-    //     description: 'Id exercitationem illo, dolorem porro provident natus aspernatur corporis labore quas accusamus?',
-    //   },
-    //   {
-    //     title: 'Tehran',
-    //     image: '/images/image-4.jpg',
-    //     description: 'Quia aspernatur nesciunt porro! Temporibus, ullam! Possimus, distinctio nemo. Eum, cum labore?',
-    //   },
-    //   {
-    //     title: 'Black Bird',
-    //     image: '/images/image-5.jpg',
-    //     description: 'Cupiditate omnis placeat illum id nemo velit dolorem facere perspiciatis deserunt culpa!',
-    //   },
-    //   {
-    //     title: 'Truth Be Told',
-    //     image: '/images/image-6.jpg',
-    //     description: 'Ea doloremque temporibus aut adipisci, velit repellat eum fugit quasi sunt recusandae?',
-    //   },
-    // ];
-    // throw data[0];
     function shiftLinks() {
         const a = links.shift();
         links.push(a);
@@ -748,7 +721,7 @@ function renderHeadingSlide(data) {
     function swapper(box, position) {
         const ob = links[position];
         box.querySelector("img").setAttribute("src", ob.landscape);
-        box.querySelector("a").setAttribute("href", `/movie/${ob.title.toLowerCase().split(" ").join("-")}/${ob.id}`);
+        box.querySelector("a").setAttribute("href", `/${ob.type}/${ob.title.toLowerCase().split(" ").join("-")}/${ob.id}`);
         if (box.classList.contains("second-image")) {
             box.querySelector("h2").textContent = ob.title;
             box.querySelector("p").textContent = ob.description;
@@ -1237,7 +1210,7 @@ function stopRotateBtn(btnid, type = "btn-black") {
 function fillSelects(selectId, variables, clear = true, list) {
     const select = document.getElementById(selectId);
     if (!select) return console.warn("blaciris - select element not on this page - ", selectId);
-    const { value  } = select.dataset;
+    const value = select.dataset.value || "";
     const vars = list || _utilsJs[variables];
     if (clear) select.innerHTML = "";
     vars.forEach((v)=>{
@@ -1556,7 +1529,7 @@ const titles = [
     "1080x264p",
     "1080x265p",
     "hdcam",
-    "subtitle", 
+    "subtitle"
 ];
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"doi6o":[function(require,module,exports) {
@@ -1582,7 +1555,7 @@ function dbMovieCard(movie, type = "movie") {
       <p>${movie.description}</p>
     </div>
     <div class="dbmovie-card__buttons">
-    <a href="/${type}/${movie.title.split(" ").join("-")}/${movie.id}" title="view"><i class="fas fa-eye"></i></a>
+    <a href="/${type}/${movie.title.toLowerCase().split(" ").join("-")}/${movie.id}" title="view"><i class="fas fa-eye"></i></a>
     <a href="/dashboard/update${type}/${movie.id}" title="edit"><i class="far fa-edit"></i></a>
     <a title="delete"><i class="fas fa-trash delete-item"></i></a>
   </div>
@@ -1642,7 +1615,7 @@ function scheduleCard(schedule) {
 }
 function movieCard(movie, type) {
     const markup = `
-    <div class="movie-card card-game">
+    <div class="movie-card type-${type}">
       <a href="/${type}/${movie.title.toLowerCase().split(" ").join("-")}/${movie.id}">
         <img src="${movie.portrait}" alt="${movie.title}" />
         <h2>

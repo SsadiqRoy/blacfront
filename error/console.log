@@ -1,0 +1,41 @@
+
+ 
+message,Network Error,name,AxiosError,stack,AxiosError: Network Error
+    at XMLHttpRequest.handleError (http://localhost:2500/javascript/watched/client/home.js:5285:20),config,[object Object],code,ERR_NETWORK,status,,type,Front End
+ 
+message,Network Error,name,AxiosError,stack,AxiosError: Network Error
+    at XMLHttpRequest.handleError (http://localhost:2500/javascript/watched/client/home.js:5285:20),config,[object Object],code,ERR_NETWORK,status,,type,Front End
+ 
+message,Network Error,name,AxiosError,stack,AxiosError: Network Error
+    at XMLHttpRequest.handleError (http://localhost:2500/javascript/watched/client/home.js:5285:20),config,[object Object],code,ERR_NETWORK,status,,type,Front End
+ 
+message,Network Error,name,AxiosError,stack,AxiosError: Network Error
+    at XMLHttpRequest.handleError (http://localhost:2500/javascript/watched/client/home.js:5285:20),config,[object Object],code,ERR_NETWORK,status,,type,Front End
+ 
+type,Front End
+ 
+type,Front End
+ 
+type,Front End
+ 
+type,Front End
+ 
+type,Front End
+ 
+type,Front End
+ 
+type,Front End
+ 
+type,Front End
+ 
+message,Network Error,name,AxiosError,stack,AxiosError: Network Error
+    at XMLHttpRequest.handleError (http://localhost:2500/javascript/watched/client/home.js:5286:20),config,[object Object],code,ERR_NETWORK,status,,type,Front End
+ 
+message,Network Error,name,AxiosError,stack,AxiosError: Network Error
+    at XMLHttpRequest.handleError (http://localhost:2500/javascript/watched/client/home.js:5286:20),config,[object Object],code,ERR_NETWORK,status,,type,Front End
+ 
+message,Network Error,name,AxiosError,stack,AxiosError: Network Error
+    at XMLHttpRequest.handleError (http://localhost:2500/javascript/watched/client/home.js:5286:20),config,[object Object],code,ERR_NETWORK,status,,type,Front End
+ 
+message,Network Error,name,AxiosError,stack,AxiosError: Network Error
+    at XMLHttpRequest.handleError (http://localhost:2500/javascript/watched/client/home.js:5286:20),config,[object Object],code,ERR_NETWORK,status,,type,Front End

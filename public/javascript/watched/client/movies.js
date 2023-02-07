@@ -536,6 +536,7 @@ var _moviesviewJs = require("../../view/client/moviesview.js");
 var _modelJs = require("../../model/model.js");
 async function controlLoadContent(query) {
     try {
+        if (!query) query = `?order=releasedDate,desc,rating,desc`;
         const response = await _modelJs.getfull(`/movies${query}`);
         _moviesviewJs.renderLoadContent({
             response,
@@ -1097,7 +1098,7 @@ function stopRotateBtn(btnid, type = "btn-black") {
 function fillSelects(selectId, variables, clear = true, list) {
     const select = document.getElementById(selectId);
     if (!select) return console.warn("blaciris - select element not on this page - ", selectId);
-    const { value  } = select.dataset;
+    const value = select.dataset.value || "";
     const vars = list || _utilsJs[variables];
     if (clear) select.innerHTML = "";
     vars.forEach((v)=>{
@@ -1416,7 +1417,7 @@ const titles = [
     "1080x264p",
     "1080x265p",
     "hdcam",
-    "subtitle", 
+    "subtitle"
 ];
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"doi6o":[function(require,module,exports) {
@@ -1442,7 +1443,7 @@ function dbMovieCard(movie, type = "movie") {
       <p>${movie.description}</p>
     </div>
     <div class="dbmovie-card__buttons">
-    <a href="/${type}/${movie.title.split(" ").join("-")}/${movie.id}" title="view"><i class="fas fa-eye"></i></a>
+    <a href="/${type}/${movie.title.toLowerCase().split(" ").join("-")}/${movie.id}" title="view"><i class="fas fa-eye"></i></a>
     <a href="/dashboard/update${type}/${movie.id}" title="edit"><i class="far fa-edit"></i></a>
     <a title="delete"><i class="fas fa-trash delete-item"></i></a>
   </div>
@@ -1502,7 +1503,7 @@ function scheduleCard(schedule) {
 }
 function movieCard(movie, type) {
     const markup = `
-    <div class="movie-card card-game">
+    <div class="movie-card type-${type}">
       <a href="/${type}/${movie.title.toLowerCase().split(" ").join("-")}/${movie.id}">
         <img src="${movie.portrait}" alt="${movie.title}" />
         <h2>

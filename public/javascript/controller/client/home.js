@@ -6,8 +6,8 @@ async function controlHeadingSlide() {
     let response = await model.get("/series?fields=title,landscape,description,rating,id&limit=5&rating=gte,8&order=releasedDate,desc");
     let respons = await model.get("/movies?fields=title,landscape,description,rating,id&limit=5&rating=gte,7.5&order=releasedDate,desc");
 
-    response = response.map((r) => r.type === "serie");
-    respons = respons.map((r) => r.type === "movie");
+    response = response.map((r) => (r.type = "serie"));
+    respons = respons.map((r) => (r.type = "movie"));
 
     const all = [...response, ...respons].sort((a, b) => b.rating - a.rating);
     view.renderHeadingSlide(all);

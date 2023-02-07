@@ -122,14 +122,8 @@ exports.serie = catchAsync(async (req, res, next) => {
 });
 
 exports.season = catchAsync(async (req, res, next) => {
-  const { data: season } = await getRequest(
-    req,
-    `/seasons/one/${req.params.id}`
-  );
-  const { data: serie } = await getRequest(
-    req,
-    `/series/basic/${req.params.serie}`
-  );
+  const { data: season } = await getRequest(req, `/seasons/one/${req.params.id}`);
+  const { data: serie } = await getRequest(req, `/series/basic/${req.params.serie}`);
 
   // console.log(season.Episodes[0]);
   const ext = {
@@ -163,7 +157,5 @@ exports.download = catchAsync(async (req, res, next) => {
     page: "download",
   };
 
-  res
-    .status(200)
-    .render("client/download", { ext, link: { first, second, third } });
+  res.status(200).render("client/download", { ext, link: { first, second, third } });
 });
