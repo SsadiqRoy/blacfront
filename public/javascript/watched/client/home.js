@@ -550,7 +550,6 @@ async function controlHeadingSlide() {
             ...response,
             ...respons
         ].sort((a, b)=>b.rating - a.rating);
-        console.log(all);
         _homeviewJs.renderHeadingSlide(all);
     } catch (error) {
         await _modelJs.localPost("/write-to-log", error);
@@ -732,7 +731,7 @@ function renderHeadingSlide(data) {
         if (box.classList.contains("second-image")) {
             box.querySelector("h2").textContent = ob.title;
             box.querySelector("p").textContent = ob.description;
-            box.querySelector(".image-box-about a").setAttribute("href", `/movie/${ob.title.toLowerCase().split(" ").join("-")}/${ob.id}`);
+            box.querySelector(".image-box-about a").setAttribute("href", `/${ob.type}/${ob.title.toLowerCase().split(" ").join("-")}/${ob.id}`);
         }
     }
     function swapImage() {

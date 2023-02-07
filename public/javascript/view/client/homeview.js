@@ -25,7 +25,7 @@ export function renderHeadingSlide(data) {
     if (box.classList.contains("second-image")) {
       box.querySelector("h2").textContent = ob.title;
       box.querySelector("p").textContent = ob.description;
-      box.querySelector(".image-box-about a").setAttribute("href", `/movie/${ob.title.toLowerCase().split(" ").join("-")}/${ob.id}`);
+      box.querySelector(".image-box-about a").setAttribute("href", `/${ob.type}/${ob.title.toLowerCase().split(" ").join("-")}/${ob.id}`);
     }
   }
 
