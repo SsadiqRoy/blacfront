@@ -86,7 +86,7 @@ aside.sidebar#sidebar
         if(ext.page === 'home')
           ul
             li
-              a(href=`/${ext.query || 'movies' }?text=trending`) trending
+              a(href=`/${ext.query || 'movies' }?text=trending&order=releasedDate,desc`) trending
             li 
               a(href=`/${ext.query || 'movies' }?order=releasedDate,desc`) new
             li
@@ -143,7 +143,7 @@ aside.sidebar#sidebar
         if(ext.page === 'movies' || ext.page === 'movie')
           ul
             li
-              a(href=`/movies?text=trending`) trending
+              a(href=`/movies?text=trending&order=releasedDate,desc`) trending
             li 
               a(href=`/movies?order=releasedDate,desc`) new
             li
@@ -200,7 +200,7 @@ aside.sidebar#sidebar
         if(ext.page === 'series' || ext.page === 'serie')
           ul
             li
-              a(href=`/series?text=trending`) trending
+              a(href=`/series?text=trending&order=updatedAt,desc`) trending
             li 
               a(href=`/series?order=releasedDate,desc`) new
             li
