@@ -7,61 +7,61 @@ block content
       form.create-new#create-movie(data-movie-id=`${movieId}`)
         .form-heading
           h1 #{movie ? 'Update Movie' : 'Create Movie'}
-        
+
         .form-group
           label.label-basic(for="movie-title") title
           input#movie-title.input-basic(type="text" value=`${movie && movie.title || ''}` required)
-        
+
         .form-group
           label.label-basic(for="movie-image-portrait") image portrait link
           input#movie-image-portrait.input-basic(type="text" value=`${movie && movie.portrait || ''}` required)
-        
+
         .form-group
           label.label-basic(for="movie-image-landscape") image landscape link
           input#movie-image-landscape.input-basic(type="text" value=`${movie && movie.landscape || ''}` required)
-        
+
         .form-group
           label.label-basic(for="movie-description") description
           textarea#movie-description.textarea-basic(rows="3" required) #{movie && movie.description || ''}
-        
+
         .form-group
           label.label-basic(for="movie-tags") tags
-          - const tags = movie && movie.tags.join(',') || ''
-          input#movie-tags.input-basic(type="text" value=`${tags}` required)
-        
+          - const tags = movie && movie.tags.join(',') || '' 
+          input#movie-tags.input-basic(type="text" value=`${tags}` required placeholder='includes genre, certificate, industry or language except English')
+
         .form-group
           label.label-basic(for="movie-key-words") keywords
-          - const keywords = movie && movie.keywords.join(',') || ''
-          input#movie-keywords.input-basic(type="text" value=`${keywords}` required)
-        
+          - const keywords = movie && movie.keywords.join(',') || '' 
+          input#movie-keywords.input-basic(type="text" value=`${keywords}` required placeholder='copy & paste from tags above and add continent demonym')
+
         .form-group
           label.label-basic(for="movie-directors") directors
-          - const directors = movie && movie.directors.join(',') || ''
-          input#movie-directors.input-basic(type="text" value=`${directors}` required)
-        
+          - const directors = movie && movie.directors.join(',') || '' 
+          input#movie-directors.input-basic(type="text" value=`${directors}` required placeholder='includes directors, writers, producers. seperate people names with (,)')
+
         .form-group
           label.label-basic(for="movie-actors") actors
-          - const actors = movie && movie.actors.join(',') || ''
-          input#movie-actors.input-basic(type="text" value=`${actors}` required)
-        
-        .form-group
-          label.label-basic(for="movie-charactors") charactors
-          - const charactors = movie && movie.charactors && movie.charactors.join(',') || ''
-          input#movie-charactors.input-basic(type="text" value=`${charactors}` required)
-        
+          - const actors = movie && movie.actors.join(',') || '' 
+          input#movie-actors.input-basic(type="text" value=`${actors}` required placeholder='includes stars or actors.  seperate people names with (,)')
+
+        //- .form-group
+        //-   label.label-basic(for="movie-charactors") charactors
+        //-   - const charactors = movie && movie.charactors && movie.charactors.join(',') || '' 
+        //-   input#movie-charactors.input-basic(type="text" value=`${charactors}` required placeholder='combine directors & actors above. Join one person`s name with (-)')
+
         .form-group
           label.label-basic(for="movie-companies") companies
-          - const companies = movie && movie.companies.join(',') || ''
-          input#movie-companies.input-basic(type="text" value=`${companies}` required)
-        
+          - const companies = movie && movie.companies.join(',') || '' 
+          input#movie-companies.input-basic(type="text" value=`${companies}` required placeholder='Join one company`s name with (-) & seperete companies with (,)')
+
         .form-group-double
           .form-group
             label.label-basic(for="movie-company") company
-            input#movie-company.input-basic(type="text" value=`${movie && movie.company || ''}` required)
+            input#movie-company.input-basic(type="text" value=`${movie && movie.company || ''}` required placeholder='One of the companies above. choose the most popular')
           .form-group
             label.label-basic(for="movie-date") release date
             input#movie-date.input-basic(type="date" value=`${movie && movie.releasedDate || ''}` required)
-        
+
         .form-group-double
           .form-group
             label.label-basic(for="movie-country") country
@@ -70,8 +70,8 @@ block content
           .form-group
             label.label-basic(for="movie-rating") rating
             input#movie-rating.input-basic(type="text" value=`${movie && movie.rating || ''}` required)
-        
-        
+
+
         if(movie && movie.Links.length)
           .form-heading
             h1 Download links
@@ -128,7 +128,7 @@ block content
         form.create-new#delete-link(data-link-id=`${linkId}`)
           .form-heading
             h1 Are you sure you want to delete the link
-          
+
           .center-components
             button.btn-black.btn-normal#delete-link-btn(type="submit")
               span.btn-content yes, delete

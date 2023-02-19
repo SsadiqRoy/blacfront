@@ -64,13 +64,13 @@ block content
         span.furthur-info__title writers/producers/directors:
         span.furthur-info__list
           each director in movie.directors
-            a(href=`/movies?text=${director.toLowerCase()}`) #{director},      
+            a(href=`/movies?text=${director.toLowerCase().split(' ').join('-')}`) #{director},      
 
       .furthur-info__box
         span.furthur-info__title actors:
         span.furthur-info__list
           each actor in movie.actors
-            a(href=`/movies?text=${actor.toLowerCase()}`) #{actor},
+            a(href=`/movies?text=${actor.toLowerCase().split(' ').join('-')}`) #{actor},
 
 
     section.container.links
